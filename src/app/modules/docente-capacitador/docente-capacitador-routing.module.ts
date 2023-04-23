@@ -43,6 +43,21 @@ const routes: Routes = [
     path: 'edit-list-asistencia',
     loadChildren: () => import("./edit-list-asistencia/edit-list-asistencia.module").then(m => m.EditListAsistenciaModule)
   },
+  //notas
+  {
+    path: 'register-notas',
+    loadChildren: () => import("./register-notas/register-notas.module").then(m => m.RegisterNotasModule)
+  },
+  {
+    path: 'edit-list-notas',
+    loadChildren: () => import("./edit-list-notas/edit-list-notas.module").then(m => m.EditListNotasModule)
+  },
+   //reportes
+   {
+    path: 'reportes-capacitador',
+    loadChildren: () => import("./reportes/reportes.module").then(m => m.ReportesModule)
+  },
+ 
 ];
 
 @NgModule({
