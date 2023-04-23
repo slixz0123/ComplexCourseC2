@@ -13,11 +13,19 @@ const routes: Routes = [
     path: 'ficha-inscripcion',
     loadChildren: () => import("./ficha-inscripcion/ficha-inscripcion.module").then(m => m.FichaInscripcionModule)
   },
+  {
+    path: 'gen-ficha-inscripcion',
+    loadChildren: () => import("./gen-fincha-inscripcion/gen-fincha-inscripcion.module").then(m => m.GenFinchaInscripcionModule)
+  },
   // ver programas de capcaitcacion y aplicar 
   
   {
     path: 'programas-capacitacion',
     loadChildren: () => import("./visualizar-programas--capacitacion/visualizar-programas--capacitacion.module").then(m => m.VisualizarProgramasCapacitacionModule)
+  },
+  {
+    path: 'apli-program-capacitacion',
+    loadChildren: () => import("./apli-cursos/apli-cursos.module").then(m => m.ApliCursosModule)
   },
   // ver cusrspos aplicados
   

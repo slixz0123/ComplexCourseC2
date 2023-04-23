@@ -22,7 +22,7 @@
 
  
   <!-- Template Main CSS File -->
-  <link href="side-bar-admin.component.css" rel="stylesheet">
+
 
 
 </head>
@@ -202,35 +202,27 @@
       <li class="nav-item">
         <a class="nav-link " href="index.html">
           <i class="bi bi-house"></i>
-          <span> Administrador</span>
+          <span> Participante</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-clipboard2-plus"></i><span>Registrar Cursos</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-clipboard2-plus"></i><span>Inscripcion</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a  (click)="goToRegistercurso($event)">
-              <i class="bi bi-circle"></i><span>Registrar Cursos</span>
+            <a  (click)="goToRegisterInscripcion($event)">
+              <i class="bi bi-circle"></i><span>Registrar Ficha Inscripcion</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Editar Cursos</span>
+            <a  (click)="goTo_gen_ficha($event)">
+              <i class="bi bi-circle"></i><span>Generar Ficha Inscripcion</span>
             </a>
           </li>
-          <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Listar Cursos</span>
-            </a>
-          </li>
-          <li>
-            <a  (click)="goTo_catalogocurso($event)">
-              <i class="bi bi-circle"></i><span>Catalogo Cursos</span>
-            </a>
-          </li>
+        
+         
          
            
          
@@ -240,17 +232,22 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Aprobacion Documentos</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Programas Capacitacion</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a (click)="goTovalidvida($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Hoja de vida</span>
+            <a (click)="goTocatprogram($event)">
+              <i class="bi bi-circle"></i><span>Catalgo Programas</span>
             </a>
           </li>
           <li>
-            <a (click)="goTo_validcap($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Cursos Capacitacion</span>
+            <a (click)="goTo_validaplicacion($event)">
+              <i class="bi bi-circle"></i><span>Aplicacion a Cursos </span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_estadpcurso($event)">
+              <i class="bi bi-circle"></i><span>Estado Cursos </span>
             </a>
           </li>
          

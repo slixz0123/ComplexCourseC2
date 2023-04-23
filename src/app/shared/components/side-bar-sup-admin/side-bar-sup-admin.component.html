@@ -22,7 +22,7 @@
 
  
   <!-- Template Main CSS File -->
-  <link href="side-bar-admin.component.css" rel="stylesheet">
+
 
 
 </head>
@@ -202,82 +202,35 @@
       <li class="nav-item">
         <a class="nav-link " href="index.html">
           <i class="bi bi-house"></i>
-          <span> Administrador</span>
+          <span> Super Administrador</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-clipboard2-plus"></i><span>Registrar Cursos</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Creacion Administrador</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a  (click)="goToRegistercurso($event)">
-              <i class="bi bi-circle"></i><span>Registrar Cursos</span>
+            <a  (click)="goToRegisteradmin($event)">
+              <i class="bi bi-circle"></i><span>Registrar Administradores</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Editar Cursos</span>
+            <a  (click)="goTo_edit_list_admin($event)">
+              <i class="bi bi-circle"></i><span>Editar Administradores</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Listar Cursos</span>
+            <a  (click)="goTo_edit_list_admin($event)">
+              <i class="bi bi-circle"></i><span>Listar Administradores</span>
             </a>
           </li>
-          <li>
-            <a  (click)="goTo_catalogocurso($event)">
-              <i class="bi bi-circle"></i><span>Catalogo Cursos</span>
-            </a>
-          </li>
-         
-           
-         
-         
+
         </ul>
-      </li><!-- termino necesidad Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Aprobacion Documentos</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)="goTovalidvida($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Hoja de vida</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_validcap($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Cursos Capacitacion</span>
-            </a>
-          </li>
-         
-        </ul>
-      </li><!-- End Forms Nav -->
-
-
-     
-    
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#chacrts-nav" data-bs-toggle="collapse" href="#" (click)="goToReportes($event)">
-          <i class="bi bi-award"></i><span>Reportes</span>
-        </a>
-       
-      </li><!-- End Charts Nav -->
-
-    
 
       <li class="nav-heading">Pages</li>
-
-      
-
-  
-
- 
-
-     
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-login.html">

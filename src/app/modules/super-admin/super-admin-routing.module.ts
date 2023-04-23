@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
    //register-admins
    {
-    path: 'Home-Sup-Admin',
+    path: '',
     loadChildren: () => import(".//bienvenida-sup-admins/bienvenida-sup-admins.module").then(m => m.BienvenidaSupAdminsModule)
   },
    //registrar administradores
