@@ -19,7 +19,7 @@ export class CargarjsTemplatesService {
     for (let archivo of archivos) {
       let script = document.createElement("script");
 
-      script.src = "./assets/vendor/apexcharts" + archivo + ".js"
+      script.src = "./assets/vendor/apexcharts/" + archivo + ".js"
       let body = document.getElementsByTagName("body")[0];
       body.appendChild(script);
     }
@@ -46,16 +46,7 @@ export class CargarjsTemplatesService {
       body.appendChild(script);
     }
   }
-  carga_chartjs(archivos: string[]) {
-    
-    for (let archivo of archivos) {
-      let script = document.createElement("script");
 
-      script.src = "./assets/vendor/chart.js/" + archivo + ".js"
-      let body = document.getElementsByTagName("body")[0];
-      body.appendChild(script);
-    }
-  }
   carga_echarts(archivos: string[]) {
     
     for (let archivo of archivos) {

@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
+import { SideBarAdminComponent } from './components/side-bar-admin/side-bar-admin.component';
 
 
 
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     SideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    SideBarAdminComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     FooterComponent,
     SideBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    SideBarAdminComponent
   ]
 })
 export class SharedModule { }

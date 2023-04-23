@@ -22,7 +22,7 @@
 
  
   <!-- Template Main CSS File -->
-  <link href="side-bar.component.css" rel="stylesheet">
+  <link href="side-bar-admin.component.css" rel="stylesheet">
 
 
 </head>
@@ -202,28 +202,33 @@
       <li class="nav-item">
         <a class="nav-link " href="index.html">
           <i class="bi bi-house"></i>
-          <span> Docente Capacitador</span>
+          <span> Administrador</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Necesidad Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Registrar Cursos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a  (click)="goToRegisterNed($event)">
-              <i class="bi bi-circle"></i><span>Registrar Necesidad Curso</span>
+            <a  (click)="goToRegistercurso($event)">
+              <i class="bi bi-circle"></i><span>Registrar Cursos</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_Ned($event)">
-              <i class="bi bi-circle"></i><span>Editar Necsidad Curso</span>
+            <a  (click)="goTo_edit_list_curs($event)">
+              <i class="bi bi-circle"></i><span>Editar Cursos</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_Ned($event)">
-              <i class="bi bi-circle"></i><span>Listar Necesidad Curso</span>
+            <a  (click)="goTo_edit_list_curs($event)">
+              <i class="bi bi-circle"></i><span>Listar Cursos</span>
+            </a>
+          </li>
+          <li>
+            <a  (click)="goTo_catalogocurso($event)">
+              <i class="bi bi-circle"></i><span>Catalogo Cursos</span>
             </a>
           </li>
          
@@ -235,87 +240,26 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Silabo Del Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-journal-text"></i><span>Aprobacion Documentos</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a (click)="goToRegistersilab($event)">
-              <i class="bi bi-circle"></i><span>Registrar Silabo Curso</span>
+            <a (click)="goTovalidvida($event)">
+              <i class="bi bi-circle"></i><span>Aprobar Hoja de vida</span>
             </a>
           </li>
           <li>
-            <a (click)="goTo_edit_list_silab($event)">
-              <i class="bi bi-circle"></i><span>Editar Silabo Curso</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_silab($event)">
-              <i class="bi bi-circle"></i><span>Listar Silabo Curso</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-card-list"></i><span>Diseño Curricular</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)="goToRegisterdesing($event)">
-              <i class="bi bi-circle"></i><span>Registrar Diseño Curricular</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_desing($event)">
-              <i class="bi bi-circle"></i><span>Editar Diseño Curricular</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_desing($event)">
-              <i class="bi bi-circle"></i><span>Listar Diseño Curricular</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- termino Diseñso Curricular Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Notas</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)="goToRegisternotas($event)">
-              <i class="bi bi-circle"></i><span>Registrar Notas</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_notas($event)">
-              <i class="bi bi-circle"></i><span>Editar Notas</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Notas Nav -->
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Asistencia</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)=" goToRegisterasis($event)">
-              <i class="bi bi-circle"></i><span>Registrar Asistencia</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_sis($event)">
-              <i class="bi bi-circle"></i><span>Editar Asistencia</span>
+            <a (click)="goTo_validcap($event)">
+              <i class="bi bi-circle"></i><span>Aprobar Cursos Capacitacion</span>
             </a>
           </li>
          
         </ul>
-      </li><!-- End Charts Nav -->
+      </li><!-- End Forms Nav -->
 
+
+     
+    
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#chacrts-nav" data-bs-toggle="collapse" href="#" (click)="goToReportes($event)">
           <i class="bi bi-award"></i><span>Reportes</span>

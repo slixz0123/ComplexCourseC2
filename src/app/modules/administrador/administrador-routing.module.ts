@@ -12,6 +12,14 @@ const routes: Routes = [
     path: 'register-programs',
     loadChildren: () => import("./register-program-cap/register-program-cap.module").then(m => m.RegisterProgramCapModule)
   },
+  {
+    path: 'edit-list-programs',
+    loadChildren: () => import("./edit-list-curso/edit-list-curso.module").then(m => m.EditListCursoModule)
+  },
+  {
+    path: 'catalog-programs',
+    loadChildren: () => import("./catalog-curso/catalog-curso.module").then(m => m.CatalogCursoModule)
+  },
   //validar hojas de vide de los docentes capacitadores 
   {
     path: 'valid-hojasvida-doc',
