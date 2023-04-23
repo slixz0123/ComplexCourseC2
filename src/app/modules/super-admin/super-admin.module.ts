@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { SuperAdminComponent } from './super-admin/super-admin.component';
+
+import { WelcomeSupAdminComponent } from './welcome-sup-admin/welcome-sup-admin.component';
 
 
 @NgModule({
   declarations: [
-    SuperAdminComponent
+   
+    WelcomeSupAdminComponent
   ],
   imports: [
     CommonModule,
