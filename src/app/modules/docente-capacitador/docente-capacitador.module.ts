@@ -6,9 +6,13 @@ import { WelcomeDocenteCapacitadorComponent } from './welcome-docente-capacitado
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
+
+
+
 @NgModule({
   declarations: [
-    WelcomeDocenteCapacitadorComponent
+    WelcomeDocenteCapacitadorComponent,
+ 
   ],
   imports: [
     CommonModule,

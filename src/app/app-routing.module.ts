@@ -4,6 +4,7 @@ import { WelcomeHomeComponent } from './modules/home/welcome-home/welcome-home.c
 import { WelcomeAdministradorComponent } from './modules/administrador/welcome-administrador/welcome-administrador.component';
 import { WelcomeDocenteCapacitadorComponent } from './modules/docente-capacitador/welcome-docente-capacitador/welcome-docente-capacitador.component';
 import { WelcomeParticipantesComponent } from './modules/participantes/welcome-participantes/welcome-participantes.component';
+import { SuperAdminComponent } from './modules/super-admin/super-admin/super-admin.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,12 @@ const routes: Routes = [
     path: 'Participante',
     component: WelcomeParticipantesComponent,
     loadChildren: () => import('./modules/participantes/participantes.module').then(m => m.ParticipantesModule) // se importa un modulo que tiene routing es decir ruta
+
+  },
+  {
+    path: 'Sup-Admin',
+    component: SuperAdminComponent,
+    loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule) // se importa un modulo que tiene routing es decir ruta
 
   },
  
