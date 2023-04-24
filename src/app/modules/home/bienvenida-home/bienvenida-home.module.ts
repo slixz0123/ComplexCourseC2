@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BienvenidaHomeRoutingModule } from './bienvenida-home-routing.module';
 import { BienvenidaHomeComponent } from './pages/bienvenida-home/bienvenida-home.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { BienvenidaHomeComponent } from './pages/bienvenida-home/bienvenida-home
   ],
   imports: [
     CommonModule,
-    BienvenidaHomeRoutingModule
+    BienvenidaHomeRoutingModule,
+    SharedModule
   ],exports:[
     BienvenidaHomeComponent
   ]
