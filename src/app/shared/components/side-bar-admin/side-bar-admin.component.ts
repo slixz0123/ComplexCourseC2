@@ -19,6 +19,7 @@ export class SideBarAdminComponent {
       _CargarSc.carga_tinymce(["tinymce.min"])
       _CargarSc.carga_phpemailform(["validate"])
       _CargarSc.carga_mainjs(["main"])
+      _CargarSc.carga3(["side"])
   }
 //////////////////////////////////////////////////////
   goToRegistercurso($event: any) :void{

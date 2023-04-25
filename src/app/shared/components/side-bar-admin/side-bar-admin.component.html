@@ -23,7 +23,17 @@
  
   <!-- Template Main CSS File -->
   <link href="side-bar-admin.component.css" rel="stylesheet">
-
+  <style>
+    #sidebarToggle {
+        display: none;
+      }
+  
+      @media only screen and (max-width: 1080px) {
+        #sidebarToggle {
+          display: block;
+        }
+      }
+  </style>
 
 </head>
 
@@ -37,7 +47,9 @@
         <img src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
         <span class="d-none d-lg-block">TecAzuay</span>
       </a>
-  
+      <button  id="sidebarToggle" class="btn btn-primary">
+        <i class="bi bi-list"></i>
+      </button>
     </div><!-- End Logo -->
 
     <div class="search-bar">
