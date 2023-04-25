@@ -29,4 +29,20 @@ export class BienvenidaHomeComponent {
       _CargarSc.carga_boost(["bootstrap"])
     
   }
+
+
+//////////////////////////////////////////////////////
+goToRegister($event: any) :void{
+
+    this.router.navigate(['/register-usr'])
+    console.log($event)
+   }
+
+   goTologin($event: any) :void{
+
+    this.router.navigate(['/Auth'])
+    console.log($event)
+   }
+
+
 }
