@@ -1,1 +1,210 @@
-<p>register-usr works!</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Example</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+      /* Estilos para pantallas grandes */
+      @media (min-width: 992px) {
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -0.5rem;
+        margin-left: -0.5rem;
+      }
+
+      .form-group {
+        flex: 1;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+      }
+    }
+
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 591px) {
+      .formulario .form-row {
+        display: block;
+      }
+
+      .form-group {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .menu{
+        width: 100%;
+    height: 360px;
+      }
+    }
+    @media (max-width: 768px) {
+  .form-group {
+    width: 100%;
+    margin-right: 0;
+  }
+  .formulario{
+    display:grid;
+  }
+}
+  </style>
+</head>
+<app-header></app-header>
+<body>
+
+ 
+  <div class="bgimage">
+    <div class="menu">
+      <!-- Add your menu items here -->
+    </div>
+    <div class="text">
+      <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
+      
+     
+      <form>
+        <div class="conte formulario">
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese su nombre">
+          </div>
+          <div class="form-group ccol-md-4">
+            <label for="inputApellido">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido">
+          </div>
+          <div class="form-group ccol-md-4">
+            <label for="inputApellido">Fecha de Nac</label>
+            <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido">
+          </div>
+        </div>
+        <div class="form-row">
+          
+          <div class="form-group col-md-4">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo electrónico">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputDireccion">Dirección</label>
+          <input type="text" class="form-control" id="inputDireccion" placeholder="Ingrese su dirección">
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="inputSexo">Sexo</label>
+            <select id="inputSexo" class="form-control">
+              <option selected>Seleccione una opción...</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+              <option>No binario</option>
+            </select>
+          </div>
+        </div>
+       
+        <div class="form-row">
+         
+          <div class="form-group ccol-md-4">
+            <label for="inputEtnia">Etnia</label>
+            <input type="text" class="form-control" id="inputEtnia" placeholder="Ingrese su etnia">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputTelefono">Teléfono</label>
+            <input type="tel" class="form-control" id="inputTelefono" placeholder="Ingrese su teléfono">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputCelular">Celular</label>
+            <input type="tel" class="form-control" id="inputCelular" placeholder="Ingrese su celular">
+          </div>
+        </div>
+      
+        <button  >Enviar</button>
+    </div>
+    </form>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Example</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+ 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<app-header></app-header>
+<body>
+
+ 
+  <div class="bgimage">
+    <div class="menu">
+     
+    </div>
+    <div class="text">
+      <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
+    
+      <form>
+        <div class="conte">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese su nombre">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputApellido">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputFechaNacimiento">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="inputFechaNacimiento">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail">Email</label>
+            <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo electrónico">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputDireccion">Dirección</label>
+          <input type="text" class="form-control" id="inputDireccion" placeholder="Ingrese su dirección">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputSexo">Sexo</label>
+            <select id="inputSexo" class="form-control">
+              <option selected>Seleccione una opción...</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+              <option>No binario</option>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEtnia">Etnia</label>
+            <input type="text" class="form-control" id="inputEtnia" placeholder="Ingrese su etnia">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputTelefono">Teléfono</label>
+            <input type="tel" class="form-control" id="inputTelefono" placeholder="Ingrese su teléfono">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputCelular">Celular</label>
+            <input type="tel" class="form-control" id="inputCelular" placeholder="Ingrese su celular">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+    </form>
+    
+    </div>
+  </div>
+</body>
+</html> -->

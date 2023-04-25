@@ -7,7 +7,46 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>
-    /* Add your styles here */
+  /* Estilos para pantallas grandes */
+  @media (min-width: 992px) {
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -0.5rem;
+        margin-left: -0.5rem;
+      }
+
+      .form-group {
+        flex: 1;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+      }
+    }
+
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 591px) {
+      .formulario .form-row {
+        display: block;
+      }
+
+      .form-group {
+        margin-right: 0;
+        margin-left: 0;
+      }
+      .menu{
+        width: 100%;
+    height: 30px;
+      }
+    }
+    @media (max-width: 768px) {
+  .form-group {
+    width: 100%;
+    margin-right: 0;
+  }
+  .formulario{
+    display:grid;
+  }
+}
   </style>
 </head>
 <app-header></app-header>
@@ -20,10 +59,7 @@
     </div>
     <div class="text">
       <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
-      <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-      </div>
+    
       <div class="login-container"></div>
       <form>
         <h3 >  <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt=""></h3>
