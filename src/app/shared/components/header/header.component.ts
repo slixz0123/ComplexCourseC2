@@ -30,6 +30,12 @@ goToLogin($event: any) :void{
   console.log($event)
 
  }
+ goTohome($event: any) :void{
+
+  this.router.navigate(['/'])
+  console.log($event)
+
+ }
  goToRegister($event: any) :void{
 
   this.router.navigate(['/register-usr'])
