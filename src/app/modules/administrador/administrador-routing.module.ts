@@ -7,6 +7,11 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import("./bienvenida-admin/bienvenida-admin.module").then(m => m.BienvenidaAdminModule)
   },
+  //
+  {
+    path: 'register-doc',
+    loadChildren: () => import("./register-profesor/register-profesor.module").then(m => m.RegisterProfesorModule)
+  },
   //reportes
   {
     path: 'register-programs',

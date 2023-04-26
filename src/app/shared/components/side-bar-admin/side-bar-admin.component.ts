@@ -57,6 +57,11 @@ export class SideBarAdminComponent {
   console.log($event)
  }
 
+ goToRegDocent($event: any) :void{
+
+  this.router.navigate(['/Admin/register-doc'])
+  console.log($event)
+ }
   ngOnInit(): void {
 
   }
