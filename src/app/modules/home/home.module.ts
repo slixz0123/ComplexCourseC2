@@ -6,6 +6,7 @@ import { WelcomeHomeComponent } from './welcome-home/welcome-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { BrowserModule } from '@angular/platform-browser';
     HomeRoutingModule,
     SharedModule,
     HttpClientModule,
+    FormsModule
     
   ]
 })
