@@ -24,7 +24,8 @@ body {
   
   /* Declare heights because of positioning of img element */
   .carousel-item {
-    height: 32rem;
+    height: 100%; 
+    object-fit: cover;
   }
   
   
@@ -167,13 +168,28 @@ body {
 img{
     border-radius: 15px;
     margin-top: 20px;
+    max-width: 100%;
     
     
 }
 
+@media (min-width: 62em) {
+    .featurette-heading {
+        margin-top: 7rem;
+    }
+}
 @media (max-width: 800px) {
+    .carousel-item img {
+        height: 100%;
+        object-fit: cover;
+    }
+    #myCarousel {
+        max-width: 100% !important;
+    }
     .img-carousel {
-      width: 100%;
-      height: auto;
+        /* cualquier estilo adicional para el carrusel */
     }
   }
+  
+  
+  
