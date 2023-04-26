@@ -252,7 +252,7 @@
  
   .bgimage{
     background: linear-gradient(rgba(147, 146, 143, 0), rgba(4, 104, 255, 0.087)),url("https://dev2020.tecazuay.edu.ec/wp-content/uploads/2022/11/cropped-LOGO-RECTANGULAR_SIN-FONDO.png ");
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center; 
    
