@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterAdminsRoutingModule } from './register-admins-routing.module';
 import { RegisterAdminsComponent } from './pages/register-admins/register-admins.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RegisterAdminsComponent } from './pages/register-admins/register-admins
   ],
   imports: [
     CommonModule,
-    RegisterAdminsRoutingModule
+    RegisterAdminsRoutingModule,
+    FormsModule
   ],exports:[
     RegisterAdminsComponent
   ]

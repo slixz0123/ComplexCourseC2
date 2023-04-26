@@ -4,8 +4,13 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   //hoome 
   {
-    path: 'Home-admin',
+    path: '',
     loadChildren: () => import("./bienvenida-admin/bienvenida-admin.module").then(m => m.BienvenidaAdminModule)
+  },
+  //
+  {
+    path: 'register-doc',
+    loadChildren: () => import("./register-profesor/register-profesor.module").then(m => m.RegisterProfesorModule)
   },
   //reportes
   {

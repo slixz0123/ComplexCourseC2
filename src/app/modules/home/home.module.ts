@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { WelcomeHomeComponent } from './welcome-home/welcome-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +16,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule,
+    FormsModule
+    
   ]
 })
 export class HomeModule { }

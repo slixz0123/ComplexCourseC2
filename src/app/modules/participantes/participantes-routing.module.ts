@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
     //reportes
     {
-      path: 'Home-Participante',
+      path: '',
       loadChildren: () => import("./bienvenida-participantes/bienvenida-participantes.module").then(m => m.BienvenidaParticipantesModule)
     },
     // Ficha de inscripcion

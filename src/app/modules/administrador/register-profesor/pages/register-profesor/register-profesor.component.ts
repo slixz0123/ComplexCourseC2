@@ -7,11 +7,11 @@ import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
 
 @Component({
-  selector: 'app-register-usr',
-  templateUrl: './register-usr.component.html',
-  styleUrls: ['./register-usr.component.css']
+  selector: 'app-register-profesor',
+  templateUrl: './register-profesor.component.html',
+  styleUrls: ['./register-profesor.component.css']
 })
-export class RegisterUsrComponent {
+export class RegisterProfesorComponent {
   persona: Persona = new Persona; // instancia de la clase persona 
   usuario: Usuario = new Usuario; // instancia de la clase usuario  
   rol: Rol = new Rol; // instancia de la clase rol 
@@ -30,7 +30,7 @@ export class RegisterUsrComponent {
       this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
 
 
-      this.rolservices.getById(1).subscribe(response => {
+      this.rolservices.getById(2).subscribe(response => {
         console.log(response); // Imprime la respuesta de la API en la consola
         this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
         this.usuario.rol =response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol

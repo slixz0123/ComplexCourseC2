@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SideBarAdminComponent } from './components/side-bar-admin/side-bar-admin.component';
 import { SideBarSupAdminComponent } from './components/side-bar-sup-admin/side-bar-sup-admin.component';
 import { SideBarParticipanteComponent } from './components/side-bar-participante/side-bar-participante.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -23,7 +24,8 @@ import { SideBarParticipanteComponent } from './components/side-bar-participante
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   exports:[
     HeaderComponent,
