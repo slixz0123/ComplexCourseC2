@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
 @Component({
   selector: 'app-register-usr',
@@ -23,8 +24,8 @@ export class RegisterUsrComponent {
   }
 
   onSubmit() {
-  
-    this.persoUsrService.postPersona(this.persona).subscribe(response => {
+
+      this.persoUsrService.postPersona(this.persona).subscribe(response => {
       console.log(response); // Imprime la respuesta de la API en la consola
       this.persona.id_persona = response.id_persona; // a this.persona.id_persona el resultado de nuestro metodo post se aasignamos la data.id_persona que nos arroja la api
       this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
@@ -42,5 +43,15 @@ export class RegisterUsrComponent {
       });
 
     });
+
+    const validaciones = new claseValidaciones();
+    if(this.persona.cedula!=undefined){
+      const esValida = validaciones.validarCedula(this.persona.cedula);
+      if (esValida) {
+        alert('Cédula Correcta');
+      } else {
+        alert('Cédula Incorrecta');
+      }
+    }
   }
 }
