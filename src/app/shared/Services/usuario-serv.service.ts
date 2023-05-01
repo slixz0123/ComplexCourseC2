@@ -21,6 +21,8 @@ export class UsuarioServService {
     return this.http.get<Usuario>(this.URL + `/login/${nombreUsuario}/${password}`)
   }
   
+
+  
   postUsuario(usuario: Usuario) {
     return this.http.post<Usuario>(this.URLcre + '?', usuario);
   }

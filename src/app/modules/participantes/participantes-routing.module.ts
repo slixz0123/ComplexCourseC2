@@ -7,6 +7,11 @@ const routes: Routes = [
       path: '',
       loadChildren: () => import("./bienvenida-participantes/bienvenida-participantes.module").then(m => m.BienvenidaParticipantesModule)
     },
+    //
+    {
+      path: 'Eva-Curso',
+      loadChildren: () => import("./evaluacion-curso/evaluacion-curso.module").then(m => m.EvaluacionCursoModule)
+    },
     // Ficha de inscripcion
   
    {
