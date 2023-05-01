@@ -65,6 +65,17 @@
             <option value="otros">Otros</option>
           </select>
         </div>
+        <div class="mb-3">
+          <label for="inputSexo">Nivel de instruccion</label>
+          <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
+            <option selected>Seleccione una opción...</option>
+            <option>Primaria</option>
+            <option>Secundaria</option>
+            <option>Bachiller</option>
+            <option>Tercer nivel</option>
+            <option>Cuarto Nivel</option>
+          </select>
+        </div>
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
