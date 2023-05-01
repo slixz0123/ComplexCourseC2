@@ -46,11 +46,42 @@ export class RegisterUsrComponent {
 
     const validaciones = new claseValidaciones();
     if(this.persona.cedula!=undefined){
-      const esValida = validaciones.validarCedula(this.persona.cedula);
-      if (esValida) {
-        alert('Cédula Correcta');
-      } else {
-        alert('Cédula Incorrecta');
+      if(this.persona.cedula.length===10){
+        const esValida = validaciones.validarCedula(this.persona.cedula);
+        if (esValida) {
+          alert('Cédula Correcta');
+        } else {
+          alert('Cédula Incorrecta');
+        }
+      }else{
+        alert('La cédula debe contener exáctamente 10 dígitos numéricos');
+      }
+    }
+
+    if(this.persona.nombre!=undefined){
+      const validNombre=validaciones.validarLetras(this.persona.nombre);
+      if(!validNombre){
+        alert('Nombre Correcto');
+      }else{
+        alert('El nombre debe contener solo letras');
+      }
+    }
+
+    if(this.persona.apellido!=undefined){
+      const validNombre=validaciones.validarLetras(this.persona.apellido);
+      if(!validNombre){
+        alert('Apellido Correcto');
+      }else{
+        alert('El apellido debe contener solo letras');
+      }
+    }
+
+    if(this.persona.email!=undefined){
+      const validEmail=validaciones.validarEmail(this.persona.email);
+      if(validEmail){
+        alert('Email Correcto');
+      }else{
+        alert('Email Incorrecto');
       }
     }
   }
