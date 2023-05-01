@@ -85,6 +85,15 @@ const routes: Routes = [
       path: 'edit-esp',
       loadChildren: () => import("./edit-list-especialidad/edit-list-especialidad.module").then(m => m.EditListEspecialidadModule)
     },
+     // dias 
+     {
+      path: 'register-dias',
+      loadChildren: () => import("./register-dias/register-dias.module").then(m => m.RegisterDiasModule)
+    },
+    {
+      path: 'edit-list-dias',
+      loadChildren: () => import("./edit-list-dias/edit-list-dias.module").then(m => m.EditListDiasModule)
+    },
  
 ];
 

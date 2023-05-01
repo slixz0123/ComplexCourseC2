@@ -137,6 +137,21 @@ export class SideBarComponent {
     
 
 
+         //////////////////////////////////////////////////////
+    goToregisdays($event: any) :void{
+
+      this.router.navigate(['Capacitador/register-dias'])
+      console.log($event)
+     }
+  
+        //////////////////////////////////////////////////////
+        goTo_edit_list_days($event: any) :void{
+  
+          this.router.navigate(['Capacitador/edit-list-dias'])
+          console.log($event)
+         }
+      
+
 
 
 
