@@ -87,6 +87,21 @@ export class SideBarComponent {
   console.log($event)
  }
 
+
+   //////////////////////////////////////////////////////
+ goToeditprofile($event: any) :void{
+
+  this.router.navigate(['Capacitador/edit-dts'])
+  console.log($event)
+ }
+
+   //////////////////////////////////////////////////////
+ goToprofile($event: any) :void{
+
+  this.router.navigate(['Capacitador/profile'])
+  console.log($event)
+ }
+
   ngOnInit(): void {
 
   }

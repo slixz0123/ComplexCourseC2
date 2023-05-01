@@ -7,6 +7,14 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import("./bienvenida-capacitador/bienvenida-capacitador.module").then(m => m.BienvenidaCapacitadorModule)
   },
+  {
+    path: 'edit-dts',
+    loadChildren: () => import("./edit-dts-docentes/edit-dts-docentes.module").then(m => m.EditDtsDocentesModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import("./vista-perfil-docente/vista-perfil-docente.module").then(m => m.VistaPerfilDocenteModule)
+  },
   //necesidad curso
   {
     path: 'register-necesidad',
