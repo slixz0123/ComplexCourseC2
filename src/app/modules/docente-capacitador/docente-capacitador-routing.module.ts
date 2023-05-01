@@ -65,6 +65,26 @@ const routes: Routes = [
     path: 'reportes-capacitador',
     loadChildren: () => import("./reportes/reportes.module").then(m => m.ReportesModule)
   },
+
+
+  // areas 
+  {
+    path: 'register-area',
+    loadChildren: () => import("./register-area/register-area.module").then(m => m.RegisterAreaModule)
+  },
+  {
+    path: 'edit-area',
+    loadChildren: () => import("./edit-list-area/edit-list-area.module").then(m => m.EditListAreaModule)
+  },
+    // especialidades 
+    {
+      path: 'register-esp',
+      loadChildren: () => import("./register-especialidad/register-especialidad.module").then(m => m.RegisterEspecialidadModule)
+    },
+    {
+      path: 'edit-esp',
+      loadChildren: () => import("./edit-list-especialidad/edit-list-especialidad.module").then(m => m.EditListEspecialidadModule)
+    },
  
 ];
 

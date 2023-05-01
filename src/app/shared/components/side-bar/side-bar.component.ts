@@ -104,5 +104,41 @@ export class SideBarComponent {
 
   ngOnInit(): void {
 
+
   }
+
+   //////////////////////////////////////////////////////
+ goToregisterarea($event: any) :void{
+
+  this.router.navigate(['Capacitador/register-area'])
+  console.log($event)
+ }
+
+  //////////////////////////////////////////////////////
+  goToreditarea($event: any) :void{
+
+    this.router.navigate(['Capacitador/edit-area'])
+    console.log($event)
+   }
+
+    //////////////////////////////////////////////////////
+    goToregisespecialidad($event: any) :void{
+
+    this.router.navigate(['Capacitador/register-esp'])
+    console.log($event)
+   }
+
+      //////////////////////////////////////////////////////
+      goTo_edit_list_especialidad($event: any) :void{
+
+        this.router.navigate(['Capacitador/edit-esp'])
+        console.log($event)
+       }
+    
+
+
+
+
+
+
 }
