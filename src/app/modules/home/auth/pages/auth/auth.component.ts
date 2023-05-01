@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
 
@@ -40,7 +41,7 @@ export class AuthComponent {
   }
 
 // Delaracion de servicios y FormBuilder para su utilizacion en los metodos  
-  constructor(private fb: FormBuilder , private usuarioService: UsuarioServService, private router: Router) { }
+  constructor(private fb: FormBuilder , private usuarioService: UsuarioServService, private router: Router,private cookieservice:CookieService) { }
 
 // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
   goToAdmin() :void{
@@ -74,7 +75,7 @@ Se utiliza el metodo login ubicado en el servicio  UserServiceService en la cual
  en la que recibe el parametro de username y password  ubacdos en el objeto de usuario 
     */
     this.usuarioService.login(this.usuario.username, this.usuario.password).subscribe(
-      data => {
+      (data:any) => {
         console.log(data);
 
         // valida que el resultado de la consulta no sea nulo es decir data debe ser diferente a null 
@@ -87,7 +88,7 @@ Se utiliza el metodo login ubicado en el servicio  UserServiceService en la cual
             localStorage.setItem('id_persona', String( data.persona?.id_persona)); // se utiliza el localStorage para guardar el id_persona y para poder realizar la transaccionalidad 
 
               this.iRol = data.rol.rolNombre; //se asigna la  data.rol.rolNombre a la variable iRol para realizar el redireccionamiento de nuestra pagina 
-
+             this.cookieservice.set('token_acces',data.accessToken,4,'/')
               // condiciona y valida que si el rol tiene un valor de ADMINISTRADOR nos redirije a la ruta del administrador devido a que se encuentra el metodo de redireccion 
               if(this.iRol == "Participante"){
                this.goToParticipante()

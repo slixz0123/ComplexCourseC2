@@ -48,7 +48,11 @@ goToRegisterInscripcion($event: any) :void{
     this.router.navigate(['/Participante/cursos-aplicados'])
     console.log($event)
    }
- 
+   goTo_evacurso($event: any) :void{
+
+    this.router.navigate(['/Participante/Eva-Curso'])
+    console.log($event)
+   }
  
  //////////////////////////////////////////////////////
  goToReportes($event: any) :void{

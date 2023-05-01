@@ -5,6 +5,7 @@ import { WelcomeAdministradorComponent } from './modules/administrador/welcome-a
 import { WelcomeDocenteCapacitadorComponent } from './modules/docente-capacitador/welcome-docente-capacitador/welcome-docente-capacitador.component';
 import { WelcomeParticipantesComponent } from './modules/participantes/welcome-participantes/welcome-participantes.component';
 import { WelcomeSupAdminComponent } from './modules/super-admin/welcome-sup-admin/welcome-sup-admin.component';
+import { VigilanteRoutesGuard } from './Core/guards/vigilante-routes.guard';
 
 
 const routes: Routes = [
@@ -17,8 +18,8 @@ const routes: Routes = [
   {
     path: 'Admin',
     component: WelcomeAdministradorComponent,
-    loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule) // se importa un modulo que tiene routing es decir ruta
-
+    loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule), // se importa un modulo que tiene routing es decir ruta
+   canActivateChild:[VigilanteRoutesGuard]
   },
   {
     path: 'Capacitador',
