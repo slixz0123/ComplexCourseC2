@@ -88,7 +88,7 @@ Se utiliza el metodo login ubicado en el servicio  UserServiceService en la cual
             localStorage.setItem('id_persona', String( data.persona?.id_persona)); // se utiliza el localStorage para guardar el id_persona y para poder realizar la transaccionalidad 
 
               this.iRol = data.rol.rolNombre; //se asigna la  data.rol.rolNombre a la variable iRol para realizar el redireccionamiento de nuestra pagina 
-             this.cookieservice.set('token_acces',data.accessToken,4,'/')
+            // this.cookieservice.set('token_acces',data.accessToken,4,'/')
               // condiciona y valida que si el rol tiene un valor de ADMINISTRADOR nos redirije a la ruta del administrador devido a que se encuentra el metodo de redireccion 
               if(this.iRol == "Participante"){
                this.goToParticipante()

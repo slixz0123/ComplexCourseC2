@@ -99,6 +99,8 @@
               <option>No binario</option>
             </select>
           </div>
+
+          
         </div>
        
         <div class="form-row">
@@ -130,6 +132,18 @@
               <label for="inputCelular">Password</label>
               <input type="password" class="form-control" id="inputpassword" placeholder="Ingrese su password" name="password" [(ngModel)]="usuario.password">
             </div>
+            <div class="form-group col-md-4">
+              <label for="inputSexo">Nivel de instruccion</label>
+              <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
+                <option selected>Seleccione una opción...</option>
+                <option>Primaria</option>
+                <option>Secundaria</option>
+                <option>Bachiller</option>
+                <option>Tercer nivel</option>
+                <option>Cuarto Nivel</option>
+              </select>
+            </div>
+            
           </div>
       
         <button  (click)="onSubmit()" >Registrar</button>

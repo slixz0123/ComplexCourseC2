@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'Admin',
     component: WelcomeAdministradorComponent,
     loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule), // se importa un modulo que tiene routing es decir ruta
-   canActivateChild:[VigilanteRoutesGuard]
+  // canActivateChild:[VigilanteRoutesGuard]
   },
   {
     path: 'Capacitador',

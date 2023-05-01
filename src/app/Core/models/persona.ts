@@ -20,7 +20,10 @@ export class Persona {
     // private String telefono;
     // @Column(name = "celular", length = 12, nullable = false)
     // private String celular;
-
+    // @Column(name = "nivelintruccion", length = 12, nullable = false)
+    // private String nivelintruccion;
+    // @Column(name = "hojavida", length = 12, nullable = false)
+    // private String hojavida;
     // private boolean enabled = true;
     
     id_persona?: number;
@@ -34,7 +37,8 @@ export class Persona {
     etnia?: string;
     telefono?: string;
     celular?: string;
-    
+    nivelintruccion?: string;
+    hojavida?: string;
     enable?: boolean;
 
     
