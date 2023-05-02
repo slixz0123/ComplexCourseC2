@@ -1,0 +1,19 @@
+.left-div{
+    width: 25%;
+   padding: 0 15px;
+}
+button{
+    display: block;
+    background-color: aqua;
+    font-weight: bolder;
+   float: right; 
+   margin-right: 0px;
+}
+/* .right{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2rem;
+    max-width: 450px;
+    height: 0px;
+  } */
