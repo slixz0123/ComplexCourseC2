@@ -87,7 +87,73 @@ export class SideBarComponent {
   console.log($event)
  }
 
+
+   //////////////////////////////////////////////////////
+ goToeditprofile($event: any) :void{
+
+  this.router.navigate(['Capacitador/edit-dts'])
+  console.log($event)
+ }
+
+   //////////////////////////////////////////////////////
+ goToprofile($event: any) :void{
+
+  this.router.navigate(['Capacitador/profile'])
+  console.log($event)
+ }
+
   ngOnInit(): void {
 
+
   }
+
+   //////////////////////////////////////////////////////
+ goToregisterarea($event: any) :void{
+
+  this.router.navigate(['Capacitador/register-area'])
+  console.log($event)
+ }
+
+  //////////////////////////////////////////////////////
+  goToreditarea($event: any) :void{
+
+    this.router.navigate(['Capacitador/edit-area'])
+    console.log($event)
+   }
+
+    //////////////////////////////////////////////////////
+    goToregisespecialidad($event: any) :void{
+
+    this.router.navigate(['Capacitador/register-esp'])
+    console.log($event)
+   }
+
+      //////////////////////////////////////////////////////
+      goTo_edit_list_especialidad($event: any) :void{
+
+        this.router.navigate(['Capacitador/edit-esp'])
+        console.log($event)
+       }
+    
+
+
+         //////////////////////////////////////////////////////
+    goToregisdays($event: any) :void{
+
+      this.router.navigate(['Capacitador/register-dias'])
+      console.log($event)
+     }
+  
+        //////////////////////////////////////////////////////
+        goTo_edit_list_days($event: any) :void{
+  
+          this.router.navigate(['Capacitador/edit-list-dias'])
+          console.log($event)
+         }
+      
+
+
+
+
+
 }

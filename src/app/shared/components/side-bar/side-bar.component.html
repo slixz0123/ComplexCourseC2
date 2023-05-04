@@ -330,28 +330,96 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#areas-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Areas</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="areas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)=" goToregisterarea($event)">
+              <i class="bi bi-circle"></i><span>Registrar Area</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToreditarea($event)">
+              <i class="bi bi-circle"></i><span>Listar/Editar Area</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#esp-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Especialidad</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="esp-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)=" goToregisespecialidad($event)">
+              <i class="bi bi-circle"></i><span>Registrar especialidad</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_especialidad($event)">
+              <i class="bi bi-circle"></i><span>Listar/Editar Especialidad</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#days-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Dias</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="days-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)=" goToregisdays($event)">
+              <i class="bi bi-circle"></i><span>Registrar dias</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_days($event)">
+              <i class="bi bi-circle"></i><span>Listar/Editar dias</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Charts Nav -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#DocentePerfil-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Perfil Docente</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="DocentePerfil-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)=" goToeditprofile($event)">
+              <i class="bi bi-circle"></i><span>Edicion Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToprofile($event)">
+              <i class="bi bi-circle"></i><span>Vista Perfil</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#chacrts-nav" data-bs-toggle="collapse" href="#" (click)="goToReportes($event)">
           <i class="bi bi-award"></i><span>Reportes</span>
         </a>
        
       </li><!-- End Charts Nav -->
 
-    
-
+ 
       <li class="nav-heading">Pages</li>
 
-      
-
-  
-
- 
-
-     
+   
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-login.html">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>Log out</span>
         </a>
       </li><!-- End Login Page Nav -->
 

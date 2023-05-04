@@ -62,6 +62,14 @@ export class SideBarAdminComponent {
   this.router.navigate(['/Admin/register-doc'])
   console.log($event)
  }
+ goTo_edit_docente($event: any) :void{
+
+  this.router.navigate(['/Admin/edit-doc'])
+  console.log($event)
+ }
+
+
+ 
   ngOnInit(): void {
 
   }

@@ -7,6 +7,14 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import("./bienvenida-capacitador/bienvenida-capacitador.module").then(m => m.BienvenidaCapacitadorModule)
   },
+  {
+    path: 'edit-dts',
+    loadChildren: () => import("./edit-dts-docentes/edit-dts-docentes.module").then(m => m.EditDtsDocentesModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import("./vista-perfil-docente/vista-perfil-docente.module").then(m => m.VistaPerfilDocenteModule)
+  },
   //necesidad curso
   {
     path: 'register-necesidad',
@@ -57,6 +65,35 @@ const routes: Routes = [
     path: 'reportes-capacitador',
     loadChildren: () => import("./reportes/reportes.module").then(m => m.ReportesModule)
   },
+
+
+  // areas 
+  {
+    path: 'register-area',
+    loadChildren: () => import("./register-area/register-area.module").then(m => m.RegisterAreaModule)
+  },
+  {
+    path: 'edit-area',
+    loadChildren: () => import("./edit-list-area/edit-list-area.module").then(m => m.EditListAreaModule)
+  },
+    // especialidades 
+    {
+      path: 'register-esp',
+      loadChildren: () => import("./register-especialidad/register-especialidad.module").then(m => m.RegisterEspecialidadModule)
+    },
+    {
+      path: 'edit-esp',
+      loadChildren: () => import("./edit-list-especialidad/edit-list-especialidad.module").then(m => m.EditListEspecialidadModule)
+    },
+     // dias 
+     {
+      path: 'register-dias',
+      loadChildren: () => import("./register-dias/register-dias.module").then(m => m.RegisterDiasModule)
+    },
+    {
+      path: 'edit-list-dias',
+      loadChildren: () => import("./edit-list-dias/edit-list-dias.module").then(m => m.EditListDiasModule)
+    },
  
 ];
 

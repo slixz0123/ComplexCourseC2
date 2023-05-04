@@ -271,11 +271,25 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#chacrts-nav" data-bs-toggle="collapse" href="#" (click)="goToRegDocent($event)">
-          <i class="bi bi-person"></i><span>Registro Docente</span>
+        <a class="nav-link collapsed" data-bs-target="#doce-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Docentes </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-       
-      </li><!-- End Charts Nav -->
+        <ul id="doce-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegDocent($event)">
+              <i class="bi bi-circle"></i><span>Registro Docentes</span>
+            </a>
+          </li>
+          <li>
+            <a  (click)="goTo_edit_docente($event)">
+              <i class="bi bi-circle"></i><span>Listado/Edicion Docentes</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Forms Nav -->
+
+    
 
     
       <li class="nav-item">
