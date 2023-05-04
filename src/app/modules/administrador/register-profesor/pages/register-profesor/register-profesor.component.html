@@ -12,17 +12,22 @@
 <body>
   <div class="container mt-4">
     <h2 class="mb-4">Formulario de Profesor</h2>
-    <form>
+    <form >
       <div class="row">
         <div class="col-md-6">
           <label for="cedula" class="form-label">Cédula</label>
           <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
+            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="cedula" />
+            <button type="button" class="btn btn-outline-primary" (click)=" buscarPersona(cedula)">Buscar</button>
+          </div>
+          <label for="id_persona" class="form-label">Identificacion</label>
+          <div class="input-group">
+            <!-- <input type="search" id="id_persona" name="id_persona" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary" (click)="buscarPersona(id_persona)"|>Buscar</button> -->
           </div>
         </div>
       </div>
-      <form class="row">
+      <form class="row" *ngIf="persona">
         <div class="col-md-6">
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
@@ -43,7 +48,7 @@
         <label for="contrasena" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="contrasena" name="password" [(ngModel)]="usuario.password" />
       </div>
-      <button (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
+      <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
     </form>
   </div>
 </body>

@@ -1,1 +1,140 @@
-<p>reportes works!</p>
+<div class="container-fluid">
+    <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+    <label class="btn btn-outline-success" for="success-outlined"
+        (click)="selectedForm = 'reportesEstudiantes'">Reportes de estudiantes terminados</label>
+
+    <input type="radio" class="btn-check" name="options-outlined" id="notas" autocomplete="off">
+    <label class="btn btn-outline-success" for="notas" (click)="selectedForm = 'reportesNotas'">Reportes de
+        notas</label>
+
+    <input type="radio" class="btn-check" name="options-outlined" id="desertores" autocomplete="off">
+    <label class="btn btn-outline-danger" for="desertores" (click)="selectedForm = 'reportesDesertores'">Reportes de
+        estudiantes desertores</label>
+
+    <div *ngIf="selectedForm === 'reportesEstudiantes'">
+        <label for="exampleDataList" class="form-label">Lista de estudiantes</label>
+        <!-- [(ngModel)]="cedula"  -->
+        <div class="input-group">
+            <input type="search" id="cedula" name="cedula" class="form-control rounded"
+                placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+                (input)="onSearchInputChange($event)" />
+            <button type="button" class="btn btn-outline-primary">Buscar</button>
+        </div>
+        <div class="table-hover">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="selectedForm === 'reportesNotas'">
+        <label for="exampleDataList" class="form-label">Datalist example</label>
+        <div class="input-group">
+            <input type="search" id="cedula" name="cedula" class="form-control rounded"
+                placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+                (input)="onSearchInputChange($event)" />
+            <button type="button" class="btn btn-outline-primary">Buscar</button>
+        </div>
+        <div class="table-hover">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="selectedForm === 'reportesDesertores'">
+        <label for="exampleDataList" class="form-label">Datalist example</label>
+        <div class="input-group">
+            <input type="search" id="cedula" name="cedula" class="form-control rounded"
+                placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+                (input)="onSearchInputChange($event)" />
+            <button type="button" class="btn btn-outline-primary">Buscar</button>
+        </div>
+        <div class="table-hover">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
