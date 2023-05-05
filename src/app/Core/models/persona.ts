@@ -39,7 +39,7 @@ export class Persona {
     celular?: string;
     nivelintruccion?: string;
     hojavida?: string;
-    enable?: boolean;
+    enabled?: boolean;
 
     
     

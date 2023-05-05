@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from 'src/app/Core/models/persona';
+import { Usuario } from 'src/app/Core/models/usuario';
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaServService {
+    // buscarPersona(id_persona: number) {
+    //   throw new Error('Method not implemented.');
+    // }
 
     private URL = "http://localhost:8080/api/persona";
     private URLcre = "http://localhost:8080/api/persona/crear";
+    private URLced = "http://localhost:8080/api/persona/cedulas/";
+    private URLusuario="http://localhost:8080/usuarios/signup";
 
     constructor(private http: HttpClient) { }
   
@@ -17,7 +23,13 @@ export class PersonaServService {
       return this.http.post<Persona>(this.URLcre + '?', persona);
     }
 
+    public buscarPorCedula(cedula: string): Observable<Persona> {
+      return this.http.get<Persona>(this.URLced + cedula);
+    }
 
+      createUser(usuario: Usuario): Observable<Usuario> {
+        return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
+      }
 // sin utilizar
 
     getPersonas() {
@@ -47,8 +59,21 @@ export class PersonaServService {
     }
   
     getPorCedula(id_persona: any) {
-      return this.http.get<Persona>(this.URL + `buscarpersona/${id_persona}`);
+      return this.http.get<Persona>(this.URL + `buscar/${id_persona}`);
     }
+    
+    buscarPersona(cedula: string): Observable<Persona> {
+      const url = `${this.URL}/${cedula}`;
+      return this.http.get<Persona>(url);
+    }
+
+    // buscarPersona(idPersona: number): Observable<Persona> {
+    //   const urlBuscarPersona = `${this.URL}/buscar/${idPersona}`;
+    //   return this.http.get<Persona>(urlBuscarPersona)
+    //     .pipe(
+    //       map((response: Persona) => response as Persona)
+    //     );
+    // }
     // getPersonasConUsuarios(): Observable<PersonaI[]> {
     //   return this.http.get<any>(`${this.URL}/listar?_expand=listaruser`)
     //     .pipe(

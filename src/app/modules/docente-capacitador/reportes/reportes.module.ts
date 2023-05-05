@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ReportesRoutingModule } from './reportes-routing.module';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { FormsModule } from '@angular/forms';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from 'primeng/table';
+
 
 
 @NgModule({
@@ -11,7 +16,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
   ],
   imports: [
     CommonModule,
-    ReportesRoutingModule
+    ReportesRoutingModule,
+    FormsModule
   ],
   exports:[
     ReportesComponent

@@ -10,8 +10,9 @@ export class Rol {
     id_rol?: number;
     rolNombre?: string;
     descripcion?: string;
-    enable?: boolean;
+    enabled?: boolean;
+    //  constructor(private id_rol: number, private rolNombre: string, private descripcion: string, private enabled: boolean){
 
-    
+    //  }
     
   }

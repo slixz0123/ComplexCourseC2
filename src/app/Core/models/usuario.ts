@@ -6,7 +6,7 @@ export class Usuario {
     id_usuario?: number;
     username: string = "";
     password: string = ""; 
-    enable?: boolean;
+    enabled?: boolean;
 
     persona?: Persona;
     rol: Rol = new Rol;
