@@ -101,6 +101,17 @@ const routes: Routes = [
       loadChildren: () => import("./register-ficha-evaluacion/register-ficha-evaluacion.module").then(m => m.RegisterFichaEvaluacionModule)
     },
 
+     // mecanismo-evaluacion 
+  {
+    path: 'register-mecanismo-eva',
+    loadChildren: () => import("./register-mecanismo-eva/register-mecanismo-eva.module").then(m => m.RegisterMecanismoEvaModule)
+  },
+  // detalleME 
+  {
+    path: 'register-detalle-meva',
+    loadChildren: () => import("./register-detalle-meva/register-detalle-meva.module").then(m => m.RegisterDetalleMEvaModule)
+  },
+
  
 ];
 

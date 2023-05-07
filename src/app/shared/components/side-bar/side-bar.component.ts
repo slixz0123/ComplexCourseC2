@@ -150,6 +150,20 @@ export class SideBarComponent {
           this.router.navigate(['Capacitador/edit-list-dias'])
           console.log($event)
          }
+
+         //////////////////////////////////////////////////////
+  goToregistermecanismos($event: any) :void{
+
+    this.router.navigate(['Capacitador/register-mecanismo-eva'])
+    console.log($event)
+   }
+  
+    //////////////////////////////////////////////////////
+    goToeditDetalleME($event: any) :void{
+  
+      this.router.navigate(['Capacitador/register-detalle-meva'])
+      console.log($event)
+     }
       
 
 
