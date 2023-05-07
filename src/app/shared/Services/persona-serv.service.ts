@@ -11,20 +11,29 @@ export class PersonaServService {
     //   throw new Error('Method not implemented.');
     // }
 
-    private URL = "http://localhost:8080/api/persona";
+    private URL = "http://localhost:8080/api/persona/";
     private URLcre = "http://localhost:8080/api/persona/crear";
     private URLced = "http://localhost:8080/api/persona/cedulas/";
     private URLusuario="http://localhost:8080/usuarios/signup";
+
+    private readonly apiUrl = 'http://localhost:8080/api/persona';
+
 
     constructor(private http: HttpClient) { }
   
     //utiliizados
     postPersona(persona: Persona) {
-      return this.http.post<Persona>(this.URLcre + '?', persona);
+      return this.http.post<Persona>(this.URLcre + '', persona);
     }
+
 
     public buscarPorCedula(cedula: string): Observable<Persona> {
       return this.http.get<Persona>(this.URLced + cedula);
+    }
+
+    create(persona: Persona): Observable<Persona> {
+      return this.http.post<Persona>(`${this.apiUrl}/crear`, persona);
+
     }
 
       createUser(usuario: Usuario): Observable<Usuario> {
@@ -48,6 +57,10 @@ export class PersonaServService {
   
     deletePersona(idPersona: number) {
       return this.http.delete<boolean>(this.URL + `eliminar/${idPersona}`);
+    }
+
+    deletepersona(idPersona: number, persona: Persona) {
+      return this.http.put<boolean>(this.URL + `eliminar/${idPersona}`, persona);
     }
   
     save(persona: Persona) {

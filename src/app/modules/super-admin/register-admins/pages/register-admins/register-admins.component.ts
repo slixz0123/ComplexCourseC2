@@ -17,13 +17,37 @@ export class RegisterAdminsComponent {
   usuario: Usuario = new Usuario; // instancia de la clase usuario  
   rol: Rol = new Rol; // instancia de la clase rol 
 
+  
   // en el constructor instanciamos los servicios
   constructor(private registerUsrService: PersonaServService, private userServiceService: UsuarioServService, private rolservices:RolServService) { }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+
+  resetForm() {
+    this.persona = {
+      cedula: '',
+      nombre: '',
+      apellido: '',
+      email: '',
+      direccion: '',
+      sexo: '',
+      etnia: '',
+      telefono: '',
+      celular: '',
+      nivelintruccion: '',
+    };
+  
+    this.usuario = {
+      username: '',
+      password: '',
+      persona: {},
+      rol: {},
+    };
+  }
+  
+  onSubmitGuardar() {
   
     this.registerUsrService.postPersona(this.persona).subscribe(response => {
       console.log(response); // Imprime la respuesta de la API en la consola
@@ -42,6 +66,14 @@ export class RegisterAdminsComponent {
 
       });
 
+      
+
+    });
+    this.userServiceService.postUsuario(this.usuario).subscribe(response => {
+      console.log(response); // Imprime la respuesta de la API en la consola
+  
+      // Llama a la función resetForm() para vaciar los campos del formulario
+      this.resetForm();
     });
   }
 

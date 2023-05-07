@@ -3,8 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario de Profesor</title>
-    <!-- CSS de Bootstrap -->
+    <title>Formulario de Admins</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,7 +11,7 @@
   </head>
   <body>
     <div class="container mt-4">
-      <h2 class="mb-4">Formulario de Profesor</h2>
+      <h2 class="mb-4">Registro de Administradores</h2>
       <form>
         <div class="row">
           <div class="col-md-6">
@@ -21,12 +20,12 @@
               <input type="text" class="form-control" id="cedula" name="cedula" [(ngModel)]="persona.cedula"/>
             </div>
           </div>
-          <div class="col-md-6">
+          
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="persona.nombre" />
             </div>
-          </div>
+        
         </div>
         <div class="mb-3">
           <label for="apellido" class="form-label">Apellido</label>
@@ -89,6 +88,17 @@
           </div>
         </div>
         <div class="mb-3">
+          <label for="inputSexo">Nivel de instruccion</label>
+              <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
+                <option selected>Seleccione una opción...</option>
+                <option>Primaria</option>
+                <option>Secundaria</option>
+                <option>Bachiller</option>
+                <option>Tercer nivel</option>
+                <option>Cuarto Nivel</option>
+              </select>
+        </div>
+        <div class="mb-3">
           <label for="usuario" class="form-label">Usuario</label>
           <input type="text" class="form-control" id="usuario"  name="username" [(ngModel)]="usuario.username" />
         </div>
@@ -96,7 +106,7 @@
           <label for="contrasena" class="form-label">Contraseña</label>
           <input type="password" class="form-control" id="contrasena"  name="password" [(ngModel)]="usuario.password" />
         </div>
-        <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
+        <button  (click)="onSubmitGuardar()" type="submit" class="btn btn-primary">Crear</button>
       </form>
     </div>
   </body>
