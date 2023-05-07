@@ -31,14 +31,15 @@
         <tbody>
           <tr
           *ngFor="let usuario of adminUsuarios"
-            [hidden]="usuario.rol?.rolNombre !== 'Admin'"
+          [hidden]="usuario.rol.rolNombre !== 'Admin'"
+
           >
             <th scope="row">{{ usuario.persona?.cedula }}</th>
             <td>{{ usuario.persona?.nombre }}</td>
             <td>{{ usuario.persona?.apellido }}</td>
             <td>{{ usuario.persona?.email }}</td>
             <td>{{ usuario.username }}</td>
-            <td>{{ usuario.rol?.rolNombre }}</td>
+            <td>{{ usuario.rol.rolNombre }}</td>
             <td>
               <button
                 type="button"
