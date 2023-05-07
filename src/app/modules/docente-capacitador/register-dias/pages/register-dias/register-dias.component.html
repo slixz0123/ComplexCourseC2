@@ -1,1 +1,39 @@
-<p>register-dias works!</p>
+<!-- 
+     diaId?: number;
+    diaNombre?: string;
+    diaEstado?:boolean;
+ -->
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registro de la  Dias para la creacion del curso</title>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+        />
+      </head>
+      <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
+        <div  style="" class="container mt-2">
+          <h1 style="margin-top: 15px; " class="text-center mb-5">Registro de la  Dias para la creacion del curso</h1>
+          <form id="contenedorform" formControlName="diasForm" [formGroup]="diasForm" (ngSubmit)="registradia()" >
+            <h2 class="">Registro de la  Dias para la creacion del curso</h2>
+            <div class="">
+              <div class="">
+                <label for="diaNombre" class="form-label">Dias  a dessarrollar curso</label>
+                <input type="text" id="area" formControlName="diaNombre" name="diaNombre" class="form-control" [(ngModel)]="dias.diaNombre" />
+       
+            </div>
+            </div>
+    
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </form>
+        </div>
+    
+       
+      </body>
+    </html>
+    

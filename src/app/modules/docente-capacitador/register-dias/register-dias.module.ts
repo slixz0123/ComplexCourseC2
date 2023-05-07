@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterDiasRoutingModule } from './register-dias-routing.module';
 import { RegisterDiasComponent } from './pages/register-dias/register-dias.component';
+import { FormGroup, FormGroupName, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { RegisterDiasComponent } from './pages/register-dias/register-dias.compo
   ],
   imports: [
     CommonModule,
-    RegisterDiasRoutingModule
+    RegisterDiasRoutingModule,
+    FormsModule,
+ ReactiveFormsModule
+    
   ],exports:[
     RegisterDiasComponent
   ]

@@ -1,3 +1,4 @@
+<p>register-silabo works!</p>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -12,7 +13,7 @@
   <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
     <div  style="" class="container mt-2">
       <h1 style="margin-top: 15px; " class="text-center mb-5">Formulario de Curso</h1>
-      <form id="contenedorform" >
+      <form id="contenedorform" [formGroup]="silaboForm"  >
         <h2 class="mb-3">1. Información General del Curso</h2>
         <div class="row mb-3">
           <div class="col-md-6">
@@ -41,6 +42,8 @@
                 id="docencia"
                 name="docencia"
                 class="form-control"
+                formControlName="hapDocencia"
+                [(ngModel)]="horasapren.hapDocencia"
               />
               <label for="practicas" class="form-label">Prácticas</label>
               <input
@@ -48,6 +51,8 @@
                 id="practicas"
                 name="practicas"
                 class="form-control"
+                formControlName="hapPracticas"
+                [(ngModel)]="horasapren.hapPracticas"
               />
               <label for="autonomo" class="form-label">Trabajo Autónomo</label>
               <input
@@ -55,6 +60,8 @@
                 id="autonomo"
                 name="autonomo"
                 class="form-control"
+                formControlName="hapTrabajoAutonomo"
+                [(ngModel)]="horasapren.hapTrabajoAutonomo"
               />
             </div>
           </div>
@@ -109,38 +116,50 @@
             />
           </div>
         </div>
+        <!-- "dsiId": 0,
+  "dsiPrerrequisitos": "string",
+  "dsiDescripcioncurso": "string",
+  "dsiObjetivogeneralc": "string",
+  "dsiBibliografia": "string",
+  "dsiEstado": true -->
         <h2 class="mb-3">2. Prerrequisitos</h2>
         <div class="mb-3">
-          <label for="prerrequisitos" class="form-label">Prerrequisitos</label>
+          <label for="dsiPrerrequisitos" class="form-label">Prerrequisitos</label>
           <textarea
-            id="prerrequisitos"
-            name="prerrequisitos"
+            id="dsiPrerrequisitos"
+            name="dsiPrerrequisitos"
             rows="3"
             class="form-control"
+            formControlName="dsiPrerrequisitos"
+            [(ngModel)]="datossilabo.dsiPrerrequisitos"
           ></textarea>
         </div>
         <h2 class="mb-3">3. Descripción del Curso</h2>
         <div class="mb-3">
-          <label for="descripcion" class="form-label"
+          <label for="dsiDescripcioncurso" class="form-label"
             >Descripción del Curso</label
           >
           <textarea
-            id="descripcion"
-            name="descripcion"
+            id="dsiDescripcioncurso"
+            name="dsiDescripcioncurso"
             rows="3"
             class="form-control"
+            formControlName="dsiDescripcioncurso"
+            [(ngModel)]="datossilabo.dsiDescripcioncurso"
           ></textarea>
         </div>
         <h2 class="mb-3">4. Objetivo general del Curso</h2>
         <div class="mb-3">
-          <label for="objetivo_general" class="form-label"
+          <label for="dsiObjetivogeneralc" class="form-label"
             >Objetivo general del Curso</label
           >
           <textarea
-            id="objetivo_general"
-            name="objetivo_general"
+            id="dsiObjetivogeneralc"
+            name="dsiObjetivogeneralc"
             rows="3"
             class="form-control"
+            formControlName="dsiObjetivogeneralc"
+            [(ngModel)]="datossilabo.dsiObjetivogeneralc"
           ></textarea>
         </div>
         <h2 class="mb-3">5. Objetivo General del Curso</h2>
@@ -304,14 +323,131 @@
           >
             Agregar fila
           </button>
+          
         </div>
-
+        <h2 class="mb-3">4.recurso didactico</h2>
         <div class="mb-3">
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
-      </form>
-    </div>
+          <label for="dsiBibliografia" class="form-label"
+            >materiales convencionales</label
+          >
+          <textarea
+            id="dsiBibliografia"
+            name="dsiBibliografia"
+            rows="3"
+            class="form-control" 
+            formControlName="dsiBibliografia"
+            [(ngModel)]="recurdidactico.rdiMateconvencional"
+          ></textarea>
 
+          <label for="dsiBibliografia" class="form-label"
+          >materiales audiovisuales</label
+        >
+        <textarea
+          id="dsiBibliografia"
+          name="dsiBibliografia"
+          rows="3"
+          class="form-control" 
+          formControlName="dsiBibliografia"
+          [(ngModel)]="recurdidactico.rdiMateaudiovisula"
+        ></textarea>
+
+           
+        </div>
+ 
+        <h2 class="mb-3">8.Evaluacion resultados de aprendizaje</h2>
+        <div class="table-responsive">
+          <table class="table" id="contenidoTable">
+            <thead>
+              <tr>
+                <th scope="col">Tipo de actividades</th>
+                <th scope="col">Cantidad Actividades</th>
+                <th scope="col">Porcentaje calificacion</th>
+                <th scope="col">Total</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="text" id="dia" name="dia" class="form-control" />
+                </td>
+                <td>
+                  <textarea
+                    id="contenidos"
+                    name="contenidos"
+                    rows="3"
+                    class="form-control"
+                  ></textarea>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    id="hora_clase"
+                    name="hora_clase"
+                    class="form-control"
+                  />
+                </td>
+                <td>
+                  <textarea
+                    id="actividades_docencia"
+                    name="actividades_docencia"
+                    rows="3"
+                    class="form-control"
+                  ></textarea>
+                </td>
+
+                
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm deleteRow">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            type="button"
+            id="addRowContenido"
+            class="btn btn-success mt-2"
+          >
+            Agregar fila
+          </button>
+          
+        </div>
+
+
+
+
+
+
+        <h2 class="mb-3">9.Bibliografia</h2>
+        <div class="mb-3">
+          <label for="dsiBibliografia" class="form-label"
+            >Bibliografia</label
+          >
+          <textarea
+            id="dsiBibliografia"
+            name="dsiBibliografia"
+            rows="3"
+            class="form-control" 
+            formControlName="dsiBibliografia"
+            [(ngModel)]="datossilabo.dsiBibliografia"
+          ></textarea>
+
+           
+        </div>
+
+        <pre>
+          {{datossilabo |  json}}
+       </pre>
+        <div class="mb-3">
+          <button (click)="crearsilabo()" type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+        
+      </form>
+      
+    </div>
+   
    
   </body>
 </html>

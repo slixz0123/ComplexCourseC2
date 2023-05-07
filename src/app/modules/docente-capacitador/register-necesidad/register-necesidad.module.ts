@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterNecesidadRoutingModule } from './register-necesidad-routing.module';
 import { RegisterNecesidadComponent } from './pages/register-necesidad/register-necesidad.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { RegisterNecesidadComponent } from './pages/register-necesidad/register-
   ],
   imports: [
     CommonModule,
-    RegisterNecesidadRoutingModule
+    RegisterNecesidadRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     RegisterNecesidadComponent

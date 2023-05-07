@@ -27,7 +27,7 @@ const routes: Routes = [
   //silabo
   {
     path: 'register-silabo',
-    loadChildren: () => import("./register-silabo/register-silabo-routing.module").then(m => m.RegisterSilaboRoutingModule)
+    loadChildren: () => import("./register-silabo/register-silabo.module").then(m => m.RegisterSilaboModule)
   },
   {
     path: 'edit-list-silabo',
@@ -94,11 +94,13 @@ const routes: Routes = [
       path: 'edit-list-dias',
       loadChildren: () => import("./edit-list-dias/edit-list-dias.module").then(m => m.EditListDiasModule)
     },
+
     //ficha de evaluacion
     {
       path: 'register-fichaEvaluacion',
       loadChildren: () => import("./register-ficha-evaluacion/register-ficha-evaluacion.module").then(m => m.RegisterFichaEvaluacionModule)
     },
+
  
 ];
 

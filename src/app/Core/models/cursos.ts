@@ -1,0 +1,47 @@
+// @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long curId;
+
+import { Modalidadcurso } from "./modalidadcurso";
+import { TiposCurso } from "./tiposcurso";
+
+//     @Column(name = "curCodigo", nullable = false)
+//     private String curCodigo;
+
+//     @Column(name = "curNombre", nullable = false)
+//     private String curNombre;
+
+//     @Column(name = "curFechainicio", nullable = false)
+//     private Date curFechainicio;
+
+//     @Column(name = "curFechafin", nullable = false)
+//     private Date curFechafin;
+
+//     @Column(name = "curNumhoras", nullable = false)
+//     private Integer curNumhoras;
+
+//     @Column(name = "curProceso", nullable = false)
+//     private String curProceso;
+
+//     @Column(name = "curEstado", nullable = false)
+//     private Boolean curEstado;
+export class Cursos {
+   
+    
+    curId?: number;
+    curCodigo?: String;
+    curNombre?: string;
+    curFechainicio?: Date;
+    curFechafin?: Date;
+    curNumhoras?: number;
+    curProceso?: string;
+    curEstado?: boolean;
+
+
+    tipocurso: TiposCurso = new TiposCurso; //id_persona herencia
+    modalidadcurso: Modalidadcurso = new Modalidadcurso; //id_persona herencia
+
+   
+   
+    
+  }

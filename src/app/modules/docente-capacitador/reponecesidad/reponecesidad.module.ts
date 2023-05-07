@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { EditListDiasRoutingModule } from './edit-list-dias-routing.module';
-import { EditListDiasComponent } from './pages/edit-list-dias/edit-list-dias.component';
+import { ReponecesidadRoutingModule } from './reponecesidad-routing.module';
+import { ReponecesidadComponent } from './pages/reponecesidad/reponecesidad.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    EditListDiasComponent
+    ReponecesidadComponent
   ],
   imports: [
     CommonModule,
-    EditListDiasRoutingModule,
+    ReponecesidadRoutingModule,
     FormsModule,
     ReactiveFormsModule
   ],exports:[
-    EditListDiasComponent
+    ReponecesidadComponent
   ]
 })
-export class EditListDiasModule { }
+export class ReponecesidadModule { }
