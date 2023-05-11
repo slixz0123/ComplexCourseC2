@@ -26,7 +26,7 @@ import { ProgramaCapacitacion } from "./programa-capacitacion";
 
 //     @Column(name = "curEstado", nullable = false)
 //     private Boolean curEstado;
-export class Cursos {
+export class Curso {
    
     
     curId?: number;

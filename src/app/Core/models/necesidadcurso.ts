@@ -2,7 +2,7 @@
 // @GeneratedValue(strategy = GenerationType.IDENTITY)
 // private Long ncuId;
 
-import { Cursos } from "./cursos";
+import { Cursos } from "./curso";
 import { Dias } from "./dias";
 import { Modalidadcurso } from "./modalidadcurso";
 import { TiposCurso } from "./tiposcurso";

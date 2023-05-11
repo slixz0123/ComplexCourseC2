@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cursos } from 'src/app/Core/models/cursos';
+import { Cursos } from 'src/app/Core/models/curso';
 import { FichaInscripcion } from 'src/app/Core/models/ficha Inscripcion';
 import { Participante } from 'src/app/Core/models/participante';
 import { Persona } from 'src/app/Core/models/persona';

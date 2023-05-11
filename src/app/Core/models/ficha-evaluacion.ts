@@ -1,8 +1,8 @@
-import { Cursos } from './cursos';
+import { Curso } from './curso';
 
 export class FichaEvaluacion {
   fevId: number = 0;
   fevNombre: string= '';
   fevEstado?: boolean;
-  fevCurso?: Cursos;
+  fevCurso?: Curso;
 }

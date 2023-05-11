@@ -1,5 +1,5 @@
 import { Persona } from "src/app/Core/models/persona";
-import { Cursos } from "./cursos";
+import { Cursos } from "./curso";
 import { Asistencia } from "./asistencia";
 
 export class Participante{
