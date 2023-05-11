@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { horario } from "src/app/Core/models/horario";
+import { Horario } from "src/app/Core/models/horario";
 
 @Injectable({
     providedIn: 'root'
@@ -11,12 +11,12 @@ export class horarioService{
 
   constructor(private http: HttpClient) { }
 
-  crearHorario(horario: horario){
-    return this.http.post<horario>(this.URL + 'crear', horario);
+  crearHorario(horario: Horario){
+    return this.http.post<Horario>(this.URL + 'crear', horario);
   }
 
   listarHorarios(){
-    return this.http.get<horario[]>(this.URL + 'listar')
+    return this.http.get<Horario[]>(this.URL + 'listar')
   }
 
   editarHorarios(){

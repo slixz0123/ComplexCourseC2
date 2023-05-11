@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Cursos } from 'src/app/Core/models/curso';
+import { Curso } from 'src/app/Core/models/curso';
 import { Dias } from 'src/app/Core/models/dias';
 import { Modalidadcurso } from 'src/app/Core/models/modalidadcurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';

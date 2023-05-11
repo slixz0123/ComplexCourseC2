@@ -1,4 +1,4 @@
-import { Curso } from "./Curso";
+import { Curso } from "./curso";
 
 export class InformeFinal{
     ifiId?: number;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Cursos } from 'src/app/Core/models/curso';
+import { Curso } from 'src/app/Core/models/curso';
 import { FichaInscripcion } from 'src/app/Core/models/ficha Inscripcion';
 import { Participante } from 'src/app/Core/models/participante';
 import { Persona } from 'src/app/Core/models/persona';
@@ -32,8 +32,8 @@ export class AceptarCursoComponent implements OnInit{
   persona: Persona= new Persona();
   rol: Rol= new Rol();
   personas: Persona[] = [];
-  cursos: Cursos[] | undefined;
-  curso: Cursos= new Cursos();
+  cursos: Curso[] | undefined;
+  curso: Curso= new Curso();
   usuario: Usuario = new Usuario(); 
   ficha: FichaInscripcion=new FichaInscripcion();
   fichas:FichaInscripcion[]=[];
@@ -158,7 +158,7 @@ export class AceptarCursoComponent implements OnInit{
   }
 
   listarCurso(){
-    this.cursoService.getAll().subscribe((Response: Cursos[])=>{
+    this.cursoService.getAll().subscribe((Response: Curso[])=>{
       this.cursos = Response;
       console.log(Response);
     })

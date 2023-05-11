@@ -13,7 +13,7 @@ export class PersonaServService {
     // }
 
 
-    private URL = "http://localhost:8080/api/persona/";
+    private URL = "http://localhost:8080/api/persona";
     private URLcre = "http://localhost:8080/api/persona/crear";
     private URLced = "http://localhost:8080/api/persona/cedulas/";
     private URLusuario="http://localhost:8080/usuarios/signup";
@@ -38,10 +38,6 @@ export class PersonaServService {
 
     }
 
-
-    public buscarPorCedula(cedula: string): Observable<Persona> {
-      return this.http.get<Persona>(this.URLced + cedula);
-    }
     createUser(usuario: Usuario): Observable<Usuario> {
       return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
   }
@@ -54,11 +50,11 @@ export class PersonaServService {
 // sin utilizar
 
     getPersonas() {
-      return this.http.get<Persona[]>(`${this.URL}listarp`);
+      return this.http.get<Persona[]>(`${this.URL}/listarp`);
     }
   
     getPorId(idPersona: number) {
-      return this.http.get<Persona>(this.URLBuscar + idPersona);
+      return this.http.get<Persona>(`${this.URL}/buscar` + idPersona);
     }
   
    
@@ -68,11 +64,11 @@ export class PersonaServService {
     }
   
     deletePersona(idPersona: number) {
-      return this.http.delete<boolean>(this.URL + `eliminar/${idPersona}`);
+      return this.http.delete<boolean>(this.URL + `/eliminar/${idPersona}`);
     }
 
     deletepersona(idPersona: number, persona: Persona) {
-      return this.http.put<boolean>(this.URL + `eliminar/${idPersona}`, persona);
+      return this.http.put<boolean>(this.URL + `/eliminar/${idPersona}`, persona);
     }
   
     save(persona: Persona) {
@@ -80,11 +76,11 @@ export class PersonaServService {
     }
   
     listarPersona(): Observable<any> {
-      return this.http.get(`${this.URL}listaper`);
+      return this.http.get(`${this.URL}/listaper`);
     }
   
     getPorCedula(id_persona: any) {
-      return this.http.get<Persona>(this.URL + `buscar/${id_persona}`);
+      return this.http.get<Persona>(this.URL + `/buscar/${id_persona}`);
     }
     
     buscarPersona(cedula: string): Observable<Persona> {

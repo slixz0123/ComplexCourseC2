@@ -12,7 +12,7 @@ import * as bootstrap from 'bootstrap';
 import { FichaEvaluacion } from 'src/app/Core/models/ficha-evaluacion'
 import { FichaEvaluacionService } from 'src/app/shared/Services/ficha-evaluacion.service';
 import { DetalleFichaevaluacionService } from 'src/app/shared/Services/detalle-ficha-evaluacion.service';
-import { Cursos } from 'src/app/Core/models/curso';
+import { Curso } from 'src/app/Core/models/curso';
 import { DetalleFichaevaluacion } from 'src/app/Core/models/detalle-ficha-evaluacion';
 
 
@@ -54,7 +54,7 @@ export class RegisterFichaEvaluacionComponent {
   saveCategories() {
     for (const category of this.categories) {
       const fichaEvaluacion = new FichaEvaluacion();
-      const curso = new Cursos();
+      const curso = new Curso();
       curso.curId = 2;
       fichaEvaluacion.fevNombre = category.name;
       fichaEvaluacion.fevCurso = curso; // Asigna un objeto Cursos con el ID que necesitas
