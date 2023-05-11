@@ -1,5 +1,5 @@
 import { Persona } from "src/app/Core/models/persona";
-import { Cursos } from "./curso";
+import { Curso } from "./curso";
 import { Asistencia } from "./asistencia";
 
 export class Participante{
@@ -11,7 +11,7 @@ export class Participante{
     parEstadoaprovacion?: string;
     parEstado?: boolean;
     parPersona?: Persona;
-    curso?: Cursos;
+    curso?: Curso;
 
     
     // asistencias!: Asistencia[];

@@ -4,7 +4,7 @@ import { InformeFinalServ } from 'src/app/shared/Services/informeFinalc-serv.ser
 import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
 import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { AsistenciaCurso } from 'src/app/Core/models/AsistenciaCurso';
-import { Curso } from 'src/app/Core/models/Curso';
+import { Curso } from 'src/app/Core/models/curso';
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import * as XLSX from 'xlsx';
 import { AfterViewInit } from '@angular/core';

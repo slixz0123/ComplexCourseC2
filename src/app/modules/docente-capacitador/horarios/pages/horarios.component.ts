@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { horario } from 'src/app/Core/models/horario';
+import { Horario } from 'src/app/Core/models/Horario';
 import { horarioService } from 'src/app/shared/Services/horario-serv.service';
 
 @Component({
@@ -12,8 +12,8 @@ export class HorariosComponent implements OnInit{
   selectedForm: string = '';
   nombre: string = '';
   constructor(private horarioService: horarioService) { }
-  horario: horario=new horario();
-  horarios: horario[] | undefined;
+  horario: Horario=new Horario();
+  horarios: Horario[] | undefined;
   formularioValido: boolean| undefined;
 
   onSearchInputChange(event: Event) {
@@ -44,7 +44,7 @@ export class HorariosComponent implements OnInit{
   }
 
   listarHorarios(): void{
-    this.horarioService.listarHorarios().subscribe((response: horario[])=>{
+    this.horarioService.listarHorarios().subscribe((response: Horario[])=>{
       
       console.log(this.horarios=response)
     })

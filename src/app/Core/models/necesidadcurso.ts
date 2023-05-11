@@ -2,7 +2,7 @@
 // @GeneratedValue(strategy = GenerationType.IDENTITY)
 // private Long ncuId;
 
-import { Cursos } from "./curso";
+import { Curso } from "./curso";
 import { Dias } from "./dias";
 import { Modalidadcurso } from "./modalidadcurso";
 import { TiposCurso } from "./tiposcurso";
@@ -45,7 +45,7 @@ export class NecesidadCurso {
     ncuEstado?: boolean;
 
     
-    curso: Cursos = new Cursos;
+    curso: Curso = new Curso;
     dia: Dias = new Dias;
    
     

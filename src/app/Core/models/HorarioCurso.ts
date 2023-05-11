@@ -1,5 +1,5 @@
 import { Curso } from "./curso";
-import { Horario } from "./horario";
+import { Horario } from "./Horario";
 
 export class HorarioCurso{
     hcuId?: number;
