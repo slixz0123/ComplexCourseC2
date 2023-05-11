@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Asistencia } from 'src/app/Core/models/asistencia';
 import { Participante } from 'src/app/Core/models/participante';
 import { AsistenciaServService } from 'src/app/shared/Services/asistencia-serv.service';
-import { ParticipanteServService } from 'src/app/shared/Services/participante-serv.service';
+import { participanteService } from 'src/app/shared/Services/participante-serv.service';
 
 @Component({
   selector: 'app-register-asistencia',
@@ -18,7 +18,7 @@ export class RegisterAsistenciaComponent {
   asistenciaSeleccionada: Asistencia = new Asistencia();
 
 
-  constructor(private asistenciaServ: AsistenciaServService, private participanteServ: ParticipanteServService) {
+  constructor(private asistenciaServ: AsistenciaServService, private participanteServ: participanteService) {
     const date = new Date();
   this.fecha = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   }
