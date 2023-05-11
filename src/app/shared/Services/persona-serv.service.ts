@@ -2,13 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from 'src/app/Core/models/persona';
+import { Usuario } from 'src/app/Core/models/usuario';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaServService {
 
     private URL = "http://localhost:8080/api/persona";
+
+    private URLBuscar = "http://localhost:8080/api/persona/buscar/";
     private URLcre = "http://localhost:8080/api/persona/crear";
+    private URLced = "http://localhost:8080/api/persona/cedulas/";
+    private URLusuario="http://localhost:8080/usuarios/signup";
 
     constructor(private http: HttpClient) { }
   
@@ -16,6 +22,13 @@ export class PersonaServService {
     postPersona(persona: Persona) {
       return this.http.post<Persona>(this.URLcre + '?', persona);
     }
+
+    public buscarPorCedula(cedula: string): Observable<Persona> {
+      return this.http.get<Persona>(this.URLced + cedula);
+    }
+    createUser(usuario: Usuario): Observable<Usuario> {
+      return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
+  }
 
 
 // sin utilizar
@@ -25,13 +38,13 @@ export class PersonaServService {
     }
   
     getPorId(idPersona: number) {
-      return this.http.get<Persona>(this.URL + idPersona);
+      return this.http.get<Persona>(this.URLBuscar + idPersona);
     }
   
    
   
     updatePersona(persona: Persona, idPersona: any) {
-      return this.http.put<Persona>(this.URL + `actualizar/${idPersona}`, persona);
+      return this.http.put<Persona>(this.URL + `/actualizar/${idPersona}`, persona);
     }
   
     deletePersona(idPersona: number) {

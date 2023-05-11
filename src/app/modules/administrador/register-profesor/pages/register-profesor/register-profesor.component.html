@@ -1,114 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulario de Profesor</title>
-    <!-- CSS de Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container mt-4">
-      <h2 class="mb-4">Formulario de Profesor</h2>
-      <form>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="cedula" class="form-label">Cédula</label>
-              <input type="text" class="form-control" id="cedula" name="cedula" [(ngModel)]="persona.cedula"/>
-            </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Profesor</title>
+  <!-- CSS de Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container mt-4">
+    <h2 class="mb-4">Formulario de Profesor</h2>
+    <form >
+      <div class="row">
+        <div class="col-md-6">
+          <label for="cedula" class="form-label">Cédula</label>
+          <div class="input-group">
+            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="cedula" />
+            <button type="button" class="btn btn-outline-primary" (click)=" buscarPersona(cedula)">Buscar</button>
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="persona.nombre" />
-            </div>
+          <label for="id_persona" class="form-label">Identificacion</label>
+          <div class="input-group">
+            <!-- <input type="search" id="id_persona" name="id_persona" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button type="button" class="btn btn-outline-primary" (click)="buscarPersona(id_persona)"|>Buscar</button> -->
           </div>
         </div>
-        <div class="mb-3">
+      </div>
+      <form class="row" *ngIf="persona">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="persona.nombre" disabled />
+          </div>
+        </div>
+        <div class="col-md-6">
           <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="persona.apellido" />
+          <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="persona.apellido"
+            disabled />
         </div>
-        <div class="mb-3">
-          <label for="fechaNacimiento" class="form-label"
-            >Fecha de Nacimiento</label
-          >
-          <input type="date" class="form-control" id="fechaNacimiento"  name="fecha_nacimiento" [(ngModel)]="persona.fecha_nacimiento" />
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email"   name="email" [(ngModel)]="persona.email"/>
-        </div>
-        <div class="mb-3">
-          <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion"  name="direccion" [(ngModel)]="persona.direccion" />
-        </div>
-        <div class="mb-3">
-          <label for="sexo" class="form-label">Sexo</label>
-          <select class="form-select" id="sexo" name="sexo" [(ngModel)]="persona.sexo">
-            <option selected>Selecciona...</option>
-            <option value="femenino">Femenino</option>
-            <option value="masculino">Masculino</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="etnia" class="form-label">Etnia</label>
-          <select class="form-select" id="etnia"  name="etnia" [(ngModel)]="persona.etnia" >
-            <option selected>Selecciona...</option>
-            <option value="mestizo">Mestizo</option>
-            <option value="indigena">Indígena</option>
-            <option value="blanco">Blanco</option>
-            <option value="afroecuatoriano">Afroecuatoriano</option>
-            <option value="otros">Otros</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="inputSexo">Nivel de instruccion</label>
-          <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
-            <option selected>Seleccione una opción...</option>
-            <option>Primaria</option>
-            <option>Secundaria</option>
-            <option>Bachiller</option>
-            <option>Tercer nivel</option>
-            <option>Cuarto Nivel</option>
-          </select>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="telefonoConvencional" class="form-label"
-                >Nro. de Teléfono Convencional</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="telefonoConvencional"
-                name="telefono" [(ngModel)]="persona.telefono"
-              />
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="telefonoCelular" class="form-label"
-                >Nro. de Teléfono Celular</label
-              >
-              <input type="text" class="form-control" id="telefonoCelular" name="celular" [(ngModel)]="persona.celular" />
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="usuario" class="form-label">Usuario</label>
-          <input type="text" class="form-control" id="usuario"  name="username" [(ngModel)]="usuario.username" />
-        </div>
-        <div class="mb-3">
-          <label for="contrasena" class="form-label">Contraseña</label>
-          <input type="password" class="form-control" id="contrasena"  name="password" [(ngModel)]="usuario.password" />
-        </div>
-        <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
       </form>
-    </div>
-  </body>
+      <div class="mb-3">
+        <label for="usuario" class="form-label">Usuario</label>
+        <input type="text" class="form-control" id="usuario" name="username" [(ngModel)]="usuario.username" />
+      </div>
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="contrasena" name="password" [(ngModel)]="usuario.password" />
+      </div>
+      <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </div>
+</body>
+
 </html>

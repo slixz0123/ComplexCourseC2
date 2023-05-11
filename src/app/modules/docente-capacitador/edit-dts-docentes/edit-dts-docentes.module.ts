@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { EditDtsDocentesRoutingModule } from './edit-dts-docentes-routing.module';
 import { EditDtsDocentesComponent } from './pages/edit-dts-docentes/edit-dts-docentes.component';
 
@@ -11,7 +13,10 @@ import { EditDtsDocentesComponent } from './pages/edit-dts-docentes/edit-dts-doc
   ],
   imports: [
     CommonModule,
-    EditDtsDocentesRoutingModule
+    EditDtsDocentesRoutingModule,
+    SharedModule,
+    FormsModule,
+    HttpClientModule,
   ],
   exports:[
     EditDtsDocentesComponent
