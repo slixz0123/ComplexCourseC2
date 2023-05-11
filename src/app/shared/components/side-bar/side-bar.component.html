@@ -280,15 +280,6 @@
             </a>
           </li>
           <li>
-            <a (click)="goTo_edit_list_desing($event)">
-              <i class="bi bi-circle"></i><span>Editar Diseño Curricular</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_edit_list_desing($event)">
-              <i class="bi bi-circle"></i><span>Listar Diseño Curricular</span>
-            </a>
-          </li>
         </ul>
       </li><!-- termino Diseñso Curricular Nav -->
 
@@ -330,42 +321,40 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#areas-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Areas</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#esp-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Áreas y Especialidades</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="areas-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="esp-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a (click)=" goToregisterarea($event)">
-              <i class="bi bi-circle"></i><span>Registrar Area</span>
+              <i class="bi bi-circle"></i><span>Registrar Área</span>
             </a>
           </li>
           <li>
-            <a (click)="goToreditarea($event)">
-              <i class="bi bi-circle"></i><span>Listar/Editar Area</span>
+            <a (click)=" goToregisespecialidad($event)">
+              <i class="bi bi-circle"></i><span>Registrar Especialidad</span>
             </a>
           </li>
+          
          
         </ul>
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#esp-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Especialidad</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-gem"></i><span>Entorno de Aprendizaje</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="esp-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a (click)=" goToregisespecialidad($event)">
-              <i class="bi bi-circle"></i><span>Registrar especialidad</span>
+            <a (click)=" goToregisentorno($event)">
+              <i class="bi bi-circle"></i><span>Registrar Entorno de Aprendizaje</span>
             </a>
           </li>
-          <li>
-            <a (click)="goTo_edit_list_especialidad($event)">
-              <i class="bi bi-circle"></i><span>Listar/Editar Especialidad</span>
-            </a>
-          </li>
+          
          
         </ul>
       </li><!-- End Charts Nav -->
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#days-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gem"></i><span>Dias</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -379,6 +368,25 @@
           <li>
             <a (click)="goTo_edit_list_days($event)">
               <i class="bi bi-circle"></i><span>Listar/Editar dias</span>
+            </a>
+          </li>
+         
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#mecanismo-eva-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Mecanismos de evaluación</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="mecanismo-eva-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)=" goToregistermecanismos($event)">
+              <i class="bi bi-circle"></i><span>Registrar Mecanismos</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToeditDetalleME($event)">
+              <i class="bi bi-circle"></i><span>Detalle del Mecanismo</span>
             </a>
           </li>
          
@@ -423,24 +431,7 @@
         </a>
       </li><!-- End Login Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#mecanismo-eva-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Mecanismos de evaluación</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="mecanismo-eva-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)=" goToregistermecanismos($event)">
-              <i class="bi bi-circle"></i><span>Registrar Mecanismos</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goToeditDetalleME($event)">
-              <i class="bi bi-circle"></i><span>Detalle del Mecanismo</span>
-            </a>
-          </li>
-         
-        </ul>
-      </li><!-- End Charts Nav -->
+      
 
       
 

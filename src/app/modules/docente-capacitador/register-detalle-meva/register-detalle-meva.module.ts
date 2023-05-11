@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterDetalleMEvaRoutingModule } from './register-detalle-meva-routing.module';
 import { RegisterDetalleMevaComponent } from './pages/register-detalle-meva/register-detalle-meva.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RegisterDetalleMEvaRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class RegisterDetalleMEvaModule { }

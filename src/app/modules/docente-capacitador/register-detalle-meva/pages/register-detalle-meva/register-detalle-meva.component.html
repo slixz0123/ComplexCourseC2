@@ -1,66 +1,64 @@
 <div class="container">
-    <div class="mt-4">
-      <h3>{{ isNew ? 'Nuevo Detalle' : 'Editar Detalle' }}</h3>
-      <form #detalleForm="ngForm" (ngSubmit)="submitForm()">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="mecanismo">Mecanismos de evaluación:</label>
-              <select class="form-control" id="mecanismo" [(ngModel)]="detalleSelecionado.mecanismo.mevId" name="mecanismo" (change)="mostrarDatosSeleccionados()">
-                <option *ngFor="let mecanismo of mecanismos" [value]="mecanismo.mevId" [selected]="mecanismo.mevId === detalleSelecionado.mecanismo.mevId">{{ mecanismo.mevDescripcion }}</option>
-              </select>
-            </div>
-            
-            
-            <div class="form-group">
-              <label for="dmeTecnica">Técnica</label>
-              <input type="text" class="form-control" id="dmeTecnica" name="dmeTecnica" [(ngModel)]="detalleSelecionado.dmeTecnica" required>
-            </div>
-            <div class="form-group">
-              <label for="dmeInstrumento">Instrumento</label>
-              <input type="text" class="form-control" id="dmeInstrumento" name="dmeInstrumento" [(ngModel)]="detalleSelecionado.dmeInstrumento" required>
-            </div>
+  <div class="mt-4">
+    <h3>{{ isNew ? 'Nuevo Detalle' : 'Editar Detalle' }}</h3>
+    <form #detalleForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="mecanismo">Mecanismos de evaluación:</label>
+            <select class="form-control" id="mecanismo" [(ngModel)]="detalleSeleccionado.mecanismoEvaluacion.mevId" name="mecanismo" (change)="mostrarDatosSeleccionados()">
+              <option *ngFor="let mecanismo of mecanismos" [value]="mecanismo.mevId" [selected]="mecanismo.mevId === detalleSeleccionado.mecanismoEvaluacion.mevId">{{ mecanismo.mevDescripcion }}</option>
+            </select>
+          </div>
+          
+          
+          <div class="form-group">
+            <label for="dmeTecnica">Técnica</label>
+            <input type="text" class="form-control" id="dmeTecnica" name="dmeTecnica" [(ngModel)]="detalleSeleccionado.dmeTecnica" required>
+          </div>
+          <div class="form-group">
+            <label for="dmeInstrumento">Instrumento</label>
+            <input type="text" class="form-control" id="dmeInstrumento" name="dmeInstrumento" [(ngModel)]="detalleSeleccionado.dmeInstrumento" required>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
-      </form>
-    </div>
-  
-  <br>
-  <br>
-  <div class="form-group">
-    <label for="buscar">Buscar:</label>
-    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+    </form>
   </div>
-  
-    <br>
-    <h2>Detalles </h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Técnica</th>
-          <th>Instrumento</th>
-          <th>Mecanismo de evaluación</th>
-          <th>Acciones</th>
+
+<br>
+<br>
+<div class="form-group">
+  <label for="buscar">Buscar:</label>
+  <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+</div>
+
+  <br>
+  <h2>Detalles </h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Técnica</th>
+        <th>Instrumento</th>
+        <th>Mecanismo de evaluación</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let detalle of detalles">
+        <tr *ngIf="detalle.dmeTecnica.toLowerCase().includes(filtro.toLowerCase()) || 
+                   detalle.dmeInstrumento.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ detalle.dmeTecnica }}</td>
+          <td>{{ detalle.dmeInstrumento }}</td>
+          <td>{{ detalle.mecanismoEvaluacion ? detalle.mecanismoEvaluacion.mevDescripcion : '' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarDetalle(detalle)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarDetalle(detalle.dmeId)">Eliminar</button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let detalle of detalles">
-          <tr *ngIf="detalle.dmeTecnica.toLowerCase().includes(filtro.toLowerCase()) || 
-                     detalle.dmeInstrumento.toLowerCase().includes(filtro.toLowerCase())">
-            <td>{{ detalle.dmeTecnica }}</td>
-            <td>{{ detalle.dmeInstrumento }}</td>
-            <td>{{ detalle?.mecanismo?.mevDescripcion }}</td>
-            <td>
-              <button class="btn btn-primary" (click)="editarDetalle(detalle)">Editar</button>
-              <button class="btn btn-danger" (click)="eliminarDetalle(detalle.dmeId)">Eliminar</button>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-      
-          
-            </table>
-  </div>          
-          
-  
+      </ng-container>
+    </tbody>
+    
+        
+          </table>
+</div>       

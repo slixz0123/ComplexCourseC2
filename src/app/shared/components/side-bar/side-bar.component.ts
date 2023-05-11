@@ -50,12 +50,6 @@ export class SideBarComponent {
     this.router.navigate(['/Capacitador/register-diseno-curricular'])
     console.log($event)
    }
-   
-   goTo_edit_list_desing($event: any) :void{
-
-    this.router.navigate(['/Capacitador/edit-list-diseno-curricular'])
-    console.log($event)
-   }
     //////////////////////////////////////////////////////
       goToRegisternotas($event: any) :void{
 
@@ -114,27 +108,12 @@ export class SideBarComponent {
   console.log($event)
  }
 
-  //////////////////////////////////////////////////////
-  goToreditarea($event: any) :void{
-
-    this.router.navigate(['Capacitador/edit-area'])
-    console.log($event)
-   }
-
     //////////////////////////////////////////////////////
     goToregisespecialidad($event: any) :void{
 
     this.router.navigate(['Capacitador/register-esp'])
     console.log($event)
-   }
-
-      //////////////////////////////////////////////////////
-      goTo_edit_list_especialidad($event: any) :void{
-
-        this.router.navigate(['Capacitador/edit-esp'])
-        console.log($event)
-       }
-    
+   } 
 
 
          //////////////////////////////////////////////////////
@@ -162,6 +141,12 @@ export class SideBarComponent {
     goToeditDetalleME($event: any) :void{
   
       this.router.navigate(['Capacitador/register-detalle-meva'])
+      console.log($event)
+     }
+//////////////////////////////////////////////////////////////////
+     goToregisentorno($event: any) :void{
+
+      this.router.navigate(['Capacitador/register-entorno-aprendizaje'])
       console.log($event)
      }
       

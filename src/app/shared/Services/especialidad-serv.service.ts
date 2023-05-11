@@ -10,7 +10,6 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
 export class EspecialidadServService {
 
    private URL = "http://localhost:8080/api/Especialidad";
-   private URLAR = "http://localhost:8080/api/Area";
 
 
    constructor(private http: HttpClient) { }
@@ -56,9 +55,6 @@ export class EspecialidadServService {
     return this.http.get<Especialidad[]>(`${this.URL}/listarfalse`);
   }
 
-  getAreasTrue(): Observable<Area[]> {
-    return this.http.get<Area[]>(`${this.URLAR}/listartrue`);
-  }
 }
 
 

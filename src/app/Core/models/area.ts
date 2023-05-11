@@ -1,6 +1,4 @@
 import { Especialidad } from "./especialidad";
-import { Persona } from "./persona";
-import { Rol } from "./rol";
 
 export class Area {
 

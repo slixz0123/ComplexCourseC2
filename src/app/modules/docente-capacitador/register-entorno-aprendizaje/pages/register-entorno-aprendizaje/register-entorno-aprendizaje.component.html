@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="mt-4">
+      <h3>{{ isNew ? 'Nueva Especialidad' : 'Editar Especialidad' }}</h3>
+      <form #entornoForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="diseno">Diseño Curricular</label>
+              <select class="form-control" id="diseno" [(ngModel)]="entornoSeleccionado.eapDiseno.dcuId" name="diseno" (change)="mostrarDatosSeleccionados()">
+                <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === entornoSeleccionado.eapDiseno.dcuId">{{ diseno.dcuTemastransversales }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="eapInstalaciones">Instalaciones</label>
+              <input type="text" class="form-control" id="eapInstalaciones" name="eapInstalaciones" [(ngModel)]="entornoSeleccionado.eapInstalaciones" required>
+            </div>
+            <div class="form-group">
+              <label for="eapRecursos">Recursos</label>
+              <input type="text" class="form-control" id="eapRecursos" name="eapRecursos" [(ngModel)]="entornoSeleccionado.eapRecursos" required>
+            </div>
+          
+          <div class="form-group">
+            <label for="eapFaseteorica">Fase Teórica</label>
+            <input type="text" class="form-control" id="eapFaseteorica" name="eapFaseteorica" [(ngModel)]="entornoSeleccionado.eapFaseteorica" required>
+          </div>
+          <div class="form-group">
+            <label for="eapFasepractica">Fase Práctica</label>
+            <input type="text" class="form-control" id="eapFasepractica" name="eapFasepractica" [(ngModel)]="entornoSeleccionado.eapFasepractica" required>
+          </div>
+        </div>
+    </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+  
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+  
+    <br>
+    <h2>Entornos de Aprendizaje</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Instalaciones</th>
+          <th>Recursos</th>
+          <th>Fase Teórica</th>
+          <th>Fase Práctica</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let entorno of entornos">
+          <tr *ngIf="entorno.eapInstalaciones.toLowerCase().includes(filtro.toLowerCase()) || 
+                     entorno.eapRecursos.toLowerCase().includes(filtro.toLowerCase()) || 
+                     entorno.eapFaseteorica.toLowerCase().includes(filtro.toLowerCase()) || 
+                     entorno.eapFasepractica.toLowerCase().includes(filtro.toLowerCase())">
+            <td>{{ entorno.eapInstalaciones }}</td>
+            <td>{{ entorno.eapRecursos }}</td>
+            <td>{{ entorno.eapFaseteorica }}</td>
+            <td>{{ entorno.eapFasepractica }}</td>
+            <td>{{ entorno?.eapDiseno?.dcuTemastransversales }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editarEntorno(entorno)">Editar</button>
+              <button class="btn btn-danger" (click)="eliminarEntorno(entorno.eapId)">Eliminar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      
+          
+            </table>
+  </div>          
+          
+  
