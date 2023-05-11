@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Curso } from 'src/app/Core/models/Curso';
+import { Curso } from 'src/app/Core/models/curso';
 import { FichaInscripcion } from 'src/app/Core/models/FichaInscripcion';
 import { HorarioCurso } from 'src/app/Core/models/HorarioCurso';
 import { Persona } from 'src/app/Core/models/persona';

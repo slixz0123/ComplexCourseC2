@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Curso } from 'src/app/Core/models/Curso';
 import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { Curso } from 'src/app/Core/models/curso';
 import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
 import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapacitacion-serv.service';
 

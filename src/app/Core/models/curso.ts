@@ -39,8 +39,8 @@ export class Curso {
     curEstado?: boolean;
     programaCapacitacion?:ProgramaCapacitacion;
 
-    tipocurso: TiposCurso = new TiposCurso; //id_persona herencia
-    modalidadcurso: Modalidadcurso = new Modalidadcurso; //id_persona herencia
+    tcursos: TiposCurso = new TiposCurso; //id_persona herencia
+    mcursos: Modalidadcurso = new Modalidadcurso; //id_persona herencia
 
    
    

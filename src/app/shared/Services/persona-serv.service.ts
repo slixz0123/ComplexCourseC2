@@ -38,10 +38,6 @@ export class PersonaServService {
 
     }
 
-
-    public buscarPorCedula(cedula: string): Observable<Persona> {
-      return this.http.get<Persona>(this.URLced + cedula);
-    }
     createUser(usuario: Usuario): Observable<Usuario> {
       return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
   }
@@ -58,7 +54,7 @@ export class PersonaServService {
     }
   
     getPorId(idPersona: number) {
-      return this.http.get<Persona>(this.URLBuscar + idPersona);
+      return this.http.get<Persona>(`${this.URL}`+ idPersona);
     }
   
    
