@@ -1,4 +1,4 @@
-import { Horario } from "./Horario";
+import { Horario } from "./horario";
 import { Curso } from "./curso";
 
 export class HorarioCurso{
