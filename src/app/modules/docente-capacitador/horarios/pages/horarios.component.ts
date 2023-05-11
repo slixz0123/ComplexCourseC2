@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Horario } from 'src/app/Core/models/horario';
+import { Horario } from 'src/app/Core/models/Horario';
 import { horarioService } from 'src/app/shared/Services/horario-serv.service';
 
 @Component({

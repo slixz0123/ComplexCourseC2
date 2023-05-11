@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Horario } from "src/app/Core/models/horario";
+import { Horario } from "src/app/Core/models/Horario";
 
 @Injectable({
     providedIn: 'root'

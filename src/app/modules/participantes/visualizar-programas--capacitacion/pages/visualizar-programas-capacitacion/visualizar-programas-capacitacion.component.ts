@@ -22,7 +22,7 @@ export class VisualizarProgramasCapacitacionComponent {
   ) { }
 
   ngOnInit(): void {
-    // this.id_persona = localStorage.getItem('id_persona');
+  // this.id_persona = localStorage.getItem('id_persona');
     this.getAllProgramasc();
 
   }
