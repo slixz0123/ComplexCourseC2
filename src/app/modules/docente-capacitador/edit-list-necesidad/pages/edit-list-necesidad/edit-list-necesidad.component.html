@@ -23,7 +23,7 @@
       
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Editar Dia</h5>
@@ -52,8 +52,8 @@
                 
                         <label  class="form-label">Fecha prevista de Iniciación</label>
                         <input type="date" formControlName="ncuFechaprevisfin" [(ngModel)]="neceseleccionada.ncuFechaprevisfin" class="form-control" />
-                
-                     
+
+                        
                           
                             <label  class="form-label">Participantes a ser inscritos</label>
                         <input type="text"  name="ncuNumparticipantes" class="form-control"  [(ngModel)]="neceseleccionada.ncuNumparticipantes" formControlName="ncuNumparticipantes" />
@@ -84,9 +84,7 @@
                           </div>
                         </div>
                 
-                        <div class="mb-3">
-                          <button  type="submit" class="btn btn-primary">Enviar</button>
-                        </div>
+                        
                       </form>
         
             </div>
@@ -121,9 +119,9 @@
               </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let nece of necesidadcurs ">
+                <tr *ngFor="let nece of necesidadcurs"  >
                     <td>{{ nece.ncuId}} </td>
-                    <td>{{ nece.ncuFechaprevisfin}} </td>
+                    <td>{{ nece.ncuFechaprevisfin | date:' dd-MM-yyyy'}} </td>
                     <td>{{ nece.ncuLugardicta}} </td>
                     <td>{{ nece.ncuNumparticipantes}} </td>
                     <td>{{ nece.dia.diaNombre}} </td>

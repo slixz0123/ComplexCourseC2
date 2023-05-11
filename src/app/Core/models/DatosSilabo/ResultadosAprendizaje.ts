@@ -20,10 +20,11 @@ import { Datossilabo } from "./datossilabo";
 
 export class ResultadosAprendizaje { 
     rapId: number =0;
-    rapUnidadcompe?: String;
-    rapResultadosaprenactiv?: String;
-    rapFormaevidenciar?: String;
+    rapUnidadcompe: String ="";
+    rapResultadosaprenactiv: String="";
+    rapFormaevidenciar: String="";
+    rapElementoscomp:String="";
     rapEstado?: boolean;
 
-    ccuSilabo: Datossilabo = new Datossilabo;
+    rapSilabo: Datossilabo = new Datossilabo;
   }

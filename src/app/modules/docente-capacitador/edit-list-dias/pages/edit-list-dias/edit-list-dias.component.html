@@ -30,7 +30,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form   *ngIf="diaSeleccionada" novalidate>
+                <form   [formGroup]="editdiasForm" *ngIf="diaSeleccionada" novalidate>
                 <label for="diaNombre" class="form-label">Dias  a desarrollar curso</label>
                 <input type="text" id="diaNombre"  formControlName="diaNombre" name="diaNombre" class="form-control"  [(ngModel)]="diaSeleccionada.diaNombre" />
             
@@ -47,7 +47,7 @@
 
     <div  style="" class="container mt-2">
         
-       <h1 style="margin-top: 15px; " class="text-center mb-5">LISTADO de la  Dias para la creacion del curso</h1>
+       <h1 style="margin-top: 15px; " class="text-center mb-5">Listado de los  Dias para la creacion del curso</h1>
       
        <div class="table-responsive">
         <table class="table">
@@ -74,7 +74,7 @@
                        
                       </td>
                       <td>
-                        <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" (click)="eliminar(di.diaId)"   data-target="#Employee">Eliminar</button>
+                        <button id="btnnes" style="padding-left: 25px;padding-right: 25px; background-color: red;" type="button" class="btn btn-primary" (click)="eliminar(di.diaId)"   data-target="#Employee">Eliminar</button>
 
                       </td>
                   </tr>

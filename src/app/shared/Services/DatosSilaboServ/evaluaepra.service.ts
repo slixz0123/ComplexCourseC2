@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
 
 @Injectable({
@@ -9,12 +10,16 @@ export class EvaluaepraService {
   private URL = "http://localhost:8080/api/EvaluacionEpra/buscar/";
   private URL1 = "http://localhost:8080/api/EvaluacionEpra/";
   private URL2 = "http://localhost:8080/api/EvaluacionEpra/crear";
+  private URL3 = "http://localhost:8080/api/EvaluacionEpra/crear3";
  
   private items: EvaluacionEpra[] = [];
   constructor(private http: HttpClient) { }
 
 
 // utilizados 
+public postMany(data: any[]): Observable<any> {
+  return this.http.post<any>(this.URL3, data);
+}
 post(EvaluacionEpra: EvaluacionEpra) {
   return this.http.post<EvaluacionEpra>(this.URL2 + '?', EvaluacionEpra);
 }

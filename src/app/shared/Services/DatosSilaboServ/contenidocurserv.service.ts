@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
 
 @Injectable({
@@ -10,12 +11,16 @@ export class ContenidocurservService {
   private URL = "http://localhost:8080/api/iContenidoCurso/buscar/";
   private URL1 = "http://localhost:8080/api/iContenidoCurso/";
   private URL2 = "http://localhost:8080/api/iContenidoCurso/crear";
+  private URL3 = "http://localhost:8080/api/iContenidoCurso/crear3";
  
 
   constructor(private http: HttpClient) { }
 
 
 // utilizados 
+public postMany(data: any[]): Observable<any> {
+  return this.http.post<any>(this.URL3, data);
+}
 post(ContenidosCurso: ContenidosCurso) {
   return this.http.post<ContenidosCurso>(this.URL2 + '?', ContenidosCurso);
 }
