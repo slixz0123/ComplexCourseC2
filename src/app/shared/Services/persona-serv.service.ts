@@ -54,7 +54,7 @@ export class PersonaServService {
     }
   
     getPorId(idPersona: number) {
-      return this.http.get<Persona>(`${this.URL}/buscar` + idPersona);
+      return this.http.get<Persona>(`${this.URL}/buscar/` + idPersona);
     }
   
    
