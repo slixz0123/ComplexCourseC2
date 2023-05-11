@@ -12,6 +12,7 @@ export class RolServService {
   private URL = "http://localhost:8080/api/rol/buscar/";
   private URL1 = "http://localhost:8080/api/rol/";
   private URL2 = "http://localhost:8080/api/rol/crear";
+  private URL3= "http://localhost:8080/api/rol/buscarNombre/{nombre}";
  
 
   constructor(private http: HttpClient) { }
@@ -23,6 +24,10 @@ export class RolServService {
 
   getByRolNombre(rolNombre: string): Observable<Rol> {
     return this.http.get<Rol>(`${this.URL2}/buscar?nombre=${rolNombre}`);
+  }
+
+  buscarNombre(rol:String): Observable<Rol>{
+    return this.http.get<Rol>(this.URL3 + rol);
   }
 
 // utilizados 

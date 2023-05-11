@@ -24,7 +24,28 @@ const routes: Routes = [
     path: 'edit-list-necesidad',
     loadChildren: () => import("./edit-list-necesidad/edit-list-necesidad.module").then(m => m.EditListNecesidadModule)
   },
-  //silabo
+  //horario
+  {
+    path:'horarios',
+    loadChildren:()=> import("./horarios/horarios.module").then(m=>m.HorariosModule)
+  },
+  
+  //horario-Cursos
+  {
+    path:'horario-cursos',
+    loadChildren:() => import("./horarios-curso/horarios-curso.module").then(m=>m.HorariosCursoModule)
+  },
+//tipocursos
+{
+  path:'tipo-cursos',
+  loadChildren:()=> import("./tipo-curso/tipo-curso.module").then(m=>m.TipoCursoModule)
+},
+//modalidad-curso
+{
+  path:'modalidad',
+  loadChildren:()=> import("./modalidad-curso/modalidad-curso.module").then(m=> m.ModalidadCursoModule)
+},
+//silabo
   {
     path: 'register-silabo',
     loadChildren: () => import("./register-silabo/register-silabo.module").then(m => m.RegisterSilaboModule)
@@ -111,7 +132,11 @@ const routes: Routes = [
     path: 'register-detalle-meva',
     loadChildren: () => import("./register-detalle-meva/register-detalle-meva.module").then(m => m.RegisterDetalleMEvaModule)
   },
-
+  ///aceptar cursos
+  {
+    path: 'aceptar',
+    loadChildren:()=> import("./aceptar-curso/aceptar-curso.module").then(m => m.AceptarCursoModule)
+  },
  
 ];
 

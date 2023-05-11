@@ -8,6 +8,7 @@ import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { Persona } from 'src/app/Core/models/persona';
 import { tap, map } from 'rxjs/operators';
+import { RolServService } from './rol-serv.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class UsuarioServService {
   private rolesApiUrl = 'http://localhost:8080/api/rol/buscar';
   
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private rol:RolServService) {}
 
 //Listar usuarios por rol---------------------------------------------------------
 listarUsuarios(): Observable<Usuario[]> {
@@ -62,6 +63,19 @@ private getPersona(id: number): Observable<Persona> {
 private getRol(id: number): Observable<Rol> {
   return this.http.get<Rol>(`${this.rolesApiUrl}/${id}`);
 }
+
+signup(usuario: Usuario): Observable<Usuario> {
+  return this.http.post<Usuario>(`${this.URLcre}/signup`, usuario);
+}
+
+crearUsuario(usuario: Usuario): Observable<Usuario> {
+  // return this.http.post<Usuario>(this.URL + '/signup', Usuario);
+  return this.rol.buscarNombre("Participante").pipe(
+    switchMap((rol: Rol) => {
+      return this.http.post<Usuario>(this.URLcre, usuario);
+    })
+  );
+}
 //---------------------------------------------------------------------------------
 
   //utilizados
@@ -73,12 +87,10 @@ private getRol(id: number): Observable<Rol> {
   }
 
   postUsuario(usuario: Usuario) {
-    return this.http.post<Usuario>(this.URLcre + '', usuario);
+    return this.http.post<Usuario>(this.URLcre +'', usuario);
   }
 
-  signup(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.URLcre}/signup`, usuario);
-  }
+  
 
   //sin utilizar
 

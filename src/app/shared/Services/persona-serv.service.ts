@@ -39,6 +39,10 @@ export class PersonaServService {
       createUser(usuario: Usuario): Observable<Usuario> {
         return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
       }
+
+      listarPersonas(){
+        return this.http.get<Persona[]>(this.URL+'listar');
+      }
 // sin utilizar
 
     getPersonas() {
