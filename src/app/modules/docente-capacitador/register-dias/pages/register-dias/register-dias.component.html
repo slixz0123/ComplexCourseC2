@@ -16,19 +16,19 @@
       </head>
       <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
         <div  style="" class="container mt-2">
-          <h1 style="margin-top: 15px; " class="text-center mb-5">Registro de la  Dias para la creacion del curso</h1>
+          <h1 style="margin-top: 15px; " class="text-center mb-5" >Registro de la  Dias para la creacion del curso</h1>
           <form id="contenedorform" formControlName="diasForm" [formGroup]="diasForm" (ngSubmit)="registradia()" >
-            <h2 class="">Registro de la  Dias para la creacion del curso</h2>
+            <h2 class="">Dias para la creacion del curso</h2>
             <div class="">
               <div class="">
-                <label for="diaNombre" class="form-label">Dias  a dessarrollar curso</label>
+                <label for="diaNombre" class="form-label">Dias  a desarrollar curso</label>
                 <input type="text" id="area" formControlName="diaNombre" name="diaNombre" class="form-control" [(ngModel)]="dias.diaNombre" />
        
             </div>
             </div>
     
             <div class="mb-3">
-              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="submit" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px;">Enviar</button>
             </div>
           </form>
         </div>

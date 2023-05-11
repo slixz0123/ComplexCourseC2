@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import { Router } from '@angular/router';
+import {ProgramaCapacitacion} from 'src/app/Core/models/programa-capacitacion'
+import {ProgramaCapacitacionService} from 'src/app/shared/Services/programa-capacitacion.service'
 
 @Component({
   selector: 'app-bienvenida-home',
   templateUrl: './bienvenida-home.component.html',
   styleUrls: ['./bienvenida-home.component.css']
 })
-export class BienvenidaHomeComponent {
+export class BienvenidaHomeComponent implements OnInit{
+  programas: ProgramaCapacitacion[] = [];
     // <!-- Vendor JS Files -->
   // <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   // <script src="assets/vendor/aos/aos.js"></script>
@@ -23,14 +26,22 @@ export class BienvenidaHomeComponent {
   //   <script src="js/bootstrap.js"></script>
   
   constructor(
-    private _CargarSc: CargarjsHomeService, private router : Router)
+    private _CargarSc: CargarjsHomeService, private router : Router, private programaCapacitacionService: ProgramaCapacitacionService)
   {
       
       _CargarSc.carga_boost(["bootstrap"])
     
   }
 
+  ngOnInit(): void {
+    this.getProgramasCapacitacion();
+  }
 
+  getProgramasCapacitacion(): void {
+    this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => {
+      this.programas = programas;
+    });
+  }
 //////////////////////////////////////////////////////
 goToRegister($event: any) :void{
 

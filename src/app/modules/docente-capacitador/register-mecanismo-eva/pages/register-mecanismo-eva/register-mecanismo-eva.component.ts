@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { MecanismoEvaluacionServService } from 'src/app/shared/Services/mecanismo-evaluacion-serv.service';
 import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoevaluacion';
+import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
+import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
 
 
 @Component({
@@ -12,27 +14,35 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoevaluacion';
 export class RegisterMecanismoEvaComponent {
   mecanismos: MecanismoEvaluacion[] = [];
   mecanismoSeleccionado: MecanismoEvaluacion = new MecanismoEvaluacion();
+  disenos: DisenoCurricular[] = [];
   editando: boolean = false;
   isNew: boolean = true; // Definición de la propiedad isNew
   mecanismoForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private mecanismoEvaluacionServ: MecanismoEvaluacionServService) {}
+  constructor(private mecanismoEvaluacionServ: MecanismoEvaluacionServService, private disenoServ: DisenoCurricularServService) {}
 
   ngOnInit(): void {
     this.getMecanismos();
+    this.getDisenos();
   }
 
   getMecanismos(): void {
     this.mecanismoEvaluacionServ.getMecanismosTrue().subscribe((mecanismos) => (this.mecanismos = mecanismos));
   }
 
-  crearMecanismo(): void {
-    this.mecanismoEvaluacionServ.saveMecanismo(this.mecanismoSeleccionado).subscribe(() => {
+  crearEspeciaidad(): void {
+    const data = {
+      mevId: this.mecanismoSeleccionado.mevId,
+      mevDescripcion: this.mecanismoSeleccionado.mevDescripcion,
+      mevEstado: this.mecanismoSeleccionado.mevEstado,
+      mevDiseno: this.mecanismoSeleccionado.mevDiseno
+    };
+  
+    this.mecanismoEvaluacionServ.saveMecanismo(data).subscribe(() => {
       this.getMecanismos();
       this.mecanismoSeleccionado = new MecanismoEvaluacion();
       console.log(this.mecanismoSeleccionado);
-      
     });
   }
 
@@ -64,19 +74,23 @@ export class RegisterMecanismoEvaComponent {
   }
 
   submitForm(): void {
-    this.submitted = true;
-    if (this.mecanismoForm && this.mecanismoForm.invalid) {
-      return;
-    }
     if (this.isNew) {
-      this.crearMecanismo();
+    this.mecanismoEvaluacionServ.saveMecanismo(this.mecanismoSeleccionado).subscribe(() => {
+    this.getMecanismos();
+    this.mecanismoSeleccionado = new MecanismoEvaluacion();
+    });
     } else {
-      this.guardarMecanismo();
-    }
-    this.mecanismoForm?.reset();
-    this.submitted = false;
+    this.mecanismoEvaluacionServ.updateMecanismo(this.mecanismoSeleccionado, this.mecanismoSeleccionado.mevId).subscribe(() => {
+    this.getMecanismos();
+    this.mecanismoSeleccionado = new MecanismoEvaluacion();
     this.isNew = true;
-  }
+    });
+    }
+    }
+
+    getDisenos(): void {
+      this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
+    }
 
   filtro = '';
 
@@ -84,5 +98,9 @@ export class RegisterMecanismoEvaComponent {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
 
+  mostrarDatosSeleccionados() {
+    const mecanismoSeleccionado = this.mecanismos.find(mecanismo => mecanismo.mevId === this.mecanismoSeleccionado.mevDiseno?.dcuId);
+    console.log(mecanismoSeleccionado);
+  }
 }
 

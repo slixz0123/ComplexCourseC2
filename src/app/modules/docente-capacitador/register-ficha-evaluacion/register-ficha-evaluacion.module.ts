@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { RegisterFichaEvaluacionRoutingModule } from './register-ficha-evaluacion-routing.module';
 import { RegisterFichaEvaluacionComponent } from './pages/register-ficha-evaluacion/register-ficha-evaluacion.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { RegisterFichaEvaluacionComponent } from './pages/register-ficha-evaluac
   ],
   imports: [
     CommonModule,
-    RegisterFichaEvaluacionRoutingModule
+    RegisterFichaEvaluacionRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
 
   ], exports:[
     RegisterFichaEvaluacionComponent

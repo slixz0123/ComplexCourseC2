@@ -1,5 +1,6 @@
 import { Persona } from "src/app/Core/models/persona";
 import { Cursos } from "./cursos";
+import { Asistencia } from "./asistencia";
 
 export class Participante{
     parId?: number;
@@ -11,4 +12,8 @@ export class Participante{
     parEstado?: boolean;
     parPersona?: Persona;
     curso?: Cursos;
+
+    
+    // asistencias!: Asistencia[];
+
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
 
 
@@ -10,12 +11,16 @@ export class EstrategiasmetservService {
   private URL = "http://localhost:8080/api/EstrategiaMetodologica/buscar/";
   private URL1 = "http://localhost:8080/api/EstrategiaMetodologica/";
   private URL2 = "http://localhost:8080/api/EstrategiaMetodologica/crear";
+  private URL3 = "http://localhost:8080/api/EstrategiaMetodologica/crear3";
  
 
   constructor(private http: HttpClient) { }
 
 
 // utilizados 
+public postMany(data: any[]): Observable<any> {
+  return this.http.post<any>(this.URL3, data);
+}
 post(EstrategiasMetodologicas: EstrategiasMetodologicas) {
   return this.http.post<EstrategiasMetodologicas>(this.URL2 + '?', EstrategiasMetodologicas);
 }

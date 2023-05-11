@@ -100,7 +100,8 @@ export class RegisterNecesidadComponent {
 
   getdias(){
         this.diaserv.getAll().subscribe(
-         clasedia =>this.arraydias = clasedia
+          clasedia =>this.arraydias = clasedia.filter(clasedia=>clasedia.diaEstado!==false)
+
         );}
 
 

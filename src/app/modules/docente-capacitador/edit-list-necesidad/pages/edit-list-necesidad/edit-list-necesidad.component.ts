@@ -57,6 +57,27 @@ export class EditListNecesidadComponent {
   constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoserviceService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder){
     _CargarSc.carga3(["modal"])
   }
+  sendData3(selectedValue2: number) {
+
+    const payload = { id: selectedValue2 };
+    this.diaserv.getPorId( payload).subscribe(
+      (response) => {
+        console.log('Solicitud POST enviada con éxito:', response);
+      },
+      (error) => {
+        console.log('Error al enviar la solicitud POST:', error);
+      }
+    );
+  }
+
+
+  getdias(){
+        this.diaserv.getAll().subscribe(
+         clasedia =>this.arraydias = clasedia.filter(clasedia=>clasedia.diaEstado!==false)
+
+   
+        );}
+
 
 
 
@@ -72,14 +93,18 @@ selecdia(dia: Dias,id:number) {
   )
 }
 
+
+
 neceseleccionada: NecesidadCurso = new NecesidadCurso;
 
 selecnece(nece: NecesidadCurso,id:number) {
   this.neceseleccionada = nece;
   this.necesidad.ncuId = nece.ncuId
+
   this.necesidadserv.getById(id).subscribe(
     data =>{
       console.log(data)
+      
     }
   )
 }
@@ -105,6 +130,7 @@ ngOnInit(): void {
     
   });
 
+  this.getdias()
 }
 
 
@@ -132,8 +158,11 @@ eliminar(ncuId: number){
  }
 
 
-   editadia(neceedit:NecesidadCurso,id_dia:number){
 
+
+
+   editadia(neceedit:NecesidadCurso,id_dia:number){
+  
     this.necesidadserv.getById(id_dia).subscribe(
       data =>{
         console.log(data ,"encontrado")

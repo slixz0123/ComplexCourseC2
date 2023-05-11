@@ -7,10 +7,9 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoevaluacion';
 @Injectable({
   providedIn: 'root'
 })
-export class DetalleMEServService {
+export class DetalleMevaServService {
 
    private URL = "http://localhost:8080/api/DetalleMe";
-   private URLME = "http://localhost:8080/api/mecanismoevaluacion";
 
 
    constructor(private http: HttpClient) { }
@@ -56,9 +55,6 @@ export class DetalleMEServService {
     return this.http.get<DetalleMe[]>(`${this.URL}/listarfalse`);
   }
 
-  getMecanismosTrue(): Observable<MecanismoEvaluacion[]> {
-    return this.http.get<MecanismoEvaluacion[]>(`${this.URLME}/listartrue`);
-  }
 }
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { window } from 'rxjs';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
@@ -6,6 +6,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-register-admins',
@@ -16,6 +17,10 @@ export class RegisterAdminsComponent {
   persona: Persona = new Persona(); // instancia de la clase persona
   usuario: Usuario = new Usuario(); // instancia de la clase usuario
   rol: Rol = new Rol(); // instancia de la clase rol
+  private successModal?: Modal;
+
+  @ViewChild('successModal', { static: false }) successModalRef!: ElementRef;
+
 
   // en el constructor instanciamos los servicios
   constructor(
@@ -25,6 +30,10 @@ export class RegisterAdminsComponent {
   ) {}
 
   ngOnInit() {}
+  
+  ngAfterViewInit() {
+    this.successModal = new Modal(this.successModalRef.nativeElement);
+  }
 
   resetForm() {
     this.persona = {
@@ -63,6 +72,8 @@ export class RegisterAdminsComponent {
           .postUsuario(this.usuario)
           .subscribe((response) => {
             console.log(response); // Imprime la respuesta de la API en la consola
+            // Muestra la ventana emergente de Bootstrap
+            this.successModal?.show();
             // Llama a la función resetForm() para vaciar los campos del formulario
             this.resetForm();
           });

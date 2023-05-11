@@ -1,96 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
-    
-
-</head>
-<body>
-   <app-header></app-header>
+  </head>
+  <body>
+    <app-header></app-header>
     <div class="bgimage">
-        <div class="menu">
-        </div>
-        <div class="text">
-            <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
-            <h4>CAPACITATE</h4>
-            <h1> TECNOLOGICO DEL AZUAY </h1>
-            <h3> Innovación de hoy para el éxito del mañana </h3>
-            <button  (click)="goTologin($event)" class="btn">Iniciar Sesión</button>
-            <button  (click)="goToRegister($event)" class="btn"> Registrate</button>
-        </div>
+      <div class="menu"></div>
+      <div class="text">
+        <img
+          id="imagenlogo"
+          src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
+          alt=""
+        />
+        <h4>CAPACITATE</h4>
+        <h1>TECNOLOGICO DEL AZUAY</h1>
+        <h3>Innovación de hoy para el éxito del mañana</h3>
+        <button (click)="goTologin($event)" class="btn">Iniciar Sesión</button>
+        <button (click)="goToRegister($event)" class="btn">Registrate</button>
+      </div>
     </div>
 
-    	<!--   Tarjetas-->
-
-<div class="title-cards">
-    <h2>Ofertas de Capacitacion</h2>
-</div>
-<div class="container-card">
-
-<div class="card">
-<figure>
-    <img src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png">
-</figure>
-<div class="contenido-card">
-    <h3>Desarrollo Movil</h3>
-    <p>Capacitacion introductoria a desarrollo movil en java, kotlin , objetive-c y swift, herramientas y Programacion orientada a objetos</p>
-    <a (click)="goTologin($event)">Ingresar</a>
-</div>
-</div>
-<div class="card">
-<figure>
-    <img src="https://i.ytimg.com/vi/gGJSyySfTMQ/maxresdefault.jpg">
-</figure>
-<div class="contenido-card">
-    <h3>Desarrollo Web</h3>
-    <p>Capacitacion con nivel intermedio-avanzado, conociminetos de la web, framework a trabajar angular , herramientas VS y conexion con ApiRest </p>
-    <a  (click)="goTologin($event)">Ingresar</a>
-</div>
-</div>
-<div class="card">
-<figure>
-    <img src="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/xJXLt6duTkq3LaY3WFq5">
-</figure>
-<div class="contenido-card">
-    <h3>Desarrollo ApiRest </h3>
-    <p>Creacion del backend desarrollado en java utilizando la herramienta de IntelliJ IDEA.</p>
-    <a  (click)="goTologin($event)">Ingresar</a>
-</div>
-</div>
-</div>
-<!--Fin   Tarjetas-->
-  <!--Parte de Quienes somos-->
-  <div class="about-me">
-    <div class="about-me-text">
-      <h2>TecAzuay Capacitando</h2>
-      <p>El Instituto Superior Universitario Tecnológico del Azuay se consolida como una institución de educación superior que sustenta sus procesos de enseñanza-aprendizaje en el ámbito técnico y tecnológico de grado y posgrado, con la más alta calidad académica y humana, sobre la base de fundamentos científicos; con el propósito de proveer soluciones a los problemas y necesidades de la sociedad desde la docencia, la investigación científica y la vinculación..</p>
+    <!--   Tarjetas-->
+    <div
+  class="container"
+  *ngFor="let programa of programas"
+  [attr.data-programa-id]="programa.pcaId"
+>
+  <nav class="navbar bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">Programa de Capacitacion {{ programa.pcaNombre }}</span>
     </div>
-    <img src="https://scontent.fcue1-1.fna.fbcdn.net/v/t39.30808-6/321500026_5802495706493873_2084185095659677616_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=L1Oiv6RhfQQAX-4RCWS&_nc_ht=scontent.fcue1-1.fna&oh=00_AfBknPZfJ_inzKmbgZSOKhBzkp91HOFS2npU16oFUXYmag&oe=644B6B65" alt="me">
-  </div>
-
-  <!--Parte de Mision-->
-  <div class="about-me">
-    <img src="https://scontent.fcue1-1.fna.fbcdn.net/v/t39.30808-6/342043495_769610987898701_1993429123696271834_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=a26aad&_nc_ohc=1Bv9UPmD1MEAX-Ki0dG&_nc_ht=scontent.fcue1-1.fna&oh=00_AfDvwpXPf77k-LbKpK4OmWDYfkkpfby5Tu9qgNjqxmKdvg&oe=644BCE47" alt="me">
-
-    <div class="about-me-text">
-      <h2>Mision </h2>
-      <p>Ser una institución de calidad, solidaria, inclusiva, intercultural y diversa, reconocida por su excelencia académica y sus aportes a la sociedad en el área de la investigación, innovación tecnológica y vinculación, a nivel nacional e internacional, promoviendo el desarrollo integral de la persona y el entorno, en busca de una sociedad justa y equitativa.</p>
+  </nav>
+  <div class="container-card">
+    <div class="card">
+      <figure>
+        <img src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png" />
+      </figure>
+      <div class="contenido-card">
+        <h3>{{ programa.pcaNombre }}</h3>
+        <p>
+          Capacitacion introductoria a desarrollo movil en java, kotlin,
+          objetive-c y swift, herramientas y Programacion orientada a
+          objetos
+        </p>
+        <a>Ingresar</a>
+      </div>
     </div>
   </div>
+</div>
 
-  <!--Parte de Vision-->
-  <div class="about-me">
-    <div class="about-me-text">
-      <h2>Vision</h2>
-      <p>Ser una institución de calidad, solidaria, inclusiva, intercultural y diversa, reconocida por su excelencia académica y sus aportes a la sociedad en el área de la investigación, innovación tecnológica y vinculación, a nivel nacional e internacional, promoviendo el desarrollo integral de la persona y el entorno, en busca de una sociedad justa y equitativa.</p>
+
+    <!--Fin   Tarjetas-->
+    <!--Parte de Quienes somos-->
+    <div class="about-me">
+      <div class="about-me-text">
+        <h2>TecAzuay Capacitando</h2>
+        <p>
+          El Instituto Superior Universitario Tecnológico del Azuay se consolida
+          como una institución de educación superior que sustenta sus procesos
+          de enseñanza-aprendizaje en el ámbito técnico y tecnológico de grado y
+          posgrado, con la más alta calidad académica y humana, sobre la base de
+          fundamentos científicos; con el propósito de proveer soluciones a los
+          problemas y necesidades de la sociedad desde la docencia, la
+          investigación científica y la vinculación..
+        </p>
+      </div>
+      <img
+        src="https://scontent.fcue1-1.fna.fbcdn.net/v/t39.30808-6/321500026_5802495706493873_2084185095659677616_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=730e14&_nc_ohc=L1Oiv6RhfQQAX-4RCWS&_nc_ht=scontent.fcue1-1.fna&oh=00_AfBknPZfJ_inzKmbgZSOKhBzkp91HOFS2npU16oFUXYmag&oe=644B6B65"
+        alt="me"
+      />
     </div>
-    <img src="https://dev2020.tecazuay.edu.ec/wp-content/uploads/2020/05/EBF_2802-1024x684.jpg" alt="me">
-  </div>
 
-<app-footer></app-footer>
-</body>
+    <!--Parte de Mision-->
+    <div class="about-me">
+      <img
+        src="https://scontent.fcue1-1.fna.fbcdn.net/v/t39.30808-6/342043495_769610987898701_1993429123696271834_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=a26aad&_nc_ohc=1Bv9UPmD1MEAX-Ki0dG&_nc_ht=scontent.fcue1-1.fna&oh=00_AfDvwpXPf77k-LbKpK4OmWDYfkkpfby5Tu9qgNjqxmKdvg&oe=644BCE47"
+        alt="me"
+      />
+
+      <div class="about-me-text">
+        <h2>Mision</h2>
+        <p>
+          Ser una institución de calidad, solidaria, inclusiva, intercultural y
+          diversa, reconocida por su excelencia académica y sus aportes a la
+          sociedad en el área de la investigación, innovación tecnológica y
+          vinculación, a nivel nacional e internacional, promoviendo el
+          desarrollo integral de la persona y el entorno, en busca de una
+          sociedad justa y equitativa.
+        </p>
+      </div>
+    </div>
+
+    <!--Parte de Vision-->
+    <div class="about-me">
+      <div class="about-me-text">
+        <h2>Vision</h2>
+        <p>
+          Ser una institución de calidad, solidaria, inclusiva, intercultural y
+          diversa, reconocida por su excelencia académica y sus aportes a la
+          sociedad en el área de la investigación, innovación tecnológica y
+          vinculación, a nivel nacional e internacional, promoviendo el
+          desarrollo integral de la persona y el entorno, en busca de una
+          sociedad justa y equitativa.
+        </p>
+      </div>
+      <img
+        src="https://dev2020.tecazuay.edu.ec/wp-content/uploads/2020/05/EBF_2802-1024x684.jpg"
+        alt="me"
+      />
+    </div>
+
+    <app-footer></app-footer>
+  </body>
 </html>

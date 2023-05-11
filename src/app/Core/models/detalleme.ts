@@ -7,6 +7,6 @@ export class DetalleMe {
     dmeInstrumento: string="";
     dmeEstado: boolean=true;
     
-    mecanismo: MecanismoEvaluacion = new MecanismoEvaluacion;
+    mecanismoEvaluacion: MecanismoEvaluacion = new MecanismoEvaluacion;
 
   }

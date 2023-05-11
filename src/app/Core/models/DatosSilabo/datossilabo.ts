@@ -17,11 +17,11 @@
 
 export class Datossilabo { 
     dsiId: number =0;
-    dsiPrerrequisitos?: String;
-    dsiDescripcioncurso?: String;
-    dsiObjetivogeneralc?: String;
-    dsiBibliografia?: String;
-    dsiEstado?: boolean;
+    dsiPrerrequisitos: String="";
+    dsiDescripcioncurso: String="";
+    dsiObjetivogeneralc: String="";
+    dsiBibliografia: String="";
+    dsiEstado: boolean=true;
 
     
   }

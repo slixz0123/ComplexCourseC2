@@ -37,7 +37,7 @@ export class NecesidadCurso {
    
     
     ncuId: number =0;
-    ncuFechaprevisfin?: Date;
+    ncuFechaprevisfin: Date = new Date();
     ncuNumparticipantes?: number;
     ncuResumenyproyecto?: string;
     ncuPoblaciondirigida?: string;

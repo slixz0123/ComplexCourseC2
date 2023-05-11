@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterAsistenciaRoutingModule } from './register-asistencia-routing.module';
 import { RegisterAsistenciaComponent } from './pages/register-asistencia/register-asistencia.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RegisterAsistenciaComponent } from './pages/register-asistencia/registe
   ],
   imports: [
     CommonModule,
-    RegisterAsistenciaRoutingModule
+    RegisterAsistenciaRoutingModule,
+    FormsModule
   ],
   exports:[
     RegisterAsistenciaComponent
