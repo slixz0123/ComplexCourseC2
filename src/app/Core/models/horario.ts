@@ -1,6 +1,6 @@
-export class Horario{
+export class horario{
     horId?: number;
     horInicio?: string;
     horFin?: string;
-    horEstado?: Boolean;
+    horEstado?: boolean;
 }
