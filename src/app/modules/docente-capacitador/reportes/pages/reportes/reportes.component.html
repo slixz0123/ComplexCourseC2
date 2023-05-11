@@ -1,148 +1,210 @@
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-<div class="container-fluid">
-    <input type="radio" class="btn-check" name="options-outlined" id="listaEstudiantes" autocomplete="off" checked>
-    
-        <label class="btn btn-outline-success" for="listaEstudiantes" (click)="selectedForm = 'culminados'">Reportes de
-            estudiantes</label>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://e7.pngegg.com/pngimages/575/29/png-clipart-computer-icons-instructor-led-training-course-education-toolbox-miscellaneous-blue.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
 
-    <input type="radio" class="btn-check" name="options-outlined" id="notas" autocomplete="off">
-    <label class="btn btn-outline-success" for="notas" (click)="selectedForm = 'reportesNotas'">Reportes de
-        notas</label>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-award-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
+                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                                </svg>
+                                <h4>Informe Final del Curso</h4>
+                                <p class="text-secondary mb-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <input type="radio" class="btn-check" name="options-outlined" id="desertores" autocomplete="off">
-    <label class="btn btn-outline-danger" for="desertores" (click)="selectedForm = 'reportesDesertores'">Reportes de
-        estudiantes desertores</label>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Registro</h4>
+                        <br>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Id del curso</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" id="inputCedula"
+                                        placeholder="Ingrese el nombre del programa" name="cedula">
+                                </div>
+                            </div>
+                          
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fechas de Elaboracion</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="date" class="form-control" id="inputApellido"
+                                        placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
+                                        [(ngModel)]="informeFinal.ifiFecha">
+                                </div>
+                            </div>
 
-    <div *ngIf="selectedForm === 'culminados'">
-        <label for="exampleDataList" class="form-label">Lista de estudiantes</label>
-        <!-- [(ngModel)]="cedula"  -->
-        <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
-                aria-label="Search" aria-describedby="search-addon" (input)="onSearchInputChange($event)"
-                [(ngModel)]="nombre" (keydown)="validarNombre()" />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
-        </div>
-        <div class="table-hover">
-            <table class="table" id="myTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">CEDULA</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">APELLIDO</th>
-                        <th scope="col">CORREO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">0106574589</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mark@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">0106574575</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>jacob@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">0106574475</th>
-                        <td>Larry</td>
-                        <td>Bird</td>
-                        <td>larry@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Observaciones</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" id="inputCedula"
+                                        placeholder="Ingrese las observaciones del curso" name="cedula" [(ngModel)]="informeFinal.ifiObservaciones">
+                                </div>
+                            </div>
 
-    <div *ngIf="selectedForm === 'reportesDesertores'">
-        <label for="exampleDataList" class="form-label">Reportes de estudiantes desertores</label>
-        <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
-                aria-label="Search" aria-describedby="search-addon" (input)="onSearchInputChange($event)" />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
-        </div>
-        
-        <div class="table-hover">
-            <table class="table" id="myTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">CEDULA</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">APELLIDO</th>
-                        <th scope="col">CORREO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">0106574589</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mark@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">0106574575</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>jacob@gmail.com</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">0106574475</th>
-                        <td>Larry</td>
-                        <td>Bird</td>
-                        <td>larry@gmail.com</td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <Span></Span> <button (click)="saveInformefinal()">Guardar Informe</button>
+                                    <Span></Span> <button (click)="AllInformesFinal()">Obtener Informes</button>
+
+                                    <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button   > -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-
-    <div *ngIf="selectedForm === 'reportesNotas'">
-        <label for="exampleDataList" class="form-label">Reportes de notas</label>
-        <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
-                aria-label="Search" aria-describedby="search-addon" (input)="onSearchInputChange($event)" />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
-        </div>
-        <div class="table-hover">
-            <table class="table" id="myTable">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Nota</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>7.5/10</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>8/10</td>
-                    </tr>
-                    <tr>
-                        <td scope="row">3</td>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>9/10</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    
 </div>
-<div>
-    <button type="button" class="btn btn-outline-success" (click)="ngAfterViewInit()">Excel</button>
-    <button type="button" class="btn btn-outline-danger">PDF</button>
+
+
+<br><br>
+<!-- Tablaaaaaa -->
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Observaciones</th>
+        <th scope="col">Fecha Emision</th>
+        <th scope="col">Estado</th>
+        <th scope="col">editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let informefinal of informefinalList">
+        <th >{{ informefinal.ifiId }}</th>
+        <td>{{ informefinal.ifiObservaciones }}</td>
+        <td>{{ informefinal.ifiFecha | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ informefinal.ifiEstado }}</td>
+        <td><button type="button" class="btn btn-primary" (click)="editarInformefinal(informefinal)">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <br><br><br>
+  <div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://e7.pngegg.com/pngimages/575/29/png-clipart-computer-icons-instructor-led-training-course-education-toolbox-miscellaneous-blue.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-award-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
+                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                                </svg>
+                                <h4>Informe de Asistencia del Curso</h4>
+                                <p class="text-secondary mb-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Registro</h4>
+                        <br>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Id del curso</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" id="inputCedula"
+                                        placeholder="Ingrese el nombre del programa" name="cedula">
+                                </div>
+                            </div>
+                          
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fechas de Elaboracion</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="date" class="form-control" id="inputApellido"
+                                        placeholder="Ingrese la fecha" name="fecha_inicio"
+                                        [(ngModel)]="asistenciaCurso.acuFechaelaboracion">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Observaciones</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" id="inputCedula"
+                                        placeholder="Ingrese las observaciones de la asistencia" name="cedula" [(ngModel)]="asistenciaCurso.acuObservacion">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <Span></Span> <button (click)="saveAsistenciaCurso()">Guardar Informe</button>
+                                    <Span></Span> <button (click)="listarAsistenciasCurso()">Obtener Informes</button>
+
+                                    <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button   > -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<br><br>
+<!-- Tablaaaaaa -->
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Observaciones</th>
+        <th scope="col">Fecha Emision</th>
+        <th scope="col">Estado</th>
+        <th scope="col">editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asistencia of asistenciasCursolList">
+        <th >{{ asistencia.acuId }}</th>
+        <td>{{ asistencia.acuObservacion }}</td>
+        <td>{{ asistencia.acuFechaelaboracion | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ asistencia.acuEstado }}</td>
+        <td><button type="button" class="btn btn-primary" (click)="editarAsistenciasCurso(asistencia)">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>

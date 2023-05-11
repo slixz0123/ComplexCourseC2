@@ -1,4 +1,5 @@
 import { Curso } from "./curso";
+
 import { Persona } from "./persona";
 
 export class FichaInscripcion{

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapacitacion-serv.service';
 
 @Component({
   selector: 'app-register-program-cap',
@@ -6,5 +8,50 @@ import { Component } from '@angular/core';
   styleUrls: ['./register-program-cap.component.css']
 })
 export class RegisterProgramCapComponent {
+  programaCapacitacion: ProgramaCapacitacion = new ProgramaCapacitacion; // instancia de la clase programa Capacitacion
+  id_programac: any;
+  estado: boolean = true;
+  constructor(
+    private programaCapacitacionServ: ProgramaCapacitacionServ
+    
+  ){
 
+  }
+
+  ngOnInit(): void {
+
+    this.getAllProgramasc();
+  }
+  onSubmit() {
+    // this.id_programac=(this.programaCapacitacion.pcaId);
+    // console.log("esta es "+this.id_programac);
+    console.log(this.programaCapacitacion)
+    this.programaCapacitacion.pcaEstado=this.estado;
+    this.programaCapacitacionServ.saveProgramacap(this.programaCapacitacion).subscribe(   
+      (data: any) => {
+        console.log('a verrr' + data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  programasList: any[] = [];
+  public getAllProgramasc() {
+    this.programaCapacitacionServ.getAllProgramasC().subscribe((data: any) => {
+      this.programasList = data;
+    });
+  }
+
+  editarPrograma(programa: any) {
+    console.log(this.programaCapacitacion.pcaFechainicio)
+    const fechai = new Date(programa.pcaFechainicio);
+    const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
+    programa.pcaFechainicio = fechaFormateadai;
+    const fechaf = new Date(programa.pcaFechafin);
+    const fechaFormateadaf = fechaf.toISOString().slice(0, 10); // "2023-05-10"
+    programa.pcaFechafin = fechaFormateadaf;
+    this.programaCapacitacion = programa;
+  }
+  
 }

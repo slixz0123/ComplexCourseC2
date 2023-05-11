@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
 @Component({
@@ -23,6 +24,7 @@ export class RegisterProfesorComponent{
   // en el constructor instanciamos los servicios
   constructor(private persoUsrService: PersonaServService, private userServiceService: UsuarioServService, private rolservices:RolServService) { }
  validardatos: any;
+
  buscarRol(nombre: string){
     nombre="Docente";
     this.rolservices.getByRolNombre(nombre).subscribe((data: any)=>{
@@ -54,6 +56,7 @@ export class RegisterProfesorComponent{
         this.persona.nivelintruccion = "string";
         this.persona.hojavida = "string";
 
+
         alert("la persona es "+this.persona.nombre)
 
       }
@@ -84,6 +87,7 @@ idPersona:any;
       this.usuario.persona.id_persona=this.idPersona;
         this.usuario.rol.id_rol=2;
         this.usuario.enabled=true;
+
         console.log("Este es mi usuario")
         console.log(this.persona);
         this.userServiceService.postUsuario(this.usuario).subscribe((response: any) => {
@@ -134,6 +138,7 @@ idPersona:any;
   // if(this.usuario.username!== null){
   //   const validaruser=validar.validarLetrasNumeros(this.usuario.username);
   //     if(validaruser){
+
 
   //     }
   //   }

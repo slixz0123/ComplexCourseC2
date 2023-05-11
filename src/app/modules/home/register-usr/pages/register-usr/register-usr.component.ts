@@ -25,6 +25,7 @@ export class RegisterUsrComponent {
 
   onSubmit() {
 
+
       this.persoUsrService.postPersona(this.persona).subscribe(response => {
       console.log(response); // Imprime la respuesta de la API en la consola
       this.persona.id_persona = response.id_persona; // a this.persona.id_persona el resultado de nuestro metodo post se aasignamos la data.id_persona que nos arroja la api
