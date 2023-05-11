@@ -8,63 +8,170 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/1z3mSD/rW3lDtXrP8MBu5c5/5W5W5w87f1t/Dk"
-      crossorigin="anonymous"
-    />
   </head>
+
+  <style>
+    .id-column,
+    .action-column {
+      white-space: nowrap;
+    }
+    .id-column {
+      width: 1%;
+    }
+    .action-column {
+      width: 1%;
+    }
+  </style>
+
   <body>
     <div class="container">
       <h1 class="mt-5">Preguntas para ficha de Evaluación</h1>
 
       <form>
         <div class="mb-3">
-          <label for="pregunta" class="form-label">Pregunta</label>
+          <label for="pregunta" class="form-label">Agregar Categoría</label>
           <input
+            [(ngModel)]="newCategory"
+            name="newCategory"
             type="text"
             class="form-control"
             id="pregunta"
-            placeholder="Escribe tu pregunta aquí"
+            placeholder="Escribe la categoría"
           />
         </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="calificacion" class="form-label">Calificación</label>
-            <select class="form-select" id="calificacion">
-              <option selected>Elige una calificación</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <div class="form-check mt-4">
-              <input type="checkbox" class="form-check-input" id="activo" />
-              <label class="form-check-label" for="activo">Activo</label>
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" class="btn btn-primary" (click)="addCategory()">
+          Añadir
+        </button>
       </form>
     </div>
 
-    <!-- Agregar enlaces a Bootstrap JavaScript y Popper.js -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-      integrity="sha384-xs1lxBFuh87HUDM-HwZzAtLOD+Gw8F1UfILQ9LszJv7T0wLGJNt/7M5CxYww4J4c"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-      integrity="sha384-AyAh5xmTCHt8MfU7rDg6Zjl5bzw6pW5f5XCaP5erPpJ7Vpw5GjK4676P/L5Z2f5J"
-      crossorigin="anonymous"
-    ></script>
+    <div class="container mt-3">
+      <h3 class="mt-5">Categorías</h3>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Categoría</th>
+            <th scope="col" class="action-column">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories; index as i">
+            <td>{{ category.name }}</td>
+            <td class="action-column">
+              <div class="d-flex">
+                <button
+                  type="button"
+                  class="btn btn-primary me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addQuestionModal"
+                  (click)="addQuestion(category.name)"
+                >
+                  Agregar preguntas
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="deleteCategory(i)"
+                >
+                  Quitar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container mt-3">
+      <h3 class="mt-5">Preguntas por Categorías</h3>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" class="id-column">id_pregunta</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Pregunta</th>
+            <th scope="col" class="action-column">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let category of categories; index as i">
+            <tr *ngFor="let question of category.questions; index as j">
+              <td class="id-column">{{ questionIdCounter + j }}</td>
+              <td>{{ category.name }}</td>
+              <td>{{ question }}</td>
+              <td class="action-column">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  (click)="deleteQuestion(category.name, j)"
+                >
+                  Quitar
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-success" (click)="saveCategories()">Guardar</button>
+
+    </div>
+
+    <!-- Add Question Modal -->
+    <div
+      class="modal fade"
+      id="addQuestionModal"
+      tabindex="-1"
+      aria-labelledby="addQuestionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addQuestionModalLabel">
+              Agregar pregunta
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="addQuestionForm">
+              <input type="hidden" id="categoryNameInput" />
+              <div class="mb-3">
+                <label for="newQuestionInput" class="form-label">
+                  Pregunta
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newQuestionInput"
+                  formControlName="newQuestionInput"
+                  placeholder="Escribe la pregunta aquí"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onAddQuestionSubmit(selectedCategoryName)"
+            >
+              Añadir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

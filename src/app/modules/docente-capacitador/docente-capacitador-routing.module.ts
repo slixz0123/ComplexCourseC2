@@ -112,6 +112,11 @@ const routes: Routes = [
     loadChildren: () => import("./register-detalle-meva/register-detalle-meva.module").then(m => m.RegisterDetalleMEvaModule)
   },
 
+  // detalleME 
+  {
+    path: 'edit-list-ficha-evaluacion',
+    loadChildren: () => import("./edit-list-ficha-evaluacion/edit-list-ficha-evaluacion.module").then(m => m.EditListFichaEvaluacionModule)
+  },
  
 ];
 

@@ -4,6 +4,7 @@
 
 import { Modalidadcurso } from "./modalidadcurso";
 import { TiposCurso } from "./tiposcurso";
+import { ProgramaCapacitacion } from "./programa-capacitacion";
 
 //     @Column(name = "curCodigo", nullable = false)
 //     private String curCodigo;
@@ -36,7 +37,7 @@ export class Cursos {
     curNumhoras?: number;
     curProceso?: string;
     curEstado?: boolean;
-
+    programaCapacitacion?:ProgramaCapacitacion;
 
     tipocurso: TiposCurso = new TiposCurso; //id_persona herencia
     modalidadcurso: Modalidadcurso = new Modalidadcurso; //id_persona herencia
