@@ -39,7 +39,7 @@ const routes: Routes = [
     loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule) // se importa un modulo que tiene routing es decir ruta
 
   },
- 
+
 
 
 

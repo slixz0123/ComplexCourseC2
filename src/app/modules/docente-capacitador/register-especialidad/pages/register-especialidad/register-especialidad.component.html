@@ -1,1 +1,63 @@
-<p>register-especialidad works!</p>
+<div class="container">
+  <div class="mt-4">
+    <h3>{{ isNew ? 'Nueva Especialidad' : 'Editar Especialidad' }}</h3>
+    <form #especialidadForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="area">Área:</label>
+            <select class="form-control" id="area" [(ngModel)]="especialidadSeleccionada.area.areId" name="area" (change)="mostrarDatosSeleccionados()">
+              <option *ngFor="let area of areas" [value]="area.areId" [selected]="area.areId === especialidadSeleccionada.area.areId">{{ area.areCodigo }}.- {{ area.areNombre }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="espCodigo">Código</label>
+            <input type="text" class="form-control" id="espCodigo" name="espCodigo" [(ngModel)]="especialidadSeleccionada.espCodigo" required>
+          </div>
+          <div class="form-group">
+            <label for="espNombre">Nombre</label>
+            <input type="text" class="form-control" id="espNombre" name="espNombre" [(ngModel)]="especialidadSeleccionada.espNombre" required>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+    </form>
+  </div>
+
+<br>
+<br>
+<div class="form-group">
+  <label for="buscar">Buscar:</label>
+  <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+</div>
+
+  <br>
+  <h2>Especialidades</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Área</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let especialidad of especialidades">
+        <tr *ngIf="especialidad.espCodigo.toLowerCase().includes(filtro.toLowerCase()) || 
+                   especialidad.espNombre.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ especialidad.espCodigo }}</td>
+          <td>{{ especialidad.espNombre }}</td>
+          <td>{{ especialidad?.area?.areNombre }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarEspecialidad(especialidad)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarEspecialidad(especialidad.espId)">Eliminar</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+    
+        
+          </table>
+</div>          
+        

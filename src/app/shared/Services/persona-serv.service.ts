@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from 'src/app/Core/models/persona';
 import { Usuario } from 'src/app/Core/models/usuario';
@@ -8,20 +8,36 @@ import { Usuario } from 'src/app/Core/models/usuario';
   providedIn: 'root'
 })
 export class PersonaServService {
+    // buscarPersona(id_persona: number) {
+    //   throw new Error('Method not implemented.');
+    // }
 
-    private URL = "http://localhost:8080/api/persona";
 
-    private URLBuscar = "http://localhost:8080/api/persona/buscar/";
+    private URL = "http://localhost:8080/api/persona/";
     private URLcre = "http://localhost:8080/api/persona/crear";
     private URLced = "http://localhost:8080/api/persona/cedulas/";
     private URLusuario="http://localhost:8080/usuarios/signup";
+
+    private readonly apiUrl = 'http://localhost:8080/api/persona';
+
 
     constructor(private http: HttpClient) { }
   
     //utiliizados
     postPersona(persona: Persona) {
-      return this.http.post<Persona>(this.URLcre + '?', persona);
+      return this.http.post<Persona>(this.URLcre + '', persona);
     }
+
+
+    public buscarPorCedula(cedula: string): Observable<Persona> {
+      return this.http.get<Persona>(this.URLced + cedula);
+    }
+
+    create(persona: Persona): Observable<Persona> {
+      return this.http.post<Persona>(`${this.apiUrl}/crear`, persona);
+
+    }
+
 
     public buscarPorCedula(cedula: string): Observable<Persona> {
       return this.http.get<Persona>(this.URLced + cedula);
@@ -31,6 +47,10 @@ export class PersonaServService {
   }
 
 
+
+      listarPersonas(){
+        return this.http.get<Persona[]>(this.URL+'listar');
+      }
 // sin utilizar
 
     getPersonas() {
@@ -50,6 +70,10 @@ export class PersonaServService {
     deletePersona(idPersona: number) {
       return this.http.delete<boolean>(this.URL + `eliminar/${idPersona}`);
     }
+
+    deletepersona(idPersona: number, persona: Persona) {
+      return this.http.put<boolean>(this.URL + `eliminar/${idPersona}`, persona);
+    }
   
     save(persona: Persona) {
       return this.http.post(`${this.URL}/`, persona);
@@ -60,8 +84,21 @@ export class PersonaServService {
     }
   
     getPorCedula(id_persona: any) {
-      return this.http.get<Persona>(this.URL + `buscarpersona/${id_persona}`);
+      return this.http.get<Persona>(this.URL + `buscar/${id_persona}`);
     }
+    
+    buscarPersona(cedula: string): Observable<Persona> {
+      const url = `${this.URL}/${cedula}`;
+      return this.http.get<Persona>(url);
+    }
+
+    // buscarPersona(idPersona: number): Observable<Persona> {
+    //   const urlBuscarPersona = `${this.URL}/buscar/${idPersona}`;
+    //   return this.http.get<Persona>(urlBuscarPersona)
+    //     .pipe(
+    //       map((response: Persona) => response as Persona)
+    //     );
+    // }
     // getPersonasConUsuarios(): Observable<PersonaI[]> {
     //   return this.http.get<any>(`${this.URL}/listar?_expand=listaruser`)
     //     .pipe(

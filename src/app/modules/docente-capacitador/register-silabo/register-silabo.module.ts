@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterSilaboRoutingModule } from './register-silabo-routing.module';
 import { RegisterSilaboComponent } from './pages/register-silabo/register-silabo.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { RegisterSilaboComponent } from './pages/register-silabo/register-silabo
   ],
   imports: [
     CommonModule,
-    RegisterSilaboRoutingModule
+    RegisterSilaboRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     RegisterSilaboComponent

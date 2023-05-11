@@ -1,3 +1,63 @@
-<div id="conte">
-<p>regiser-diseno-curricular works!</p>
-</div>
+<div class="container">
+    <div class="mt-4">
+      <h3>{{ isNew ? 'Nuevo Diseño curricular' : 'Editar Diseño curricular' }}</h3>
+      <form #disenoForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+                <label for="areCodigo">Nivel</label>
+                <select class="form-control" id="areCodigo" name="areCodigo" [(ngModel)]="disenoSeleccionaddo.dcuNiveles" required>
+                  <option value="" selected disabled>Seleccione una opción</option>
+                  <option value="Primaria">Primaria</option>
+                  <option value="Secundaria">Secundaria</option>
+                  <option value="Superior">Superior</option>
+                </select>
+              </div>
+              
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="areNombre">Temas Transversales</label>
+              <textarea type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="buscar">Buscar:</label>
+      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+    </div>
+    <br>
+    <h2>Áreas</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nivel</th>
+          <th>Temas Transversales</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let diseno of disenos">
+          <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || 
+                     diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ diseno.dcuNiveles }}</td>
+          <td>{{ diseno.dcuTemastransversales }}</td>
+          <td>{{ diseno.dcuEstado ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarDiseno(diseno)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarDiseno(diseno.dcuId)">Eliminar</button>
+          </td>
+          </tr>
+        </ng-container>
+          </tbody>
+          
+            </table>
+            
+          </div>
+  

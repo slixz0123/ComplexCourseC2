@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EditListNecesidadRoutingModule } from './edit-list-necesidad-routing.module';
 import { EditListNecesidadComponent } from './pages/edit-list-necesidad/edit-list-necesidad.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { EditListNecesidadComponent } from './pages/edit-list-necesidad/edit-lis
   ],
   imports: [
     CommonModule,
-    EditListNecesidadRoutingModule
+    EditListNecesidadRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],exports: [
     EditListNecesidadComponent
   ]

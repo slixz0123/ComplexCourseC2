@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+</head>
+
+<body>
+    <!-- <form style="display: flex; justify-content: center;">
+        <div style="align-items: center;">
+            <h3>Bienvenido</h3>
+        </div>
+    </form>
+    <form class="row" style="display: flex;">
+        <div class="col">
+            <button type="button">Actualizar lista</button>
+            <h5>Datos del participante</h5>
+            <div class="input-group">
+                <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
+                    aria-label="Search" aria-describedby="search-addon" [(ngModel)]="cedula" />
+                <button type="button" type="button" class="btn btn-outline-primary"
+                    (click)="listarPersona(cedula)">Buscar</button>
+            </div>
+            <table class="table-hover" class="table" id="myTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Cedula</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  (click)="seleccionarPesona(persona)">
+                        <td>{{persona.cedula}}</td>
+                        <td>{{persona.nombre}}</td>
+                        <td>{{persona.apellido}}</td>
+                        <td>{{persona.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </form>
+    <form class="row" style="display: flex;">
+        <div class="col">
+            <h5>Datos del curso</h5>
+            <div class="input-group">
+                <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
+                    aria-label="Search" aria-describedby="search-addon" />
+
+                <button type="button" type="button" class="btn btn-outline-primary">Buscar</button>
+            </div>
+            <table class="table-hover" class="table" id="myTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Numero de horas</th>
+                        <th>Proceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let curso of cursos"  (click)="seleccionarCurso(curso)">
+                        <td>{{curso.curCodigo}}</td>
+                        <td>{{curso.curNombre}}</td>
+                        <td>{{curso.curFechainicio}}</td>
+                        <td>{{curso.curFechafin}}</td>
+                        <td>{{curso.curNumhoras}}</td>
+                        <td>{{curso.curProceso}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="listarCurso()" type="submit">Listar</button>
+        </div>
+
+
+    </form>
+    <form class="row" style="display: flex;">
+        <div class="col">
+            <h5>Fichas de Inscripcion</h5>
+            <div class="input-group">
+                <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
+                    aria-label="Search" aria-describedby="search-addon" />
+
+                <button type="button" type="button" class="btn btn-outline-primary">Buscar</button>
+            </div>
+            <table class="table-hover" class="table" id="myTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Numero de horas</th>
+                        <th>Proceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ficha of fichas"  (click)="seleccionarCurso(curso)">
+                        <td>{{curso.curCodigo}}</td>
+                        <td>{{curso.curNombre}}</td>
+                        <td>{{curso.curFechainicio}}</td>
+                        <td>{{curso.curFechafin}}</td>
+                        <td>{{curso.curNumhoras}}</td>
+                        <td>{{curso.curProceso}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button (click)="listarFichas()" type="submit">Listar</button>
+        </div>
+
+
+    </form>
+    <div>
+        <form class="row">
+            <div class="col">
+                <div>
+                    Cedula estudiante
+                    <input type="text" disabled [(ngModel)]="persona.cedula" id="ced" name="ced"/>
+                </div>
+                <div>
+                    Nombre estudiante
+                    <input type="text" disabled [(ngModel)]="persona.nombre" id="nombre" name="nombre">
+                </div>
+                <div>
+                    Apellido estudiante
+                    <input type="text" disabled [(ngModel)]="persona.apellido" id="apellido" name="apellido">
+                </div>
+            </div>
+            <div class="col">
+                <div>
+                    Código curso
+                    <input type="text" disabled id="codigo" name="codigo" [(ngModel)]="curso.curCodigo">
+                </div>
+                <div>
+                    Nombre Curso
+                    <input type="text" disabled id="codCurso" name="codCurso" [(ngModel)]="curso.curNombre">
+                </div>
+            </div>
+        </form>
+        <button class="btn-outline-success" type="submit" class="btn btn-primary" (click)="crearParti()">Aceptar Participante</button>
+        <button class="btn-outline-danger" type="submit" class="btn btn-primary">Cancelar</button>
+    </div> -->
+
+
+    <div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://e7.pngegg.com/pngimages/575/29/png-clipart-computer-icons-instructor-led-training-course-education-toolbox-miscellaneous-blue.png"
+                                alt="Admin" class="rounded-circle" width="150">
+                            <div class="mt-3">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                    class="bi bi-award-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
+                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                                </svg>
+                                <h4>Aceptación de participantes</h4>
+                                <p class="text-secondary mb-1"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Datos Generales</h4>
+                        <br>
+                        <form>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Nombre del Programa</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" class="form-control" id="inputCedula"
+                                        placeholder="Ingrese el nombre del programa" name="cedula"
+                                        [(ngModel)]="ficha.finActividadinst" disabled>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fechas de Inicio</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="date" class="form-control" id="inputApellido"
+                                        placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
+                                        >
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fechas de Finalización</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="date" class="form-control" id="inputApellido"
+                                        placeholder="Ingrese la fecha de finalización" name="fecha_fin"
+                                        >
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Proceso del Curso</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <select id="inputProceso" class="form-control" name="sexo"
+                                        >
+                                        <option selected>Seleccione una opción...</option>
+                                        <option>Proximamente</option>
+                                        <option>En proceso</option>
+                                        <option>Finalizado</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <Span></Span> <button (click)="listarFichas()">Guardar Programa</button>
+                                    <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br><br>
+<!-- Tablaaaaaa -->
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Correo institucional</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Cedula Persona</th>
+            <th scope="col">Auspiciado</th>
+            <th scope="col">Actividad institucional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ficha of fichas" (click)="seleccionarFicha(ficha)">
+            <th>{{ ficha.finCorreoinst}}</th>
+            <td>{{ ficha.finCurso?.curCodigo }}</td>
+            <td>{{ ficha.finDireccioninst}}</td>
+            <td>{{ ficha.finPersona?.cedula}}</td>
+            <td>{{ ficha.finAuspiciadoinst }}</td>
+            <td>{{ ficha.finActividadinst }}</td>
+            
+        </tr>
+    </tbody>
+</table>
+<button type="button" class="btn-outline-success" (click)="crearParti()" [disabled]="!formularioValido">Aceptar</button>
+<button type="button" class="btn-outline-danger" [disabled]="!formularioValido">Rechazar</button>
+</body>
+<!-- | date: 'dd/MM/yyyy' } -->
+<form *ngIf="mostrarFormulario">
+
+</form>
+
+</html>

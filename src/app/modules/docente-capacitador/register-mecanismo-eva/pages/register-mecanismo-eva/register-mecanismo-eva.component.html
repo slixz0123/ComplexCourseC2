@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="mt-4">
+      <h3>{{ isNew ? 'Nuevo Mecanismo de evaluación' : 'Editar Mecanismo de evaluación' }}</h3>
+      <form #mecanismoForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="diseno">Diseño curricular:</label>
+              <select class="form-control" id="diseno" [(ngModel)]="mecanismoSeleccionado.mevDiseno.dcuId" name="diseno" (change)="mostrarDatosSeleccionados()">
+                <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === mecanismoSeleccionado.mevDiseno.dcuId">{{ diseno.dcuTemastransversales }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mevDescripcion">Descripción</label>
+              <textarea type="text" class="form-control" id="mevDescripcion" name="mevDescripcion"
+                [(ngModel)]="mecanismoSeleccionado.mevDescripcion" required></textarea>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="buscar">Buscar:</label>
+      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+    </div>
+    <br>
+    <br>
+    <h2>Mecanismos de evaluación</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Descripción</th>
+          <th>Diseño Curricular</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let mecanismo of mecanismos">
+          <tr *ngIf="mecanismo.mevDescripcion.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ mecanismo.mevId }}</td>
+          <td>{{ mecanismo.mevDescripcion }}</td>
+          <td>{{ mecanismo.mevDiseno ? mecanismo.mevDiseno.dcuTemastransversales : '' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarMecanismo(mecanismo)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarMecanismo(mecanismo.mevId)">Eliminar</button>
+          </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>    
+  </div>

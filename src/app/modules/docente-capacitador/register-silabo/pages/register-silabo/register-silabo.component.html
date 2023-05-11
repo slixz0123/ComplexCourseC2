@@ -1,3 +1,4 @@
+<p>register-silabo works!</p>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -12,7 +13,7 @@
   <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
     <div  style="" class="container mt-2">
       <h1 style="margin-top: 15px; " class="text-center mb-5">Formulario de Curso</h1>
-      <form id="contenedorform" >
+      <form id="contenedorform" [formGroup]="silaboForm"  >
         <h2 class="mb-3">1. Información General del Curso</h2>
         <div class="row mb-3">
           <div class="col-md-6">
@@ -41,6 +42,8 @@
                 id="docencia"
                 name="docencia"
                 class="form-control"
+                formControlName="hapDocencia"
+                [(ngModel)]="horasapren.hapDocencia"
               />
               <label for="practicas" class="form-label">Prácticas</label>
               <input
@@ -48,6 +51,8 @@
                 id="practicas"
                 name="practicas"
                 class="form-control"
+                formControlName="hapPracticas"
+                [(ngModel)]="horasapren.hapPracticas"
               />
               <label for="autonomo" class="form-label">Trabajo Autónomo</label>
               <input
@@ -55,6 +60,8 @@
                 id="autonomo"
                 name="autonomo"
                 class="form-control"
+                formControlName="hapTrabajoAutonomo"
+                [(ngModel)]="horasapren.hapTrabajoAutonomo"
               />
             </div>
           </div>
@@ -109,101 +116,122 @@
             />
           </div>
         </div>
+        <!-- "dsiId": 0,
+  "dsiPrerrequisitos": "string",
+  "dsiDescripcioncurso": "string",
+  "dsiObjetivogeneralc": "string",
+  "dsiBibliografia": "string",
+  "dsiEstado": true -->
         <h2 class="mb-3">2. Prerrequisitos</h2>
         <div class="mb-3">
-          <label for="prerrequisitos" class="form-label">Prerrequisitos</label>
+          <label for="dsiPrerrequisitos" class="form-label">Prerrequisitos</label>
           <textarea
-            id="prerrequisitos"
-            name="prerrequisitos"
+            id="dsiPrerrequisitos"
+            name="dsiPrerrequisitos"
             rows="3"
             class="form-control"
+            formControlName="dsiPrerrequisitos"
+            [(ngModel)]="datossilabo.dsiPrerrequisitos"
           ></textarea>
         </div>
         <h2 class="mb-3">3. Descripción del Curso</h2>
         <div class="mb-3">
-          <label for="descripcion" class="form-label"
+          <label for="dsiDescripcioncurso" class="form-label"
             >Descripción del Curso</label
           >
           <textarea
-            id="descripcion"
-            name="descripcion"
+            id="dsiDescripcioncurso"
+            name="dsiDescripcioncurso"
             rows="3"
             class="form-control"
+            formControlName="dsiDescripcioncurso"
+            [(ngModel)]="datossilabo.dsiDescripcioncurso"
           ></textarea>
         </div>
         <h2 class="mb-3">4. Objetivo general del Curso</h2>
         <div class="mb-3">
-          <label for="objetivo_general" class="form-label"
+          <label for="dsiObjetivogeneralc" class="form-label"
             >Objetivo general del Curso</label
           >
           <textarea
-            id="objetivo_general"
-            name="objetivo_general"
+            id="dsiObjetivogeneralc"
+            name="dsiObjetivogeneralc"
             rows="3"
             class="form-control"
+            formControlName="dsiObjetivogeneralc"
+            [(ngModel)]="datossilabo.dsiObjetivogeneralc"
           ></textarea>
         </div>
-        <h2 class="mb-3">5. Objetivo General del Curso</h2>
-        <div class="table-responsive" id="objetivoTable">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Unidad de Competencia – Procesos</th>
-                <th scope="col">Elementos de competencias – Subprocesos</th>
-                <th scope="col">Resultados de Aprendizaje – Actividades</th>
-                <th scope="col">Forma de Evidenciar</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <textarea
-                    id="unidad_competencia"
-                    name="unidad_competencia"
-                    rows="3"
-                    class="form-control"
-                  ></textarea>
-                </td>
-                <td>
-                  <textarea
-                    id="elementos_competencias"
-                    name="elementos_competencias"
-                    rows="3"
-                    class="form-control"
-                  ></textarea>
-                </td>
-                <td>
-                  <textarea
-                    id="resultados_aprendizaje"
-                    name="resultados_aprendizaje"
-                    rows="3"
-                    class="form-control"
-                  ></textarea>
-                </td>
-                <td>
-                  <textarea
-                    id="forma_evidenciar"
-                    name="forma_evidenciar"
-                    rows="3"
-                    class="form-control"
-                  ></textarea>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-danger btn-sm deleteRow">
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button
-            type="button"
-            id="addRowObjetivo"
-            class="btn btn-success mt-2"
-          >
-            Agregar fila
+        <h2 class="mb-3">5. Resultados de aprendizaje</h2>
+<div class="table-responsive" id="objetivoTable">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Unidad de Competencia – Procesos</th>
+        <th scope="col">Elementos de competencias – Subprocesos</th>
+        <th scope="col">Resultados de Aprendizaje – Actividades</th>
+        <th scope="col">Forma de Evidenciar</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let resultado of resultadosAprendizaje; let i = index" [class.selected]="resultado.rapId ">
+
+        <td>
+          <textarea
+            id="unidad_competencia_{{i}}"
+            name="unidad_competencia_{{i}}"
+            rows="3"
+            class="form-control"
+            formControlName="rapUnidadcompe"
+            [(ngModel)]="resultadosAprendizaje[i].rapUnidadcompe"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            id="elementos_competencias_{{i}}"
+            name="elementos_competencias_{{i}}"
+            rows="3"
+            class="form-control"
+            formControlName="rapElementoscomp"
+            [(ngModel)]="resultadosAprendizaje[i].rapElementoscompe"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            id="resultados_aprendizaje_{{i}}"
+            name="resultados_aprendizaje_{{i}}"
+            rows="3"
+            class="form-control"
+            formControlName="rapResultadosaprenactiv"
+            [(ngModel)]="resultadosAprendizaje[i].rapResultadosaprenactiv"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            id="forma_evidenciar_{{i}}"
+            name="forma_evidenciar_{{i}}"
+            rows="3"
+            class="form-control"
+            formControlName="rapFormaevidenciar"
+            [(ngModel)]="resultadosAprendizaje[i].rapFormaevidenciar"
+          ></textarea>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFila(i)">
+            Eliminar
           </button>
-        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button"  class="btn btn-success mt-2" (click)="agregarFila()">
+    Agregar fila
+  </button>
+</div>
+
+
+      
         <h2 class="mb-3">6. Contenidos del Curso</h2>
         <div class="table-responsive">
           <table class="table" id="contenidoTable">
@@ -221,97 +249,291 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let resultado of contenidosCurso; let i = index" [class.selected]="resultado.ccuId ">
+
                 <td>
-                  <input type="text" id="dia" name="dia" class="form-control" />
+                  <input type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"
+                  [(ngModel)]="contenidosCurso[i].ccuDia" />
                 </td>
                 <td>
                   <textarea
-                    id="contenidos"
-                    name="contenidos"
+                    id="ccuContenidos"
+                    name="ccuContenidos"
                     rows="3"
                     class="form-control"
+                    formControlName="ccuContenidos"
+                    [(ngModel)]="contenidosCurso[i].ccuContenidos"
                   ></textarea>
                 </td>
                 <td>
                   <input
                     type="number"
-                    id="hora_clase"
-                    name="hora_clase"
+                    id="ccuHorasclase"
+                    name="ccuHorasclase"
                     class="form-control"
+                    formControlName="ccuHorasclase"
+                    [(ngModel)]="contenidosCurso[i].ccuHorasclase"
                   />
                 </td>
                 <td>
                   <textarea
-                    id="actividades_docencia"
-                    name="actividades_docencia"
+                    id="ccuActividaddocencia"
+                    name="ccuActividaddocencia"
                     rows="3"
                     class="form-control"
+                    formControlName="ccuActividaddocencia"
+                    [(ngModel)]="contenidosCurso[i].ccuActividaddocencia"
                   ></textarea>
                 </td>
                 <td>
                   <input
                     type="number"
-                    id="hora_practica"
-                    name="hora_practica"
+                    id="ccuHoraspractica"
+                    name="ccuHoraspractica"
                     class="form-control"
+                    formControlName="ccuHoraspractica"
+                    [(ngModel)]="contenidosCurso[i].ccuHoraspractica"
                   />
                 </td>
                 <td>
                   <textarea
-                    id="actividades_practicas"
-                    name="actividades_practicas"
+                    id="ccuActividadpractica"
+                    name="ccuActividadpractica"
                     rows="3"
                     class="form-control"
+                    formControlName="ccuActividadpractica"
+                    [(ngModel)]="contenidosCurso[i].ccuActividadpractica"
                   ></textarea>
                 </td>
                 <td>
                   <input
                     type="number"
-                    id="hora_autonomo"
-                    name="hora_autonomo"
+                    id="ccuHorastrabajoauto"
+                    name="ccuHorastrabajoauto"
                     class="form-control"
+                    formControlName="ccuHorastrabajoauto"
+                    [(ngModel)]="contenidosCurso[i].ccuHorastrabajoauto"
                   />
                 </td>
                 <td>
                   <textarea
-                    id="actividades_autonomo"
-                    name="actividades_autonomo"
+                    id="ccuActividadtrabajoauto"
+                    name="ccuActividadtrabajoauto"
                     rows="3"
                     class="form-control"
+                    formControlName="ccuActividadtrabajoauto"
+                    [(ngModel)]="contenidosCurso[i].ccuActividadtrabajoauto"
                   ></textarea>
                 </td>
                 <td>
                   <textarea
-                    id="observacion"
-                    name="observacion"
+                    id="ccuObservaciones"
+                    name="ccuObservaciones"
                     rows="3"
                     class="form-control"
+                    formControlName="ccuObservaciones"
+                    [(ngModel)]="contenidosCurso[i].ccuObservaciones"
                   ></textarea>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-danger btn-sm deleteRow">
+                  <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFilacontenidocurso(i)">
                     Eliminar
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
-          <button
-            type="button"
-            id="addRowContenido"
-            class="btn btn-success mt-2"
-          >
+          <button type="button"  class="btn btn-success mt-2" (click)="agregarFilaevacontenidocur()">
             Agregar fila
           </button>
-        </div>
+          
 
+          <h2 class="mb-3">7.Estrategias Metodologicas</h2>
+          <div class="table-responsive">
+            <table class="table" id="contenidoTable">
+              <thead>
+                <tr>
+                  <th scope="col">Estrategia</th>
+                  <th scope="col">Finalidad</th>
+                  
+                
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let resultado of estrategiasMetodologicas; let i = index" [class.selected]="resultado.emeId ">
+  
+                  
+                  <td>
+                    <textarea
+                    type="text"
+                      id="emeEstrategia"
+                      name="emeEstrategia"
+                      rows="3"
+                      class="form-control"
+                      formControlName="emeEstrategia"
+                      [(ngModel)]="estrategiasMetodologicas[i].emeEstrategia"
+                    ></textarea>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      id="emeFinalidad"
+                      name="emeFinalidad"
+                      class="form-control"
+                      formControlName="emeFinalidad"
+                      [(ngModel)]="estrategiasMetodologicas[i].emeFinalidad"
+                    />
+                  </td>
+                 
+                  
+                  <td>
+                    <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFilaestrategia(i)">
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="button"  class="btn btn-success mt-2" (click)="agregarFilaevaestrategia()">
+              Agregar fila
+            </button>
+            
+          </div>
+
+
+
+        </div>
+        <h2 class="mb-3">recurso didactico</h2>
         <div class="mb-3">
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
-      </form>
-    </div>
+          <label for="dsiBibliografia" class="form-label"
+            >materiales convencionales</label
+          >
+          <textarea
+            id="dsiBibliografia"
+            name="dsiBibliografia"
+            rows="3"
+            class="form-control" 
+            formControlName="dsiBibliografia"
+            [(ngModel)]="recurdidactico.rdiMateconvencional"
+          ></textarea>
 
+          <label for="dsiBibliografia" class="form-label"
+          >materiales audiovisuales</label
+        >
+        <textarea
+          id="dsiBibliografia"
+          name="dsiBibliografia"
+          rows="3"
+          class="form-control" 
+          formControlName="dsiBibliografia"
+          [(ngModel)]="recurdidactico.rdiMateaudiovisula"
+        ></textarea>
+
+           
+        </div>
+ 
+        <h2 class="mb-3">8.Evaluacion resultados de aprendizaje</h2>
+        <div class="table-responsive">
+          <table class="table" id="contenidoTable">
+            <thead>
+              <tr>
+                <th scope="col">Tipo de actividades</th>
+                <th scope="col">Cantidad Actividades</th>
+                <th scope="col">Porcentaje calificacion</th>
+                <th scope="col">Total</th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let resultado of evaluacioneprea; let i = index" [class.selected]="resultado.eraId ">
+
+                <td>
+                  <input formControlName="eraTipoactividades" type="text" id="dia" name="dia" class="form-control"  [(ngModel)]="evaluacioneprea[i].eraTipoactividades" />
+                </td>
+                <td>
+                  <textarea
+                  type="number"
+                    id="eraCantactvidades"
+                    name="eraCantactvidades"
+                    rows="3"
+                    class="form-control"
+                    formControlName="eraCantactvidades"
+                    [(ngModel)]="evaluacioneprea[i].eraCantactvidades"
+                  ></textarea>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    id="eraPorcentcalificacion"
+                    name="eraPorcentcalificacion"
+                    class="form-control"
+                    formControlName="eraPorcentcalificacion"
+                    [(ngModel)]="evaluacioneprea[i].eraPorcentcalificacion"
+                  />
+                </td>
+                <td>
+                  <textarea
+                    id="eraTotal"
+                    name="eraTotal"
+                    rows="3"
+                    class="form-control"
+                    formControlName="eraTotal"
+                    [(ngModel)]="evaluacioneprea[i].eraTotal"
+                  ></textarea>
+                  
+                </td>
+
+                
+                <td>
+                  <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFilaepra(i)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button"  class="btn btn-success mt-2" (click)="agregarFilaevaluaepra()">
+            Agregar fila
+          </button>
+          
+        </div>
+
+
+
+
+
+
+        <h2 class="mb-3">9.Bibliografia</h2>
+        <div class="mb-3">
+          <label for="dsiBibliografia" class="form-label"
+            >Bibliografia</label
+          >
+          <textarea
+            id="dsiBibliografia"
+            name="dsiBibliografia"
+            rows="3"
+            class="form-control" 
+            formControlName="dsiBibliografia"
+            [(ngModel)]="datossilabo.dsiBibliografia"
+          ></textarea>
+
+           
+        </div>
+
+        <pre>
+          {{datossilabo |  json}}
+       </pre>
+       <pre>
+        {{ resultadosAprendizaje |  json}}
+     </pre>
+        <div class="mb-3">
+          <button (click)="crearsilabo()" type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+        
+      </form>
+      
+    </div>
+   
    
   </body>
 </html>

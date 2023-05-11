@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+</head>
+
+<body>
+    <form style="display: flex; justify-content: center;">
+        <div style="align-items: center;">
+            <h3>Entrega certificados</h3>
+        </div>
+    </form>
+    <form style="display: flex; justify-content: center;" class="row">
+        <div class="row" style="display: flex;">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                    aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-primary">search</button>
+            </div>
+            <div style="background-color: aquamarine">
+                <Label>Datos del participante</Label>
+                <table class="table-hover">
+                    <thead>
+                        <tr>
+                            <th>Cedula</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>usuaio.cedula</td>
+                            <td>usuario.nombre</td>
+                            <td>usuario.apellido</td>
+                            <td>usuario.corrreo</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="background-color: aqua;">
+                    <h5>Datos del curso</h5>
+                    <table class="table-hover">
+                        <thead>
+                            <th>Codigo</th>
+                            <th>Nombre</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de fin</th>
+                        </thead>
+                        <tbody>
+                            <td>curso.codigo</td>
+                            <td>curso.nombre</td>
+                            <td>curso.fechaInicio</td>
+                            <td>curso.fechaFin</td>
+                        </tbody>
+                   </table>
+                </div>
+                <div>
+                    <button class="btn-outline-success">Generar certificados</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

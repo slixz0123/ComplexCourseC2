@@ -1,1 +1,56 @@
-<p>register-area works!</p>
+<div class="container">
+  <div class="mt-4">
+    <h3>{{ isNew ? 'Nueva Área' : 'Editar Área' }}</h3>
+    <form #areaForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="areCodigo">Código</label>
+            <input type="text" class="form-control" id="areCodigo" name="areCodigo" [(ngModel)]="areaSeleccionada.areCodigo" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="areNombre">Nombre</label>
+            <input type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="areaSeleccionada.areNombre" required>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+    </form>
+  </div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+  <br>
+  <h2>Áreas</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let area of areas">
+        <tr *ngIf="area.areCodigo.toLowerCase().includes(filtro.toLowerCase()) || 
+                   area.areNombre.toLowerCase().includes(filtro.toLowerCase())">
+        <td>{{ area.areCodigo }}</td>
+        <td>{{ area.areNombre }}</td>
+        <td>{{ area.areEstado ? 'Activo' : 'Inactivo' }}</td>
+        <td>
+          <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarArea(area)">Editar</button>
+          <button class="btn btn-danger" (click)="eliminarArea(area.areId)">Eliminar</button>
+        </td>
+        </tr>
+      </ng-container>
+        </tbody>
+        
+          </table>
+          
+        </div>

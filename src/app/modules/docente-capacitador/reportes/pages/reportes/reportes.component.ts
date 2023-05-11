@@ -5,6 +5,10 @@ import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
 import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { AsistenciaCurso } from 'src/app/Core/models/AsistenciaCurso';
 import { Curso } from 'src/app/Core/models/Curso';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
+import * as XLSX from 'xlsx';
+import { AfterViewInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-reportes',
@@ -99,5 +103,6 @@ export class ReportesComponent {
     const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
     asistencia.acuFechaelaboracion = fechaFormateadai;
     this.asistenciaCurso = asistencia;
+
   }
 }

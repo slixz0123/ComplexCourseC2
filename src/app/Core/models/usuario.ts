@@ -6,10 +6,15 @@ export class Usuario {
     id_usuario?: number;
     username: string = "";
     password: string = ""; 
-    enable?: boolean;
+    enabled?: boolean;
 
-    persona?: Persona;
-    rol: Rol = new Rol;
-    
-  
+  persona?: Persona;
+  rol2?: Rol;
+
+  rol: Rol = new Rol;
+
+  constructor(init?: Partial<Usuario>) {
+    Object.assign(this, init);
   }
+}
+

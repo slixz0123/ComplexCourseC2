@@ -5,7 +5,8 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
-// import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
+
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
 @Component({
   selector: 'app-register-profesor',
@@ -23,26 +24,38 @@ export class RegisterProfesorComponent{
   // en el constructor instanciamos los servicios
   constructor(private persoUsrService: PersonaServService, private userServiceService: UsuarioServService, private rolservices:RolServService) { }
  validardatos: any;
+
+ buscarRol(nombre: string){
+    nombre="Docente";
+    this.rolservices.getByRolNombre(nombre).subscribe((data: any)=>{
+      if(null!= data){
+        console.log(data);
+        this.usuario.rol2=data;
+      }
+    })
+ }
   buscarPersona(cedula: string) {
     
-    this.persoUsrService.buscarPorCedula(cedula).subscribe((data) => {
+    this.persoUsrService.buscarPorCedula(cedula).subscribe((data : any) => {
       if (null != data) {
         this.persona = data;
         this.validardatos=1;
       } else {
         this.validardatos=2;
         alert("No se encontró la persona con el cedula proporcionado.");
-        this.persona.nombre = "No registrado";
-        this.persona.apellido = "No registrado";
+        this.persona.id_persona=1;
+        this.persona.nombre = "string";
+        this.persona.apellido = "string";
         this.persona.fecha_nacimiento = new Date('2000-01-01');
-        this.persona.email = "No registrado";
-        this.persona.direccion = "No registrado";
-        this.persona.sexo = "No registrado";
-        this.persona.telefono = "No registrado";
-        this.persona.celular = "No registrado";
-        this.persona.etnia = "No registrado";
-        this.persona.nivelintruccion = "No registrado";
-        this.persona.hojavida = "No registrado";
+        this.persona.email = "string";
+        this.persona.direccion = "string";
+        this.persona.sexo = "string";
+        this.persona.telefono = "registrar";
+        this.persona.celular = "string";
+        this.persona.etnia = "string";
+        this.persona.nivelintruccion = "string";
+        this.persona.hojavida = "string";
+
 
         alert("la persona es "+this.persona.nombre)
 
@@ -66,13 +79,15 @@ idPersona:any;
       this.idPersona=this.persona.id_persona
       this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
 
-      // this.rolservices.getById(2).subscribe((response:any) => {
-      //   console.log(response); // Imprime la respuesta de la API en la consola
-      //   this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
-      //   this.usuario.rol =response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
-        this.usuario.persona.id_persona=this.idPersona;
+      this.rolservices.getById(2).subscribe((response:any) => {
+        console.log(response); // Imprime la respuesta de la API en la consola
+        this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
+        this.usuario.rol =response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
+      });
+      this.usuario.persona.id_persona=this.idPersona;
         this.usuario.rol.id_rol=2;
-        this.usuario.enable=true;
+        this.usuario.enabled=true;
+
         console.log("Este es mi usuario")
         console.log(this.persona);
         this.userServiceService.postUsuario(this.usuario).subscribe((response: any) => {
@@ -95,7 +110,7 @@ idPersona:any;
         this.userServiceService.postUsuario(this.usuario).subscribe((response: any) => {
           console.log(response); // Imprime la respuesta de la API en la consola
         });
-
+      
       });
      });
     }
@@ -124,5 +139,6 @@ idPersona:any;
   //   const validaruser=validar.validarLetrasNumeros(this.usuario.username);
   //     if(validaruser){
 
-  //     }
-  //   }
+
+  //     }
+  //   }

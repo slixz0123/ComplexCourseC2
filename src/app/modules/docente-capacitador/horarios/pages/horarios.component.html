@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>
+        <a>Registro de horarios</a>
+    </title>
+</head>
+
+<body>
+    <input type="radio" class="btn-check" name="options-outlined" id="registrar" autocomplete="off">
+    <label class="btn btn-outline-success" for="registrar" (click)="selectedForm = 'registrar'">Registrar</label>
+
+    <input type="radio" class="btn-check" name="options-outlined" id="listas" autocomplete="off">
+    <label class="btn btn-outline-success" for="listas" (click)="selectedForm = 'listas'">Listar</label>
+
+    <div *ngIf="selectedForm === 'registrar'">
+        <form class="form-row">
+
+            <div>
+                <label>Estado</label>
+                <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
+            </div>
+            <div class="col">
+
+                <label>Hora inicio</label>
+                <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
+                <label>Hora fin</label>
+                <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
+            </div>
+        </form>
+        <form>
+            <div class="form-row">
+                <div class="col">
+                    <button class="btn-success" (click)="registrarHorario()">Registrar</button>
+                </div>
+                <div>
+                    <button class="btn-danger">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="selectedForm === 'listas'">
+        <div class="input-group">
+            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
+                aria-label="Search" aria-describedby="search-addon" (input)="onSearchInputChange($event)"
+                [(ngModel)]="nombre" />
+            <button type="button" class="btn btn-outline-primary">Buscar</button>
+        </div>
+        <div class="table-hover">
+            <table class="table" id="myTable">
+                <thead >
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Hora de inicio</th>
+                        <th scope="col">Hora de fin</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let horario of horarios" (click)="seleccionarHorario(horario)">
+                        <th scope="row">{{ horario.horId}}</th>
+                        <td>{{ horario.horInicio }}</td>
+                        <td> {{ horario. horFin}} </td>
+                        <td>{{ horario.horEstado }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-success" (click)="listarHorarios()">listar</button>
+        <div>
+            <label>Estado</label>
+            <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
+        </div>
+        <div class="col">
+
+            <label>Hora inicio</label>
+            <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
+            <label>Hora fin</label>
+            <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
+        </div>
+        <div colspan="4">
+            <div class="float-right">
+                <button class="btn btn-primary mr-2" [disabled]="!formularioValido">Editar Horario</button>
+                <button class="btn btn-danger" [disabled]="!formularioValido">Eliminar Horarios</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

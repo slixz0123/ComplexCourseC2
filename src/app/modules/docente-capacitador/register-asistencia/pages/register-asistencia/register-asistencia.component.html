@@ -1,1 +1,20 @@
-<p>register-asistencia works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>Cedula</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Horas que falta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let participante of participantes">
+        <td>{{ participante.parPersona.cedula }}</td>
+        <td>{{ participante.parPersona.nombre }}</td>
+        <td>{{ participante.parPersona.apellido }}</td>
+        <td><input type="number" [value]=""></td>
+      </tr>
+    </tbody>
+  </table>
+  
+

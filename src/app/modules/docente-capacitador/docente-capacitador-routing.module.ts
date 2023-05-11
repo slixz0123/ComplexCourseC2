@@ -24,10 +24,31 @@ const routes: Routes = [
     path: 'edit-list-necesidad',
     loadChildren: () => import("./edit-list-necesidad/edit-list-necesidad.module").then(m => m.EditListNecesidadModule)
   },
-  //silabo
+  //horario
+  {
+    path:'horarios',
+    loadChildren:()=> import("./horarios/horarios.module").then(m=>m.HorariosModule)
+  },
+  
+  //horario-Cursos
+  {
+    path:'horario-cursos',
+    loadChildren:() => import("./horarios-curso/horarios-curso.module").then(m=>m.HorariosCursoModule)
+  },
+//tipocursos
+{
+  path:'tipo-cursos',
+  loadChildren:()=> import("./tipo-curso/tipo-curso.module").then(m=>m.TipoCursoModule)
+},
+//modalidad-curso
+{
+  path:'modalidad',
+  loadChildren:()=> import("./modalidad-curso/modalidad-curso.module").then(m=> m.ModalidadCursoModule)
+},
+//silabo
   {
     path: 'register-silabo',
-    loadChildren: () => import("./register-silabo/register-silabo-routing.module").then(m => m.RegisterSilaboRoutingModule)
+    loadChildren: () => import("./register-silabo/register-silabo.module").then(m => m.RegisterSilaboModule)
   },
   {
     path: 'edit-list-silabo',
@@ -38,10 +59,7 @@ const routes: Routes = [
     path: 'register-diseno-curricular',
     loadChildren: () => import("./register-diseno-curricular/register-diseno-curricular.module").then(m => m.RegisterDisenoCurricularModule)
   },
-  {
-    path: 'edit-list-diseno-curricular',
-    loadChildren: () => import("./edit-list-diseno-curricular/edit-list-diseno-curricular.module").then(m => m.EditListDisenoCurricularModule)
-  },
+ 
   //asistencia
   {
     path: 'register-asistencia',
@@ -72,19 +90,13 @@ const routes: Routes = [
     path: 'register-area',
     loadChildren: () => import("./register-area/register-area.module").then(m => m.RegisterAreaModule)
   },
-  {
-    path: 'edit-area',
-    loadChildren: () => import("./edit-list-area/edit-list-area.module").then(m => m.EditListAreaModule)
-  },
+  
     // especialidades 
     {
       path: 'register-esp',
       loadChildren: () => import("./register-especialidad/register-especialidad.module").then(m => m.RegisterEspecialidadModule)
     },
-    {
-      path: 'edit-esp',
-      loadChildren: () => import("./edit-list-especialidad/edit-list-especialidad.module").then(m => m.EditListEspecialidadModule)
-    },
+   
      // dias 
      {
       path: 'register-dias',
@@ -94,6 +106,38 @@ const routes: Routes = [
       path: 'edit-list-dias',
       loadChildren: () => import("./edit-list-dias/edit-list-dias.module").then(m => m.EditListDiasModule)
     },
+
+    //ficha de evaluacion
+    {
+      path: 'register-fichaEvaluacion',
+      loadChildren: () => import("./register-ficha-evaluacion/register-ficha-evaluacion.module").then(m => m.RegisterFichaEvaluacionModule)
+    },
+
+     // mecanismo-evaluacion 
+  {
+    path: 'register-mecanismo-eva',
+    loadChildren: () => import("./register-mecanismo-eva/register-mecanismo-eva.module").then(m => m.RegisterMecanismoEvaModule)
+  },
+  // detalleME 
+  {
+    path: 'register-detalle-meva',
+    loadChildren: () => import("./register-detalle-meva/register-detalle-meva.module").then(m => m.RegisterDetalleMEvaModule)
+  },
+  ///aceptar cursos
+    {
+    path: 'aceptar',
+    loadChildren:()=> import("./aceptar-curso/aceptar-curso.module").then(m => m.AceptarCursoModule)
+    },
+    {
+      path: 'edit-list-ficha-evaluacion',
+      loadChildren: () => import("./edit-list-ficha-evaluacion/edit-list-ficha-evaluacion.module").then(m => m.EditListFichaEvaluacionModule)
+    },
+    // 
+    {
+      path: 'register-entorno-aprendizaje',
+      loadChildren: () => import("./register-entorno-aprendizaje/register-entorno-aprendizaje.module").then(m => m.RegisterEntornoAprendizajeModule)
+
+  },
  
 ];
 
