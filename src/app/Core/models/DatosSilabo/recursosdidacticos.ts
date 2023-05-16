@@ -1,6 +1,6 @@
 // private Long rdiId;
 
-import { Datossilabo } from "./datossilabo";
+import { Datossilabo } from "./datosSilabo";
 
 //     @Column(name = "rdiMateconvencional", nullable = false)
 //     private String rdiMateconvencional;

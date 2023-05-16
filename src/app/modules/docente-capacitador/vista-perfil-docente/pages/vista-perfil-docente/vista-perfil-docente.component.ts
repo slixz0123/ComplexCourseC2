@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { Persona } from 'src/app/Core/models/persona';
-import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
+import { Router } from '@angular/router';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
 
 @Component({
   selector: 'app-vista-perfil-docente',
@@ -14,8 +15,9 @@ export class VistaPerfilDocenteComponent implements OnInit{
     edadPersona: any;
     id_persona: any;
   constructor(
-    private personaService: PersonaServService,
-    private cursoService: CursoServ
+    private personaService: PersonaService,
+    private cursoService: CursoService,
+    private router : Router
 
     
   ){
@@ -52,4 +54,9 @@ public mostrarCursosDocente(){
     }
   );
 }
+goToeditprofile($event: any) :void{
+
+  this.router.navigate(['Capacitador/edit-dts'])
+  console.log($event)
+ }
 }

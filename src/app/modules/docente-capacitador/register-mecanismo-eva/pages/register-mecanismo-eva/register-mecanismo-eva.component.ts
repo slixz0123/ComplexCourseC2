@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
-import { MecanismoEvaluacionServService } from 'src/app/shared/Services/mecanismo-evaluacion-serv.service';
-import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoevaluacion';
+import { MecanismoEvaluacionService } from 'src/app/shared/Services/mecanismoEvaluacion.service';
+import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
-import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
 import Swal from 'sweetalert2';
+import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class RegisterMecanismoEvaComponent {
   mecanismoForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private mecanismoEvaluacionServ: MecanismoEvaluacionServService, private disenoServ: DisenoCurricularServService) { }
+  constructor(private mecanismoEvaluacionServ: MecanismoEvaluacionService, private disenoServ: DisenoCurricularService) { }
 
   ngOnInit(): void {
     this.getMecanismos();

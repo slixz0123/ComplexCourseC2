@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
   })
   export class EnvioDatosService {
     idCurso: any;
+    
 
     setIdCurso(id: any) {
       this.idCurso = id;

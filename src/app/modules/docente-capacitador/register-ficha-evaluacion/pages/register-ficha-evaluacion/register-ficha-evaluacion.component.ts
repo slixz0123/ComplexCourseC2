@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
-import { FichaEvaluacion } from 'src/app/Core/models/ficha-evaluacion';
-import { FichaEvaluacionService } from 'src/app/shared/Services/ficha-evaluacion.service';
-import { DetalleFichaevaluacionService } from 'src/app/shared/Services/detalle-ficha-evaluacion.service';
+import { FichaEvaluacion } from 'src/app/Core/models/fichaEvaluacion';
+import { FichaEvaluacionService } from 'src/app/shared/Services/fichaEvaluacion.service';
+import { DetalleFichaevaluacionService } from 'src/app/shared/Services/detalleFichaevaluacion.service';
 import { Curso } from 'src/app/Core/models/curso';
-import { DetalleFichaevaluacion } from 'src/app/Core/models/detalle-ficha-evaluacion';
+import { DetalleFichaevaluacion } from 'src/app/Core/models/detalleFichaevaluacion';
 import Swal from 'sweetalert2';
 
 class Category {

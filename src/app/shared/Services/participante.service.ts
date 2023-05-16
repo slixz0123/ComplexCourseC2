@@ -8,7 +8,7 @@ import { Participante } from "src/app/Core/models/participante";
     providedIn: 'root'
   })
 
-  export class participanteService{
+  export class  ParticipanteService{
     private URL="http://localhost:8080/api/participante";
     private URLCre="http://localhost:8080/api/participante/crear"
 

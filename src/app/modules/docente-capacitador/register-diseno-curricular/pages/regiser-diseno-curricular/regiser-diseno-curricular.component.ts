@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
-import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
+import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegiserDisenoCurricularComponent {
   disenoForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private disenoServ: DisenoCurricularServService) { }
+  constructor(private disenoServ: DisenoCurricularService) { }
 
   ngOnInit(): void {
     this.getDisenos();

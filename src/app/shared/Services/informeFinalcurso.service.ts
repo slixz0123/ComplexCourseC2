@@ -6,7 +6,7 @@ import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 @Injectable({
   providedIn: 'root'
 })
-export class InformeFinalServ {
+export class InformeFinalService {
 
   private URL = "http://localhost:8080/api/informefinal";
 

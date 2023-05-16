@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
+import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 
 @Component({
   selector: 'app-bienvenida-capacitador',

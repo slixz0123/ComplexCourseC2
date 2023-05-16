@@ -6,7 +6,7 @@ import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
 @Injectable({
   providedIn: 'root'
 })
-export class AsistenciaCursoServ {
+export class AsistenciaCursoService {
 
   // private apiUrl = 'http://localhost:8080/api/persona/crear'; // Reemplaza con la URL de tu API
   private URL = "http://localhost:8080/api/asistenciacurso";

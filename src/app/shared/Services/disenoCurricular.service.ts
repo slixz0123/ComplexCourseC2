@@ -7,7 +7,7 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
 @Injectable({
   providedIn: 'root'
 })
-export class DisenoCurricularServService {
+export class DisenoCurricularService {
 
    private URL = "http://localhost:8080/api/DisenoCurricular";
 

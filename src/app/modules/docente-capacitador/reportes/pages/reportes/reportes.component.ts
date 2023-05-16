@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { AsistenciaCursoServ  } from 'src/app/shared/Services/asistenciaCurso-serv.service';
-import { InformeFinalServ } from 'src/app/shared/Services/informeFinalc-serv.service';
-import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
+import { InformeFinalService } from 'src/app/shared/Services/informeFinalcurso.service';
 import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { Curso } from 'src/app/Core/models/curso';
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
 import { AfterViewInit } from '@angular/core';
 import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
+import { AsistenciaCursoService } from 'src/app/shared/Services/asistenciaCurso.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 
 
 @Component({
@@ -30,9 +30,9 @@ export class ReportesComponent {
   showContainer4: boolean = false;
 
   constructor(
-    private informeFinalServ : InformeFinalServ,
-    private cursoService: CursoServ,
-    private asistenciaCursoServ : AsistenciaCursoServ,
+    private informeFinalServ : InformeFinalService,
+    private cursoService: CursoService,
+    private asistenciaCursoServ : AsistenciaCursoService,
   ){
 
   }

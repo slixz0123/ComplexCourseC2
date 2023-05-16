@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosdidacticos';
+import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
 
 @Injectable({
   providedIn: 'root'

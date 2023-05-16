@@ -15,6 +15,4 @@ export class Persona {
     hojavida?: string;
     enabled?: boolean;
 
-    
-    
   }

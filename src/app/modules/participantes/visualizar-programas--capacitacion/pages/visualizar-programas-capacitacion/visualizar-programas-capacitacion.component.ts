@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
 import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
-import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
-import { EnvioDatosService } from 'src/app/shared/Services/envioDatos-serv.service';
-import { HorarioCursoServ } from 'src/app/shared/Services/horarioCurso-serv.service';
-import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapacitacion-serv.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
+import { EnvioDatosService } from 'src/app/shared/Services/envioDatos.service';
+import { HorarioCursoService } from 'src/app/shared/Services/horarioCurso.service';
+import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 
 @Component({
   selector: 'app-visualizar-programas-capacitacion',
@@ -22,10 +22,10 @@ export class VisualizarProgramasCapacitacionComponent {
 
 
   constructor(
-    private programaCapacitacionServ: ProgramaCapacitacionServ,
-    private horarioCursoService: HorarioCursoServ,
+    private programaCapacitacionServ: ProgramaCapacitacionService,
+    private horarioCursoService: HorarioCursoService,
     private enviarDatosService: EnvioDatosService ,
-    private cursoService: CursoServ
+    private cursoService: CursoService
 
   ) { }
 
@@ -42,7 +42,7 @@ export class VisualizarProgramasCapacitacionComponent {
 
   programasList: any[] = [];
   public getAllProgramasc() {
-    this.programaCapacitacionServ.getAllProgramasC().subscribe((data: any) => {
+    this.programaCapacitacionServ.getProgramasCapacitacion().subscribe((data: any) => {
       this.programasList = data;
       console.log("Siiuu")
       console.log(this.programasList)

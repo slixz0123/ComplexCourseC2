@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import 'bootstrap';
-import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoevaluacion';
+import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
 import { DetalleMe } from 'src/app/Core/models/detalleme';
-import { MecanismoEvaluacionServService } from 'src/app/shared/Services/mecanismo-evaluacion-serv.service';
-import { DetalleMevaServService } from 'src/app/shared/Services/detalle-meva-serv.service';
+import { MecanismoEvaluacionService } from 'src/app/shared/Services/mecanismoEvaluacion.service';
 import Swal from 'sweetalert2';
+import { DetalleMevaService } from 'src/app/shared/Services/detalleMeva.service';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class RegisterDetalleMevaComponent {
   submitted = false;
   selectedMecanismo!: MecanismoEvaluacion;
 
-  constructor(private detalleServ: DetalleMevaServService, private mecanismoServ: MecanismoEvaluacionServService) { }
+  constructor(private detalleMevaServService: DetalleMevaService, private mecanismoServ: MecanismoEvaluacionService) { }
 
   ngOnInit(): void {
     this.getMecanismos();
@@ -32,7 +32,7 @@ export class RegisterDetalleMevaComponent {
   }
 
   getDetalles(): void {
-    this.detalleServ.getAllTrue().subscribe((detalles) => (this.detalles = detalles));
+    this.detalleMevaServService.getAllTrue().subscribe((detalles) => (this.detalles = detalles));
   }
 
   editarDetalle(detalle: DetalleMe): void {
@@ -47,7 +47,7 @@ export class RegisterDetalleMevaComponent {
 
   submitForm(): void {
     if (this.isNew) {
-      this.detalleServ.create(this.detalleSeleccionado).subscribe(() => {
+      this.detalleMevaServService.create(this.detalleSeleccionado).subscribe(() => {
         this.getDetalles();
         this.detalleSeleccionado = new DetalleMe();
 
@@ -68,7 +68,7 @@ export class RegisterDetalleMevaComponent {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) { // Si el usuario confirma la edición
-          this.detalleServ.update(this.detalleSeleccionado, this.detalleSeleccionado.dmeId).subscribe(() => {
+          this.detalleMevaServService.update(this.detalleSeleccionado, this.detalleSeleccionado.dmeId).subscribe(() => {
             this.getDetalles();
             this.detalleSeleccionado = new DetalleMe();
             this.isNew = true;
@@ -94,7 +94,7 @@ export class RegisterDetalleMevaComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.detalleServ.delete(dmeId).subscribe(() => {
+        this.detalleMevaServService.delete(dmeId).subscribe(() => {
           this.getDetalles();
 
         });

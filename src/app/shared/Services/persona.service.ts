@@ -7,7 +7,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 @Injectable({
   providedIn: 'root'
 })
-export class PersonaServService {
+export class PersonaService {
     // buscarPersona(id_persona: number) {
     //   throw new Error('Method not implemented.');
     // }

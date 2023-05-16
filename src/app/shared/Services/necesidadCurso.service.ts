@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NecesidadCursoserviceService {
+export class NecesidadCursoService {
 
 
   private URL = "http://localhost:8080/api/necesidadcurso/buscar/";

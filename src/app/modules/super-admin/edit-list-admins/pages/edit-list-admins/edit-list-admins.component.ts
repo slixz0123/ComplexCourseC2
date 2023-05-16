@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
 import { Usuario } from 'src/app/Core/models/usuario';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import * as bootstrap from 'bootstrap';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2'
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { RolService } from 'src/app/shared/Services/rol.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 
 @Component({
   selector: 'app-edit-list-admins',
@@ -17,9 +17,9 @@ export class EditListAdminsComponent implements OnInit {
   selectedUsuario?: Usuario;
 
   constructor(
-    private usuarioService: UsuarioServService,
-    private registerUsrService: PersonaServService,
-    private rolservices: RolServService,
+    private usuarioService: UsuarioService,
+    private registerUsrService: PersonaService,
+    private rolservices: RolService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 

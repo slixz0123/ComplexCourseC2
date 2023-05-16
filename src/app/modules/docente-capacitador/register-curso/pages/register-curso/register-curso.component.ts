@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Curso } from 'src/app/Core/models/curso';
-import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
+import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
-import { Modalidadcurso } from 'src/app/Core/models/modalidadcurso';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
+import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 import { Persona } from 'src/app/Core/models/persona';
-import { ProgramaCapacitacion } from 'src/app/Core/models/programa-capacitacion';
-import { TiposCurso } from 'src/app/Core/models/tiposcurso';
+import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
-import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
-import { EspecialidadServService } from 'src/app/shared/Services/especialidad-serv.service';
-import { ModalidadsercService } from 'src/app/shared/Services/modalidadserc.service';
-import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { ProgramaCapacitacionService } from 'src/app/shared/Services/programa-capacitacion.service';
-import { TipoCursosService } from 'src/app/shared/Services/tipo-cursos.service';
+import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
+import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
+import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
+import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
+import { TipoCursoService } from 'src/app/shared/Services/tipoCurso.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,7 +29,7 @@ export class RegisterCursoComponent implements OnInit {
 
   programas: ProgramaCapacitacion[] = [];
   especialidades: Especialidad[] = [];
-  modalidades: Modalidadcurso[] = [];
+  modalidades: ModalidadCurso[] = [];
   tipos: TiposCurso[] = [];
   silabos: Datossilabo[] = [];
   necesidades: NecesidadCurso[] = [];
@@ -47,14 +47,14 @@ export class RegisterCursoComponent implements OnInit {
 
   constructor(
     private cursoServ: CursoService,
-    private programaCapServ: ProgramaCapacitacionService,
-    private especialidadServ: EspecialidadServService,
-    private modalidadCurServ: ModalidadsercService,
-    private tipoCurServ: TipoCursosService,
+    private especialidadServ: EspecialidadService,
+    private modalidadCurServ: ModalidadService,
+    private tipoCurServ: TipoCursoService,
     private datosSilServ: DatossilaboservService,
-    private necesidadServ: NecesidadCursoserviceService,
-    private disenoCurrServ: DisenoCurricularServService,
-    private personaServ: PersonaServService
+    private necesidadServ: NecesidadCursoService,
+    private disenoCurrServ: DisenoCurricularService,
+    private personaServ: PersonaService,
+    private programaCapacitacionService: ProgramaCapacitacionService,
     ) { }
 
   ngOnInit(): void {
@@ -159,7 +159,7 @@ export class RegisterCursoComponent implements OnInit {
 
   //Cargar datos de las relaciones de curso en las vistas
   getProgramas(): void {
-    this.programaCapServ.getProgramasCapacitacion().subscribe((programas) => (this.programas = programas));
+    this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => (this.programas = programas));
   }
 
   /*getEspecialidades(): void {

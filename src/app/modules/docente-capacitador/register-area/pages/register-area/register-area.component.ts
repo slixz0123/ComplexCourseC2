@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { Area } from 'src/app/Core/models/area';
-import { AreaServService } from 'src/app/shared/Services/area-serv.service';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AreaService } from 'src/app/shared/Services/area.service';
 
 @Component({
   selector: 'app-register-area',
@@ -19,7 +19,7 @@ export class RegisterAreaComponent implements OnInit {
   areaForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private areaServ: AreaServService) { }
+  constructor(private areaServ: AreaService) { }
 
   ngOnInit(): void {
     this.getAreas();

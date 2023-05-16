@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Usuario } from 'src/app/Core/models/usuario';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 
 @Component({
   selector: 'app-auth',
@@ -41,7 +41,7 @@ export class AuthComponent {
   }
 
 // Delaracion de servicios y FormBuilder para su utilizacion en los metodos  
-  constructor(private fb: FormBuilder , private usuarioService: UsuarioServService, private router: Router,private cookieservice:CookieService) { }
+  constructor(private fb: FormBuilder , private usuarioService: UsuarioService, private router: Router,private cookieservice:CookieService) { }
 
 // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
   goToAdmin() :void{

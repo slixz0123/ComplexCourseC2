@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
-import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapacitacion-serv.service';
+import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 
 @Component({
   selector: 'app-register-program-cap',
@@ -12,7 +12,7 @@ export class RegisterProgramCapComponent {
   id_programac: any;
   estado: boolean = true;
   constructor(
-    private programaCapacitacionServ: ProgramaCapacitacionServ
+    private programaCapacitacionServ: ProgramaCapacitacionService
     
   ){
 
@@ -27,7 +27,7 @@ export class RegisterProgramCapComponent {
     // console.log("esta es "+this.id_programac);
     console.log(this.programaCapacitacion)
     this.programaCapacitacion.pcaEstado=this.estado;
-    this.programaCapacitacionServ.saveProgramacap(this.programaCapacitacion).subscribe(   
+    this.programaCapacitacionServ.createProgramaCapacitacion(this.programaCapacitacion).subscribe(   
       (data: any) => {
         console.log('a verrr' + data);
       },
@@ -38,7 +38,7 @@ export class RegisterProgramCapComponent {
   }
   programasList: any[] = [];
   public getAllProgramasc() {
-    this.programaCapacitacionServ.getAllProgramasC().subscribe((data: any) => {
+    this.programaCapacitacionServ.getProgramasCapacitacion().subscribe((data: any) => {
       this.programasList = data;
     });
   }

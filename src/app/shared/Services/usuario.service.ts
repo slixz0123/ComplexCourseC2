@@ -8,12 +8,12 @@ import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { Persona } from 'src/app/Core/models/persona';
 import { tap, map } from 'rxjs/operators';
-import { RolServService } from './rol-serv.service';
+import { RolService } from './rol.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioServService {
+export class UsuarioService {
   private URL = 'http://localhost:8080/usuarios';
   private URLcre = 'http://localhost:8080/usuarios/signup';
   private usuariosApiUrl = 'http://localhost:8080/usuarios/users/list';
@@ -21,7 +21,7 @@ export class UsuarioServService {
   private rolesApiUrl = 'http://localhost:8080/api/rol/buscar';
   
 
-  constructor(private http: HttpClient, private rol:RolServService) {}
+  constructor(private http: HttpClient, private rol:RolService) {}
 
 //Listar usuarios por rol---------------------------------------------------------
 listarUsuarios(): Observable<Usuario[]> {

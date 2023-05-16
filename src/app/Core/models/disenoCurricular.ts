@@ -1,5 +1,5 @@
 import { Especialidad } from "./especialidad";
-import { MecanismoEvaluacion } from "./mecanismoevaluacion";
+import { MecanismoEvaluacion } from "./mecanismoEvaluacion";
 
 export class DisenoCurricular {
 

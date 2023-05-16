@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
 
 @Component({
   selector: 'app-edit-dts-docentes',
@@ -12,7 +12,7 @@ export class EditDtsDocentesComponent {
   personai: Persona = new Persona; // instancia de la clase persona 
   id_persona: any;
   constructor(
-    private personaService: PersonaServService
+    private personaService: PersonaService
     
   ){
 

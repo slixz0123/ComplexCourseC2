@@ -1,5 +1,4 @@
-import { Area } from "./area";
-import { MecanismoEvaluacion } from "./mecanismoevaluacion";
+import { MecanismoEvaluacion } from "./mecanismoEvaluacion";
 
 export class DetalleMe {
     dmeId: number=0;

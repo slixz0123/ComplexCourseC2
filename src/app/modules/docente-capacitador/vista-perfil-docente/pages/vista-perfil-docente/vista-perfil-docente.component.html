@@ -139,7 +139,7 @@
             <hr>
             <div class="row">
               <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank" (click)="mostrarDatos()">Edit</a>
+                <a class="btn btn-info " target="__blank" (click)="goToeditprofile($event)">Edit</a>
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h6 class="d-flex align-items-center mb-3">
-                  <i class="material-icons text-info mr-2">CursosImpartidos</i>
+                  <i class="material-icons text-info mr-2">Cursos Impartidos</i>
                 </h6>
                 <div *ngFor="let curso of cursoList">
                   <div *ngIf="curso.curProceso=='Finalizado' && curso.curEstado==1">

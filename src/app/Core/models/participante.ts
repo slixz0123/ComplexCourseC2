@@ -12,8 +12,6 @@ export class Participante{
     parEstado?: boolean;
     parPersona?: Persona;
     curso?: Curso;
-
-    
     asistencias!: Asistencia[];
 
 }

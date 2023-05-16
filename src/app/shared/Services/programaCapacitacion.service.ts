@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProgramaCapacitacion } from 'src/app/Core/models/programa-capacitacion';
+import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
 
 @Injectable({
   providedIn: 'root',

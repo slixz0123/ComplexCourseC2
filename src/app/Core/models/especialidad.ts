@@ -1,5 +1,4 @@
 import { Area } from "./area";
-import { Curso } from "./curso";
 
 export class Especialidad {
 

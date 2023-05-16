@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/ResultadosAprendizaje';
-import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
+import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
+import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
-import { participanteService } from 'src/app/shared/Services/participante-serv.service';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
+import { ParticipanteService } from 'src/app/shared/Services/participante.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
 
 @Component({
   selector: 'app-gen-fincha-inscripcion',
@@ -14,8 +14,8 @@ export class GenFinchaInscripcionComponent {
   edadPersona: any;
   id_persona: any;
   constructor(
-    private personaService: PersonaServService,
-    private participanteService: participanteService
+    private personaService: PersonaService,
+    private participanteService: ParticipanteService
 
   ) {
 

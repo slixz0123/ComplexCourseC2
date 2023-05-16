@@ -2,10 +2,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
+import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 
 import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
-import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosdidacticos';
+import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
 import { ContenidocurservService } from 'src/app/shared/Services/DatosSilaboServ/contenidocurserv.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboServ/estrategiasmetserv.service';
@@ -13,7 +13,7 @@ import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evalu
 import { HorasaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/horasaprendizajeserv.service';
 import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
 import { ResultadosaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/resultadosaprendizajeserv.service';
-import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
+import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 
 
 interface ResultadosAprendizaje {

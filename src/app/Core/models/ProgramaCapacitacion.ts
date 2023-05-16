@@ -1,5 +1,5 @@
 export class ProgramaCapacitacion{
-    pcaId?: number;
+    pcaId: number =0;
     pcaNombre?: string;
     pcaFechainicio?: Date;
     pcaFechafin?: Date;

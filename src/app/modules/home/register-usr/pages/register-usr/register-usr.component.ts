@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { RolServService } from 'src/app/shared/Services/rol-serv.service';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
-import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { RolService } from 'src/app/shared/Services/rol.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 
 @Component({
   selector: 'app-register-usr',
@@ -18,7 +17,7 @@ export class RegisterUsrComponent {
   rol: Rol = new Rol; // instancia de la clase rol 
 
   // en el constructor instanciamos los servicios
-  constructor(private persoUsrService: PersonaServService, private userServiceService: UsuarioServService, private rolservices:RolServService) { }
+  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService) { }
 
   ngOnInit() {
   }

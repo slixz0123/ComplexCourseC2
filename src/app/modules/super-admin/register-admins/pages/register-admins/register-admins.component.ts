@@ -3,9 +3,9 @@ import { window } from 'rxjs';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { RolServService } from 'src/app/shared/Services/rol-serv.service';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { RolService } from 'src/app/shared/Services/rol.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -24,9 +24,9 @@ export class RegisterAdminsComponent {
 
   // en el constructor instanciamos los servicios
   constructor(
-    private registerUsrService: PersonaServService,
-    private userServiceService: UsuarioServService,
-    private rolservices: RolServService
+    private registerUsrService: PersonaService,
+    private userServiceService: UsuarioService,
+    private rolservices: RolService
   ) {}
 
   ngOnInit() {}

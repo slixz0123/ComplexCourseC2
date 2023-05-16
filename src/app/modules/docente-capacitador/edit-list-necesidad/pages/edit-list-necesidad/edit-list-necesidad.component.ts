@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dias } from 'src/app/Core/models/dias';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
-import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
+import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
-import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
+import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import Swal from'sweetalert2';
 @Component({
   selector: 'app-edit-list-necesidad',
@@ -54,7 +54,7 @@ export class EditListNecesidadComponent {
     this.selectedIdcur.ncuId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
   }
 
-  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoserviceService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder){
+  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder){
     _CargarSc.carga3(["modal"])
   }
   sendData3(selectedValue2: number) {

@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Curso } from 'src/app/Core/models/curso';
 import { Dias } from 'src/app/Core/models/dias';
-import { Modalidadcurso } from 'src/app/Core/models/modalidadcurso';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
-import { TiposCurso } from 'src/app/Core/models/tiposcurso';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
+import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
-import { ModalidadsercService } from 'src/app/shared/Services/modalidadserc.service';
-import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
+import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import Swal from'sweetalert2';
 
 
@@ -43,7 +41,7 @@ export class RegisterNecesidadComponent {
 
 
 
-    constructor(private necesidadserv: NecesidadCursoserviceService, private diaserv:DiasService,private formbuilder:FormBuilder) {
+    constructor(private necesidadserv: NecesidadCursoService, private diaserv:DiasService,private formbuilder:FormBuilder) {
       }
   
       ngOnInit(): void {

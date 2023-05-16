@@ -6,7 +6,7 @@ import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
 @Injectable({
   providedIn: 'root'
 })
-export class EntornoAprendizajeServService {
+export class EntornoAprendizajeService {
 
    private URL = "http://localhost:8080/api/EntornoAprendizaje";
 

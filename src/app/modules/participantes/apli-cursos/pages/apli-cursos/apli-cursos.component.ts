@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FichaInscripcion } from 'src/app/Core/models/ficha Inscripcion';
-import { FichaIncripcionServ } from 'src/app/shared/Services/fichaInscripcion-serv.service';
+import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
+import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion.service';
 
 @Component({
   selector: 'app-apli-cursos',
@@ -12,7 +12,7 @@ export class ApliCursosComponent {
   fichaIncripcion: FichaInscripcion = new FichaInscripcion();
 
   constructor(
-    private fichaIncripcionService: FichaIncripcionServ
+    private fichaIncripcionService: FichaIncripcionService
 
   ) { }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Dias } from 'src/app/Core/models/dias';
-import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
+import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
 
 export interface PeriodicElement {

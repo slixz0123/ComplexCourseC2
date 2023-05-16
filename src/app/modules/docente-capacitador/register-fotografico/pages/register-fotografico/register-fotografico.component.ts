@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RegistroFotograficoService } from 'src/app/shared/Services/registro-fotografico.service';
+import { RegistroFotograficoService } from 'src/app/shared/Services/registroFotografico.service';
 import { RegistroFotografico } from 'src/app/Core/models/registrFotografico';
 import { Curso } from 'src/app/Core/models/curso';
 import Swal from 'sweetalert2';

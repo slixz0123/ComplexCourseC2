@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
-import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
-import { EntornoAprendizajeServService } from 'src/app/shared/Services/entornoAprendizaje-serv.service';
+import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
+import { EntornoAprendizajeService } from 'src/app/shared/Services/entornoAprendizaje.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +22,7 @@ export class RegisterEntornoAprendizajeComponent {
   submitted = false;
   selectedDiseno!: DisenoCurricular;
 
-  constructor(private entornoServ: EntornoAprendizajeServService, private disenoServ: DisenoCurricularServService) { }
+  constructor(private entornoServ: EntornoAprendizajeService, private disenoServ: DisenoCurricularService) { }
 
   ngOnInit(): void {
     this.getDisenos();

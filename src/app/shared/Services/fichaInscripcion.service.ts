@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FichaInscripcion } from 'src/app/Core/models/ficha Inscripcion';
+import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FichaIncripcionServ {
+export class FichaIncripcionService {
 
   private URL = "http://localhost:8080/api/FichaInscripcion";
 

@@ -3,14 +3,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Curso } from 'src/app/Core/models/curso';
 
 import { Dias } from 'src/app/Core/models/dias';
-import { Modalidadcurso } from 'src/app/Core/models/modalidadcurso';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
-import { TiposCurso } from 'src/app/Core/models/tiposcurso';
+import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
+import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
-import { ModalidadsercService } from 'src/app/shared/Services/modalidadserc.service';
-import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
-import { TipoCursosService } from 'src/app/shared/Services/tipo-cursos.service';
+import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
+import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
+import { TipoCursoService } from 'src/app/shared/Services/tipoCurso.service';
 
 @Component({
   selector: 'app-reponecesidad',
@@ -21,14 +21,14 @@ export class ReponecesidadComponent {
   neceForm!: FormGroup;
 
   selectedId: TiposCurso = new TiposCurso();
-  selectedId2: Modalidadcurso = new Modalidadcurso();
+  selectedId2: ModalidadCurso = new ModalidadCurso();
   selectedId3: Dias = new Dias();
 
   necesidadcurso!: NecesidadCurso;
   tipocurso : TiposCurso[]=[];
 
-  modalidadcurso!: Modalidadcurso;
-  modacurso : Modalidadcurso[]=[];
+  modalidadcurso!: ModalidadCurso;
+  modacurso : ModalidadCurso[]=[];
 
   diasnew!: Dias;
   arraydias : Dias[]=[];
@@ -41,14 +41,14 @@ export class ReponecesidadComponent {
 
     tipocur: TiposCurso = new TiposCurso; 
 
-    modcur: Modalidadcurso = new Modalidadcurso; 
+    modcur: ModalidadCurso = new ModalidadCurso; 
 
     newdias: Dias = new Dias; 
 
     cursoob: Curso = new Curso();
 
-    constructor(private necesidadserv: NecesidadCursoserviceService,
-     private tipocursoserv:TipoCursosService , private modalidadcursoserv:ModalidadsercService,private diaserv:DiasService,private cursoserv:CursoService,private formbuilder:FormBuilder) {
+    constructor(private necesidadserv: NecesidadCursoService,
+     private tipocursoserv:TipoCursoService , private modalidadcursoserv:ModalidadService,private diaserv:DiasService,private cursoserv:CursoService,private formbuilder:FormBuilder) {
       }
   
       ngOnInit(): void {

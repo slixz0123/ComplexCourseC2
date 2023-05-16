@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import { Router } from '@angular/router';
-import {ProgramaCapacitacion} from 'src/app/Core/models/programa-capacitacion'
-import {ProgramaCapacitacionService} from 'src/app/shared/Services/programa-capacitacion.service'
-import {CursoServ} from 'src/app/shared/Services/curso-serv.service'
 import {Curso} from 'src/app/Core/models/curso'
+import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { CursoService } from 'src/app/shared/Services/curso.service';
+import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 
 @Component({
   selector: 'app-bienvenida-home',
@@ -16,7 +16,9 @@ export class BienvenidaHomeComponent implements OnInit{
   cursos: { [key: number]: Curso[] } = {};
   
   constructor(
-    private _CargarSc: CargarjsHomeService, private router : Router, private programaCapacitacionService: ProgramaCapacitacionService, private cursoService: CursoServ)
+    private _CargarSc: CargarjsHomeService, private router : Router, 
+    private programaCapacitacionService: ProgramaCapacitacionService, 
+    private cursoService: CursoService)
   {
       
       _CargarSc.carga_boost(["bootstrap"])

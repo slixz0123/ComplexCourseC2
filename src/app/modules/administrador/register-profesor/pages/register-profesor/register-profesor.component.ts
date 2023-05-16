@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { RolServService } from 'src/app/shared/Services/rol-serv.service';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
 
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { RolService } from 'src/app/shared/Services/rol.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 
 @Component({
   selector: 'app-register-profesor',
@@ -22,7 +22,7 @@ export class RegisterProfesorComponent{
   
 
   // en el constructor instanciamos los servicios
-  constructor(private persoUsrService: PersonaServService, private userServiceService: UsuarioServService, private rolservices:RolServService) { }
+  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService) { }
  validardatos: any;
 
  buscarRol(nombre: string){
@@ -43,7 +43,8 @@ export class RegisterProfesorComponent{
       } else {
         this.validardatos=2;
         alert("No se encontró la persona con el cedula proporcionado.");
-        this.persona.id_persona=1;
+        this.persona.id_persona=0;
+        this.persona.cedula=cedula;
         this.persona.nombre = "string";
         this.persona.apellido = "string";
         this.persona.fecha_nacimiento = new Date('2000-01-01');

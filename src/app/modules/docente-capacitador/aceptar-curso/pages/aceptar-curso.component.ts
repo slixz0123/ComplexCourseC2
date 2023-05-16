@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
-import { FichaInscripcion } from 'src/app/Core/models/ficha Inscripcion';
+import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
 import { Participante } from 'src/app/Core/models/participante';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { CursoService } from 'src/app/shared/Services/curso.service';
-import { FichaIncripcionServ } from 'src/app/shared/Services/fichaInscripcion-serv.service';
-import { participanteService } from 'src/app/shared/Services/participante-serv.service';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
-import { RolServService } from 'src/app/shared/Services/rol-serv.service';
-import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
+import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion.service';
+import { ParticipanteService } from 'src/app/shared/Services/participante.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
+import { RolService } from 'src/app/shared/Services/rol.service';
+import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 
 @Component({
   selector: 'app-aceptar-curso',
@@ -20,12 +20,13 @@ import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service
 export class AceptarCursoComponent implements OnInit{
   mostrarFormulario = false;
 
-  constructor(private personService:PersonaServService, 
-    private rolService:RolServService, 
-    private usuarioService:UsuarioServService,
+  constructor(private personService:PersonaService, 
+    private rolService:RolService, 
+    private usuarioService:UsuarioService,
     private cursoService:CursoService,
-    private participanteService:participanteService,
-    private fichaService:FichaIncripcionServ){}
+    private participanteService:ParticipanteService,
+    private fichaService:FichaIncripcionService
+    ){}
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
   }

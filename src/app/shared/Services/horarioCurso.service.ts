@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HorarioCurso } from 'src/app/Core/models/HorarioCurso';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HorarioCursoServ {
+export class HorarioCursoService {
 
   private URL = "http://localhost:8080/api/HorarioCurso";
 

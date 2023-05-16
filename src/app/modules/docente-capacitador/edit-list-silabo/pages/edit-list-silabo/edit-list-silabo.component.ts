@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { Dias } from 'src/app/Core/models/dias';
-import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
-import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
+import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
+import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
-import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
+import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
 import { ContenidocurservService } from 'src/app/shared/Services/DatosSilaboServ/contenidocurserv.service';
-import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/ResultadosAprendizaje';
+import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
 import { ResultadosaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/resultadosaprendizajeserv.service';
 import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
 import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboServ/estrategiasmetserv.service';
-import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosdidacticos';
+import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
 import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
 import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
 import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evaluaepra.service';
+import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 
 @Component({
   selector: 'app-edit-list-silabo',
@@ -102,7 +102,7 @@ selectedIdEVA: EvaluacionEpra = new EvaluacionEpra();
   }
 
 
-  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoserviceService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder, 
+  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder, 
     private datosilabserv:DatossilaboservService,private contencursoserv:ContenidocurservService,
     private resultaprendiserv: ResultadosaprendizajeservService,private estrateserv:EstrategiasmetservService,
     private recurdidacticoserv: RecursosdidacticosservService,

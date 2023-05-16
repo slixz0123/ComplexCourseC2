@@ -7,7 +7,7 @@ import { Curso } from 'src/app/Core/models/curso';
   providedIn: 'root'
 })
 export class CursoService {
-
+  private URLi = "http://localhost:8080/api/Curso";
   private URL = "http://localhost:8080/api/Curso/buscar/";
   private URL1 = "http://localhost:8080/api/Curso/";
   private URL2 = "http://localhost:8080/api/Curso/crear";
@@ -40,6 +40,7 @@ export class CursoService {
         })
       );
   }
+
   update(cur: Curso, id_cur: number) {
     return this.http.put<Curso>(this.URL1+ `actualizar/${id_cur}`, cur);
   }
@@ -50,5 +51,13 @@ export class CursoService {
 
   getAllFalse(): Observable<Curso[]> {
     return this.http.get<Curso[]>(`${this.URL1}listarfalse`);
+  }
+
+  public cursosporDocente(idDocente: any) {
+    return this.http.get<any>(`${this.URLi}/findByUser/` + idDocente);
+  }
+
+  public cursosporPrograma(idPrograma: any) {
+    return this.http.get<any>(`${this.URLi}/findBycursosprograma/` + idPrograma);
   }
 }

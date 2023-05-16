@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Area } from 'src/app/Core/models/area';
 import { Especialidad } from 'src/app/Core/models/especialidad';
-import { EspecialidadServService } from 'src/app/shared/Services/especialidad-serv.service';
 import 'bootstrap';
-import { AreaServService } from 'src/app/shared/Services/area-serv.service';
 import Swal from 'sweetalert2';
+import { AreaService } from 'src/app/shared/Services/area.service';
+import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class RegisterEspecialidadComponent {
   especialidadForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private especialidadServ: EspecialidadServService, private areaServ: AreaServService) { }
+  constructor(private especialidadServ: EspecialidadService, private areaServ: AreaService) { }
 
   ngOnInit(): void {
     this.getAreas();

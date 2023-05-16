@@ -8,5 +8,5 @@ export class Asistencia {
   asiEstado: boolean = true;
 
   asiParticipante: Participante = new Participante;
-    
-  }
+
+}

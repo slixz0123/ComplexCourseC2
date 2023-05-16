@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CargarjsTemplatesService } from '../../Services/cargarjs-templates.service';
+import { CargarjsTemplatesService } from '../../Services/cargarjsTemplates.service';
 import { Router } from '@angular/router';
 
 @Component({

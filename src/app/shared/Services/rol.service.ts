@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RolServService {
+export class RolService {
 
   
   private URL = "http://localhost:8080/api/rol/buscar/";

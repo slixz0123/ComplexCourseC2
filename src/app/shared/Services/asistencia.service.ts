@@ -6,7 +6,7 @@ import { Asistencia } from 'src/app/Core/models/asistencia';
 @Injectable({
   providedIn: 'root'
 })
-export class AsistenciaServService {
+export class AsistenciaService {
 
    private URL = "http://localhost:8080/api/asistencia";
 

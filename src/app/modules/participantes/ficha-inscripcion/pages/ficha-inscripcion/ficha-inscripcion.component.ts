@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
-import { FichaInscripcion } from 'src/app/Core/models/FichaInscripcion';
-import { HorarioCurso } from 'src/app/Core/models/HorarioCurso';
+import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Persona } from 'src/app/Core/models/persona';
-import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
-import { EnvioDatosService } from 'src/app/shared/Services/envioDatos-serv.service';
-import { FichaIncripcionServ } from 'src/app/shared/Services/fichaIncripcion-serv.service';
-import { HorarioCursoServ } from 'src/app/shared/Services/horarioCurso-serv.service';
-import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
+import { EnvioDatosService } from 'src/app/shared/Services/envioDatos.service';
+import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion.service';
+import { HorarioCursoService } from 'src/app/shared/Services/horarioCurso.service';
+import { PersonaService } from 'src/app/shared/Services/persona.service';
 
 @Component({
   selector: 'app-ficha-inscripcion',
@@ -25,11 +25,11 @@ export class FichaInscripcionComponent {
 
 
   constructor(
-    private personaService: PersonaServService,
-    private horarioCursoService: HorarioCursoServ,
-    private cursoService: CursoServ,
+    private personaService: PersonaService,
+    private horarioCursoService: HorarioCursoService,
+    private cursoService: CursoService,
     private enviarDatosService: EnvioDatosService,
-    private fichaincripcionService: FichaIncripcionServ 
+    private fichaincripcionService: FichaIncripcionService
 
     ){}
 
@@ -74,7 +74,7 @@ this.fichaInscripcion.finAuspiciadoinst=true
   }
 
   public mostrarDatosc(){
-    this.cursoService.getCursoById(this.enviarDatosService.idCurso).subscribe(
+    this.cursoService.getById(this.enviarDatosService.idCurso).subscribe(
         (data: any) => {
          this.curso = data;
         //  console.log(this.curso.modalidadcurso.mcuNombre)
