@@ -146,6 +146,10 @@ const routes: Routes = [
   path: 'register-fotografico',
   loadChildren: () => import("./register-fotografico/register-fotografico.module").then(m => m.RegisterFotograficoModule)
 },
+{
+  path: 'entrega',
+  loadChildren:() => import("./entrega-certificados/entrega-certificados.module").then(m=>m.EntregaCertificadosModule)
+},
 ];
 
 @NgModule({

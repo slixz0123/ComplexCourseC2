@@ -35,6 +35,7 @@ import { Participante } from "src/app/Core/models/participante";
       return this.http.get<Participante[]>(url);
     }
 
-
-
+    obtenerAprobados(){
+      return this.http.get<any>(`${this.URL}/listarAprobados`);
+    }
   }
