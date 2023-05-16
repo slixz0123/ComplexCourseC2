@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import { Router } from '@angular/router';
 import {Curso} from 'src/app/Core/models/curso'
-import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 

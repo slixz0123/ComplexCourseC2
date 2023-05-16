@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 
 @Component({

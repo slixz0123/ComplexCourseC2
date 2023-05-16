@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { InformeFinalService } from 'src/app/shared/Services/informeFinalcurso.service';
-import { InformeFinal } from 'src/app/Core/models/InformeFinal';
+import { InformeFinal } from 'src/app/Core/models/informeFinal';
 import { Curso } from 'src/app/Core/models/curso';
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 

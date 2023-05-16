@@ -7,7 +7,7 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
 import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 import { Persona } from 'src/app/Core/models/persona';
-import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
+import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';

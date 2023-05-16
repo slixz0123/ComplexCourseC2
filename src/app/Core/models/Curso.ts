@@ -1,11 +1,11 @@
 import { Especialidad } from "./especialidad";
-import { Datossilabo } from "./DatosSilabo/datosSilabo";
 import { DisenoCurricular } from "./disenoCurricular";
 import { Persona } from "./persona";
-import { ProgramaCapacitacion } from "./ProgramaCapacitacion";
-import { NecesidadCurso } from "./necesidadCurso";
-import { ModalidadCurso } from "./modalidadCurso";
 import { TiposCurso } from "./tipoCurso";
+import { ProgramaCapacitacion } from "./programaCapacitacion";
+import { ModalidadCurso } from "./modalidadCurso";
+import { Datossilabo } from "./DatosSilabo/datosSilabo";
+import { NecesidadCurso } from "./necesidadCurso";
 
 export class Curso {
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InformeFinal } from 'src/app/Core/models/InformeFinal';
+import { InformeFinal } from 'src/app/Core/models/informeFinal';
 
 @Injectable({
   providedIn: 'root'
