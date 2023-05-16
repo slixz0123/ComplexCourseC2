@@ -13,7 +13,8 @@ import { VistaPerfilDocenteComponent } from './pages/vista-perfil-docente/vista-
   ],
   imports: [
     CommonModule,
-    VistaPerfilDocenteRoutingModule, SharedModule,
+    VistaPerfilDocenteRoutingModule, 
+    SharedModule,
     FormsModule,
     HttpClientModule,
   ],exports:[

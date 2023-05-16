@@ -24,7 +24,7 @@ body{
 
 
 .card {
-    border-radius: 5px;
+    border-radius: 10px;
     -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
     box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
     border: none;
@@ -38,7 +38,7 @@ body{
 }
 
 .order-card i {
-    font-size: 26px;
+    font-size: 30px;
 }
 
 .f-left {
@@ -49,5 +49,14 @@ body{
     float: right;
 }
 .val {
-    font-size: 12px;
+    font-size: 10px;
+  }
+  .col-md-4{
+  /* max-width: 70.333333%; */
+  min-width: 30%;
+
+  }
+
+  .sin-borde {
+    border: none;
   }

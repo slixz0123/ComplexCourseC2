@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
 import { ProgramaCapacitacion } from 'src/app/Core/models/ProgramaCapacitacion';
 import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
+import { EnvioDatosService } from 'src/app/shared/Services/envioDatos-serv.service';
+import { HorarioCursoServ } from 'src/app/shared/Services/horarioCurso-serv.service';
 import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapacitacion-serv.service';
 
 @Component({
@@ -12,17 +14,23 @@ import { ProgramaCapacitacionServ } from 'src/app/shared/Services/programaCapaci
 export class VisualizarProgramasCapacitacionComponent {
   programaCapacitacion: ProgramaCapacitacion = new ProgramaCapacitacion();
   nprogramaCapacitacion: ProgramaCapacitacion = new ProgramaCapacitacion();
+  curso: Curso = new Curso();
+  ncurso: Curso = new Curso();
+
+
 
 
 
   constructor(
     private programaCapacitacionServ: ProgramaCapacitacionServ,
+    private horarioCursoService: HorarioCursoServ,
+    private enviarDatosService: EnvioDatosService ,
     private cursoService: CursoServ
 
   ) { }
 
   ngOnInit(): void {
-  // this.id_persona = localStorage.getItem('id_persona');
+    // this.id_persona = localStorage.getItem('id_persona');
     this.getAllProgramasc();
 
   }
@@ -49,7 +57,35 @@ export class VisualizarProgramasCapacitacionComponent {
     });
   }
 
-  mostrarDatosCurso(curso: Curso){
-
+  mostrarDatosCurso(mcurso: Curso) {
+    this.curso = mcurso
+    this.mostrarDatoshc();
   }
+
+
+  horariosTexto: string = '';
+  horarioscursoList: any[] = [];
+  numr: any;
+  public mostrarDatoshc() {
+    this.horarioCursoService.horariobycurso(this.curso.curId).subscribe(
+      (data: any) => {
+        this.horarioscursoList = data;
+        this.horariosTexto="";
+        for (let hc of this.horarioscursoList) {
+          this.numr = +1;
+          this.horariosTexto += `${hc.horario.horInicio} - ${hc.horario.horFin}\n`;
+        }
+        console.log(this.horarioscursoList);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  EnviarCurso(idCurso: any) {
+    console.log(idCurso)
+    this.enviarDatosService.setIdCurso(idCurso);
+  }
+
 }

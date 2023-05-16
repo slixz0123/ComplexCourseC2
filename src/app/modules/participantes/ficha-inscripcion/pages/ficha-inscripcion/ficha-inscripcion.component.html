@@ -28,7 +28,7 @@
         </div>
       </div>
       <!-- las modalidades -->
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="modalidad" class="form-label">Modalidad</label>
         <div>
           <div *ngIf="this.curso.mcursos.mcuNombre === 'Hibrida'">
@@ -42,6 +42,10 @@
             <input type="text" class="form-control" id="modalidad" value="{{this.curso.mcursos.mcuNombre}}" />
           </div>
         </div>
+      </div> -->
+      <div class="mb-3">
+        <label for="modalidad" class="form-label">Modalidad</label>
+        <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
       </div>
       <!-- los horarios -->
       <div class="mb-3">
@@ -184,12 +188,12 @@
       <div class="mb-3">
         <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?</label>
         <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="fichaInscripcion.finAuspiciadoinst">
-            <option value="true" (click)="this.showContainer1=true">Sí</option>
-            <option value="false" (click)="this.showContainer1=false">No</option>
+            <option value="true" >Sí</option>
+            <option value="false" >No</option>
         </select>
     </div>
 
-    <div *ngIf="showContainer1==true">
+    <div *ngIf="fichaInscripcion.finAuspiciadoinst!=true">
       <div class="mb-3">
         <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto</label>
         <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"

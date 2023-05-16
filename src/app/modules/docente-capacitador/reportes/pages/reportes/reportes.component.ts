@@ -19,14 +19,20 @@ export class ReportesComponent {
   informeFinal : InformeFinal = new InformeFinal; // instancia de la clase informe finla
   asistenciaCurso: AsistenciaCurso = new AsistenciaCurso; // instancia de la clase asistencia curso
   curso: Curso = new Curso; // instancia de la clase asistencia curso
-
+  idPersona: any;
   idInformefinal: any;
   idAsistenciaCurso: any;
   estado: boolean = true;
+  
+  showContainer1: boolean = true;
+  showContainer2: boolean = false;
+  showContainer3: boolean = false;
+  showContainer4: boolean = false;
+
   constructor(
     private informeFinalServ : InformeFinalServ,
+    private cursoService: CursoServ,
     private asistenciaCursoServ : AsistenciaCursoServ,
-  
   ){
 
   }
@@ -34,7 +40,9 @@ export class ReportesComponent {
   ngOnInit(): void {
 
     this.AllInformesFinal();
-    this.listarAsistenciasCurso
+    this.listarAsistenciasCurso();
+    this.idPersona= localStorage.getItem('id_persona');
+    this.mostrarCursos(this.idPersona);
   }
  
   saveInformefinal() {
@@ -103,6 +111,19 @@ export class ReportesComponent {
     const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
     asistencia.acuFechaelaboracion = fechaFormateadai;
     this.asistenciaCurso = asistencia;
+
+  }
+
+  cursosList: any[] = [];
+  mostrarCursos(idPersona: any ) {
+    this.cursoService.cursosporDocente(idPersona).subscribe((data: any) => {
+      this.cursosList = data;
+      console.log("Siiuu Curso")
+      console.log(this.cursosList)
+    });
+  }
+
+  tipoReporte(num: number){
 
   }
 }

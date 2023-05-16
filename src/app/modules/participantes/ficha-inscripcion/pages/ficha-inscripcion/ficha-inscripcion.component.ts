@@ -4,6 +4,7 @@ import { FichaInscripcion } from 'src/app/Core/models/FichaInscripcion';
 import { HorarioCurso } from 'src/app/Core/models/HorarioCurso';
 import { Persona } from 'src/app/Core/models/persona';
 import { CursoServ } from 'src/app/shared/Services/curso-serv.service';
+import { EnvioDatosService } from 'src/app/shared/Services/envioDatos-serv.service';
 import { FichaIncripcionServ } from 'src/app/shared/Services/fichaIncripcion-serv.service';
 import { HorarioCursoServ } from 'src/app/shared/Services/horarioCurso-serv.service';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
@@ -20,13 +21,14 @@ export class FichaInscripcionComponent {
   public fichaInscripcion: FichaInscripcion = new FichaInscripcion();
 
   id_persona: any;
-  id_curso: any = 1;
+  idCurso: any;
 
 
   constructor(
     private personaService: PersonaServService,
     private horarioCursoService: HorarioCursoServ,
     private cursoService: CursoServ,
+    private enviarDatosService: EnvioDatosService,
     private fichaincripcionService: FichaIncripcionServ 
 
     ){}
@@ -36,11 +38,13 @@ export class FichaInscripcionComponent {
       this.mostrarDatosp();
       this.mostrarDatosc();
       this.mostrarDatoshc();
-
+this.fichaInscripcion.finAuspiciadoinst=true
   }
-  showContainer1: boolean = false;
-
-
+  // showContainer1: boolean = true;
+  // mostrarSegundoDiv = false;
+  // onAuspicioChange() {
+  //   this.mostrarSegundoDiv = this.fichaInscripcion.finAuspiciadoinst;
+  // }
   public mostrarDatosp(){
     this.personaService.getPorId(2).subscribe(
         (data: any) => {
@@ -57,7 +61,7 @@ export class FichaInscripcionComponent {
   }
   horarioscursoList: any[] = [];
   public mostrarDatoshc(){
-    this.horarioCursoService.horariobycurso(this.id_curso).subscribe(
+    this.horarioCursoService.horariobycurso(this.enviarDatosService.idCurso).subscribe(
         (data: any) => {
           this.horarioscursoList = data;
         
@@ -70,7 +74,7 @@ export class FichaInscripcionComponent {
   }
 
   public mostrarDatosc(){
-    this.cursoService.getCursoById(1).subscribe(
+    this.cursoService.getCursoById(this.enviarDatosService.idCurso).subscribe(
         (data: any) => {
          this.curso = data;
         //  console.log(this.curso.modalidadcurso.mcuNombre)
@@ -87,13 +91,17 @@ export class FichaInscripcionComponent {
     mfichaInscripcion.finAprobacion = 0;
     mfichaInscripcion.finCurso=this.curso;
     mfichaInscripcion.finPersona=this.persona;
+    mfichaInscripcion.finId=0;
 
       console.log("mi ficha");
       console.log(mfichaInscripcion);
       console.log(mfichaInscripcion.finAuspiciadoinst);
-  
+  console.log("esta es la fi")
+  console.log(mfichaInscripcion)
+
     this.fichaincripcionService.saveFichaIncripcion(mfichaInscripcion).subscribe(() => {
       console.log("Afirmativo pareja")
+
       alert("La ficha de inscripción se ha guardado exitosamente.");
     }, error => {
       alert("Ha ocurrido un error al guardar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.");
