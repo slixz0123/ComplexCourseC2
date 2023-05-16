@@ -32,27 +32,28 @@
 >
   <nav class="navbar bg-dark" data-bs-theme="dark">
     <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">Programa de Capacitacion {{ programa.pcaNombre }}</span>
+      <span class="navbar-brand mb-0 h1"
+        >Programa de Capacitacion {{ programa.pcaNombre }}</span
+      >
     </div>
   </nav>
-  <div class="container-card">
+  <div class="container-card" *ngFor="let curso of cursos[programa.pcaId]">
     <div class="card">
       <figure>
-        <img src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png" />
+        <img
+          src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png"
+        />
       </figure>
       <div class="contenido-card">
-        <h3>{{ programa.pcaNombre }}</h3>
+        <h3>{{ curso.curNombre }}</h3>
         <p>
-          Capacitacion introductoria a desarrollo movil en java, kotlin,
-          objetive-c y swift, herramientas y Programacion orientada a
-          objetos
+          {{ curso }} <!-- Asegúrate de que la descripción del curso se encuentra en el objeto del curso -->
         </p>
         <a>Ingresar</a>
       </div>
     </div>
   </div>
 </div>
-
 
     <!--Fin   Tarjetas-->
     <!--Parte de Quienes somos-->

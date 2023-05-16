@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro Fotográfico</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center my-4">Registro Fotográfico</h1>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="description" class="form-label">Descripción</label>
+          <input
+            type="text"
+            formControlName="description"
+            class="form-control"
+            id="description"
+            placeholder="Descripción de la foto"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="date" class="form-label">Fecha</label>
+          <input
+            type="date"
+            formControlName="date"
+            class="form-control"
+            id="date"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="photo" class="form-label">Foto</label>
+          <input
+            type="file"
+            #photoInput
+            class="form-control"
+            id="photo"
+            accept="image/*"
+            (change)="onFileChange($event)"
+          />
+        </div>
+        <div class="mb-3">
+          <img
+            *ngIf="imagePreview"
+            class="img-thumbnail"
+            [src]="imagePreview"
+            alt="Previsualización de la foto"
+            id="preview"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+    <!-- Agrega la tabla aquí -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Imagen</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of getFilteredRegistrosFotograficos()">
+          <th scope="row">{{ registro.rfoId }}</th>
+          <td>{{ registro.rfoDescripcion }}</td>
+          <td>
+            <img
+              [src]="'data:image/jpeg;base64,' + registro.rfoFoto"
+              alt="Foto"
+              class="img-thumbnail"
+              width="100"
+            />
+          </td>
+          <td>
+            <button class="btn btn-primary" (click)="onEdit(registro)">
+              Editar
+            </button>
+            <button class="btn btn-danger" (click)="onDelete(registro)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- ... -->
+    
+  </body>
+</html>

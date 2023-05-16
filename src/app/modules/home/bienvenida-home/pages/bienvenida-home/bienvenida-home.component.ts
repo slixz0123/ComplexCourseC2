@@ -3,6 +3,8 @@ import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import { Router } from '@angular/router';
 import {ProgramaCapacitacion} from 'src/app/Core/models/programa-capacitacion'
 import {ProgramaCapacitacionService} from 'src/app/shared/Services/programa-capacitacion.service'
+import {CursoServ} from 'src/app/shared/Services/curso-serv.service'
+import {Curso} from 'src/app/Core/models/curso'
 
 @Component({
   selector: 'app-bienvenida-home',
@@ -11,22 +13,10 @@ import {ProgramaCapacitacionService} from 'src/app/shared/Services/programa-capa
 })
 export class BienvenidaHomeComponent implements OnInit{
   programas: ProgramaCapacitacion[] = [];
-    // <!-- Vendor JS Files -->
-  // <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  // <script src="assets/vendor/aos/aos.js"></script>
-  // <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  // <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  // <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  // <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  // <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  // <!-- Template Main JS File -->
-  // <script src="assets/js/main.js"></script>
-  //   <script src="js/custom.js"></script>
-  //   <script src="js/bootstrap.js"></script>
+  cursos: { [key: number]: Curso[] } = {};
   
   constructor(
-    private _CargarSc: CargarjsHomeService, private router : Router, private programaCapacitacionService: ProgramaCapacitacionService)
+    private _CargarSc: CargarjsHomeService, private router : Router, private programaCapacitacionService: ProgramaCapacitacionService, private cursoService: CursoServ)
   {
       
       _CargarSc.carga_boost(["bootstrap"])
@@ -40,6 +30,11 @@ export class BienvenidaHomeComponent implements OnInit{
   getProgramasCapacitacion(): void {
     this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => {
       this.programas = programas;
+      this.programas.forEach(programa => {
+        this.cursoService.cursosporPrograma(programa.pcaId).subscribe((cursos: Curso[]) => {
+          this.cursos[programa.pcaId] = cursos;
+        });
+      });
     });
   }
 //////////////////////////////////////////////////////

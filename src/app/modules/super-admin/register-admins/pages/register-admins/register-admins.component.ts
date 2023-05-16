@@ -6,7 +6,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaServService } from 'src/app/shared/Services/persona-serv.service';
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import { UsuarioServService } from 'src/app/shared/Services/usuario-serv.service';
-import { Modal } from 'bootstrap';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register-admins',
@@ -17,7 +17,7 @@ export class RegisterAdminsComponent {
   persona: Persona = new Persona(); // instancia de la clase persona
   usuario: Usuario = new Usuario(); // instancia de la clase usuario
   rol: Rol = new Rol(); // instancia de la clase rol
-  private successModal?: Modal;
+  
 
   @ViewChild('successModal', { static: false }) successModalRef!: ElementRef;
 
@@ -32,7 +32,7 @@ export class RegisterAdminsComponent {
   ngOnInit() {}
   
   ngAfterViewInit() {
-    this.successModal = new Modal(this.successModalRef.nativeElement);
+    
   }
 
   resetForm() {
@@ -58,26 +58,57 @@ export class RegisterAdminsComponent {
   }
 
   onSubmitGuardar() {
-    this.registerUsrService.postPersona(this.persona).subscribe((response) => {
-      console.log(response); // Imprime la respuesta de la API en la consola
-      this.persona.id_persona = response.id_persona; // a this.persona.id_persona el resultado de nuestro metodo post se aasignamos la data.id_persona que nos arroja la api
-      this.usuario.persona = this.persona; // a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto
-
-      this.rolservices.getById(3).subscribe((response) => {
-        console.log(response); // Imprime la respuesta de la API en la consola
-        this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
-        this.usuario.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
-
-        this.userServiceService
-          .postUsuario(this.usuario)
-          .subscribe((response) => {
-            console.log(response); // Imprime la respuesta de la API en la consola
-            // Muestra la ventana emergente de Bootstrap
-            this.successModal?.show();
-            // Llama a la función resetForm() para vaciar los campos del formulario
-            this.resetForm();
+    if (
+      this.persona && this.usuario &&
+      this.persona.nombre && this.persona.apellido &&
+      this.persona.email && this.usuario.password && this.persona.etnia
+      && this.persona.sexo && this.persona.nivelintruccion
+      && this.persona.cedula && this.persona.fecha_nacimiento
+    ) {
+      Swal.fire({
+        title: '¿Estás seguro de guardar?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, guardar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.registerUsrService.postPersona(this.persona).subscribe((response) => {
+            console.log(response);
+            this.persona.id_persona = response.id_persona;
+            this.usuario.persona = this.persona;
+  
+            this.rolservices.getById(3).subscribe((response) => {
+              console.log(response);
+              this.rol.id_rol = response.id_rol;
+              this.usuario.rol = response;
+  
+              this.userServiceService
+                .postUsuario(this.usuario)
+                .subscribe((response) => {
+                  console.log(response);
+                  Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Guardado exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  this.resetForm();
+                });
+            });
           });
+        }
       });
-    });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'EXISTEN CAMPOS VACÍOS',
+        text: 'Revise los campos por completar!',
+      });
+    }
   }
+  
+
 }

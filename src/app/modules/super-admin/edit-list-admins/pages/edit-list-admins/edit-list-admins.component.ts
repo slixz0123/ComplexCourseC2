@@ -5,6 +5,7 @@ import { PersonaServService } from 'src/app/shared/Services/persona-serv.service
 import { RolServService } from 'src/app/shared/Services/rol-serv.service';
 import * as bootstrap from 'bootstrap';
 import { ChangeDetectorRef } from '@angular/core';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-edit-list-admins',
@@ -80,93 +81,99 @@ export class EditListAdminsComponent implements OnInit {
       username: usernameInput.value,
     };
   
-    try {
-      if (updatedUsuario.persona && updatedUsuario.persona.id_persona) {
-        await this.registerUsrService.updatePersona(updatedUsuario.persona, updatedUsuario.persona.id_persona).toPromise();
-      } else {
-        console.error('updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos');
-        return;
-      }
-  
-      await this.usuarioService.updateUsuario(updatedUsuario, updatedUsuario.id_usuario).toPromise();
-  
-      // Encuentra el índice del usuario seleccionado en el arreglo 'usuarios'
-      const selectedIndex = this.usuarios.findIndex(usuario => usuario.id_usuario === this.selectedUsuario?.id_usuario);
-  
-      if (selectedIndex !== -1) {
-        // Reemplaza el objeto de usuario en el índice encontrado con el objeto de usuario actualizado
-        this.usuarios[selectedIndex] = updatedUsuario;
-      }
-  
-      const editModalElement = document.getElementById('editModal');
-      if (editModalElement) {
-        const editModal = bootstrap.Modal.getInstance(editModalElement);
-        if (editModal) {
-          editModal.hide();
-  
-          // Actualiza la lista de usuarios en la tabla
-          this.ngOnInit();
+    const updateData = async () => {
+      try {
+        if (updatedUsuario.persona && updatedUsuario.persona.id_persona) {
+          await this.registerUsrService.updatePersona(updatedUsuario.persona, updatedUsuario.persona.id_persona).toPromise();
+        } else {
+          console.error('updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos');
+          return;
         }
+  
+        await this.usuarioService.updateUsuario(updatedUsuario, updatedUsuario.id_usuario).toPromise();
+  
+        const selectedIndex = this.usuarios.findIndex(usuario => usuario.id_usuario === this.selectedUsuario?.id_usuario);
+  
+        if (selectedIndex !== -1) {
+          this.usuarios[selectedIndex] = updatedUsuario;
+        }
+  
+        const editModalElement = document.getElementById('editModal');
+        if (editModalElement) {
+          const editModal = bootstrap.Modal.getInstance(editModalElement);
+          if (editModal) {
+            editModal.hide();
+            this.ngOnInit();
+          }
+        }
+      } catch (error) {
+        console.error('Error al actualizar el usuario y persona:', error);
       }
-    } catch (error) {
-      console.error('Error al actualizar el usuario y persona:', error);
-    }
+    };
+  
+    Swal.fire({
+      title: '¿Estás seguro de actualizar los datos?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await updateData();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Datos actualizados correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
   }
+  
 
   async desactivarUsuario(idRol: number, idUsuario: number, usuario: Usuario) {
-    try {
-      // Asumiendo que tienes un método updateUsuario en tu servicio usuarioService
-      usuario.enabled = false;
-      await this.usuarioService.updateUsuario(usuario, idUsuario).toPromise();
+    const deactivateUser = async () => {
+      try {
+        usuario.enabled = false;
+        await this.usuarioService.updateUsuario(usuario, idUsuario).toPromise();
   
-      // Encuentra el índice del usuario en el arreglo 'usuarios'
-      const selectedIndex = this.usuarios.findIndex(
-        (usr) => usr.id_usuario === idUsuario
-      );
-  
-      if (selectedIndex !== -1) {
-        // Reemplaza el objeto de usuario en el índice encontrado con el objeto de usuario actualizado
-        this.usuarios[selectedIndex] = usuario;
-      }
-  
-      this.changeDetectorRef.detectChanges(); // Forzar la detección de cambios
-  
-    } catch (error) {
-      console.error('Error al desactivar el usuario:', error);
-    }
-  }
-  
-  
-  
-/*
-  eliminar(rolId: number, usuarioId: number, usuario: Usuario): void {
-    if (usuario.persona && usuario.persona.id_persona && usuario.id_usuario) {
-      usuario.persona.enabled = false;
-      this.registerUsrService
-        .deletepersona(usuario.persona.id_persona, usuario.persona)
-        .subscribe(
-          (response) => {
-            console.log('Persona actualizada:', response);
-            // Aquí puedes actualizar la lista de personas en la vista, si es necesario
-          },
-          (error) => {
-            console.error('Error al actualizar persona:', error);
-          }
+        const selectedIndex = this.usuarios.findIndex(
+          (usr) => usr.id_usuario === idUsuario
         );
-    } else {
-      console.error('Error: id_persona no está definido.');
-    }
-
-    usuario.enabled = false;
-    this.usuarioService.deleteusuario(usuarioId, usuario).subscribe(
-      (response) => {
-        console.log('Usuario actualizado:', response);
-        // Aquí puedes actualizar la lista de usuarios en la vista, si es necesario
-      },
-      (error) => {
-        console.error('Error al actualizar usuario:', error);
+  
+        if (selectedIndex !== -1) {
+          this.usuarios[selectedIndex] = usuario;
+        }
+  
+        this.changeDetectorRef.detectChanges();
+  
+      } catch (error) {
+        console.error('Error al desactivar el usuario:', error);
       }
-    );
+    };
+  
+    Swal.fire({
+      title: '¿Estás seguro de eliminar este usuario?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deactivateUser();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Usuario eliminado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
+    });
   }
-  */
+  
+  
 }
