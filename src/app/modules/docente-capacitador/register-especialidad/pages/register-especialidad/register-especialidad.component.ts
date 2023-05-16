@@ -5,6 +5,7 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
 import { EspecialidadServService } from 'src/app/shared/Services/especialidad-serv.service';
 import 'bootstrap';
 import { AreaServService } from 'src/app/shared/Services/area-serv.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { AreaServService } from 'src/app/shared/Services/area-serv.service';
   styleUrls: ['./register-especialidad.component.css']
 })
 export class RegisterEspecialidadComponent {
- 
+
   areas: Area[] = [];
   especialidadSeleccionada: Especialidad = new Especialidad();
   especialidades: Especialidad[] = [];
@@ -21,9 +22,8 @@ export class RegisterEspecialidadComponent {
   isNew: boolean = true; // Definición de la propiedad isNew
   especialidadForm: FormGroup | undefined;
   submitted = false;
-  selectedArea!: Area;
 
-  constructor(private especialidadServ: EspecialidadServService, private areaServ: AreaServService) {}
+  constructor(private especialidadServ: EspecialidadServService, private areaServ: AreaServService) { }
 
   ngOnInit(): void {
     this.getAreas();
@@ -32,29 +32,6 @@ export class RegisterEspecialidadComponent {
 
   getEspecialidades(): void {
     this.especialidadServ.getAllTrue().subscribe((especialidad) => (this.especialidades = especialidad));
-  }
-
-  crearEspeciaidad(): void {
-    const data = {
-      espCodigo: this.especialidadSeleccionada.espCodigo,
-      espNombre: this.especialidadSeleccionada.espNombre,
-      area: this.especialidadSeleccionada.area
-    };
-  
-    this.especialidadServ.create(data).subscribe(() => {
-      this.getEspecialidades();
-      this.especialidadSeleccionada = new Especialidad();
-      console.log(this.especialidadSeleccionada);
-    });
-  }
-
-  guardarEspecialidad(): void {
-    this.especialidadServ.update(this.especialidadSeleccionada, this.especialidadSeleccionada.espId).subscribe(() => {
-      this.getEspecialidades();
-      this.especialidadSeleccionada = new Especialidad();
-      this.editando = false;
-      this.isNew = true; // Actualización del valor de isNew
-    });
   }
 
   editarEspecialidad(especialidad: Especialidad): void {
@@ -68,27 +45,61 @@ export class RegisterEspecialidadComponent {
   }
 
   submitForm(): void {
-    if (this.isNew) {
-    this.especialidadServ.create(this.especialidadSeleccionada).subscribe(() => {
-    this.getEspecialidades();
-    this.especialidadSeleccionada = new Especialidad();
-    });
-    } else {
-    this.especialidadServ.update(this.especialidadSeleccionada, this.especialidadSeleccionada.espId).subscribe(() => {
-    this.getEspecialidades();
-    this.especialidadSeleccionada = new Especialidad();
-    this.isNew = true;
-    });
-    }
-    }
+    if (this.isNew) { // Si se está creando una nueva especialidad
+      this.especialidadServ.create(this.especialidadSeleccionada).subscribe(() => {
+        this.getEspecialidades();
+        this.especialidadSeleccionada = new Especialidad();
 
-    eliminarEspecialidad(espId: number): void {
-      if (confirm('¿Está seguro que desea eliminar esta especialidad?')) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Especialidad creada',
+          text: 'La especialidad ha sido registrada correctamente.',
+          confirmButtonText: 'Aceptar'
+        });
+      });
+    } else { // Si se está editando una especialidad existente
+      Swal.fire({
+        icon: 'warning',
+        title: '¿Estás seguro?',
+        text: '¿Deseas editar esta especialidad?',
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) { // Si el usuario confirma la edición
+          this.especialidadServ.update(this.especialidadSeleccionada, this.especialidadSeleccionada.espId).subscribe(() => {
+            this.getEspecialidades();
+            this.especialidadSeleccionada = new Especialidad();
+            this.isNew = true;
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Especialidad editada',
+              text: 'La especialidad ha sido modificada correctamente.',
+              confirmButtonText: 'Aceptar'
+            });
+          });
+        }
+      });
+    }
+  }
+
+
+  eliminarEspecialidad(espId: number): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar esta especialidad?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
         this.especialidadServ.delete(espId).subscribe(() => {
           this.getEspecialidades();
         });
       }
-    }
+    });
+  }
+
 
   getAreas(): void {
     this.areaServ.getAreasTrue().subscribe((areas) => (this.areas = areas));
@@ -96,13 +107,8 @@ export class RegisterEspecialidadComponent {
 
   filtro = '';
 
-actualizarFiltro() {
-  this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
-}
-
-mostrarDatosSeleccionados() {
-  const especialidadSeleccionada = this.areas.find(area => area.areId === this.especialidadSeleccionada.area.areId);
-  console.log(especialidadSeleccionada);
-}
+  actualizarFiltro() {
+    this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
+  }
 
 }

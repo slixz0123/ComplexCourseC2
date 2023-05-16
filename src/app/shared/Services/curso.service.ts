@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Curso } from 'src/app/Core/models/curso';
 
 @Injectable({
@@ -14,7 +15,11 @@ export class CursoService {
 
   constructor(private http: HttpClient) { }
   post(cur: Curso) {
-    return this.http.post<Curso>(this.URL2 + '?', cur);
+    return this.http.post<Curso>(this.URL2 + '', cur);
+  }
+
+  crearCurso(data: any): Observable<Curso> {
+    return this.http.post<Curso>(`${this.URL1}crear`, data);
   }
   getById(idc: number) {
     return this.http.get<Curso>(this.URL + idc);
@@ -22,10 +27,28 @@ export class CursoService {
   getAll() {
     return this.http.get<Curso[]>(this.URL1 + 'listar')
   }
-  delete(cur: Curso, id_cur: number) {
-    return this.http.put<Curso>(this.URL1+ `eliminar/${id_cur}`, cur);
+  delete(id: number): Observable<any> {
+    const url = `${this.URL1}eliminar/${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.put(url, {}, httpOptions)
+      .pipe(
+        catchError((error: any) => {
+          console.error(error);
+          return throwError('Error eliminando el curso');
+        })
+      );
   }
   update(cur: Curso, id_cur: number) {
     return this.http.put<Curso>(this.URL1+ `actualizar/${id_cur}`, cur);
+  }
+
+  getAllTrue(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.URL1}listartrue`);
+  }
+
+  getAllFalse(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.URL1}listarfalse`);
   }
 }

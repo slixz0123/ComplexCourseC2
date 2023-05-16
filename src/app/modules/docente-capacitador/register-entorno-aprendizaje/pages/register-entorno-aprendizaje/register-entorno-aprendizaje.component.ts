@@ -4,6 +4,7 @@ import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
 import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
 import { EntornoAprendizajeServService } from 'src/app/shared/Services/entornoAprendizaje-serv.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-entorno-aprendizaje',
@@ -21,7 +22,7 @@ export class RegisterEntornoAprendizajeComponent {
   submitted = false;
   selectedDiseno!: DisenoCurricular;
 
-  constructor(private entornoServ: EntornoAprendizajeServService, private disenoServ: DisenoCurricularServService) {}
+  constructor(private entornoServ: EntornoAprendizajeServService, private disenoServ: DisenoCurricularServService) { }
 
   ngOnInit(): void {
     this.getDisenos();
@@ -30,31 +31,6 @@ export class RegisterEntornoAprendizajeComponent {
 
   getEntornos(): void {
     this.entornoServ.getAllTrue().subscribe((entorno) => (this.entornos = entorno));
-  }
-
-  crearEspeciaidad(): void {
-    const data = {
-      eapInstalaciones: this.entornoSeleccionado.eapInstalaciones,
-      eapRecursos: this.entornoSeleccionado.eapRecursos,
-      eapFaseteorica: this.entornoSeleccionado.eapFaseteorica,
-      eapFasepractica: this.entornoSeleccionado.eapFasepractica,
-      diseno: this.entornoSeleccionado.eapDiseno
-    };
-  
-    this.entornoServ.create(data).subscribe(() => {
-      this.getEntornos();
-      this.entornoSeleccionado = new EntornoAprendizaje();
-      console.log(this.entornoSeleccionado);
-    });
-  }
-
-  guardarEntorno(): void {
-    this.entornoServ.update(this.entornoSeleccionado, this.entornoSeleccionado.eapId).subscribe(() => {
-      this.getEntornos();
-      this.entornoSeleccionado = new EntornoAprendizaje();
-      this.editando = false;
-      this.isNew = true; // Actualización del valor de isNew
-    });
   }
 
   editarEntorno(entorno: EntornoAprendizaje): void {
@@ -69,26 +45,58 @@ export class RegisterEntornoAprendizajeComponent {
 
   submitForm(): void {
     if (this.isNew) {
-    this.entornoServ.create(this.entornoSeleccionado).subscribe(() => {
-    this.getEntornos();
-    this.entornoSeleccionado = new EntornoAprendizaje();
-    });
-    } else {
-    this.entornoServ.update(this.entornoSeleccionado, this.entornoSeleccionado.eapId).subscribe(() => {
-    this.getEntornos();
-    this.entornoSeleccionado = new EntornoAprendizaje();
-    this.isNew = true;
-    });
-    }
-    }
+      this.entornoServ.create(this.entornoSeleccionado).subscribe(() => {
+        this.getEntornos();
+        this.entornoSeleccionado = new EntornoAprendizaje();
 
-    eliminarEntorno(eapId: number): void {
-      if (confirm('¿Está seguro que desea eliminar este entorno de aprendizaje?')) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Entorno de aprendizaje creado',
+          text: 'El entorno de aprendizaje ha sido registrado correctamente.',
+          confirmButtonText: 'Aceptar'
+        });
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: '¿Estás seguro?',
+        text: '¿Deseas editar este registro?',
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) { // Si el usuario confirma la edición
+          this.entornoServ.update(this.entornoSeleccionado, this.entornoSeleccionado.eapId).subscribe(() => {
+            this.getEntornos();
+            this.entornoSeleccionado = new EntornoAprendizaje();
+            this.isNew = true;
+
+            Swal.fire({
+              icon: 'success',
+              title: 'Entorno de aprendizaje editado',
+              text: 'El entorno de aprendizaje ha sido modificado correctamente.',
+              confirmButtonText: 'Aceptar'
+            });
+          });
+        }
+      });
+    }
+  }
+
+  eliminarEntorno(eapId: number): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este entorno de aprendizaje?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
         this.entornoServ.delete(eapId).subscribe(() => {
           this.getEntornos();
         });
       }
-    }
+    });
+  }
 
   getDisenos(): void {
     this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
@@ -96,14 +104,8 @@ export class RegisterEntornoAprendizajeComponent {
 
   filtro = '';
 
-actualizarFiltro() {
-  this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
-}
-
-mostrarDatosSeleccionados() {
-  const entornoSeleccionado = this.disenos.find(diseno => diseno.dcuId === this.entornoSeleccionado.eapDiseno.dcuId);
-  console.log(entornoSeleccionado);
-}
-
+  actualizarFiltro() {
+    this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
+  }
 }
 

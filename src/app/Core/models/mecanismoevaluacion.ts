@@ -7,8 +7,6 @@ export class MecanismoEvaluacion {
   mevDescripcion!: string;
   mevEstado: boolean=true;
 
-  detallesME?: DetalleMe[];
-
   mevDiseno: DisenoCurricular = new DisenoCurricular;
 
   }

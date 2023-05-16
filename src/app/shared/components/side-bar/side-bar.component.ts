@@ -143,10 +143,16 @@ export class SideBarComponent {
       this.router.navigate(['Capacitador/register-detalle-meva'])
       console.log($event)
      }
-//////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
      goToregisentorno($event: any) :void{
 
       this.router.navigate(['Capacitador/register-entorno-aprendizaje'])
+      console.log($event)
+     }
+     //////////////////////////////////////////////////////////////////
+    goToregiscursoCap($event: any) :void{
+
+      this.router.navigate(['Capacitador/register-cur'])
       console.log($event)
      }
       

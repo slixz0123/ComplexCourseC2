@@ -1,3 +1,4 @@
+import { Curso } from "./curso";
 import { TiposCurso } from "./tiposcurso";
 
 export class Modalidadcurso {
@@ -16,6 +17,7 @@ export class Modalidadcurso {
     mcuNombre?: string;
     mcuEstado?: boolean;
 
+    mcuCurso: Curso[] = [];
 
     
   }

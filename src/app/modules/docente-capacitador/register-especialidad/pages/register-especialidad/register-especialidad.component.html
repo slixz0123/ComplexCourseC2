@@ -1,12 +1,12 @@
-<div class="container">
+<div class="container" style="background-color: #ffffff;">
   <div class="mt-4">
-    <h3>{{ isNew ? 'Nueva Especialidad' : 'Editar Especialidad' }}</h3>
+    <h3 style="text-align: center;">{{ isNew ? 'Nueva Especialidad' : 'Editar Especialidad' }}</h3>
     <form #especialidadForm="ngForm" (ngSubmit)="submitForm()">
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="area">Área:</label>
-            <select class="form-control" id="area" [(ngModel)]="especialidadSeleccionada.area.areId" name="area" (change)="mostrarDatosSeleccionados()">
+            <label for="area">Seleccione el área a la que pertenece:</label>
+            <select class="form-control" id="area" [(ngModel)]="especialidadSeleccionada.area.areId" name="area">
               <option *ngFor="let area of areas" [value]="area.areId" [selected]="area.areId === especialidadSeleccionada.area.areId">{{ area.areCodigo }}.- {{ area.areNombre }}</option>
             </select>
           </div>

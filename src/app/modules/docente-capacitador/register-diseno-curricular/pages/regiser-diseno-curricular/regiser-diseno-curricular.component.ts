@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { DisenoCurricularServService } from 'src/app/shared/Services/disenoCurricular-serv.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-regiser-diseno-curricular',
@@ -17,7 +18,7 @@ export class RegiserDisenoCurricularComponent {
   disenoForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private disenoServ: DisenoCurricularServService) {}
+  constructor(private disenoServ: DisenoCurricularServService) { }
 
   ngOnInit(): void {
     this.getDisenos();
@@ -32,7 +33,8 @@ export class RegiserDisenoCurricularComponent {
       this.getDisenos();
       this.disenoSeleccionaddo = new DisenoCurricular();
       console.log(this.disenoSeleccionaddo);
-      
+      Swal.fire('¡Éxito!', 'El diseño curricular ha sido registrado correctamente', 'success');
+
     });
   }
 
@@ -43,11 +45,21 @@ export class RegiserDisenoCurricularComponent {
   }
 
   guardarDiseno(): void {
-    this.disenoServ.update(this.disenoSeleccionaddo, this.disenoSeleccionaddo.dcuId).subscribe(() => {
-      this.getDisenos();
-      this.disenoSeleccionaddo = new DisenoCurricular();
-      this.editando = false;
-      this.isNew = true; // Actualización del valor de isNew
+    Swal.fire({
+      title: '¿Está seguro de que desea editar este registro?',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.disenoServ.update(this.disenoSeleccionaddo, this.disenoSeleccionaddo.dcuId).subscribe(() => {
+          this.getDisenos();
+          this.disenoSeleccionaddo = new DisenoCurricular();
+          this.editando = false;
+          this.isNew = true; // Actualización del valor de isNew
+          Swal.fire('¡Éxito!', 'El diseño curricular ha sido modificado correctamente', 'success');
+        });
+      }
     });
   }
 
@@ -56,12 +68,21 @@ export class RegiserDisenoCurricularComponent {
   }
 
   eliminarDiseno(areId: number): void {
-    if (confirm('¿Está seguro que desea eliminar este diseño curricular?')) {
-      this.disenoServ.delete(areId).subscribe(() => {
-        this.getDisenos();
-      });
-    }
+    Swal.fire({
+      title: '¿Está seguro de que desea eliminar este registro?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.disenoServ.delete(areId).subscribe(() => {
+          this.getDisenos();
+          Swal.fire('¡Éxito!', 'El diseño curricular ha sido eliminado correctamente', 'success'); // SweetAlert al eliminar el área
+        });
+      }
+    });
   }
+
 
   submitForm(): void {
     this.submitted = true;

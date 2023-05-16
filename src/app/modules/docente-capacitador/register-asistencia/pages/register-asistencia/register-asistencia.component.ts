@@ -24,10 +24,17 @@ export class RegisterAsistenciaComponent {
   }
 
   ngOnInit(): void {
-    this.getParticipantes(1);
+    this.obtenerParticipantes();
+    this.inicializarAsistencias();
   }
 
-  getParticipantes(curId: number): void {
+  obtenerParticipantes(): void {
+    const curId = 1; // Aquí debes colocar el ID del curso que deseas obtener
+    this.participanteServ.obtenerParticipantesPorCurso(curId)
+      .subscribe(participantes => this.participantes = participantes);
+  }
+
+  /*getParticipantes(curId: number): void {
     this.participanteServ.obtenerParticipantesPorCurso(curId)
       .subscribe(participantes => this.participantes = participantes);
   }
@@ -38,5 +45,14 @@ export class RegisterAsistenciaComponent {
 
   updateAsistencia(asistencia: Asistencia): void {
     this.asistenciaServ.updateAsistencia(this.asistenciaSeleccionada, this.asistenciaSeleccionada.asiId).subscribe();
+  }*/
+
+  inicializarAsistencias() {
+    this.participantes.forEach(participante => {
+      const asistencia = new Asistencia();
+      asistencia.asiParticipante = participante;
+      this.asistencias[participante.parId] = asistencia;
+    });
   }
+  
 }

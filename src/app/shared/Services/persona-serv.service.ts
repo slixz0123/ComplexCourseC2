@@ -45,7 +45,7 @@ export class PersonaServService {
 
 
       listarPersonas(){
-        return this.http.get<Persona[]>(this.URL+'listar');
+        return this.http.get<Persona[]>(this.URL+'/listarpersona');
       }
 // sin utilizar
 

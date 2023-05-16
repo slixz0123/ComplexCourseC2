@@ -3,7 +3,7 @@ import { Curso } from "./curso";
 import { Asistencia } from "./asistencia";
 
 export class Participante{
-    parId?: number;
+    parId: number = 0;
     parNotaparcial?: number;
     parNotafinal?: number;
     parPromedio?: number;
@@ -14,6 +14,6 @@ export class Participante{
     curso?: Curso;
 
     
-    // asistencias!: Asistencia[];
+    asistencias!: Asistencia[];
 
 }

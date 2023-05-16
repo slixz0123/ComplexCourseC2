@@ -8,7 +8,7 @@ import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
 })
 export class DatossilaboservService {
   private URL = "http://localhost:8080/api/iDatosSilabo/buscar/";
-  private URL1 = "http://localhost:8080/api/iDatosSilabo/";
+  private URL1 = "http://localhost:8080/api/DatosSilabo/";
   private URL2 = "http://localhost:8080/api/iDatosSilabo/crear";
   private items: ResultadosAprendizaje[] = [];
 

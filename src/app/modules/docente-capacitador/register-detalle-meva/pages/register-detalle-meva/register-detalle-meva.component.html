@@ -1,12 +1,12 @@
-<div class="container">
+<div class="container" style="background-color: #ffffff;">
   <div class="mt-4">
-    <h3>{{ isNew ? 'Nuevo Detalle' : 'Editar Detalle' }}</h3>
+    <h3 style="text-align: center;">{{ isNew ? 'Nuevo Detalle de mecanismo de evaluación' : 'Editar Detalle de mecanismo de evaluación' }}</h3>
     <form #detalleForm="ngForm" (ngSubmit)="submitForm()">
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
-            <label for="mecanismo">Mecanismos de evaluación:</label>
-            <select class="form-control" id="mecanismo" [(ngModel)]="detalleSeleccionado.mecanismoEvaluacion.mevId" name="mecanismo" (change)="mostrarDatosSeleccionados()">
+            <label for="mecanismo">Seleccione el mecanismo de evaluación al que pertenece:</label>
+            <select class="form-control" id="mecanismo" [(ngModel)]="detalleSeleccionado.mecanismoEvaluacion.mevId" name="mecanismo">
               <option *ngFor="let mecanismo of mecanismos" [value]="mecanismo.mevId" [selected]="mecanismo.mevId === detalleSeleccionado.mecanismoEvaluacion.mevId">{{ mecanismo.mevDescripcion }}</option>
             </select>
           </div>

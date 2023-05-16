@@ -132,12 +132,18 @@ const routes: Routes = [
       path: 'edit-list-ficha-evaluacion',
       loadChildren: () => import("./edit-list-ficha-evaluacion/edit-list-ficha-evaluacion.module").then(m => m.EditListFichaEvaluacionModule)
     },
-    // 
+    //Entorno aprendizaje
     {
       path: 'register-entorno-aprendizaje',
       loadChildren: () => import("./register-entorno-aprendizaje/register-entorno-aprendizaje.module").then(m => m.RegisterEntornoAprendizajeModule)
+    },
+    
+    //Curso
+    {
+      path: 'register-cur',
+      loadChildren: () => import("./register-curso/register-curso.module").then(m => m.RegisterCursoModule)
+    },
 
-  },
  
 ];
 

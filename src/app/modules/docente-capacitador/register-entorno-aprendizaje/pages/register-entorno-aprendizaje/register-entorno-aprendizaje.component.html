@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container" style="background-color: #ffffff;">
     <div class="mt-4">
-      <h3>{{ isNew ? 'Nueva Especialidad' : 'Editar Especialidad' }}</h3>
+      <h3 style="text-align: center;">{{ isNew ? 'Nuevo Entorno de aprendizaje' : 'Editar Entorno de aprendizaje' }}</h3>
       <form #entornoForm="ngForm" (ngSubmit)="submitForm()">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <label for="diseno">Diseño Curricular</label>
-              <select class="form-control" id="diseno" [(ngModel)]="entornoSeleccionado.eapDiseno.dcuId" name="diseno" (change)="mostrarDatosSeleccionados()">
-                <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === entornoSeleccionado.eapDiseno.dcuId">{{ diseno.dcuTemastransversales }}</option>
+              <label for="diseno">Seleccione el diseño curricular al que pertenece:</label>
+              <select class="form-control" id="diseno" [(ngModel)]="entornoSeleccionado.eapDiseno.dcuId" name="diseno">
+                <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === entornoSeleccionado.eapDiseno.dcuId">{{ diseno.dcuIdentificador }}</option>
               </select>
             </div>
             <div class="form-group">
@@ -49,6 +49,7 @@
           <th>Recursos</th>
           <th>Fase Teórica</th>
           <th>Fase Práctica</th>
+          <th>Diseño Curricular</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -62,7 +63,7 @@
             <td>{{ entorno.eapRecursos }}</td>
             <td>{{ entorno.eapFaseteorica }}</td>
             <td>{{ entorno.eapFasepractica }}</td>
-            <td>{{ entorno?.eapDiseno?.dcuTemastransversales }}</td>
+            <td>{{ entorno?.eapDiseno?.dcuIdentificador }}</td>
             <td>
               <button class="btn btn-primary" (click)="editarEntorno(entorno)">Editar</button>
               <button class="btn btn-danger" (click)="eliminarEntorno(entorno.eapId)">Eliminar</button>

@@ -5,6 +5,11 @@
 import { Modalidadcurso } from "./modalidadcurso";
 import { TiposCurso } from "./tiposcurso";
 import { ProgramaCapacitacion } from "./programa-capacitacion";
+import { Especialidad } from "./especialidad";
+import { Datossilabo } from "./DatosSilabo/datossilabo";
+import { NecesidadCurso } from "./necesidadcurso";
+import { DisenoCurricular } from "./disenoCurricular";
+import { Persona } from "./persona";
 
 //     @Column(name = "curCodigo", nullable = false)
 //     private String curCodigo;
@@ -27,22 +32,22 @@ import { ProgramaCapacitacion } from "./programa-capacitacion";
 //     @Column(name = "curEstado", nullable = false)
 //     private Boolean curEstado;
 export class Curso {
-   
-    
-    curId?: number;
-    curCodigo?: String;
-    curNombre?: string;
-    curFechainicio?: Date;
-    curFechafin?: Date;
-    curNumhoras?: number;
-    curProceso?: string;
-    curEstado?: boolean;
-    programaCapacitacion?:ProgramaCapacitacion;
 
-    tcursos: TiposCurso = new TiposCurso; //id_persona herencia
-    mcursos: Modalidadcurso = new Modalidadcurso; //id_persona herencia
+  curId: number = 0 ;
+  curCodigo: String = '';
+  curNombre: string = '';
+  curFechainicio: Date = new Date();
+  curFechafin: Date = new Date();
+  curNumHoras: number = 0;
+  curProceso: string = '';
+  curEstado: boolean = true;
 
-   
-   
-    
-  }
+  programaCapacitacion: ProgramaCapacitacion = new ProgramaCapacitacion;
+  ecursos: Especialidad = new Especialidad;
+  mcursos: Modalidadcurso = new Modalidadcurso;
+  tipoCurso: TiposCurso = new TiposCurso;
+  datosSilabo: Datossilabo = new Datossilabo;
+  necesidadCurso: NecesidadCurso = new NecesidadCurso;
+  disenoCurricular: DisenoCurricular  = new DisenoCurricular;
+  pcursos: Persona = new Persona;
+}

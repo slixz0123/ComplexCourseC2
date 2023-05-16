@@ -7,7 +7,4 @@ export class Area {
     areNombre!: string; 
     areEstado?: boolean = true;   
     
-    especialidades?: Especialidad[];
-  
-    
   }

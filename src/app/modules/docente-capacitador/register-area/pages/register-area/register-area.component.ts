@@ -3,7 +3,7 @@ import { FormGroup, NgForm } from '@angular/forms';
 import { Area } from 'src/app/Core/models/area';
 import { AreaServService } from 'src/app/shared/Services/area-serv.service';
 import { FormsModule } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-area',
@@ -11,15 +11,15 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./register-area.component.css']
 })
 export class RegisterAreaComponent implements OnInit {
-  
+
   areas: Area[] = [];
   areaSeleccionada: Area = new Area();
   editando: boolean = false;
-  isNew: boolean = true; // Definición de la propiedad isNew
+  isNew: boolean = true;
   areaForm: FormGroup | undefined;
   submitted = false;
 
-  constructor(private areaServ: AreaServService) {}
+  constructor(private areaServ: AreaServService) { }
 
   ngOnInit(): void {
     this.getAreas();
@@ -33,36 +33,54 @@ export class RegisterAreaComponent implements OnInit {
     this.areaServ.saveArea(this.areaSeleccionada).subscribe(() => {
       this.getAreas();
       this.areaSeleccionada = new Area();
-      console.log(this.areaSeleccionada);
-      
+      Swal.fire('¡Éxito!', 'El área ha sido registrada correctamente', 'success'); // SweetAlert al crear el área
     });
   }
 
   editarArea(area: Area): void {
     this.areaSeleccionada = Object.assign({}, area);
     this.editando = true;
-    this.isNew = false; // Actualización del valor de isNew
+    this.isNew = false;
   }
 
   guardarArea(): void {
-    this.areaServ.updateArea(this.areaSeleccionada, this.areaSeleccionada.areId).subscribe(() => {
-      this.getAreas();
-      this.areaSeleccionada = new Area();
-      this.editando = false;
-      this.isNew = true; // Actualización del valor de isNew
+    Swal.fire({
+      title: '¿Está seguro de que desea editar este registro?',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.areaServ.updateArea(this.areaSeleccionada, this.areaSeleccionada.areId).subscribe(() => {
+          this.getAreas();
+          this.areaSeleccionada = new Area();
+          this.editando = false;
+          this.isNew = true;
+          Swal.fire('¡Éxito!', 'El área ha sido modificada correctamente', 'success'); // SweetAlert al editar el área
+        });
+      }
     });
   }
+
 
   seleccionarArea(area: Area): void {
     this.areaSeleccionada = Object.assign({}, area);
   }
 
   eliminarArea(areId: number): void {
-    if (confirm('¿Está seguro que desea eliminar esta área?')) {
-      this.areaServ.deleteArea(areId).subscribe(() => {
-        this.getAreas();
-      });
-    }
+    Swal.fire({
+      title: '¿Está seguro de que desea eliminar este registro?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.areaServ.deleteArea(areId).subscribe(() => {
+          this.getAreas();
+          Swal.fire('¡Éxito!', 'El área ha sido eliminada correctamente', 'success'); // SweetAlert al eliminar el área
+        });
+      }
+    });
   }
 
   submitForm(): void {

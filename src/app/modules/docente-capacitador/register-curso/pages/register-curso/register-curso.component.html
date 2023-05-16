@@ -1,0 +1,176 @@
+<div class="container" style="background-color: #ffffff;">
+    <div class="mt-4">
+        <h3 style="text-align: center;">{{ isNew ? 'Nuevo Curso' : 'Editar Curso' }}</h3>
+        <form #cursoForm="ngForm" (ngSubmit)="submitForm()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="curCodigo">Código</label>
+                            <input type="text" class="form-control" id="curCodigo" name="curCodigo"
+                                [(ngModel)]="cursoSeleccionado.curCodigo" required>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="curNombre">Nombre del Curso/Capacitación</label>
+                            <input type="text" class="form-control" id="curNombre" name="curNombre"
+                                [(ngModel)]="cursoSeleccionado.curNombre" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 row">
+                        <div class="col-md-4">
+                            <label for="curFechainicio">Fecha de Inicio</label>
+                            <input type="date" class="form-control" id="curFechainicio" name="curFechainicio" 
+                                [(ngModel)]="cursoSeleccionado.curFechainicio" required>
+                          </div>
+                          <div class="col-md-4">
+                            <label for="curFechafin">Fecha de Finalización</label>
+                            <input type="date" class="form-control" id="curFechafin" name="curFechafin" [(ngModel)]="cursoSeleccionado.curFechafin" required>
+                          </div>
+                        <div class="col-md-4">
+                            <label for="curNumHoras">Número de horas del curso</label>
+                            <input type="number" class="form-control" id="curNumHoras" name="curNumHoras"
+                                [(ngModel)]="cursoSeleccionado.curNumHoras" required
+                                (keypress)="validateInteger($event)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="curProceso">Proceso</label>
+                        <textarea type="text" class="form-control" id="curProceso" name="curProceso"
+                            [(ngModel)]="cursoSeleccionado.curProceso" required></textarea>
+                    </div>
+
+                <!-- DATOS RELACIONADOS -->
+                    <div class="form-group">
+                        <label for="programa">Seleccione el programa al que pertenece el curso de capacitación:</label>
+                        <select class="form-control" id="programa"
+                            [(ngModel)]="cursoSeleccionado.programaCapacitacion.pcaId" name="programa">
+                            <option *ngFor="let programa of programas" [value]="programa.pcaId"
+                                [selected]="programa === cursoSeleccionado.programaCapacitacion" required>{{
+                                programa.pcaNombre }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="especialidad">Seleccione la especialidad a la que pertenece el curso de
+                            capacitación</label>
+                        <select class="form-control" id="especialidad" [(ngModel)]="cursoSeleccionado.ecursos.espId"
+                            name="especialidad">
+                            <option *ngFor="let especialidad of especialidades" [value]="especialidad.espId"
+                                [selected]="especialidad === cursoSeleccionado.ecursos" required>{{
+                                especialidad.espNombre }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalidad">Seleccione la modalidad a la que pertenece el curso de
+                            capacitación:</label>
+                        <select class="form-control" id="modalidad" [(ngModel)]="cursoSeleccionado.mcursos.mcuId"
+                            name="modalidad">
+                            <option *ngFor="let modalidad of modalidades" [value]="modalidad.mcuId"
+                                [selected]="modalidad === cursoSeleccionado.mcursos" required>{{ modalidad.mcuNombre
+                                }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Seleccione el tipo al que pertenece el curso de capacitación:</label>
+                        <select class="form-control" id="tipo" [(ngModel)]="cursoSeleccionado.tipoCurso.tcuId"
+                            name="tipo">
+                            <option *ngFor="let tipo of tipos" [value]="tipo.tcuId"
+                                [selected]="tipo === cursoSeleccionado.tipoCurso" required>{{ tipo.tcuNombre }}
+                            </option>
+                        </select>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="horario">Seleccione el horario del curso de capacitación:</label>
+                        <select class="form-control" id="horario" [(ngModel)]="cursoSeleccionado.horarioCursos"
+                            name="horario">
+                            <option *ngFor="let horario of horarios" [value]="horario.hcuId"
+                                [selected]="horario.hcuId === cursoSeleccionado.horarioCursos.hcuId" required>{{ horario.hcuNombre }}
+                            </option>
+                        </select>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="silabo">Seleccione el sílabo que pertenece al curso de capacitación:</label>
+                        <select class="form-control" id="silabo" [(ngModel)]="cursoSeleccionado.datosSilabo.dsiId"
+                            name="silabo">
+                            <option *ngFor="let silabo of silabos" [value]="silabo.dsiId"
+                                [selected]="silabo === cursoSeleccionado.datosSilabo" required>{{
+                                silabo.dsiIdentificador }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="necesidad">Seleccione la necesidad que pertenece al curso de capacitación:</label>
+                        <select class="form-control" id="necesidad" [(ngModel)]="cursoSeleccionado.necesidadCurso.ncuId"
+                            name="necesidad">
+                            <option *ngFor="let necesidad of necesidades" [value]="necesidad.ncuId"
+                                [selected]="necesidad === cursoSeleccionado.necesidadCurso" required>{{
+                                necesidad.ncuIdentificador }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="diseno">Seleccione el diseño curricular que pertenece al curso de
+                            capacitación:</label>
+                        <select class="form-control" id="diseno" [(ngModel)]="cursoSeleccionado.disenoCurricular.dcuId"
+                            name="diseno">
+                            <option *ngFor="let diseno of disenos" [value]="diseno.dcuId"
+                                [selected]="diseno === cursoSeleccionado.disenoCurricular" required>{{
+                                diseno.dcuIdentificador }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="persona">Persona</label>
+                        <select class="form-control" id="persona" [(ngModel)]="cursoSeleccionado.pcursos.id_persona"
+                            name="persona">
+                            <option *ngFor="let persona of personas" [value]="persona.id_persona"
+                                [selected]="persona === cursoSeleccionado.pcursos" required>{{
+                                persona.nombre }} {{persona.apellido }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+        </form>
+    </div>
+    <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+  
+    <br>
+    <h2>Listado Cursos</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Fecha Inicio/Fin</th>
+          <th>Número Horas</th>
+          <th>Programa</th>
+          <th>Modalidad</th>
+          <th>Tipo de Curso</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let curso of cursos">
+          <tr *ngIf="curso.curNombre.toLowerCase().includes(filtro.toLowerCase()) ||
+          curso.curCodigo.toLowerCase().includes(filtro.toLowerCase())">
+            <td>{{ curso.curCodigo }}</td>
+            <td>{{ curso.curNombre }}</td>
+            <td>{{ curso.curFechainicio }} / {{ curso.curFechafin }}</td>
+            <td>{{ curso.curNumHoras }}</td>
+            <td>{{ curso?.programaCapacitacion?.pcaNombre }}</td>
+            <td>{{ curso?.mcursos?.mcuNombre }}</td>
+            <td>{{ curso?.tipoCurso?.tcuNombre }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editarCurso(curso)">Editar</button>
+              <button class="btn btn-danger" (click)="eliminarCurso(curso.curId)">Eliminar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      
+          
+            </table>
+  </div>
