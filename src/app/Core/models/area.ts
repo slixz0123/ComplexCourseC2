@@ -1,5 +1,3 @@
-import { Especialidad } from "./especialidad";
-
 export class Area {
 
   areId: number = 0;
