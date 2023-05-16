@@ -9,6 +9,7 @@ import { SideBarAdminComponent } from './components/side-bar-admin/side-bar-admi
 import { SideBarSupAdminComponent } from './components/side-bar-sup-admin/side-bar-sup-admin.component';
 import { SideBarParticipanteComponent } from './components/side-bar-participante/side-bar-participante.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BulletInputDirective } from './directives/bullet-input.directive';
 
 
 
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavBarComponent,
     SideBarAdminComponent,
     SideBarSupAdminComponent,
-    SideBarParticipanteComponent
+    SideBarParticipanteComponent,
+    BulletInputDirective
   ],
   imports: [
     CommonModule,

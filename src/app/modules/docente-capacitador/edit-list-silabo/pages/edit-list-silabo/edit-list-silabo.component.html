@@ -101,65 +101,149 @@
        <h1 style="margin-top: 15px; " class="text-center mb-5">LISTADO DE NECESIDADES DE CURSO</h1>
       
        <div class="table-responsive">
-        <table class="table">
-          
-            <caption>LISTA DE SILABOS </caption>
-            <thead>
-              <tr class="bg-primary text-light">
-                <th scope="col">ID</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col"> Objetivo general </th>
-                <th scope="col"> Prerrequisitos</th>
-               
-                <th scope="col"> Dia</th>
-                <th scope="col"> contenido</th>
-                <th scope="col"> hora clase</th>
-                <th scope="col"> Actividades</th>
-                <th scope="col"> Horas practica</th>
-                <th scope="col"> Editar</th>
-                <th scope="col"> ELIMINAR</th>
-              </tr>
-         
-                
-             
-            </thead>
-            <tbody>
-                <tr *ngFor="let nece of datossilan "   >
-                    <td>{{ nece.dsiId}} </td>
-                    <td>{{ nece.dsiDescripcioncurso }} </td>
-                    <td>{{ nece.dsiObjetivogeneralc}} </td>
-                    <td>{{ nece.dsiPrerrequisitos}} </td>
-
-                
-                <td>
-            
-                    <tr *ngFor="let conte of contencurso"  >
-                        
-                        <td>{{ conte.ccuDia}} </td>
-                        
-                        <td>{{ conte.ccuContenidos }} </td>
-                        <td>{{ conte.ccuHorasclase}} </td>
-                        <td>{{ conte.ccuActividaddocencia}} </td>
-                        <td>{{ conte.ccuHoraspractica}} </td>
-                        <td>{{ conte.ccuHoraspractica}} </td>
-                        <td>{{ conte.ccuHoraspractica}} </td>
-                        <td>{{ conte.ccuHoraspractica}} </td>
-                        <td>{{ conte.ccuHoraspractica}} </td>
-               
-                </td>
-                
-                
-            </tbody>
-           
-          </table>
+ 
       </div> 
+      <table   class=" table-bordered table table-responsive table-dark table-striped " >
+        <thead>
+          <tr class="bg-primary text-light">
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Objetivo general</th>
+            <th>Prerrequisitos</th>
+ 
+
+            <th class="table-primary">Unidades de Competencia</th>
+            <th class="table-primary">Elementos de competencia</th>
+            <th class="table-primary">Resultados de aprendizaje</th>
+            <th class="table-primary">Forma de evidenciar</th>
+         
+
+
+            <th class="table-warning">Día</th>
+            <th class="table-warning">Contenido</th>
+            <th class="table-warning">Hora clase</th>
+            <th  class="table-warning">Actividades</th>
+            <th class="table-warning">Horas práctica</th>
+            <th class="table-warning">Actividad práctica</th>
+            <th class="table-warning">Horas trabajo auto.</th>
+            <th class="table-warning">Actividad trabajo auto.</th>
+            <th class="table-warning">Observación.</th>
+
+            <th class="table-info">Estrategia Metodologica.</th>
+            <th class="table-info">Finalidad</th>
+
+            <th class="table-danger">Meteriales Convencionales</th>
+            <th class="table-danger">Materiale Audiovisuales</th>
+
+           
+
+            <th class="table-secondary">Actividades evaluativas</th>
+            <th class="table-secondary">Cantidade Activididades</th>
+            <th class="table-secondary">Porcentaje calificacion</th>
+            <th class="table-secondary">Total </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let silabo of datossilan">
+            <td>{{ silabo.dsiId }}</td>
+            <td>{{ silabo.dsiDescripcioncurso }}</td>
+            <td>{{ silabo.dsiObjetivogeneralc }}</td>
+            <td>{{ silabo.dsiPrerrequisitos }}</td>
+            <td class="table-primary align-top table-striped " colspan="4">
+              <table>
+                <tbody>
+               
+                  <tr *ngFor="let dataresult of getContenidosResultadosAprendId(silabo.dsiId)">
+                    <td>{{ dataresult.rapUnidadcompe }}</td>
+                    <td>{{ dataresult.rapElementoscompe }}</td>
+                    <td>{{ dataresult.rapResultadosaprenactiv }}</td>
+                    <td>{{ dataresult.rapFormaevidenciar }}</td>
+                    
+                  </tr>
+                </tbody>
+               
+              </table>
+            </td>
+            <td  class="table-warning align-top" colspan="9">
+              <table >
+                <tbody>
+                  <tr *ngFor="let dataconten of getContenidosPorSilaboId(silabo.dsiId)">
+                    <td>{{ dataconten.ccuDia }}</td>
+                    <td>{{ dataconten.ccuContenidos }}</td>
+                    <td>{{ dataconten.ccuHorasclase }}</td>
+                    <td>{{ dataconten.ccuActividaddocencia }}</td>
+                    <td>{{ dataconten.ccuHoraspractica }}</td>
+                    <td>{{ dataconten.ccuActividadpractica }}</td>
+                    <td>{{ dataconten.ccuHorastrabajoauto }}</td>
+                    <td>{{ dataconten.ccuActividadtrabajoauto }}</td>
+                    <td>{{ dataconten.ccuObservaciones }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td  class="table-info  align-top " colspan="2">
+              <table >
+                <tbody>
+                  <tr *ngFor="let dataestrate of getEstrategiasId(silabo.dsiId)">
+             
+                    <td>{{ dataestrate.emeEstrategia }}</td>
+                    <td>{{ dataestrate.emeFinalidad }}</td>
+                   
+                   
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td  class="table-danger  align-top " colspan="2">
+              <table >
+                <tbody>
+                  <tr *ngFor="let datarecursodida of getrecurdidaIdb(silabo.dsiId)">
+                    
+                    <td>{{datarecursodida.rdiMateconvencional}}</td>
+                    <td>{{datarecursodida.rdiMateaudiovisula}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+
+            <td  class="table-secondary  align-top " colspan="4">
+              <table >
+                <tbody>
+                  <tr *ngFor="let datareva of getevaId(silabo.dsiId)">
+                   
+                    <td>{{ datareva.eraTipoactividades }}</td>
+                    <td>{{ datareva.eraCantactvidades }}</td>
+                    <td>{{ datareva.eraPorcentcalificacion }}</td>
+                    <td>{{ datareva.eraTotal }}</td>
+                   
+                   
+                  </tr>
+                </tbody>
+              </table>
+            </td>
 
 
 
-
+          </tr>
+          
+        </tbody>
+      </table>
 
      </div>
  
+  
+    
+
+
+
+
+
+
+
+
     
    </body>
  </html>

@@ -44,6 +44,8 @@
                             [(ngModel)]="neceseleccionada.ncuLugardicta"
                           ></textarea>
                         </div>
+                        <label  class="form-label">Identiificador necesidad curso</label>
+                        <input type="text"  name="ncuIdentificador" class="form-control"  [(ngModel)]="neceseleccionada.ncuIdentificador" formControlName="ncuIdentificador" />
                 
                         <label  class="form-label">Dias</label>
                         <select (change)="onSelectChange2($event.target)" [(ngModel)]="neceseleccionada.dia"  class="form-select">

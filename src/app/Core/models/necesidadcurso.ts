@@ -39,13 +39,14 @@ export class NecesidadCurso {
     ncuId: number =0;
     ncuFechaprevisfin: Date = new Date();
     ncuNumparticipantes?: number;
+    ncuIdentificador:string='';
     ncuResumenyproyecto?: string;
     ncuPoblaciondirigida?: string;
     ncuLugardicta?: string;
     ncuEstado?: boolean;
 
     
-    curso: Curso = new Curso;
+    curso : Curso = new Curso
     dia: Dias = new Dias;
    
     

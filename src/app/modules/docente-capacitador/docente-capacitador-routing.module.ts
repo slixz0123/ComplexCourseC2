@@ -128,10 +128,7 @@ const routes: Routes = [
     path: 'aceptar',
     loadChildren:()=> import("./aceptar-curso/aceptar-curso.module").then(m => m.AceptarCursoModule)
     },
-    {
-      path: 'edit-list-ficha-evaluacion',
-      loadChildren: () => import("./edit-list-ficha-evaluacion/edit-list-ficha-evaluacion.module").then(m => m.EditListFichaEvaluacionModule)
-    },
+    
     //Entorno aprendizaje
     {
       path: 'register-entorno-aprendizaje',

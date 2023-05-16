@@ -22,6 +22,10 @@
       <form id="contenedorform" [formGroup]="neceForm" >
         <div class="">
           <div class="">
+            
+            <h2 class="mb-3">Identiificador necesidad curso</h2>
+            <input type="text"  name="ncuNumparticipantes" class="form-control"  [(ngModel)]="necesidad.ncuIdentificador" formControlName="ncuIdentificador" />
+    
         <h2 class="mb-3">1. Lugar donde se dictara</h2>
         <div class="mb-3">
         
@@ -32,7 +36,7 @@
             [(ngModel)]="necesidad.ncuLugardicta"
           ></textarea>
         </div>
-
+       
         <label  class="form-label">Dias</label>
         <select (change)="onSelectChange3($event.target)" [(ngModel)]="necesidad.dia"  class="form-select">
           <option  formControlName="dias" [(ngModel)]="necesidad.dia" *ngFor="let clasedia of arraydias" [value]="clasedia.diaId">{{ clasedia.diaNombre }} </option>
@@ -47,7 +51,7 @@
         <input type="text"  name="ncuNumparticipantes" class="form-control"  [(ngModel)]="necesidad.ncuNumparticipantes" formControlName="ncuNumparticipantes" />
 
         
-        <h2 class="mb-3">2. Resumen del proyecto y posible</h2>
+        <h2 class="mb-3">2. Resumen del curso y posible proyecto</h2>
         <div class="mb-3">
           <textarea    
             rows="3"

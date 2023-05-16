@@ -9,29 +9,21 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+  
   </head>
   <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
     <div  style="" class="container mt-2">
       <h1 style="margin-top: 15px; " class="text-center mb-5">Formulario de Curso</h1>
       <form id="contenedorform" [formGroup]="silaboForm"  >
         <h2 class="mb-3">1. Información General del Curso</h2>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="area" class="form-label">Área</label>
-            <input type="text" id="area" name="area" class="form-control" />
-            <label for="nombre" class="form-label">Nombre del Curso</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" />
-            <label for="inicio" class="form-label">Fecha de Inicio</label>
-            <input type="date" id="inicio" name="inicio" class="form-control" />
-            <label for="finalizacion" class="form-label"
-              >Fecha de Finalización</label
-            >
-            <input
-              type="date"
-              id="finalizacion"
-              name="finalizacion"
-              class="form-control"
-            />
+        <div class="row mb-3 ">
+          <div class="">
+
+            <label  class="form-label">Identificador Silabo </label>
+            <input type="text" id="dsiIdentificador" name="dsiIdentificador" class="form-control"     formControlName="dsiIdentificador"[(ngModel)]="datossilabo.dsiIdentificador" />
+            
+           
+           
             <label class="form-label">
               <h4>Distribución de horas de Aprendizaje:</h4></label
             >
@@ -44,6 +36,7 @@
                 class="form-control"
                 formControlName="hapDocencia"
                 [(ngModel)]="horasapren.hapDocencia"
+                
               />
               <label for="practicas" class="form-label">Prácticas</label>
               <input
@@ -65,63 +58,9 @@
               />
             </div>
           </div>
-          <div class="col-md-6">
-            <label for="horario" class="form-label">Horario</label>
-            <input
-              type="time"
-              id="horario1"
-              name="horario1"
-              class="form-control"
-            />
-            <input
-              type="time"
-              id="horario2"
-              name="horario2"
-              class="form-control"
-            />
-
-            <label for="codigo" class="form-label">Código del Curso</label>
-            <input type="text" id="codigo" name="codigo" class="form-control" />
-            <label for="num_horas" class="form-label"
-              >Número de horas del curso</label
-            >
-            <input
-              type="number"
-              id="num_horas"
-              name="num_horas"
-              class="form-control"
-            />
-            <label for="modalidad" class="form-label">Modalidad</label>
-            <select id="modalidad" name="modalidad" class="form-select">
-              <option value="presencial">Presencial</option>
-              <option value="virtual">Virtual</option>
-            </select>
-            <label for="campo_formacion" class="form-label"
-              >Campo de Formación</label
-            >
-            <input
-              type="text"
-              id="campo_formacion"
-              name="campo_formacion"
-              class="form-control"
-            />
-            <label for="docente_responsable" class="form-label"
-              >Docente Responsable</label
-            >
-            <input
-              type="text"
-              id="docente_responsable"
-              name="docente_responsable"
-              class="form-control"
-            />
-          </div>
+          
         </div>
-        <!-- "dsiId": 0,
-  "dsiPrerrequisitos": "string",
-  "dsiDescripcioncurso": "string",
-  "dsiObjetivogeneralc": "string",
-  "dsiBibliografia": "string",
-  "dsiEstado": true -->
+     
         <h2 class="mb-3">2. Prerrequisitos</h2>
         <div class="mb-3">
           <label for="dsiPrerrequisitos" class="form-label">Prerrequisitos</label>
@@ -184,38 +123,64 @@
             rows="3"
             class="form-control"
             formControlName="rapUnidadcompe"
+            #texcrapUnidadcompe
+            style="width: 410px;"
+            rows="8"
             [(ngModel)]="resultadosAprendizaje[i].rapUnidadcompe"
           ></textarea>
+          <button  type="button" class="btn btn-success" (click)="addBullet(texcrapUnidadcompe)">Agregar viñeta</button>
+         <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapUnidadcompe)">Agregar linea de separacion</button>
+
         </td>
         <td>
+          
+         
           <textarea
             id="elementos_competencias_{{i}}"
             name="elementos_competencias_{{i}}"
             rows="3"
             class="form-control"
             formControlName="rapElementoscomp"
+            #texcrapElementoscompe
+            style="width: 410px;"
+            rows="8"
             [(ngModel)]="resultadosAprendizaje[i].rapElementoscompe"
           ></textarea>
+          <button  type="button" class="btn btn-success" (click)="addBullet(texcrapElementoscompe)">Agregar viñeta</button>
+          <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapElementoscompe)">Agregar linea de separacion</button>
+ 
         </td>
         <td>
           <textarea
-            id="resultados_aprendizaje_{{i}}"
-            name="resultados_aprendizaje_{{i}}"
+            id="rapResultadosaprenactiv{{i}}"
+            name="rapResultadosaprenactiv{{i}}"
             rows="3"
             class="form-control"
             formControlName="rapResultadosaprenactiv"
+            #texcrapResultadosaprenactiv
+            style="width: 410px;"
+            rows="8"
             [(ngModel)]="resultadosAprendizaje[i].rapResultadosaprenactiv"
           ></textarea>
+          <button  type="button" class="btn btn-success" (click)="addBullet(texcrapResultadosaprenactiv)">Agregar viñeta</button>
+          <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapResultadosaprenactiv)">Agregar linea de separacion</button>
+ 
         </td>
         <td>
           <textarea
-            id="forma_evidenciar_{{i}}"
-            name="forma_evidenciar_{{i}}"
+            id="rapFormaevidenciar{{i}}"
+            name="rapFormaevidenciar{{i}}"
             rows="3"
             class="form-control"
             formControlName="rapFormaevidenciar"
+            #texcrapFormaevidenciar
+            style="width: 410px;"
+            rows="8"
             [(ngModel)]="resultadosAprendizaje[i].rapFormaevidenciar"
           ></textarea>
+          <button  type="button" class="btn btn-success" (click)="addBullet(texcrapFormaevidenciar)">Agregar viñeta</button>
+          <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapFormaevidenciar)">Agregar linea de separacion</button>
+ 
         </td>
         <td>
           <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFila(i)">
@@ -252,18 +217,19 @@
               <tr *ngFor="let resultado of contenidosCurso; let i = index" [class.selected]="resultado.ccuId ">
 
                 <td>
-                  <input type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"
+                  <input  style="width: 60px;" type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"
                   [(ngModel)]="contenidosCurso[i].ccuDia" />
                 </td>
                 <td>
-                  <textarea
-                    id="ccuContenidos"
-                    name="ccuContenidos"
-                    rows="3"
-                    class="form-control"
-                    formControlName="ccuContenidos"
-                    [(ngModel)]="contenidosCurso[i].ccuContenidos"
-                  ></textarea>
+                 
+                 
+                 
+                  <textarea #textcontenido id="ccuContenidos" name="ccuContenidos" rows="8" class="form-control" formControlName="ccuContenidos"
+                    [(ngModel)]="resultado.ccuContenidos" style="width: 410px;"></textarea>
+                 
+                    <button  type="button" class="btn btn-success" (click)="addBullet(textcontenido)">Agregar viñeta</button>
+                    <button  type="button" class="btn btn-warning" (click)="addLINE(textcontenido)">Agregar linea de separacion</button>
+
                 </td>
                 <td>
                   <input
@@ -271,19 +237,27 @@
                     id="ccuHorasclase"
                     name="ccuHorasclase"
                     class="form-control"
+                    
                     formControlName="ccuHorasclase"
+                    style="width: 60px;"
+                    row="8"
                     [(ngModel)]="contenidosCurso[i].ccuHorasclase"
                   />
                 </td>
                 <td>
-                  <textarea
+                  <textarea 
                     id="ccuActividaddocencia"
                     name="ccuActividaddocencia"
-                    rows="3"
                     class="form-control"
                     formControlName="ccuActividaddocencia"
+                    #texcuActividaddocenci
+                    style="width: 410px;"
+                    rows="8"
                     [(ngModel)]="contenidosCurso[i].ccuActividaddocencia"
                   ></textarea>
+                  <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividaddocenci)">Agregar viñeta</button>
+                  <button  type="button" class="btn btn-warning" (click)="addLINE(texcuActividaddocenci)">Agregar linea de separacion</button>
+
                 </td>
                 <td>
                   <input
@@ -299,11 +273,17 @@
                   <textarea
                     id="ccuActividadpractica"
                     name="ccuActividadpractica"
-                    rows="3"
                     class="form-control"
                     formControlName="ccuActividadpractica"
+                    #texcuActividadpractica
+                    style="width: 410px;"
+                    rows="8"
                     [(ngModel)]="contenidosCurso[i].ccuActividadpractica"
+                    
                   ></textarea>
+                  <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividaddocenci)">Agregar viñeta</button>
+                  <button  type="button" class="btn btn-warning" (click)="addLINE(texcuActividaddocenci)">Agregar linea de separacion</button>
+
                 </td>
                 <td>
                   <input
@@ -322,8 +302,14 @@
                     rows="3"
                     class="form-control"
                     formControlName="ccuActividadtrabajoauto"
+                    #texcuActividadtrabajoauto
+                    style="width: 410px;"
+                    rows="8"
                     [(ngModel)]="contenidosCurso[i].ccuActividadtrabajoauto"
                   ></textarea>
+                  <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividadtrabajoauto)">Agregar viñeta</button>
+                  <button  type="button" class="btn btn-warning" (click)="addLINE(texcuActividadtrabajoauto)">Agregar linea de separacion</button>
+
                 </td>
                 <td>
                   <textarea
@@ -332,8 +318,15 @@
                     rows="3"
                     class="form-control"
                     formControlName="ccuObservaciones"
+                    #texcuObservaciones
+                    style="width: 410px;"
+                    rows="8"
                     [(ngModel)]="contenidosCurso[i].ccuObservaciones"
                   ></textarea>
+                  <button  type="button" class="btn btn-success" (click)="addBullet(texcuObservaciones)">Agregar viñeta</button>
+                  <button  type="button" class="btn btn-warning" (click)="addLINE(texcuObservaciones)">Agregar linea de separacion</button>
+
+
                 </td>
                 <td>
                   <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFilacontenidocurso(i)">
@@ -451,15 +444,16 @@
                   <input formControlName="eraTipoactividades" type="text" id="dia" name="dia" class="form-control"  [(ngModel)]="evaluacioneprea[i].eraTipoactividades" />
                 </td>
                 <td>
-                  <textarea
+                  <input
                   type="number"
                     id="eraCantactvidades"
                     name="eraCantactvidades"
                     rows="3"
+                    type="number"
                     class="form-control"
                     formControlName="eraCantactvidades"
                     [(ngModel)]="evaluacioneprea[i].eraCantactvidades"
-                  ></textarea>
+                  />
                 </td>
                 <td>
                   <input
@@ -472,14 +466,15 @@
                   />
                 </td>
                 <td>
-                  <textarea
+                  <input
                     id="eraTotal"
                     name="eraTotal"
+                    type="number"
                     rows="3"
                     class="form-control"
                     formControlName="eraTotal"
                     [(ngModel)]="evaluacioneprea[i].eraTotal"
-                  ></textarea>
+                  />
                   
                 </td>
 

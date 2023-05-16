@@ -9,6 +9,7 @@ import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
 import { ModalidadsercService } from 'src/app/shared/Services/modalidadserc.service';
 import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
+import Swal from'sweetalert2';
 
 
 @Component({
@@ -62,6 +63,7 @@ export class RegisterNecesidadComponent {
           ncuId: ['', Validators.required],
           ncuFechaprevisfin: ['', Validators.required],
           ncuNumparticipantes: ['', Validators.required],
+          ncuIdentificador: ['', Validators.required],
           ncuResumenyproyecto: ['', Validators.required],
           ncuLugardicta: ['', Validators.required],
           ncuEstado: ['', Validators.required],
@@ -74,6 +76,7 @@ export class RegisterNecesidadComponent {
  
           ncuFechaprevisfin: new FormControl(),
           ncuNumparticipantes: new FormControl(),
+          ncuIdentificador: new FormControl(),
           ncuResumenyproyecto: new FormControl(),
           ncuLugardicta: new FormControl(),
           ncuEstado: new FormControl(),
@@ -133,19 +136,36 @@ export class RegisterNecesidadComponent {
 
 crearcurso(){
    
-      this.necesidad.dia =  this.selectedId3
-     
-      this.diaserv.getById(this.necesidad.dia.diaId).subscribe(diadata => {
-       console.log(diadata);
-     
-       this.necesidad.dia = diadata
-       this.necesidad.ncuEstado = true
       
-        this.necesidadserv.post(this.necesidad).subscribe(dataprod => {
-        console.log(dataprod);
-          
+     Swal.fire({
+      title: 'Desea guardar el registro de necesidad?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.necesidad.dia =  this.selectedId3
+     
+        this.diaserv.getById(this.necesidad.dia.diaId).subscribe(diadata => {
+         console.log(diadata);
+       
+         this.necesidad.dia = diadata
+         this.necesidad.ncuEstado = true
+        
+          this.necesidadserv.post(this.necesidad).subscribe(dataprod => {
+          console.log(dataprod);
+        
+        })
+        window.location.reload();
       })
+        Swal.fire('Guardado!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('Cambios no guardados', '', 'info')
+      }
     })
+    
 
 }
 

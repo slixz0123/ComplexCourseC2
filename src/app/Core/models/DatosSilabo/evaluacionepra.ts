@@ -25,5 +25,5 @@ export class EvaluacionEpra {
     eraTotal?: number;
     eraEstado?: boolean;
     
-    ccuSilabo: Datossilabo = new Datossilabo;
+    eraSilabo: Datossilabo = new Datossilabo;
   }

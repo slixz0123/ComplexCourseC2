@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -81,6 +81,63 @@ export class RegisterSilaboComponent {
       
       _CargarSc.carga3(["silabo"])
   }
+
+  agregarVinetas(): void {
+    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
+    textarea.value += "\u2022 "; // Agrega una viñeta al principio de la línea
+  }
+
+  agregarLine(): void {
+    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
+    textarea.value += "\n_____________________________________\n"; // Agrega una línea de división
+  }
+  agregarLinecome(): void {
+    const textarea = document.getElementById("elementos_competencias_{{i}}") as HTMLTextAreaElement;
+    textarea.value += "\n_____________________________________\n"; // Agrega una línea de división
+  }
+
+  agregarVinetasResultadoApren(): void {
+    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
+    textarea.value += "\u2022 "; // Agrega una viñeta al principio de la línea
+  }
+
+  textInput: string = '';
+
+  addBullet(inputBox:   HTMLTextAreaElement): void {
+    inputBox.value += ' • ';
+  }
+
+  addLINE(inputBox:   HTMLTextAreaElement): void {
+    inputBox.value += '_____________________________________________';
+  }
+  mostrarVinetas = false;
+mostrarLinea = false;
+vinetaIndex: number | undefined;
+
+
+
+agregarVinetas2(rowIndex: number) {
+  // Asignar el índice de fila actual
+  this.vinetaIndex = rowIndex;
+
+  // Obtener el contenido actual de la fila
+  const currentContenido = this.contenidosCurso[this.vinetaIndex].ccuContenidos;
+
+  // Agregar las viñetas al contenido actual
+  const nuevoContenido = this.mostrarVinetas ? `${currentContenido}\n• ` : `• `;
+
+
+  // Actualizar el contenido en la fila actual
+  this.contenidosCurso[this.vinetaIndex].ccuContenidos = nuevoContenido;
+  this.vinetaIndex = undefined;
+
+}
+
+
+  
+
+
+
   silaboForm!: FormGroup;
   datosSila!: Datossilabo;
 
@@ -106,6 +163,7 @@ export class RegisterSilaboComponent {
         this.datossilabo.dsiPrerrequisitos = '';
         this.datossilabo.dsiObjetivogeneralc = '';
         this.datossilabo.dsiBibliografia = '';
+        this.datossilabo.dsiIdentificador = '';
         this.datossilabo.dsiEstado = true;     
 //recurso didactico
         this.recurdidactico.rdiMateaudiovisula = '';    
@@ -126,6 +184,7 @@ export class RegisterSilaboComponent {
           dsiDescripcioncurso: ['', Validators.required],
           dsiPrerrequisitos: ['', Validators.required],
           dsiObjetivogeneralc: ['', Validators.required],
+          dsiIdentificador: ['', Validators.required],
           dsiBibliografia: ['', Validators.required],
           dsiEstado: ['', Validators.required],
           //recurdida
@@ -168,6 +227,7 @@ export class RegisterSilaboComponent {
           dsiDescripcioncurso: new FormControl(),
           dsiPrerrequisitos: new FormControl(),
           dsiObjetivogeneralc: new FormControl(),
+          dsiIdentificador: new FormControl(),
           dsiBibliografia: new FormControl(),
           dsiEstado: new FormControl(),
           //recurdida
@@ -306,6 +366,7 @@ crearsilabo() {
       
       resultado.rapSilabo = {
         dsiId: silabdata.dsiId,
+        dsiIdentificador: silabdata.dsiIdentificador,
         dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
         dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
         dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
@@ -318,6 +379,7 @@ crearsilabo() {
       
       resultado.eraSilabo = {
         dsiId: silabdata.dsiId,
+        dsiIdentificador: silabdata.dsiIdentificador,
         dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
         dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
         dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
@@ -330,6 +392,7 @@ this.contenidosCurso.forEach(resultado => {
       
   resultado.ccuSilabo = {
     dsiId: silabdata.dsiId,
+    dsiIdentificador: silabdata.dsiIdentificador,
     dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
     dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
     dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
@@ -342,6 +405,7 @@ this.estrategiasMetodologicas.forEach(resultado => {
       
   resultado.emeSilabo = {
     dsiId: silabdata.dsiId,
+    dsiIdentificador: silabdata.dsiIdentificador,
     dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
     dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
     dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,

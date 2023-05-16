@@ -21,7 +21,9 @@ export class Datossilabo {
     dsiDescripcioncurso: String="";
     dsiObjetivogeneralc: String="";
     dsiBibliografia: String="";
+    dsiIdentificador:string="";
     dsiEstado: boolean=true;
+    
 
     
   }

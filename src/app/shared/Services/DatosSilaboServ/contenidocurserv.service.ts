@@ -8,10 +8,10 @@ import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso
 })
 export class ContenidocurservService {
 
-  private URL = "http://localhost:8080/api/iContenidoCurso/buscar/";
-  private URL1 = "http://localhost:8080/api/iContenidoCurso/";
-  private URL2 = "http://localhost:8080/api/iContenidoCurso/crear";
-  private URL3 = "http://localhost:8080/api/iContenidoCurso/crear3";
+  private URL = "http://localhost:8080/api/ContenidoCurso/buscar/";
+  private URL1 = "http://localhost:8080/api/ContenidoCurso/";
+  private URL2 = "http://localhost:8080/api/ContenidoCurso/crear";
+  private URL3 = "http://localhost:8080/api/ContenidoCurso/crear3";
  
 
   constructor(private http: HttpClient) { }

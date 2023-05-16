@@ -20,5 +20,5 @@ export class EstrategiasMetodologicas {
     emeFinalidad?: String;
     emeEstado?: boolean;
 
-    ccuSilabo: Datossilabo = new Datossilabo;
+    emeSilabo: Datossilabo = new Datossilabo;
   }

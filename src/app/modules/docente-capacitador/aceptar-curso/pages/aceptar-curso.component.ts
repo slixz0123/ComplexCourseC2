@@ -116,26 +116,27 @@ export class AceptarCursoComponent implements OnInit{
     
   };
 
-  crearParti(){
-    console.log("almenos entra");
-    console.warn(this.ficha.finPersona);
-    console.warn(this.ficha.finCurso)
-    const participante: Participante = {
-      parId: 2,
-      parNotaparcial: 0.0,
-      parNotafinal: 0.0,
-      parPromedio: 0.0,
-      parObservacion: 'Aprobado',
-      parEstadoaprovacion: 'Aprobado',
-      parEstado: true,
-      curso: this.ficha.finCurso,
-      parPersona: this.ficha.finPersona // Opcionalmente, puedes agregar una persona si la tienes disponible
-     };
-    this.participanteService.saveFichaIncripcion(participante).subscribe((response: Participante) => {
-      console.log('Participante creado: ', response);
-    });
+  // crearParti(){
+  //   console.log("almenos entra");
+  //   console.warn(this.ficha.finPersona);
+  //   console.warn(this.ficha.finCurso)
+  //   const participante: Participante = {
+      
+  //     parId: 2,
+  //     parNotaparcial: 0.0,
+  //     parNotafinal: 0.0,
+  //     parPromedio: 0.0,
+  //     parObservacion: 'Aprobado',
+  //     parEstadoaprovacion: 'Aprobado',
+  //     parEstado: true,
+  //     curso: this.ficha.finCurso,
+  //     parPersona: this.ficha.finPersona // Opcionalmente, puedes agregar una persona si la tienes disponible
+  //    };
+  //   this.participanteService.saveFichaIncripcion(participante).subscribe((response: Participante) => {
+  //     console.log('Participante creado: ', response);
+  //   });
 
-  }
+  // }
  
 
 

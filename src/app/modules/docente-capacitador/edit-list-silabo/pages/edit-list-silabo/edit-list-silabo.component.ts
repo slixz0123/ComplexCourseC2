@@ -10,6 +10,14 @@ import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datossilabo';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
 import { ContenidocurservService } from 'src/app/shared/Services/DatosSilaboServ/contenidocurserv.service';
+import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/ResultadosAprendizaje';
+import { ResultadosaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/resultadosaprendizajeserv.service';
+import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
+import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboServ/estrategiasmetserv.service';
+import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosdidacticos';
+import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
+import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
+import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evaluaepra.service';
 
 @Component({
   selector: 'app-edit-list-silabo',
@@ -25,12 +33,29 @@ export class EditListSilaboComponent {
   datos: Datossilabo = new Datossilabo(); 
   selectedIdsilabo: Datossilabo = new Datossilabo();
  //contenedor curso
-  contencurso?: ContenidosCurso[];
+  contencurso: ContenidosCurso[]=[];
   contencur: ContenidosCurso = new ContenidosCurso(); 
   selectedIdcontenido: ContenidosCurso = new ContenidosCurso();
+// resultados de aprtendizaje 
+resultadosAprendizaje: ResultadosAprendizaje[]=[];
+  resultapren: ResultadosAprendizaje = new ResultadosAprendizaje(); 
+  selectedIdresultapren: ResultadosAprendizaje = new ResultadosAprendizaje();
+//estrategias
+  estrategiasmetodo: EstrategiasMetodologicas[]=[];
+  estrategiasme: EstrategiasMetodologicas = new EstrategiasMetodologicas(); 
+  selectedIdestrategiameto: EstrategiasMetodologicas = new EstrategiasMetodologicas();
+// recursos didacticos 
+recursosDidacticos: RecursosDidacticos[]=[];
+recursosDidactic: RecursosDidacticos = new RecursosDidacticos(); 
+selectedIdrecurso: RecursosDidacticos = new RecursosDidacticos();
+// eva aprendi didacticos 
+evaluacionEpra: EvaluacionEpra[]=[];
+evaluacionEp: EvaluacionEpra = new EvaluacionEpra(); 
+selectedIdEVA: EvaluacionEpra = new EvaluacionEpra();
+
 
   datossilabForm:any
- arraysilba : Datossilabo[]=[];
+  arraysilba : Datossilabo[]=[];
 
   seleccionarId(event: any) {
     this.selectedId = event.target?.value ?? 0;
@@ -78,7 +103,10 @@ export class EditListSilaboComponent {
 
 
   constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoserviceService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder, 
-    private datosilabserv:DatossilaboservService,private contencursoserv:ContenidocurservService ){
+    private datosilabserv:DatossilaboservService,private contencursoserv:ContenidocurservService,
+    private resultaprendiserv: ResultadosaprendizajeservService,private estrateserv:EstrategiasmetservService,
+    private recurdidacticoserv: RecursosdidacticosservService,
+    private evapraserv:EvaluaepraService ){
     _CargarSc.carga3(["modal"])
   }
   sendData3(selectedValue2: number) {
@@ -127,22 +155,103 @@ selecnece(nece: Datossilabo,id:number) {
     }
   )
 }
+filteredContencurso: any[] | undefined;
+
+getContenidosPorSilaboId(silaboId: number): any[] {
+  return this.contencurso.filter(dataconten => dataconten.ccuSilabo.dsiId === silaboId);
+ 
+}
+getContenidosResultadosAprendId(aprendoId: number): any[] {
+  return this.resultadosAprendizaje.filter(dataresult => dataresult.rapSilabo.dsiId === aprendoId);
+ 
+}
+
+getEstrategiasId(estrategiasId: number): any[] {
+  return this.estrategiasmetodo.filter(dataestrate => dataestrate.emeSilabo.dsiId === estrategiasId);
+ 
+}
+getrecurdidaIdb(recurdidaId: number): any[] {
+  return this.recursosDidacticos.filter(datarecursodida => datarecursodida.rdiSilabo.dsiId === recurdidaId);
+ 
+}
+getevaId(evapraId: number): any[] {
+  return this.evaluacionEpra.filter(datareva => datareva.eraSilabo.dsiId === evapraId);
+ 
+}
+
+
+
+
 
 ngOnInit(): void {
  
+  // datos silabo
+  this.datosilabserv.getAll().subscribe(Datosilab => {
+    this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
+    //contenido del curso 
+     this.contencursoserv.getAll().subscribe(dataconten => {
+      this.contencurso = dataconten.filter(dataconten => dataconten.ccuEstado !== false &&   dataconten.ccuSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataconten.ccuSilabo.dsiId) );
+      // resultado de parendizaje 
+       this.resultaprendiserv.getAll().subscribe(dataresult => {
+        console.log(dataresult)
+         this.resultadosAprendizaje = dataresult.filter(dataresult => dataresult.rapEstado !== false &&   dataresult.rapSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataresult.rapSilabo.dsiId) );    
+          // estategias metodologicas 
+          this.estrateserv.getAll().subscribe(dataestrate => {
+           console.log(dataestrate)
+            this.estrategiasmetodo = dataestrate.filter(dataestrate => dataestrate.emeEstado !== false &&   dataestrate.emeSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataestrate.emeSilabo.dsiId) );
+    
+          
+       
+       
+       
+         });
 
+      });
+
+
+    });
+     // Recursos didacticos
+     this.recurdidacticoserv.getAll().subscribe(datarecursodida => {
+      console.log(datarecursodida,"didacticos")
+      this.recursosDidacticos = datarecursodida.filter(datarecursodida => datarecursodida.rdiEstado !== false &&   datarecursodida.rdiSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === datarecursodida.rdiSilabo.dsiId) );
+
+       });
+       // evaluacion eprea 
+       this.evapraserv.getAll().subscribe(datareva => {
+        console.log(datareva,"eva")
+        this.evaluacionEpra = datareva.filter(datareva => datareva.eraEstado !== false &&   datareva.eraSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === datareva.eraSilabo.dsiId) );
+
+        
+  
+         });
+  });
   
 
-  this.datosilabserv.getAll().subscribe(Datosilab => {
-     
-    this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
+ 
 
-    this.contencursoserv.getAll().subscribe(dataconten => {
-     
-      this.contencurso = dataconten.filter(dataconten => dataconten.ccuEstado !== false && dataconten.ccuSilabo.dsiEstado !== false &&  Datosilab.filter(Datosilab=>Datosilab.dsiId == dataconten.ccuSilabo.dsiId) );
-     
-    });
-  });
+   
+  // this.datosilabserv.getAll().subscribe(Datosilab => {
+  //   this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
+  
+  //   this.contencursoserv.getAll().subscribe(dataconten => {
+  //     this.contencurso = dataconten.filter(dataconten => dataconten.ccuEstado !== false && dataconten.ccuSilabo.dsiEstado !== false);
+  //     this.filteredContencurso = this.contencurso.filter(conte => {
+  //       const silabo = Datosilab.find(dato => dato.dsiId === conte.ccuSilabo.dsiId);
+  //       return silabo && silabo.dsiEstado !== false;
+  //     });
+  //   });
+  // });
+
+// this.datosilabserv.getAll().subscribe(Datosilab => {
+//     this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
+    
+//     this.contencursoserv.getAll().subscribe(dataconten => {
+//         this.contencurso = dataconten.filter(dataconten => dataconten.ccuEstado !== false && dataconten.ccuSilabo.dsiEstado !== false);
+
+//         this.filteredContencurso = this.contencurso.filter(conte => conte.ccuSilabo.dsiId === this.datos.dsiId);
+//     });
+// });
+
 
   
 

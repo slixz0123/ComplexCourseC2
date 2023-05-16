@@ -23,7 +23,7 @@ export class ResultadosAprendizaje {
     rapUnidadcompe: String ="";
     rapResultadosaprenactiv: String="";
     rapFormaevidenciar: String="";
-    rapElementoscomp:String="";
+    rapElementoscompe:String="";
     rapEstado?: boolean;
 
     rapSilabo: Datossilabo = new Datossilabo;

@@ -6,7 +6,7 @@ import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjs-templates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
 import { NecesidadCursoserviceService } from 'src/app/shared/Services/necesidad-cursoservice.service';
-
+import Swal from'sweetalert2';
 @Component({
   selector: 'app-edit-list-necesidad',
   templateUrl: './edit-list-necesidad.component.html',
@@ -123,6 +123,7 @@ ngOnInit(): void {
     ncuId: ['', Validators.required],
     ncuFechaprevisfin: ['', Validators.required],
     ncuNumparticipantes: ['', Validators.required],
+    ncuIdentificador: ['', Validators.required],
     ncuResumenyproyecto: ['', Validators.required],
     ncuLugardicta: ['', Validators.required],
     ncuEstado: ['', Validators.required],
@@ -144,17 +145,65 @@ ngOnInit(): void {
 eliminar(ncuId: number){
  
  
-   this.necesidadserv.delete(this.necesidad,ncuId).subscribe(
-     data=>{
-       console.log(data);
+   
  
+
+
+   const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Estas seguro que desas eliminar este registro?',
+    text: "Tu np podras revertir este cambio!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Si, Eliminar!',
+    cancelButtonText: 'No, Cancelar!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.necesidadserv.delete(this.necesidad,ncuId).subscribe(
+        data=>{
+          console.log(data);
+
+          this.necesidad = data;
  
-       this.necesidad = data;
-       window.location.reload();
-       
-     }
-   )
- 
+        }
+      )
+
+      swalWithBootstrapButtons.fire(
+        'Eliminado!',
+        'Tu registro se borró exitosmente.',
+        'success',
+      )
+      
+     
+      
+     
+    } else if (
+      /* Read more about handling dismissals below */
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+        'Tu registro de necesidad no se borró :)',
+        'error'
+      )
+    }
+  })
+
+
+
+
+
+
+
+
  }
 
 
