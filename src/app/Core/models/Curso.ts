@@ -50,4 +50,5 @@ export class Curso {
   necesidadCurso: NecesidadCurso = new NecesidadCurso;
   disenoCurricular: DisenoCurricular  = new DisenoCurricular;
   pcursos: Persona = new Persona;
+  
 }

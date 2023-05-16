@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Cursos } from 'src/app/Core/models/cursos';
+import { Curso } from 'src/app/Core/models/curso';
+
 import { Dias } from 'src/app/Core/models/dias';
 import { Modalidadcurso } from 'src/app/Core/models/modalidadcurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadcurso';
@@ -44,7 +45,7 @@ export class ReponecesidadComponent {
 
     newdias: Dias = new Dias; 
 
-    cursoob: Cursos = new Cursos();
+    cursoob: Curso = new Curso();
 
     constructor(private necesidadserv: NecesidadCursoserviceService,
      private tipocursoserv:TipoCursosService , private modalidadcursoserv:ModalidadsercService,private diaserv:DiasService,private cursoserv:CursoService,private formbuilder:FormBuilder) {
@@ -63,9 +64,9 @@ export class ReponecesidadComponent {
 
 
        this.cursoob.curNombre='';
-       this.cursoob.curNumhoras=0;
-       this.cursoob.tipocurso.tcuNombre='';
-       this.cursoob.modalidadcurso.mcuNombre='';
+       this.cursoob.curNumHoras=0;
+       this.cursoob.tipoCurso.tcuNombre='';
+       this.cursoob.mcursos.mcuNombre='';
 
        
        

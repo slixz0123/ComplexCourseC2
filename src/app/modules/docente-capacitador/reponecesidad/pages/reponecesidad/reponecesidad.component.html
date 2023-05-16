@@ -31,15 +31,7 @@
                 <input type="text"  class="form-control" formControlName="curNombre"  [(ngModel)]="cursoob.curNombre" />
     
     
-                <label class="form-label">Tipo Curso</label>
-                <select (change)="onSelectChange($event.target)" formControlName="tipocurso" name="tcuId"  [(ngModel)]="necesidad.curso.tipocurso"   class="form-select">
-                  <option  [(ngModel)]="necesidad.curso.tipocurso" *ngFor="let claseL of tipocurso" [value]="claseL.tcuId">{{ claseL.tcuNombre }} </option>
-                </select>
-    
-                <label  class="form-label">Modalidad curso</label>
-                <select (change)="onSelectChange2($event.target)" formControlName="modalidadcurso" name="mcuId"  [(ngModel)]="necesidad.curso.modalidadcurso" class="form-select">
-                  <option  [(ngModel)]="necesidad.curso.modalidadcurso" *ngFor="let clasemod of modacurso" [value]="clasemod.mcuId">{{ clasemod.mcuNombre }} </option>
-                </select>
+               
     
                 <h2 class="mb-3">2. Necesidades del curso</h2>
             <div class="mb-3">

@@ -46,7 +46,7 @@ export class NecesidadCurso {
     ncuEstado?: boolean;
 
     
-    curso : Curso = new Curso
+    
     dia: Dias = new Dias;
    
     
