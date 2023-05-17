@@ -3,7 +3,7 @@ import { Rol } from "./rol";
 
 export class Usuario {
 
-    id_usuario?: number;
+    id_usuario: number=0;
     username: string = "";
     password: string = ""; 
     enabled?: boolean;

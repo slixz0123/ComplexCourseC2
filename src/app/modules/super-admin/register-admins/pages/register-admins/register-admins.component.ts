@@ -50,6 +50,7 @@ export class RegisterAdminsComponent {
     };
 
     this.usuario = {
+      id_usuario:0,
       username: '',
       password: '',
       persona: {},

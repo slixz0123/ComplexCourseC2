@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { forkJoin } from 'rxjs';
 import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { Persona } from 'src/app/Core/models/persona';
@@ -109,8 +109,18 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
     );
   }
 
-  deleteUsuario(idPersona: number) {
-    return this.http.delete<boolean>(this.URL + `/eliminar/${idPersona}`);
+  deleteUsuario(id: number): Observable<any> {
+    const url = `${this.URL}/delete/${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.put(url, {}, httpOptions)
+      .pipe(
+        catchError((error: any) => {
+          console.error(error);
+          return throwError('Error eliminando el horario-curso');
+        })
+      );
   }
 
   deleteusuario(idUsuario: number, usuario: Usuario) {
@@ -128,6 +138,11 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   getPorCedula(id_usuario: any) {
     return this.http.get<Usuario>(this.URL + `buscarpersona/${id_usuario}`);
   }
+
+  public getDocentes() {
+    return this.http.get<Usuario[]>(this.URL+'/users/listarDoc');
+  }
+ 
   // getPersonasConUsuarios(): Observable<PersonaI[]> {
   //   return this.http.get<any>(`${this.URL}/listar?_expand=listaruser`)
   //     .pipe(

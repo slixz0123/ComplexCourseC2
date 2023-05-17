@@ -10,7 +10,7 @@ export class Participante{
     parObservacion?: string;
     parEstadoaprovacion?: string;
     parEstado?: boolean;
-    parPersona?: Persona;
+    parPersona: Persona=new Persona();
     curso?: Curso;
     asistencias!: Asistencia[];
 

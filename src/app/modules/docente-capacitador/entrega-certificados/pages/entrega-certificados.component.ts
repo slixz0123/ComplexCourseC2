@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Participante } from 'src/app/Core/models/participante';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
@@ -16,16 +17,24 @@ export class EntregaCertificadosComponent {
     ){}
 
     ngOnInit(): void {
-      this.listarRol();
+      this.listarParticipante();
     }
     participante: Participante = new Participante();
     participantes: Participante[] = [];
+    certificadosForm: FormGroup | undefined;
+    submitted = false;
 
-    listarRol() : void{
+    filtro = '';
+
+    actualizarFiltro() {
+      this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
+    }
+
+    listarParticipante() : void{
       this.participanteService.obtenerAprobados().subscribe((data: any)=>{
         if(null != data){
-          this.participante=data;
-          console.log(this.participante);
+          this.participantes=data;
+          console.log(this.participantes);
         }else{
           console.log("no hay data");
         }

@@ -28,7 +28,8 @@ export class AceptarCursoComponent implements OnInit{
     private fichaService:FichaIncripcionService
     ){}
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+    this.listarRol();
+    this.listarFichas();
   }
   persona: Persona= new Persona();
   rol: Rol= new Rol();
@@ -47,12 +48,13 @@ export class AceptarCursoComponent implements OnInit{
 
 
   crearUsuario(){
-    if(this.persona.nombre !== undefined){
+    if(this.ficha.finPersona?.nombre !== undefined){
       console.log("hola")
       const usuario: Usuario = {
-        username: this.persona?.nombre + this.persona?.apellido,
+        id_usuario:0,
+        username: this.ficha.finPersona?.nombre + this.ficha.finPersona?.apellido,
         password: "123456",
-        persona: this.persona,
+        persona: this.ficha.finPersona,
         rol: this.rol,
         enabled: true // Establece la propiedad enabled como true
         
@@ -116,7 +118,6 @@ export class AceptarCursoComponent implements OnInit{
     });
     
   };
-
   // crearParti(){
   //   console.log("almenos entra");
   //   console.warn(this.ficha.finPersona);

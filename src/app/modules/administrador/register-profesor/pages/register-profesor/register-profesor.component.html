@@ -12,12 +12,13 @@
 <body>
   <div class="container mt-4">
     <h2 class="mb-4">Formulario de Profesor</h2>
-    <form >
+    <form>
       <div class="row">
         <div class="col-md-6">
           <label for="cedula" class="form-label">Cédula</label>
           <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" [(ngModel)]="cedula" />
+            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
+              aria-label="Search" aria-describedby="search-addon" [(ngModel)]="cedula" />
             <button type="button" class="btn btn-outline-primary" (click)=" buscarPersona(cedula)">Buscar</button>
           </div>
           <label for="id_persona" class="form-label">Identificacion</label>
@@ -47,12 +48,42 @@
       <div class="mb-3">
         <label for="contrasena" class="form-label">Contraseña</label>
         <input type="password" class="form-control" id="contrasena" name="password" [(ngModel)]="usuario.password" />
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
       </div>
-      <button  (click)="onSubmit()" type="submit" class="btn btn-primary">Enviar</button>
-
-      <button  type="submit" class="btn btn-primary">buscarRol</button>
-      
     </form>
+    <form>
+      <br>
+      <div class="form-group">
+        <label for="buscar">Buscar:</label>
+        <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro"
+          (keyup)="actualizarFiltro()">
+      </div>
+
+      <br>
+      <h2>Especialidades</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Usuario</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Actividad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios" >
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.persona?.cedula }}</td>
+            <td>{{ usuario.enabled }}</td>
+            <td>{{ usuario.rol.rolNombre }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="eliminar(usuario.id_usuario)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </form>
   </div>
 </body>
 

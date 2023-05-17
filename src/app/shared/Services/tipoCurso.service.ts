@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 
 @Injectable({
@@ -25,11 +26,25 @@ export class TipoCursoService {
   getAll() {
     return this.http.get<TiposCurso[]>(this.URL1 + 'listar')
   }
-  delete(tipcur: TiposCurso, idtpc: number) {
-    return this.http.put<TiposCurso>(this.URL1+ `eliminar/${idtpc}`, tipcur);
+  delete(id: number): Observable<any> {
+    const url = `${this.URL1}eliminar/${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.put(url, {}, httpOptions)
+      .pipe(
+        catchError((error: any) => {
+          console.error(error);
+          return throwError('Error eliminando el tipo curso');
+        })
+      );
   }
   update(tipcur: TiposCurso, idtpc: number) {
     return this.http.put<TiposCurso>(this.URL1+ `actualizar/${idtpc}`, tipcur);
+  }
+
+  public getAllTrue() {
+    return this.http.get<TiposCurso[]>(this.URL1+'listartrue');
   }
  
 }

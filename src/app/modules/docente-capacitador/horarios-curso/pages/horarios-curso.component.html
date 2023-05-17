@@ -1,9 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <p class="h4">Ingreso de horarios -cursos</p>
-    </head>
-    <body>
-        <a>esto es una prueba</a>
-    </body>
-</html>
+<div class="container" style="background-color: #ffffff;">
+    <div class="mt-4">
+      <h3 style="text-align: center;">{{ isNew ? 'Nuevo horario curso' : 'Editar horario curso' }}</h3>
+      <form #horarioCursoForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="horario">Seleccione el horario al que pertenece:</label>
+              <select class="form-control" id="horario" [(ngModel)]="horarioSeleccionado.horario.horId" name="horario">
+                <option *ngFor="let horario of horarios" [value]="horario.horId" [selected]="horarioSeleccionado.horario.horId === horario.horId">{{ horario.horInicio }}.- {{ horario.horFin }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="espNombre">Nombre</label>
+              <input type="text" class="form-control" id="espNombre" name="espNombre" [(ngModel)]="horarioSeleccionado.hcuNombre" required>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+  
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+  
+    <br>
+    <h2>Horarios Curso</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Área</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let especialidad of horarioCu">
+          <tr *ngIf="especialidad.hcuNombre.toLowerCase().includes(filtro.toLowerCase())">
+            <td>{{ especialidad.hcuEstado }}</td>
+            <td>{{ especialidad.hcuNombre }}</td>
+            <td>{{ especialidad?.horario?.horId }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="editarEspecialidad(especialidad)">Editar</button>
+              <button class="btn btn-danger" (click)="eliminarEspecialidad(especialidad.hcuId)">Eliminar</button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      
+          
+            </table>
+  </div>          
+          
+  

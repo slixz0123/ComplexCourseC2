@@ -7,6 +7,7 @@ import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { RolService } from 'src/app/shared/Services/rol.service';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-profesor',
@@ -16,9 +17,12 @@ import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 export class RegisterProfesorComponent{
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario; // instancia de la clase usuario  
+  usuarios: Usuario[] = [];
   rol: Rol = new Rol;// instancia de la clase rol
   cedula: string ='';
   nombreDeUsuario: string='';
+  formularioValido: boolean| undefined;
+
   
 
   // en el constructor instanciamos los servicios
@@ -73,7 +77,16 @@ export class RegisterProfesorComponent{
   // }
 
   ngOnInit() {
+    this.getAreas();
   }
+
+  getAreas(): void {
+    this.userServiceService.getDocentes().subscribe((response: Usuario[])=>{
+      
+      console.log(this.usuarios=response)
+    })
+  }
+
 idPersona:any;
   onSubmit() {
   if (this.validardatos=1){
@@ -116,7 +129,31 @@ idPersona:any;
      });
     }
   }
+
+  eliminar(espId: number): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este horario curso?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userServiceService.deleteUsuario(espId).subscribe(() => {
+          this.getAreas();
+        });
+      }
+    });
+  }
+
+  filtro = '';
+
+  actualizarFiltro() {
+    this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
+  }
 }
+
+
+
 
   /////validar si la cédula es correcta de acuerdo a los parámetros     
   // const validar=new claseValidaciones();
