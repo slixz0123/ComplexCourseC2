@@ -11,11 +11,14 @@ export class ProgramaCapacitacionService {
 
   constructor(private http: HttpClient) {}
 
-  getProgramasCapacitacion(): Observable<ProgramaCapacitacion[]> {
-    return this.http.get<ProgramaCapacitacion[]>(`${this.apiUrl}/listar`);
-  }
 
+  getProgramasCapacitacion() {
+    return this.http.get<ProgramaCapacitacion[]>(this.apiUrl + '/listar')
+  }
   getProgramaCapacitacionById(id: number): Observable<ProgramaCapacitacion> {
+    return this.http.get<ProgramaCapacitacion>(`${this.apiUrl}/buscar/${id}`);
+  }
+  getPorId(id: any) {
     return this.http.get<ProgramaCapacitacion>(`${this.apiUrl}/buscar/${id}`);
   }
 

@@ -17,6 +17,9 @@ export class EspecialidadService {
   getAll(): Observable<Especialidad[]> {
     return this.http.get<Especialidad[]>(`${this.URL}/listar`);
   }
+  getespecialidadall() {
+    return this.http.get<Especialidad[]>(`${this.URL}/listar`);
+  }
 
   getById(id: number): Observable<Especialidad> {
     return this.http.get<Especialidad>(`${this.URL}/buscar/${id}`);
