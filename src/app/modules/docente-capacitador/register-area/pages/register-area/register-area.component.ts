@@ -58,9 +58,15 @@ export class RegisterAreaComponent implements OnInit {
           this.isNew = true;
           Swal.fire('¡Éxito!', 'El área ha sido modificada correctamente', 'success'); // SweetAlert al editar el área
         });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        this.areaSeleccionada = new Area();
+        this.editando = false;
+        this.isNew = true;
+        Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
       }
     });
   }
+  
 
 
   seleccionarArea(area: Area): void {

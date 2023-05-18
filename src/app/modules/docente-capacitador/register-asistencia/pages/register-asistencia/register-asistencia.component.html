@@ -1,16 +1,25 @@
-<table>
-  <thead>
-    <tr>
-      <th>Cédula</th>
-      <th>Nombre</th>
-      <th>Apellido</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let participante of participantes">
-      <td>{{ participante.parPersona?.cedula }}</td>
-      <td>{{ participante.parPersona?.nombre }}</td>
-      <td>{{ participante.parPersona?.apellido }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container" style="background-color: #ffffff;">
+  <h4>LISTADO DE ESTUDIANTES</h4>
+  <table class="table">
+    <thead>
+      <tr class="bg-primary text-light">
+        <th scope="col">Cédula</th>
+        <th scope="col">Nombre y apellido</th>
+        <th scope="col">Faltas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of participantes">
+        <td>{{ item.participante.parPersona?.cedula }}</td>
+        <td>{{ item.participante.parPersona?.apellido }} {{ item.participante.parPersona?.nombre }}</td>
+        <td>
+          <input type="number" [(ngModel)]="item.asistencia.asiNumfaltas" class="form-control" min="0" pattern="[0-9]+" />
+        </td>
+         
+      </tr>
+      
+    </tbody>
+  </table>
+  
+  <button (click)="registrarAsistencias()" class="btn btn-primary">Guardar asistencias</button>
+  </div>

@@ -52,7 +52,7 @@ export class RegisterMecanismoEvaComponent {
       if (result.isConfirmed) {
         this.mecanismoEvaluacionServ.deleteMecanismo(mevId).subscribe(() => {
           this.getMecanismos();
-
+          Swal.fire('¡Éxito!', 'El mecanismo de evaluación ha sido eliminado correctamente', 'success');
         });
       }
     });
@@ -64,7 +64,7 @@ export class RegisterMecanismoEvaComponent {
       this.mecanismoEvaluacionServ.saveMecanismo(this.mecanismoSeleccionado).subscribe(() => {
         this.getMecanismos();
         this.mecanismoSeleccionado = new MecanismoEvaluacion();
-
+  
         Swal.fire({
           icon: 'success',
           title: 'Mecanismo de evaluación creado',
@@ -86,7 +86,7 @@ export class RegisterMecanismoEvaComponent {
             this.getMecanismos();
             this.mecanismoSeleccionado = new MecanismoEvaluacion();
             this.isNew = true;
-
+  
             Swal.fire({
               icon: 'success',
               title: 'Mecanismo de evaluación editado',
@@ -94,10 +94,13 @@ export class RegisterMecanismoEvaComponent {
               confirmButtonText: 'Aceptar'
             });
           });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.mecanismoSeleccionado = new MecanismoEvaluacion();
+          this.isNew = true;
         }
       });
     }
-  }
+  }  
 
   getDisenos(): void {
     this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Asistencia } from 'src/app/Core/models/asistencia';
+import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,16 @@ export class AsistenciaService {
    saveAsistencia(Asistencia: Asistencia) {
      return this.http.post(`${this.URL}/crear`, Asistencia);
    }
+
+   obtenerParticipantesPorCurso(curId: number): Observable<Participante[]> {
+    const url = `${this.URL}/participantes/${curId}`;
+    return this.http.get<Participante[]>(url);
+  }
+
+  obtenerAsistenciasPorParticipante(parId: number): Observable<Asistencia[]> {
+    const url = `${this.URL}/${parId}`;
+    return this.http.get<Asistencia[]>(url);
+  }
  
 }
 
