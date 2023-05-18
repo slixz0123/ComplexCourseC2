@@ -1,0 +1,27 @@
+.sticky-column {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: #343a40; /* Ajusta el color de fondo según tus necesidades */
+   
+  }
+  .centered-header {
+    
+    justify-content: center;
+    align-items: center;
+   
+  }
+ 
+
+
+  .table-bordered {
+    /* Asegúrate de tener estos estilos para que el contenido no se desborde */
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  .table-responsive {
+    /* Ajusta estos estilos si deseas que la tabla sea responsive */
+    overflow-x: auto;
+  }
+  

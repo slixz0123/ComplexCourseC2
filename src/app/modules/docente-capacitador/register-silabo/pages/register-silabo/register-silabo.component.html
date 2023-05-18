@@ -114,8 +114,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let resultado of resultadosAprendizaje; let i = index" [class.selected]="resultado.rapId ">
-
+      <tr *ngFor="let resultado of resultadosAprendizajes; let i = index" [class.selected]="resultado.rapId ">
+    
         <td>
           <textarea
             id="unidad_competencia_{{i}}"
@@ -126,7 +126,7 @@
             #texcrapUnidadcompe
             style="width: 410px;"
             rows="8"
-            [(ngModel)]="resultadosAprendizaje[i].rapUnidadcompe"
+            [(ngModel)]="resultadosAprendizajes[i].rapUnidadcompe"
           ></textarea>
           <button  type="button" class="btn btn-success" (click)="addBullet(texcrapUnidadcompe)">Agregar viñeta</button>
          <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapUnidadcompe)">Agregar linea de separacion</button>
@@ -144,7 +144,7 @@
             #texcrapElementoscompe
             style="width: 410px;"
             rows="8"
-            [(ngModel)]="resultadosAprendizaje[i].rapElementoscompe"
+            [(ngModel)]="resultadosAprendizajes[i].rapElementoscompe"
           ></textarea>
           <button  type="button" class="btn btn-success" (click)="addBullet(texcrapElementoscompe)">Agregar viñeta</button>
           <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapElementoscompe)">Agregar linea de separacion</button>
@@ -160,7 +160,7 @@
             #texcrapResultadosaprenactiv
             style="width: 410px;"
             rows="8"
-            [(ngModel)]="resultadosAprendizaje[i].rapResultadosaprenactiv"
+            [(ngModel)]="resultadosAprendizajes[i].rapResultadosaprenactiv"
           ></textarea>
           <button  type="button" class="btn btn-success" (click)="addBullet(texcrapResultadosaprenactiv)">Agregar viñeta</button>
           <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapResultadosaprenactiv)">Agregar linea de separacion</button>
@@ -176,7 +176,7 @@
             #texcrapFormaevidenciar
             style="width: 410px;"
             rows="8"
-            [(ngModel)]="resultadosAprendizaje[i].rapFormaevidenciar"
+            [(ngModel)]="resultadosAprendizajes[i].rapFormaevidenciar"
           ></textarea>
           <button  type="button" class="btn btn-success" (click)="addBullet(texcrapFormaevidenciar)">Agregar viñeta</button>
           <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapFormaevidenciar)">Agregar linea de separacion</button>
@@ -518,9 +518,7 @@
         <pre>
           {{datossilabo |  json}}
        </pre>
-       <pre>
-        {{ resultadosAprendizaje |  json}}
-     </pre>
+      
         <div class="mb-3">
           <button (click)="crearsilabo()" type="submit" class="btn btn-primary">Enviar</button>
         </div>

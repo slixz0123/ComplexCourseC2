@@ -147,7 +147,7 @@ agregarVinetas2(rowIndex: number) {
   horasapren: HorasAprendizaje = new HorasAprendizaje;
 
  
-  resultadosAprendizaje: ResultadosAprendizaje[] = [];
+  resultadosAprendizajes: ResultadosAprendizaje[] = [];
 
   evaluacioneprea: EvaluacionEpra[] = [];
 
@@ -276,7 +276,7 @@ agregarVinetas2(rowIndex: number) {
 
 
       eliminarFila(index: number) {
-        this.resultadosAprendizaje.splice(index, 1);
+        this.resultadosAprendizajes.splice(index, 1);
       }
       public agregarFila() {
         const nuevaFila: ResultadosAprendizaje = {
@@ -289,7 +289,7 @@ agregarVinetas2(rowIndex: number) {
           rapSilabo: this.datossilabo ,
           
         };
-        this.resultadosAprendizaje.push(nuevaFila);
+        this.resultadosAprendizajes.push(nuevaFila);
 
         //evaluacion epra 
       }
@@ -362,7 +362,7 @@ crearsilabo() {
     console.log(silabdata, "Data datos silabo");
 
     // Asignar el id del silabo a cada objeto de la tabla "resultados de aprendizaje"
-    this.resultadosAprendizaje.forEach(resultado => {
+    this.resultadosAprendizajes.forEach(resultado => {
       
       resultado.rapSilabo = {
         dsiId: silabdata.dsiId,
@@ -415,8 +415,9 @@ this.estrategiasMetodologicas.forEach(resultado => {
 });
     // Post de resultados de aprendizaje
 
-    this.resultadosaprendiserv.postMany(this.resultadosAprendizaje).subscribe(
+    this.resultadosaprendiserv.postMany(this.resultadosAprendizajes).subscribe(
       dataresultados => {
+        console.log(dataresultados)
         console.log("resultadosAprendizaje creados exitosamente");
       },
       error => {
