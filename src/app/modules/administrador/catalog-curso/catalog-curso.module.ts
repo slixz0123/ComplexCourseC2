@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { CatalogCursoRoutingModule } from './catalog-curso-routing.module';
 import { CatalogCursoComponent } from './pages/catalog-curso/catalog-curso.component';
 
@@ -11,7 +13,10 @@ import { CatalogCursoComponent } from './pages/catalog-curso/catalog-curso.compo
   ],
   imports: [
     CommonModule,
-    CatalogCursoRoutingModule
+    CatalogCursoRoutingModule,
+    SharedModule,
+    FormsModule,
+    HttpClientModule
   ],
   exports:[
     CatalogCursoComponent

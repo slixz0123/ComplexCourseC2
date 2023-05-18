@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
-
+import Swal from 'sweetalert2';
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { RolService } from 'src/app/shared/Services/rol.service';
@@ -13,112 +13,132 @@ import { UsuarioService } from 'src/app/shared/Services/usuario.service';
   templateUrl: './register-profesor.component.html',
   styleUrls: ['./register-profesor.component.css']
 })
-export class RegisterProfesorComponent{
+export class RegisterProfesorComponent {
   persona: Persona = new Persona;
   usuario: Usuario = new Usuario; // instancia de la clase usuario  
   rol: Rol = new Rol;// instancia de la clase rol
-  cedula: string ='';
-  nombreDeUsuario: string='';
-  
-
+  usuariova: Usuario = new Usuario; // instancia de la clase usuario  
+  cedula: string = '';
+  nombreDeUsuario: string = '';
+  validardatos: any;
+  idPersona: any;
   // en el constructor instanciamos los servicios
-  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService) { }
- validardatos: any;
+  constructor(
+    private personaService: PersonaService,
+    private usuarioService: UsuarioService,
+    private rolservices: RolService
+  ) { }
+  ngOnInit() {
+    this.obtenerRol();
+    // this.ValidarRole();
+    this.idPersona=localStorage.getItem('id_persona')
+    console.log(this.idPersona)
+  }
 
- buscarRol(nombre: string){
-    nombre="Docente";
-    this.rolservices.getByRolNombre(nombre).subscribe((data: any)=>{
-      if(null!= data){
-        console.log(data);
-        this.usuario.rol2=data;
-      }
-    })
- }
-  buscarPersona(cedula: string) {
-    
-    this.persoUsrService.buscarPorCedula(cedula).subscribe((data : any) => {
+  personaVacio() { }
+  buscarPersona(cedula: any) {
+    this.personaService.getPersonaCedula(cedula).subscribe((data: any) => {
       if (null != data) {
         this.persona = data;
-        this.validardatos=1;
+        console.log(this.persona)
+        this.ValidarRole(this.persona.id_persona);
       } else {
-        this.validardatos=2;
-        alert("No se encontró la persona con el cedula proporcionado.");
-        this.persona.id_persona=0;
-        this.persona.cedula=cedula;
-        this.persona.nombre = "string";
-        this.persona.apellido = "string";
+        Swal.fire('¡Alerta!', 'Persona no encontrada, se guardara solo su cedula, podra actualizar sus datos despues', 'info'); // SweetAlert al editar el área
+        this.validardatos = 2;
+        this.persona.id_persona = 0;
+        this.persona.cedula = cedula;
+        this.persona.nombre = "Asignar";
+        this.persona.apellido = "Asignar";
         this.persona.fecha_nacimiento = new Date('2000-01-01');
-        this.persona.email = "string";
-        this.persona.direccion = "string";
-        this.persona.sexo = "string";
-        this.persona.telefono = "registrar";
-        this.persona.celular = "string";
-        this.persona.etnia = "string";
-        this.persona.nivelintruccion = "string";
-        this.persona.hojavida = "string";
-
-
-        alert("la persona es "+this.persona.nombre)
-
+        this.persona.email = "Asignar";
+        this.persona.direccion = "Asignar";
+        this.persona.sexo = "Asignar";
+        this.persona.telefono = "Asignar";
+        this.persona.celular = "Asignar";
+        this.persona.etnia = "Asignar";
+        this.persona.nivelintruccion = "Asignar";
+        this.persona.hojavida = "Asignar";
+        this.persona.enabled = true;
       }
     });
   }
-
-  // crearRol():Rol{
-  //   this.rol.id_rol=1;
-  //   this.rol.rolNombre="Docente";
-  //   this.rol.descripcion="Docente";
-  //   this.rol.enabled=true;
-  //   return this.rol;
-  // }
-
-  ngOnInit() {
-  }
-idPersona:any;
-  onSubmit() {
-  if (this.validardatos=1){
-      this.idPersona=this.persona.id_persona
-      this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
-
-      this.rolservices.getById(2).subscribe((response:any) => {
-        console.log(response); // Imprime la respuesta de la API en la consola
-        this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
-        this.usuario.rol =response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
-      });
-      this.usuario.persona.id_persona=this.idPersona;
-        this.usuario.rol.id_rol=2;
-        this.usuario.enabled=true;
-
-        console.log("Este es mi usuario")
-        console.log(this.persona);
-        this.userServiceService.postUsuario(this.usuario).subscribe((response: any) => {
-          console.log(response); // Imprime la respuesta de la API en la consola
+  ValidarRole(idPersona: any){
+    //id del rol 2=docente
+    this.usuarioService.getpersonarol(idPersona,2).subscribe((response: any)=>{
+      console.log(response);
+      if(response!=null){
+        if(response.enabled==true){
+          Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente Activa', 'info'); // SweetAlert al editar el área
+              //Limpiar datos 
+        }else{
+        // Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente, desea activarla?', 'info'); // SweetAlert al editar el área
+        Swal.fire({
+          title: 'La persona ya tiene una cuenta de Docente, ¿desea activarla?',
+          showCancelButton: true,
+          confirmButtonText: 'Activar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+        this.ActualizarEstadouser(response, response.id_usuario);
+          }
+        });  
         
-
-      });
-  }else{
-    this.persoUsrService.postPersona(this.persona).subscribe((response:any) => {
+        }
+      }else{
+        Swal.fire('¡Alerta!', 'La persona existe pero no tiene cuenta Docente', 'info'); // SweetAlert al editar el área
+        this.validardatos = 1;
+      }
+    });
+  }
+  obtenerRol() {
+    //id del rol 2=docente
+    this.rolservices.getById(2).subscribe((response: any) => {
+      console.log("mi rol")
       console.log(response); // Imprime la respuesta de la API en la consola
-      this.persona.id_persona = response.id_persona; // a this.persona.id_persona el resultado de nuestro metodo post se aasignamos la data.id_persona que nos arroja la api
+      this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
+    });
+  }
+  ActualizarEstadouser(usuario: Usuario, idUsuario: any){
+    console.log("datos actualizados")
+    this.usuarioService.updateUsuariorol(usuario,idUsuario, true).subscribe(
+      (data: any) => {
+        console.log('a verrr' + data);
+        console.log
+        Swal.fire('¡Éxito!', 'El usuario fue activado correctamente', 'success'); // SweetAlert al editar el área
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  onSubmit() {
+    if (this.validardatos == 1) {
+      this.usuario.rol = this.rol
       this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
-
-
-      this.rolservices.getById(2).subscribe((response:any) => {
-        console.log(response); // Imprime la respuesta de la API en la consola
-        this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
-        this.usuario.rol =response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
-
-        this.userServiceService.postUsuario(this.usuario).subscribe((response: any) => {
-          console.log(response); // Imprime la respuesta de la API en la consola
-        });
-      
+      this.usuario.enabled = true;
+      this.usuario.id_usuario = 0;
+      this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
+        console.log("Afirmativo pareja")
+      }, error => {
       });
-     });
+    } else {
+      this.personaService.crearPersona(this.persona).subscribe((response: any) => {
+        console.log(response); // Imprime la respuesta de la API en la consola
+        this.usuario.persona = response;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
+        this.usuario.rol = this.rol;
+        this.usuario.enabled = true;
+        this.usuario.id_usuario = 0;
+        console.log(this.usuario)
+        this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
+          console.log("Afirmativo pareja")
+        }, error => {
+        });
+      });
     }
   }
 }
 
-  /////validar si la cédula es correcta de acuerdo a los parámetros     
+  /////validar si la cédula es correcta de acuerdo a los parámetros
   // const validar=new claseValidaciones();
   // if (this.persona.cedula !== undefined){
   //   console.log(this.persona)

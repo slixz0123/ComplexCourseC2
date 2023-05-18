@@ -10,7 +10,7 @@ import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion
 export class ApliCursosComponent {
 
   fichaIncripcion: FichaInscripcion = new FichaInscripcion();
-
+  idPersona: any;
   constructor(
     private fichaIncripcionService: FichaIncripcionService
 
@@ -18,15 +18,23 @@ export class ApliCursosComponent {
 
   ngOnInit(): void {
     // this.id_persona = localStorage.getItem('id_persona');
-    this.getAllfichasIncripcion();
+    this.idPersona = localStorage.getItem('id_persona')
+    this.getAllfichasIncripcion(this.idPersona);
+    console.log("esta es la id")
+    console.log(this.idPersona)
 
   }
-  fichasList: any[] = [];
-  getAllfichasIncripcion() {
-    this.fichaIncripcionService.getAllFichaIncripcion().subscribe((data: any) => {
-      this.fichasList = data;
-      console.log("Siiuu")
-      console.log(this.fichasList)
+  
+  fichasAcepList: any[] = [];
+  getAllfichasIncripcion(idPersona: any) {
+    this.fichaIncripcionService.getfichasbypersona(idPersona).subscribe((data: any) => {
+      console.log("Siiuu");
+      console.log(data);
+
+      // Filtrar los datos por estado diferente a 1
+      this.fichasAcepList = data.filter((fichaIncripcion: FichaInscripcion) => fichaIncripcion.finAprobacion !== 1);
+      console.log("fichas acep");
+      console.log(this.fichasAcepList);
     });
   }
 }

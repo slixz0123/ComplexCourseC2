@@ -17,7 +17,6 @@ export class FichaIncripcionService {
   }
 
   public getAllFichaIncripcion() {
-    // return this.http.get<any>(`${this.URL}/listar`);
     return this.http.get<FichaInscripcion[]>(this.URL + '/listar')
   }
 
@@ -29,4 +28,10 @@ export class FichaIncripcionService {
     return this.http.put<FichaInscripcion>(`${this.URL}/Actualizar/` + idFichaInscripcio, fichaInscripcion);
   }
 
+  public getfichasbypersona(idPersona: any){
+    console.log("service")
+    console.log(idPersona)
+    
+    return this.http.get<any>(`${this.URL}/fichasbypersona/` + idPersona);
+  }
 }

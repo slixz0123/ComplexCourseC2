@@ -1,18 +1,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-<div class="container2">
-    <!-- Breadcrumb -->
-    <!-- <nav aria-label="breadcrumb" class="main-breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Programas</a></li>
-            <li class="breadcrumb-item"><a>Cursos</a></li>
-        </ol>
-    </nav> -->
-    <!-- /Breadcrumb -->
 <br>
-    <div class="row" *ngFor="let curso of fichasList">
-        <div class="col-md-4 col-xl-3" *ngIf="curso.finAprobacion!=1">
-            <div class="card bg-c-blue order-card" >
+<div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let curso of fichasAcepList">
+            <div class="card bg-c-blue order-card">
                 <div class="card-block">
                     <div *ngIf="curso.finAprobacion==0">
                         <h6 class="m-b-20">Codigo: {{curso.finCurso.curCodigo}}
@@ -20,7 +11,7 @@
                         </h6>
                     </div>
                     <div *ngIf="curso.finAprobacion==2">
-                        <h6 class="m-b-20" >Codigo: {{curso.finCurso.curCodigo}}
+                        <h6 class="m-b-20">Codigo: {{curso.finCurso.curCodigo}}
                             <span class="f-right" style="color: red;">Rechazado</span>
                         </h6>
                     </div>
@@ -38,5 +29,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </div>

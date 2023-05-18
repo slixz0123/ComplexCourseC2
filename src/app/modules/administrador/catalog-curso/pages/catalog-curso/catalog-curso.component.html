@@ -1,1 +1,230 @@
-<p>catalog-curso works!</p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container" *ngIf="showContainer1">
+    <br>
+    <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let programa of programasList">
+            <div class="card bg-c-yellow order-card" (click)="mostrarCursos(programa)"
+                (click)="showContainer2 = true; showContainer1 = false;  ">
+                <div class="card-block">
+                    <h6 class="m-b-20">{{programa.pcaProceso}}</h6>
+                    <h2 class="text-right"><i
+                            class="fa fa-graduation-cap f-left"></i><span>{{programa.pcaNombre}}</span></h2>
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="val"><span class="f-right">{{programa.pcaFechainicio | date:
+                                'dd/MM/yyyy'}}</span>Inicia</h3>
+                        <h3 class="val"><span class="f-right">{{programa.pcaFechafin | date:
+                                'dd/MM/yyyy'}}</span>Termina</h3>
+                    </div>
+                    <div style="margin-bottom: 10px;">  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container2" *ngIf="showContainer2">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Programas</a></li>
+            <li class="breadcrumb-item"><a>Cursos</a></li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let curso of cursosList">
+            <div class="card bg-c-blue order-card" (click)="mostrarDatosCurso(curso)"
+                (click)="showContainer2 = false; showContainer3 = true;">
+                <div class="card-block">
+                    <h6 class="m-b-20">Codigo: {{curso.curCodigo}}</h6>
+                    <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{curso.curNombre}}</span>
+                    </h2>
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="val"><span class="f-right">{{curso.curFechainicio | date:
+                                'dd/MM/yyyy'}}</span>Inicia</h3>
+                        <h3 class="val"><span class="f-right">{{curso.curFechafin | date:
+                                'dd/MM/yyyy'}}</span>Termina</h3>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container3" *ngIf="showContainer3">
+    <div class="main-body">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false">Programas</a>
+                </li>
+                <li class="breadcrumb-item"><a (click)="showContainer2 = true; showContainer3 = false">Cursos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{this.curso.curNombre}}</li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                                class="rounded-circle" width="150">
+                            <div class="mt-3">
+                                <h4>{{this.curso.curNombre}}</h4>
+                                <p class="text-secondary mb-1">Codigo del curso</p>
+                                <p class="text-muted font-size-sm">{{this.curso.curCodigo}}</p>
+                                <!-- <button class="btn btn-primary" (click)="EnviarCurso(curso.curId)">Inscribirse</button> -->
+                                <!-- <button class="btn btn-outline-primary">Message</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Docente del curso</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{this.curso.pcursos.apellido}} {{this.curso.pcursos.nombre}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Modalidad del curso</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{this.curso.mcursos.mcuNombre}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Fecha de Inicio</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{curso.curFechainicio | date: 'dd/MM/yyyy'}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Fecha de Finalización</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                {{curso.curFechafin | date: 'dd/MM/yyyy'}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Horarios</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <textarea class="sin-borde" name="horarios" id="horarios" cols="30" rows="3"
+                                    [(ngModel)]="horariosTexto" readonly    ></textarea>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- <div class="row">
+                            <div class="col-sm-12">
+                                <a class="btn btn-info " target="__blank"
+                                    href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">ver mas</a>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="container mt-4">
+        <h4>Datos del Curso</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="codigoCurso" class="form-label">Código de Curso</label>
+                    <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.pcursos?.nombre}}" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="nombreCurso" class="form-label">Nombre del Curso</label>
+                    <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" />
+                </div>
+            </div>
+        </div> -->
+    <!-- las modalidades -->
+    <!-- <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="modalidad" class="form-label">Modalidad</label>
+                    <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
+                </div> -->
+
+    <!-- <div class="mb-3">
+                    <label for="modalidad" class="form-label">Modalidad</label>
+                    <div>
+                        <div *ngIf="this.curso.mcursos.mcuNombre === 'Hibrida'">
+                            <select class="form-select" id="modalidad">
+                                <option value="presencial">Presencial</option>
+                                <option value="virtual">Virtual</option>
+                            </select>
+                        </div>
+                        <div *ngIf="this.curso.mcursos.mcuNombre !== 'Hibrida'">
+                            <h6 class="val">*El curso solo tiene esta modalidad</h6>
+                            <input type="text" class="form-control" id="modalidad"
+                                value="{{this.curso.mcursos.mcuNombre}}" />
+                        </div>
+                    </div>
+                </div> -->
+    <!-- </div> -->
+    <!-- los horarios -->
+    <!-- <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="horarios" class="form-label">Horarios del curso</label> <br>
+                    <textarea name="horarios" id="horarios" cols="30" rows="3" [(ngModel)]="horariosTexto"></textarea>
+                </div>
+            </div>
+        </div> -->
+
+
+
+
+    <!-- FECHAS -->
+    <!-- <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="inputFechainicio" class="form-label">Fecha de Inicio</label>
+                    <input type="text" class="form-control" id="inputFechainicio"
+                        placeholder="Ingrese su Fecha de Nacimiento" name="curFechainicio"
+                        value="{{curso.curFechainicio | date: 'dd/MM/yyyy'}}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="curFechafin" class="form-label">Fecha de Finalización</label>
+                    <input type="text" class="form-control" id="inputFechafin"
+                        placeholder="Ingrese su Fecha de Nacimiento" name="curFechafin"
+                        value="{{curso.curFechafin | date: 'dd/MM/yyyy'}}">
+                </div>
+            </div>
+        </div> -->
+    <!-- ***************************** -->
+    <!-- <div class="mb-3">
+            <button (click)="EnviarCurso(curso.curId)">Incribirse</button>
+        </div>
+
+    </div> -->
+
+</div>

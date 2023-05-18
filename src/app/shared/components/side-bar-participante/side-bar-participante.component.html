@@ -219,6 +219,24 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#perfil-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-clipboard2-plus"></i><span>Perfil Participante</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="perfil-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a  (click)="goTo_visperfil($event)">
+              <i class="bi bi-circle"></i><span>Vista Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a  (click)="goTo_ediperfil($event)">
+              <i class="bi bi-circle"></i><span>Edición Perfil</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- termino perfil Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-clipboard2-plus"></i><span>Inscripcion</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -233,12 +251,6 @@
               <i class="bi bi-circle"></i><span>Generar Ficha Inscripcion</span>
             </a>
           </li>
-        
-         
-         
-           
-         
-         
         </ul>
       </li><!-- termino necesidad Nav -->
 

@@ -43,9 +43,11 @@ export class VisualizarProgramasCapacitacionComponent {
   programasList: any[] = [];
   public getAllProgramasc() {
     this.programaCapacitacionServ.getProgramasCapacitacion().subscribe((data: any) => {
-      this.programasList = data;
-      console.log("Siiuu")
-      console.log(this.programasList)
+
+      // Filtrar los datos por estado diferente a falso
+      this.programasList = data.filter((programaCapacitacion: ProgramaCapacitacion) => programaCapacitacion.pcaEstado!=false);
+      console.log("fichas acep");
+      console.log(this.programasList);
     });
   }
   cursosList: any[] = [];

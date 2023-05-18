@@ -74,7 +74,7 @@ export class RegisterAdminsComponent {
         reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
-          this.registerUsrService.postPersona(this.persona).subscribe((response) => {
+          this.registerUsrService.crearPersona(this.persona).subscribe((response) => {
             console.log(response);
             this.persona.id_persona = response.id_persona;
             this.usuario.persona = this.persona;

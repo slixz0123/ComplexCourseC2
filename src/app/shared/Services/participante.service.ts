@@ -25,6 +25,15 @@ import { Participante } from "src/app/Core/models/participante";
       return this.http.get<Participante[]>(url);
     }
 
+    ParticipantesPorCurso(curId: number): Observable<Participante[]> {
+      const url = `${this.URL}/participantesPorCurso/${curId}`;
+      return this.http.get<Participante[]>(url);
+    }
+
+    updateparticipante(idParticipante: any, participante: Participante) {
+      return this.http.put<Participante>(`${this.URL}/actualizar/`+ idParticipante, participante);
+    }
+
     obtenerParticipantes(idpersona: number): Observable<Participante[]> {
       const url = `${this.URL}/listar/${idpersona}`;
       return this.http.get<Participante[]>(url);

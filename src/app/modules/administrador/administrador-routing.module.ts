@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  //perfil
+  {
+    path: 'edit-dts-admin',
+    loadChildren: () => import("./edit-dts-admin/edit-dts-admin.module").then(m => m.EditDtsAdminModule)
+  },
+  {
+    path: 'vista-perfil-admin',
+    loadChildren: () => import("./vista-perfil-admin/vista-perfil-admin.module").then(m => m.VistaPerfilAdminModule)
+  },
   //hoome 
   {
     path: '',
@@ -34,8 +43,8 @@ const routes: Routes = [
     path: 'valid-hojasvida-doc',
     loadChildren: () => import("./valid-hojasvida-capacitadores/valid-hojasvida-capacitadores.module").then(m => m.ValidHojasvidaCapacitadoresModule)
   },
-   //validar cursos
-   {
+  //validar cursos
+  {
     path: 'valid-cursos-cap',
     loadChildren: () => import("./valid-cursos-cap/valid-cursos-cap.module").then(m => m.ValidCursosCapModule)
   },

@@ -53,6 +53,17 @@ goToRegisterInscripcion($event: any) :void{
     this.router.navigate(['/Participante/Eva-Curso'])
     console.log($event)
    }
+   ////////////////////////////////////////////////////////
+   goTo_ediperfil($event: any) :void{
+
+    this.router.navigate(['/Participante/edit-dts-participante'])
+    console.log($event)
+   }
+   goTo_visperfil($event: any) :void{
+
+    this.router.navigate(['/Participante/vista-perfil-participante'])
+    console.log($event)
+   }
  
  //////////////////////////////////////////////////////
  goToReportes($event: any) :void{
