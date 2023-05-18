@@ -56,8 +56,13 @@
                                     <h6 class="mb-0">Nombres</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputNombre"
-                                        placeholder="Ingrese su nombre" name="nombre" [(ngModel)]="persona.nombre">
+                                    <input type="text" 
+                                        class="form-control" 
+                                        id="inputNombre"
+                                        placeholder="Ingrese su nombre" 
+                                        name="nombre" 
+                                        [(ngModel)]="persona.nombre" }
+                                        (keydown)="validarInputNombre()">
                                 </div>
                             </div>
 

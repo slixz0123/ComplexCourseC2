@@ -65,7 +65,7 @@ export class ModalidadCursoComponent {
     this.modoSeleccionado = Object.assign({}, area);
   }
 
-  eliminarArea(areId: number): void {
+  eliminarModo(areId: number): void {
     Swal.fire({
       title: '¿Está seguro de que desea eliminar este registro?',
       showCancelButton: true,

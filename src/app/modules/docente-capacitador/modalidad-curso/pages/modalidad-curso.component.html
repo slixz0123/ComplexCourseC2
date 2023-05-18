@@ -36,7 +36,7 @@
           <td>{{ modo.mcuEstado ? 'Activo' : 'Inactivo' }}</td>
           <td>
             <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarArea(modo)">Editar</button>
-            <button class="btn btn-danger" (click)="eliminarArea(modo.mcuId)">Eliminar</button>
+            <button class="btn btn-danger" (click)="eliminarModo(modo.mcuId)">Eliminar</button>
           </td>
           </tr>
         </ng-container>

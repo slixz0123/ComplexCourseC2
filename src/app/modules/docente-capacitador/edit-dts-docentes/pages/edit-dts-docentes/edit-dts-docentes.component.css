@@ -2,6 +2,10 @@ body{
     background: #f7f7ff;
     margin-top:20px;
 }
+.toast-bottom-right {
+    bottom: 0;
+    right: 0;
+  }
 .card {
     position: relative;
     display: flex;

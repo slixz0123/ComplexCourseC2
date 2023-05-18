@@ -15,11 +15,11 @@ import { EditDtsDocentesComponent } from './pages/edit-dts-docentes/edit-dts-doc
     CommonModule,
     EditDtsDocentesRoutingModule,
     SharedModule,
-    FormsModule,
-    HttpClientModule,
+    FormsModule
   ],
   exports:[
     EditDtsDocentesComponent
-  ]
+  ],
+   bootstrap: [EditDtsDocentesComponent]
 })
 export class EditDtsDocentesModule { }

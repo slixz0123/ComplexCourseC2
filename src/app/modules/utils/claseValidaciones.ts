@@ -108,7 +108,6 @@ export class claseValidaciones {
         }
     };
 
-
     //solo letras
     letras = /^[a-zA-Z]+$/;
     validarLetras(cadena: string) {
@@ -122,10 +121,21 @@ export class claseValidaciones {
     //letras y múmeros
     patron = /^[a-zA-Z0-9]+$/
     validarLetrasNumeros(cadena: string) {
-        if (this.patron.test(cadena)) {
-            return false;
+            if (this.patron.test(cadena)) {
+                return false;
+            } else {
+                return true;
+            }
+        } 
+
+    //validar fechas menores a la actual
+    validarFechaMaxima = (fecha: string): boolean => {
+        const fechaSeleccionada = new Date(fecha);
+        const fechaActual = new Date();
+        if (fechaSeleccionada.getTime() > fechaActual.getTime()) {
+          return true;
         } else {
-            return true;
+          return false;
         }
-    }
+      };
 }
