@@ -15,7 +15,17 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="my-4">Lista Administradores</h1>
+      <h1 class="my-4">Lista Usuarios Activos</h1>
+      <div class="form-group">
+        <label for="buscar">Buscar:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="buscar"
+          name="buscar"
+          (input)="updateSearchTerm($event)"
+        />
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -29,17 +39,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-          *ngFor="let usuario of adminUsuarios"
-          [hidden]="usuario.rol.rolNombre !== 'Admin'"
-
-          >
-            <th scope="row">{{ usuario.persona?.cedula }}</th>
+          <tr *ngFor="let usuario of filterUsuarios()">
+            <td scope="row">{{ usuario.persona?.cedula }}</td>
             <td>{{ usuario.persona?.nombre }}</td>
             <td>{{ usuario.persona?.apellido }}</td>
             <td>{{ usuario.persona?.email }}</td>
             <td>{{ usuario.username }}</td>
-            <td>{{ usuario.rol.rolNombre }}</td>
+            <td>{{ usuario.rol?.rolNombre }}</td>
             <td>
               <button
                 type="button"
@@ -49,23 +55,45 @@
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
               <button
-  type="button"
-  class="btn btn-danger"
-  (click)="
-    usuario.rol &&
-    usuario.rol.id_rol &&
-    usuario.id_usuario &&
-    desactivarUsuario(usuario.rol.id_rol, usuario.id_usuario, usuario)
-  "
->
-  <i class="fa-solid fa-trash"></i>
-</button>
-
+                title="Desactivar Usuario"
+                *ngIf="usuario.enabled"
+                type="button"
+                class="btn btn-danger"
+                (click)="
+                  usuario.rol &&
+                    usuario.rol.id_rol &&
+                    usuario.id_usuario &&
+                    desactivarUsuario(
+                      usuario.id_usuario,
+                      usuario
+                    )
+                "
+              >
+                <i class="fa-solid fa-circle-xmark"></i>
+              </button>
+              <button
+                title="Activar Usuario"
+                *ngIf="!usuario.enabled"
+                type="button"
+                class="btn btn-success"
+                (click)="
+                  usuario.rol &&
+                    usuario.rol.id_rol &&
+                    usuario.id_usuario &&
+                    activarUsuario(
+                      usuario.id_usuario,
+                      usuario
+                    )
+                "
+              >
+                <i class="fa-solid fa-circle-check"></i>
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <!-- Modal -->
     <div
       class="modal fade"
@@ -113,7 +141,14 @@
             >
               Cancelar
             </button>
-            <button id="saveChangesButton" (click)="saveChanges()" type="button" class="btn btn-primary">Guardar</button>
+            <button
+              id="saveChangesButton"
+              (click)="saveChanges()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Guardar
+            </button>
           </div>
         </div>
       </div>
