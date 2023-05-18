@@ -69,11 +69,11 @@
                             <button class="btn btn-danger" [disabled]="!formularioValido"  (click)="eliminarEspecialidad(horario.horId)">Eliminar Horarios</button>
                         </td>
                     </tr>
-                    <button class="btn btn-primary mr-2" [disabled]="!formularioValido" (click)="editarEspecialidad(horario)">Editar Horario</button>
+                    <!-- <button class="btn btn-primary mr-2" [disabled]="!formularioValido" (click)="editarEspecialidad(horario)">Editar Horario</button> -->
                 </tbody>
             </table>
         </div>
-        <div>
+        <!-- <div>
             <label>Estado</label>
             <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
         </div>
@@ -83,7 +83,7 @@
             <input type="text" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
             <label>Hora fin</label>
             <input id="horafin" name="horafin" type="text" maxlength="5" [(ngModel)]="horario.horFin" />
-        </div>
+        </div> -->
         <div colspan="4">
             <div class="float-right">
                

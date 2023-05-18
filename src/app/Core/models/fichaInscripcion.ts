@@ -15,6 +15,6 @@ export class FichaInscripcion{
     finComoentero?: string;
     finOtroscursosdesea?: string;
     finEstado?: Boolean;
-    finPersona?: Persona;
+    finPersona: Persona=new Persona();
     finCurso?: Curso;
 }

@@ -25,11 +25,20 @@ export class ModalidadService {
   getAll() {
     return this.http.get<ModalidadCurso[]>(this.URL1 + 'listar')
   }
+
   
   delete(modcur: ModalidadCurso, idmodacur: number) {
     return this.http.put<ModalidadCurso>(this.URL1+ `eliminar/${idmodacur}`, modcur);
   }
   update(modcur: ModalidadCurso, idmodacur: number) {
     return this.http.put<ModalidadCurso>(this.URL1+ `actualizar/${idmodacur}`, modcur);
+  }
+
+  getAllTrue() {
+    return this.http.get<ModalidadCurso[]>(this.URL1 + 'listartrue')
+  }
+
+  getAllFalse() {
+    return this.http.get<ModalidadCurso[]>(this.URL1 + 'listarfalse')
   }
 }

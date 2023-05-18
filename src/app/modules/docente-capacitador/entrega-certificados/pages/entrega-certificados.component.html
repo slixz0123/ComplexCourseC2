@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="col">
-      <label for="horario">Seleccione el horario al que pertenece:</label>
+      <label for="horario">Seleccione el participante:</label>
       <select class="form-control" id="horario" [(ngModel)]="participante.parPersona.cedula" name="horario">
         <option *ngFor="let horario of participantes" [ngValue]="horario.parPersona.cedula">{{ horario.parPersona.cedula }}</option>
       </select>

@@ -50,6 +50,8 @@ export class AceptarCursoComponent implements OnInit{
   crearUsuario(){
     if(this.ficha.finPersona?.nombre !== undefined){
       console.log("hola")
+      console.log(this.rol)
+
       const usuario: Usuario = {
         id_usuario:0,
         username: this.ficha.finPersona?.nombre + this.ficha.finPersona?.apellido,
@@ -70,18 +72,18 @@ export class AceptarCursoComponent implements OnInit{
     
   }
   onSubmitGuardar() {
-  //     this.rolService.getById(1).subscribe((response) => {
-  //       console.log(response); // Imprime la respuesta de la API en la consola
-  //       this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
-  //       this.usuario.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
+      // this.rolService.getById(1).subscribe((response) => {
+      //   console.log(response); // Imprime la respuesta de la API en la consola
+      //   this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
+      //   this.usuario.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
 
-  //       this.usuarioService
-  //         .crearUsuario(this.usuario)
-  //         .subscribe((response) => {
-  //           console.log(response); // Imprime la respuesta de la API en la consola
-  //           // Llama a la función resetForm() para vaciar los campos del formulario
-  //         });
-  //     });
+      //   this.usuarioService
+      //     .crearUsuario(this.usuario)
+      //     .subscribe((response) => {
+      //       console.log(response); // Imprime la respuesta de la API en la consola
+      //       // Llama a la función resetForm() para vaciar los campos del formulario
+      //     });
+      // });
   // }
 
   // onSearchInputChange(event: Event) {

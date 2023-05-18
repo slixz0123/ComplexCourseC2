@@ -1,1 +1,48 @@
-<p>modalidad-curso works!</p>
+<div class="container" style="background-color: #ffffff;">
+    <div class="mt-4">
+      <h3 style="text-align: center;">{{ isNew ? 'Nuevo modo' : 'Editar modo' }}</h3>
+      <form #modoForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="areNombre">Nombre</label>
+              <input type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="modoSeleccionado.mcuNombre" required>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="buscar">Buscar:</label>
+      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+    </div>
+    <br>
+    <h2>Áreas</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let modo of modos">
+          <tr *ngIf="modo.mcuNombre?.toLowerCase()?.includes(filtro.toLowerCase())">
+          <td>{{ modo.mcuNombre }}</td>
+          <td>{{ modo.mcuEstado ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarArea(modo)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarArea(modo.mcuId)">Eliminar</button>
+          </td>
+          </tr>
+        </ng-container>
+          </tbody>
+          
+            </table>
+            
+          </div>
+  

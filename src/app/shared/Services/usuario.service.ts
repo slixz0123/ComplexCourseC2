@@ -88,6 +88,9 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   postUsuario(usuario: Usuario) {
     return this.http.post<Usuario>(this.URLcre +'', usuario);
   }
+  create(data: any): Observable<Usuario> {
+    return this.http.post<Usuario>(`${this.URL}/signup`, data);
+  }
 
   
 

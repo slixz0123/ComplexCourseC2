@@ -17,6 +17,11 @@ import { Participante } from "src/app/Core/models/participante";
     public crearParticipante(participante: Participante){
         return this.http.post<Participante>(this.URLCre, participante);
     }
+
+    create(data: any): Observable<Participante> {
+      return this.http.post<Participante>(`${this.URL}/crear`, data);
+    }
+  
     public saveFichaIncripcion(participante: Participante) {
       return this.http.post<Participante>(`${this.URL}/crear`, participante);
     }

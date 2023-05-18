@@ -5,6 +5,7 @@ import { Participante } from 'src/app/Core/models/participante';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { estregaCertificadoService } from 'src/app/shared/Services/entregaCertificadoServ.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
+import Swal from 'sweetalert2';
 import { EntregaCertificadosModule } from '../entrega-certificados.module';
 @Component({
   selector: 'app-entrega-certificados',
@@ -13,6 +14,10 @@ import { EntregaCertificadosModule } from '../entrega-certificados.module';
 })
 export class EntregaCertificadosComponent {
 
+  editando: boolean = false;
+  isNew: boolean = true; // Definición de la propiedad isNew
+  especialidadForm: FormGroup | undefined;
+  submitted = false;
 
   constructor(
     private cursoService:CursoService,
@@ -28,10 +33,10 @@ export class EntregaCertificadosComponent {
     }
     participante: Participante = new Participante();
     participantes: Participante[] = [];
+    entregaSelec: entregaCertificado=new entregaCertificado();
     certificadosForm: FormGroup | undefined;
     entrega: entregaCertificado=new entregaCertificado();
     entregas: entregaCertificado[]=[];
-    submitted = false;
 
     filtro = '';
 
@@ -75,4 +80,44 @@ export class EntregaCertificadosComponent {
         }
       }
     }
+
+    // submitForm(): void {
+    //   if (this.isNew) { // Si se está creando una nueva especialidad
+    //     this.entregaServi.create(this.entregaSelec).subscribe(() => {
+    //       this.getEspecialidades();
+    //       this.entregaSelec = new Especialidad();
+  
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: 'Especialidad creada',
+    //         text: 'La especialidad ha sido registrada correctamente.',
+    //         confirmButtonText: 'Aceptar'
+    //       });
+    //     });
+    //   } else { // Si se está editando una especialidad existente
+    //     Swal.fire({
+    //       icon: 'warning',
+    //       title: '¿Estás seguro?',
+    //       text: '¿Deseas editar esta especialidad?',
+    //       showCancelButton: true,
+    //       confirmButtonText: 'Editar',
+    //       cancelButtonText: 'Cancelar'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) { // Si el usuario confirma la edición
+    //         this.entregaServi.update(this.entregaSelec, this.entregaSelec.espId).subscribe(() => {
+    //           this.getEspecialidades();
+    //           this.entregaSelec = new Especialidad();
+    //           this.isNew = true;
+  
+    //           Swal.fire({
+    //             icon: 'success',
+    //             title: 'Especialidad editada',
+    //             text: 'La especialidad ha sido modificada correctamente.',
+    //             confirmButtonText: 'Aceptar'
+    //           });
+    //         });
+    //       }
+    //     });
+    //   }
+    // }
 }
