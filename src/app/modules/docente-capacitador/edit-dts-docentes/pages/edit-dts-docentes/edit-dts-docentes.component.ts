@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 
 @Component({
@@ -83,4 +84,68 @@ public mostrarDatos(){
 //        );
 //    }
 //  }
+/////validaciones
+fechaActual: string = new Date().toISOString().split('T')[0]; //muestra la fecha actual del sistema
+validar: claseValidaciones = new claseValidaciones();
+
+mostrarAvisoNombre = false;
+esInvalidoNombre = false;
+mostrarAdvertencia = false;
+validarInputNombre() {
+  if (this.persona.nombre != undefined) {
+    const valid = this.validar.validarLetras(this.persona.nombre);
+    if (valid) {
+      this.persona.nombre = '';
+      this.mostrarAdvertencia = true;
+    } else {
+      this.mostrarAdvertencia = false;
+    }
+  }
+}
+// this.toastr.error('El nombre no debe contener caracteres no permitidos', 'Error', {
+//   positionClass: 'toast-bottom-right',
+//   toastClass: 'toast-bottom-right',
+// });
+// this.toastr.show('El nombre debe contener solo letras', 'warn', {
+//   closeButton: false,
+//   timeOut: 3000,
+//   positionClass: 'toast-top-right'
+// });
+
+validarInputApellido() {
+  if (this.persona.apellido != undefined) {
+    const valid = this.validar.validarLetras(this.persona.apellido);
+    if (valid) {
+      this.persona.apellido = '';
+      this.mostrarAdvertencia = true;
+    } else {
+      this.mostrarAdvertencia = false;
+    }
+  }
+}
+
+validarInputCedula() {
+  if (this.persona.cedula != undefined) {
+    const valid = this.validar.validarCedula(this.persona.cedula);
+    if (valid) {
+      this.persona.cedula = '';
+      this.mostrarAdvertencia = true;
+    } else {
+      this.mostrarAdvertencia = false;
+    }
+  }
+}
+
+validarInputEmail() {
+  if (this.persona.email != undefined) {
+    const valid = this.validar.validarEmail(this.persona.email);
+    if (valid) {
+      this.persona.email = '';
+      this.mostrarAdvertencia = true;
+    } else {
+      this.mostrarAdvertencia = false;
+    }
+  }
+}
+
 }
