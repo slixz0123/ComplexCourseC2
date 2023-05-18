@@ -38,6 +38,12 @@ export class SideBarComponent {
     this.router.navigate(['/Capacitador/register-silabo'])
     console.log($event)
    }
+   //////////////////////////////////////////////////////////////////
+   goToeditcursoCap($event: any) :void{
+
+    this.router.navigate(['Capacitador/edit-list-curso'])
+    console.log($event)
+   }
    
    goTo_edit_list_silab($event: any) :void{
 
@@ -48,6 +54,12 @@ export class SideBarComponent {
    goToRegisterdesing($event: any) :void{
 
     this.router.navigate(['/Capacitador/register-diseno-curricular'])
+    console.log($event)
+   }
+
+   goToRegisterPhoto($event: any) :void{
+
+    this.router.navigate(['/Capacitador/register-fotografico'])
     console.log($event)
    }
     //////////////////////////////////////////////////////

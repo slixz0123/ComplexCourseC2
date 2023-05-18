@@ -28,7 +28,6 @@ listarUsuarios(): Observable<Usuario[]> {
   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
     switchMap((usuarios) => {
       const requests = usuarios
-        .filter((usuario) => usuario.enabled) // <-- Filtro por usuarios activos
         .map((usuario) =>
           forkJoin({
             usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
@@ -95,7 +94,7 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   //sin utilizar
 
   getusuario() {
-    return this.http.get<Usuario[]>(`${this.URL}/listarp`);
+    return this.http.get<Usuario[]>(`${this.URL}/users/list`);
   }
 
   getPorusrId(id_usuario: number) {

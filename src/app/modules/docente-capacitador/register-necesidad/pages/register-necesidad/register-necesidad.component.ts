@@ -25,19 +25,21 @@ export class RegisterNecesidadComponent {
   neceForm!: FormGroup;
 
  
-  selectedId3: Dias = new Dias();
+  
 
   necesidadcurso!: NecesidadCurso;
  
 
   diasnew!: Dias;
   arraydias : Dias[]=[];
+  newdias: Dias = new Dias; 
+  selectedId3: Dias = new Dias();
 
   necesidad: NecesidadCurso = new NecesidadCurso;
 
 
 
-    newdias: Dias = new Dias; 
+    
 
 
 

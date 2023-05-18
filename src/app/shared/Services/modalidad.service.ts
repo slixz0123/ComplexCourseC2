@@ -16,7 +16,7 @@ export class ModalidadService {
   post(modcur: ModalidadCurso) {
     return this.http.post<ModalidadCurso>(this.URL2 + '?', modcur);
   }
-  getById(idmodacur: number) {
+  getById(idmodacur: any) {
     return this.http.get<ModalidadCurso>(this.URL + idmodacur);
   }
   getPorId(idmodacur: any) {
@@ -25,6 +25,7 @@ export class ModalidadService {
   getAll() {
     return this.http.get<ModalidadCurso[]>(this.URL1 + 'listar')
   }
+  
   delete(modcur: ModalidadCurso, idmodacur: number) {
     return this.http.put<ModalidadCurso>(this.URL1+ `eliminar/${idmodacur}`, modcur);
   }

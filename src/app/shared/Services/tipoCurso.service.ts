@@ -17,7 +17,7 @@ export class TipoCursoService {
   post(tipcur: TiposCurso) {
     return this.http.post<TiposCurso>(this.URL2 + '?', tipcur);
   }
-  getById(idtpc: number) {
+  getById(idtpc: any) {
     return this.http.get<TiposCurso>(this.URL + idtpc);
   }
   getPorId(tipocur: any) {

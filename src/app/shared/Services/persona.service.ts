@@ -50,10 +50,10 @@ export class PersonaService {
 // sin utilizar
 
     getPersonas() {
-      return this.http.get<Persona[]>(`${this.URL}/listarp`);
+      return this.http.get<Persona[]>(`${this.URL}/listarpersona`);
     }
   
-    getPorId(idPersona: number) {
+    getPorId(idPersona: any) {
       return this.http.get<Persona>(`${this.URL}/buscar/` + idPersona);
     }
   
@@ -77,6 +77,9 @@ export class PersonaService {
   
     listarPersona(): Observable<any> {
       return this.http.get(`${this.URL}/listaper`);
+    }
+    getAll(): Observable<Persona[]> {
+      return this.http.get<Persona[]>(`${this.URL}/listaper`);
     }
   
     getPorCedula(id_persona: any) {

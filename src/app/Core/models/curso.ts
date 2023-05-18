@@ -14,7 +14,7 @@ export class Curso {
   curNombre: string = '';
   curFechainicio: Date = new Date();
   curFechafin: Date = new Date();
-  curNumHoras: number = 0;
+  curNumhoras: number = 0;
   curProceso: string = '';
   curEstado: boolean = true;
 
