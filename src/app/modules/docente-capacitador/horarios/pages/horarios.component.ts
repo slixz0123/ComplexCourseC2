@@ -1,6 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Horario } from 'src/app/Core/models/horario';
+import { Usuario } from 'src/app/Core/models/usuario';
 import { horarioService } from 'src/app/shared/Services/horario.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-horarios',
@@ -15,6 +17,8 @@ export class HorariosComponent implements OnInit{
   horario: Horario=new Horario();
   horarios: Horario[] | undefined;
   formularioValido: boolean| undefined;
+  editando: boolean = false;
+  isNew: boolean = true;
 
   onSearchInputChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -36,7 +40,7 @@ export class HorariosComponent implements OnInit{
   }
 
   ngOnInit(){
-
+    this.listarHorarios();
   }
  
   onSubmit(){
@@ -44,18 +48,46 @@ export class HorariosComponent implements OnInit{
   }
 
   listarHorarios(): void{
-    this.horarioService.listarHorarios().subscribe((response: Horario[])=>{
+    this.horarioService.listarHorariostrue().subscribe((response: Horario[])=>{
       
       console.log(this.horarios=response)
     })
   }
 
+  editarEspecialidad(especialidad: Horario): void {
+    this.horario = Object.assign({}, especialidad);
+    this.editando = true;
+    this.isNew = false; // Actualización del valor de isNew
+  }
+
+  seleccionarEspecialidad(especialidad: Horario): void {
+    this.horario = Object.assign({}, especialidad);
+  }
+
+  eliminarEspecialidad(espId: number): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este horario curso?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.horarioService.delete(espId).subscribe(() => {
+          this.listarHorarios();
+        });
+      }
+    });
+  }
+
   registrarHorario(){
+    this.horario.horEstado=true;
     this.horarioService.crearHorario(this.horario).subscribe(res => {
       console.log('Horario registrado exitosamente');
+      this.listarHorarios();
     }, error => {
       console.log('Error al registrar el horario', error);
     });
+    
   }
 
   buscar(valor: string) {

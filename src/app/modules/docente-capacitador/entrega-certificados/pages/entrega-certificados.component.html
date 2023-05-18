@@ -1,40 +1,63 @@
-<div class="container" style="background-color: #ffffff;">  
+<div class="container" style="background-color: #ffffff;">
+  <form class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="espNombre1">Codigo certificado</label>
+        <input type="text" class="form-control" id="espNombre1" name="espNombre1" required>
+      </div>
+    </div>
+    <div class="col">
+      <label for="horario">Seleccione el horario al que pertenece:</label>
+      <select class="form-control" id="horario" [(ngModel)]="participante.parPersona.cedula" name="horario">
+        <option *ngFor="let horario of participantes" [ngValue]="horario.parPersona.cedula">{{ horario.parPersona.cedula }}</option>
+      </select>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="espNombre2">Fecha de recepción</label>
+        <input type="date" class="form-control" id="espNombre2" name="espNombre2" required>
+      </div>
+    </div>
+  </form>
+
   <br>
   <br>
   <div class="form-group">
     <label for="buscar">Buscar:</label>
     <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
   </div>
-  
-    <br>
-    <h2>Estudiantes aprobados</h2>
-    <table class="table">
-      <thead>
+  <!-- [(ngModel)]="horarioSeleccionado.hcuNombre" -->
+
+  <br>
+  <h2>Estudiantes aprobados</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Observaciones</th>
+        <th>Promedio</th>
+        <th>Estado</th>
+        <th>Fecha recepcion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let participantes of participantes">
         <tr>
-          <th>Cédula</th>
-          <th>Observaciones</th>
-          <th>Promedio</th>
-          <th>Estado</th>
-          <!-- <th>Acciones</th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let participantes of participantes">
-          <tr>
-            <td>{{ participantes.parPersona.cedula }}</td>
-            <td>{{ participantes.parObservacion }}</td>
-            <td>{{ participantes.parPromedio }}</td>
-            <td>{{participantes.parEstadoaprovacion }} </td>
-            <!-- <td>
+          <td>{{ participantes.parPersona.cedula }}</td>
+          <td>{{ participantes.parObservacion }}</td>
+          <td>{{ participantes.parPromedio }}</td>
+          <td>{{participantes.parEstadoaprovacion }} </td>
+          <td>{{participantes.parEstadoaprovacion }} </td>
+          <!-- <td>
               <button class="btn btn-primary" (click)="editarEspecialidad(participantes)">Editar</button>
               <button class="btn btn-danger" (click)="eliminarEspecialidad(participantes.hcuId)">Eliminar</button>
             </td> -->
-          </tr>
-        </ng-container>
-      </tbody>
-      
-          
-            </table>
-  </div>          
-          
-  <!-- *ngIf="participantes.parPersona.cedula.includes(filtro.toLowerCase())" -->
+        </tr>
+      </ng-container>
+    </tbody>
+
+
+  </table>
+</div>
+
+<!-- *ngIf="participantes.parPersona.cedula.includes(filtro.toLowerCase())" -->

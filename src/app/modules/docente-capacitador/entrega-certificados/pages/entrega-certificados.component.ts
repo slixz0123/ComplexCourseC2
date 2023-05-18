@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { entregaCertificado } from 'src/app/Core/models/entregaCertificado';
 import { Participante } from 'src/app/Core/models/participante';
 import { CursoService } from 'src/app/shared/Services/curso.service';
+import { estregaCertificadoService } from 'src/app/shared/Services/entregaCertificadoServ.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
-
+import { EntregaCertificadosModule } from '../entrega-certificados.module';
 @Component({
   selector: 'app-entrega-certificados',
   templateUrl: './entrega-certificados.component.html',
@@ -11,17 +13,24 @@ import { ParticipanteService } from 'src/app/shared/Services/participante.servic
 })
 export class EntregaCertificadosComponent {
 
+
   constructor(
     private cursoService:CursoService,
     private participanteService:ParticipanteService,
-    ){}
+    private  entregaServi:estregaCertificadoService
+    ){
+    }
 
+    
     ngOnInit(): void {
       this.listarParticipante();
+      this.listarCertiicados();
     }
     participante: Participante = new Participante();
     participantes: Participante[] = [];
     certificadosForm: FormGroup | undefined;
+    entrega: entregaCertificado=new entregaCertificado();
+    entregas: entregaCertificado[]=[];
     submitted = false;
 
     filtro = '';
@@ -39,6 +48,17 @@ export class EntregaCertificadosComponent {
           console.log("no hay data");
         }
       });
+    }
+
+    listarCertiicados():void{
+      this.entregaServi.listarCertificados().subscribe((data: any)=>{
+        if(null != data){
+          this.entregas=data;
+          console.log(this.entregas);
+        }else{
+          console.log("no hay data");
+        }
+      })
     }
     
     buscar(valor: string) {

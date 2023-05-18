@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class RegisterProfesorComponent{
   persona: Persona = new Persona;
-  usuario: Usuario = new Usuario; // instancia de la clase usuario  
+  usuario: Usuario = new Usuario(); // instancia de la clase usuario  
   usuarios: Usuario[] = [];
   rol: Rol = new Rol;// instancia de la clase rol
   cedula: string ='';
@@ -47,7 +47,7 @@ export class RegisterProfesorComponent{
       } else {
         this.validardatos=2;
         alert("No se encontró la persona con el cedula proporcionado.");
-        this.persona.id_persona=0;
+        this.persona.id_persona;
         this.persona.cedula=cedula;
         this.persona.nombre = "string";
         this.persona.apellido = "string";
@@ -110,7 +110,7 @@ idPersona:any;
 
       });
   }else{
-    this.persoUsrService.postPersona(this.persona).subscribe((response:any) => {
+    this.persoUsrService.postPersona(this.persona).subscribe((response:Persona) => {
       console.log(response); // Imprime la respuesta de la API en la consola
       this.persona.id_persona = response.id_persona; // a this.persona.id_persona el resultado de nuestro metodo post se aasignamos la data.id_persona que nos arroja la api
       this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 

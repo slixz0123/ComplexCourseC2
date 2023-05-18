@@ -151,9 +151,9 @@ export class AceptarCursoComponent implements OnInit{
         this.usuario.persona=this.persona;
         this.usuario.rol=this.rol;
 
-        // this.usuarioService.postUsuario(this.usuario).subscribe((Response)=>{
-        //   console.log(Response);
-        // })
+        this.usuarioService.postUsuario(this.usuario).subscribe((Response)=>{
+          console.log(Response);
+        })
       }else{
         console.log("no hay data");
       }

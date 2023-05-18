@@ -17,16 +17,16 @@
     <div *ngIf="selectedForm === 'registrar'">
         <form class="form-row">
 
-            <div>
+            <!-- <div>
                 <label>Estado</label>
                 <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
-            </div>
+            </div> -->
             <div class="col">
 
                 <label>Hora inicio</label>
-                <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
+                <input type="text" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
                 <label>Hora fin</label>
-                <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
+                <input id="horafin" name="horafin" type="text" maxlength="5" [(ngModel)]="horario.horFin" />
             </div>
         </form>
         <form>
@@ -55,6 +55,7 @@
                         <th scope="col">Hora de inicio</th>
                         <th scope="col">Hora de fin</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,11 +64,15 @@
                         <td>{{ horario.horInicio }}</td>
                         <td> {{ horario. horFin}} </td>
                         <td>{{ horario.horEstado }}</td>
+                        <td>
+                            
+                            <button class="btn btn-danger" [disabled]="!formularioValido"  (click)="eliminarEspecialidad(horario.horId)">Eliminar Horarios</button>
+                        </td>
                     </tr>
+                    <button class="btn btn-primary mr-2" [disabled]="!formularioValido" (click)="editarEspecialidad(horario)">Editar Horario</button>
                 </tbody>
             </table>
         </div>
-        <button class="btn-success" (click)="listarHorarios()">listar</button>
         <div>
             <label>Estado</label>
             <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
@@ -75,14 +80,13 @@
         <div class="col">
 
             <label>Hora inicio</label>
-            <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
+            <input type="text" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
             <label>Hora fin</label>
-            <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
+            <input id="horafin" name="horafin" type="text" maxlength="5" [(ngModel)]="horario.horFin" />
         </div>
         <div colspan="4">
             <div class="float-right">
-                <button class="btn btn-primary mr-2" [disabled]="!formularioValido">Editar Horario</button>
-                <button class="btn btn-danger" [disabled]="!formularioValido">Eliminar Horarios</button>
+               
             </div>
         </div>
     </div>

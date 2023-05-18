@@ -1,5 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { catchError, Observable, throwError } from "rxjs";
 import { Horario } from "src/app/Core/models/horario";
 
 @Injectable({
@@ -19,7 +20,25 @@ export class horarioService{
     return this.http.get<Horario[]>(this.URL + 'listar')
   }
 
+  listarHorariostrue(){
+    return this.http.get<Horario[]>(this.URL + 'listartrue')
+  }
+
   editarHorarios(){
     
+  }
+
+  delete(id: number): Observable<any> {
+    const url = `${this.URL}eliminar/${id}`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.put(url, {}, httpOptions)
+      .pipe(
+        catchError((error: any) => {
+          console.error(error);
+          return throwError('Error eliminando el horario-curso');
+        })
+      );
   }
 }
