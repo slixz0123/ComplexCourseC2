@@ -59,9 +59,12 @@ export class RegiserDisenoCurricularComponent {
           this.isNew = true; // Actualización del valor de isNew
           Swal.fire('¡Éxito!', 'El diseño curricular ha sido modificado correctamente', 'success');
         });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        this.disenoSeleccionaddo = new DisenoCurricular();
+        this.isNew = true;
       }
     });
-  }
+  }  
 
   seleccionarArea(diseno: DisenoCurricular): void {
     this.disenoSeleccionaddo = Object.assign({}, diseno);

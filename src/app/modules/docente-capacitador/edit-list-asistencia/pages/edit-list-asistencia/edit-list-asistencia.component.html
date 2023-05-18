@@ -1,1 +1,123 @@
-<p>edit-list-asistencia works!</p>
+<div class="container" style="background-color: #ffffff;">
+    <h4 style="text-align: center;">JUSTIFICACIÓN DE FALTAS</h4>
+
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <div class="container" *ngIf="showContainer1">
+        <br>
+        <h5>Listado de estudiantes</h5>
+        <br>
+        <table class="table">
+            <thead>
+                <tr class="bg-primary text-light">
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Nombres</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  *ngFor="let item of participantes" (click)="mostrarAsistencias(item.participante.parId)">
+                    
+                    <td>{{ item.participante.parPersona?.cedula }}</td>
+                    <td>{{ item.participante.parPersona?.apellido }}</td>
+                    <td>{{ item.participante.parPersona?.nombre }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+<div class="container2" *ngIf="showContainer2">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Estudiantes</a></li>
+            <li class="breadcrumb-item"><a>Faltas</a></li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="row">
+        <div class="col-md-12 col-xl-12">
+            <div class="container" style="background-color: #ffffff;">
+                <br>
+                <h5>Listado de estudiantes</h5>
+                <table class="table">
+                    <thead>
+                        <tr class="bg-primary text-light">
+                            <th scope="col">Cédula</th>
+                            <th scope="col">Estudiante</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Horas/Falta</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of asistencias">
+                            <td>{{ item.asiParticipante.parPersona?.cedula }}</td>
+                            <td>{{ item.asiParticipante.parPersona?.apellido }} {{
+                                item.asiParticipante.parPersona?.nombre }}</td>
+                            <td>{{ item.asiFecha | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ item.asiNumfaltas }}</td>
+                            <td>
+                                <button class="btn btn-primary"
+                                    (click)="mostrarAsistenciaEnEdicion(item)">Justificar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+    <div class="container3" *ngIf="showContainer3">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false">Estudiantes</a>
+                </li>
+                <li class="breadcrumb-item"><a (click)="showContainer2 = true; showContainer3 = false">Faltas</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="container" style="background-color: #ffffff;">
+                    <div class="form-group">
+                        <label for="cedula">Cédula:</label>
+                        <input type="text" class="form-control" id="cedula"
+                            [value]="asistenciaSeleccionada.asiParticipante.parPersona?.cedula" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre"
+                            [value]="asistenciaSeleccionada.asiParticipante.parPersona?.nombre" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido"
+                            [value]="asistenciaSeleccionada.asiParticipante.parPersona?.apellido" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha:</label>
+                        <input type="text" class="form-control" id="fecha" [value]="asistenciaSeleccionada.asiFecha"
+                            disabled>
+                    </div>
+                    <input type="number" class="form-control" id="horasFalta"
+                        [(ngModel)]="asistenciaSeleccionada.asiNumfaltas" [max]="valorMaximo"
+                        (change)="validarHorasFalta()">
+
+
+
+                    <button class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

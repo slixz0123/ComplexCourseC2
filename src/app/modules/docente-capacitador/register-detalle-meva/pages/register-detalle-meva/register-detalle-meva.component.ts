@@ -50,7 +50,7 @@ export class RegisterDetalleMevaComponent {
       this.detalleMevaServService.create(this.detalleSeleccionado).subscribe(() => {
         this.getDetalles();
         this.detalleSeleccionado = new DetalleMe();
-
+  
         Swal.fire({
           icon: 'success',
           title: 'Detale creado',
@@ -72,7 +72,7 @@ export class RegisterDetalleMevaComponent {
             this.getDetalles();
             this.detalleSeleccionado = new DetalleMe();
             this.isNew = true;
-
+  
             Swal.fire({
               icon: 'success',
               title: 'Detalle editado',
@@ -80,11 +80,13 @@ export class RegisterDetalleMevaComponent {
               confirmButtonText: 'Aceptar'
             });
           });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.detalleSeleccionado = new DetalleMe();
+          this.isNew = true;
         }
       });
     }
-  }
-
+  } 
 
   eliminarDetalle(dmeId: number): void {
     Swal.fire({

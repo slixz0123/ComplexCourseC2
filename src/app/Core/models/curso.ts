@@ -16,6 +16,7 @@ export class Curso {
   curFechafin: Date = new Date();
   curNumhoras: number = 0;
   curProceso: string = '';
+  curFoto: string ='';
   curEstado: boolean = true;
 
   programaCapacitacion: ProgramaCapacitacion = new ProgramaCapacitacion;

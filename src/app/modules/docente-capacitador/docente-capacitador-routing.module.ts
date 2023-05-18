@@ -63,7 +63,7 @@ const routes: Routes = [
   //asistencia
   {
     path: 'register-asistencia',
-    loadChildren: () => import("./register-asistencia/register-asistencia-routing.module").then(m => m.RegisterAsistenciaRoutingModule)
+    loadChildren: () => import("./register-asistencia/register-asistencia.module").then(m => m.RegisterAsistenciaModule)
   },
   {
     path: 'edit-list-asistencia',
@@ -139,6 +139,10 @@ const routes: Routes = [
     {
       path: 'register-cur',
       loadChildren: () => import("./register-curso/register-curso.module").then(m => m.RegisterCursoModule)
+    },
+    {
+      path: 'edit-list-curso',
+      loadChildren: () => import("./edit-list-curso/edit-list-curso.module").then(m => m.EditListCursoModule)
     },
 
  // Registro Fotografico 

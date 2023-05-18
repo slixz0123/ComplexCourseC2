@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Curso } from 'src/app/Core/models/curso';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
@@ -9,8 +10,6 @@ import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 import { Persona } from 'src/app/Core/models/persona';
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
-import { CursosAplicadosComponent } from 'src/app/modules/participantes/cursos-aplicados/pages/cursos-aplicados/cursos-aplicados.component';
-import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
@@ -22,13 +21,14 @@ import { TipoCursoService } from 'src/app/shared/Services/tipoCurso.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-register-curso',
-  templateUrl: './register-curso.component.html',
-  styleUrls: ['./register-curso.component.css']
+  selector: 'app-edit-list-curso',
+  templateUrl: './edit-list-curso.component.html',
+  styleUrls: ['./edit-list-curso.component.css']
 })
-export class RegisterCursoComponent implements OnInit {
+export class EditListCursoComponent {
 
-
+  showContainer1: boolean = true;
+  showContainer2: boolean = false;
   cursos: Curso[] = [];
   editando: boolean = false;
   isNew: boolean = true; // Definición de la propiedad isNew
@@ -41,8 +41,32 @@ export class RegisterCursoComponent implements OnInit {
   newprogrmas: ProgramaCapacitacion = new ProgramaCapacitacion;
   selectedIdprogrmamacap: ProgramaCapacitacion = new ProgramaCapacitacion();
 
+  programas!: any[]; // Variable para almacenar los programas
+  especialidades!: any[]; // Variable para almacenar las especialidades
+  modalidades!: any[]; // Variable para almacenar las modalidades
+  tiposCurso!: any[]; // Variable para almacenar los tipos de curso
+  silabos!: any[]; // Variable para almacenar los silabos
+  necesidades!: any[]; // Variable para almacenar las necesidades
+  disenosCurriculares!: any[]; // Variable para almacenar los diseños curriculares
+  personas!: any[]; // Variable para almacenar las personas
 
 
+  cursoSelec = {
+    curCodigo: '', 
+      curNombre: '', 
+      curFechainicio: '', 
+      curFechafin: '', 
+      curNumHoras: '', 
+      curProceso: '', 
+      programa: '',
+      especialidad: '',
+      modalidad: '',
+      tipoCurso: '',
+      silabo: '',
+      necesidad: '',
+      disenoCurricular: '',
+      persona: '' 
+  };
 
   searchText: string = '';
 
@@ -68,45 +92,96 @@ export class RegisterCursoComponent implements OnInit {
     this.getdatossilab();
     this.getnecesidades();
     this.getdisenocurricular();
+    this.getpersonas();
+  
+      this.cursoForm = this.formbuilder.group({
+        curCodigo: ['', Validators.required],
+        curNombre: ['', Validators.required],
+        curFechainicio: ['', Validators.required],
+        curFechafin: ['', Validators.required],
+        curNumHoras: ['', Validators.required],
+        curProceso: ['', Validators.required],
+        programa: ['', Validators.required],
+        especialidad: ['', Validators.required],
+        modalidad: ['', Validators.required],
+        tipoCurso: ['', Validators.required],
+        silabo: ['', Validators.required],
+        necesidad: ['', Validators.required],
+        disenoCurricular: ['', Validators.required],
+        persona: ['', Validators.required]
+      });
+    
+      this.cargarDatos();
+    }
 
-    this.formbuilder.group({
-
-      curNombre: ['', Validators.required],
-      curFechainicio: ['', Validators.required],
-      curFechafin: ['', Validators.required],
-      curNumHoras: ['', Validators.required],
-      curProceso: ['', Validators.required],
-      pcaId: ['', Validators.required],
-      espId: ['', Validators.required],
-      mcuId: ['', Validators.required],
-      tcuId: ['', Validators.required],
-      dsiId: ['', Validators.required],
-      dcuId: ['', Validators.required],
-      id_persona: ['', Validators.required],
-
+  cargarDatos() {
+    this.cursoForm.patchValue({
+      curCodigo: this.cursoSeleccionado.curCodigo,
+      curNombre: this.cursoSeleccionado.curNombre,
+      curFechainicio: this.cursoSeleccionado.curFechainicio,
+      curFechafin: this.cursoSeleccionado.curFechafin,
+      curNumHoras: this.cursoSeleccionado.curNumhoras,
+      curProceso: this.cursoSeleccionado.curProceso,
+      programa: this.cursoSeleccionado.programaCapacitacion.pcaNombre,
+      especialidad: this.cursoSeleccionado.ecursos.espNombre,
+      modalidad: this.cursoSeleccionado.mcursos.mcuNombre,
+      tipoCurso: this.cursoSeleccionado.tipoCurso.tcuNombre,
+      silabo: this.cursoSeleccionado.datosSilabo.dsiIdentificador,
+      necesidad: this.cursoSeleccionado.necesidadCurso.ncuIdentificador,
+      disenoCurricular: this.cursoSeleccionado.disenoCurricular.dcuIdentificador,
+      persona: this.cursoSeleccionado.pcursos.nombre
     });
-    this.cursoForm = new FormGroup({
 
-      curCodigo: new FormControl(),
-
-      curNombre: new FormControl(),
-      curFechainicio: new FormControl(),
-      curFechafin: new FormControl(),
-      curNumHoras: new FormControl(),
-      curProceso: new FormControl(),
-      pcaId: new FormControl(),
-      espId: new FormControl(),
-      mcuId: new FormControl(),
-      tcuId: new FormControl(),
-      dsiId: new FormControl(),
-      dcuId: new FormControl(),
-      id_persona: new FormControl(),
-
-
-
+    this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => {
+      this.programas = programas;
+      this.cursoForm.patchValue({
+        programa: this.cursoSeleccionado.programaCapacitacion.pcaNombre
+      });
+    });
+  
+    this.especialidadServ.getAllTrue().subscribe((especialidades) => {
+      this.especialidades = especialidades;
+      this.cursoForm.patchValue({
+        especialidad: this.cursoSeleccionado.ecursos.espNombre
+      });
+    });
+  
+    this.modalidadCurServ.getAll().subscribe((modalidades) => {
+      this.modalidades = modalidades;
+      this.cursoForm.patchValue({
+        modalidad: this.cursoSeleccionado.mcursos.mcuNombre
+      });
     });
 
+    this.tipoCurServ.getAll().subscribe((tiposCurso) => {
+      this.tiposCurso = tiposCurso;
+      this.cursoForm.patchValue({
+        tipoCurso: this.cursoSeleccionado.tipoCurso.tcuNombre
+      });
+    });
+
+    this.datosSilServ.getAll().subscribe((silabos) => {
+      this.silabos = silabos;
+      this.cursoForm.patchValue({
+        silabo: this.cursoSeleccionado.datosSilabo.dsiIdentificador
+      });
+    });
+
+    this.necesidadServ.getAll().subscribe((necesidades) => {
+      this.necesidades = necesidades;
+      this.cursoForm.patchValue({
+        necesidad: this.cursoSeleccionado.necesidadCurso.ncuIdentificador
+      });
+    });
+
+    this.disenoCurrServ.getAll().subscribe((disenos) => {
+      this.disenosCurriculares = disenos;
+      this.cursoForm.patchValue({
+        disenoCurricular: this.cursoSeleccionado.disenoCurricular.dcuIdentificador
+      });
+    });
   }
+  
 
   getCursos(): void {
     const idPersona = localStorage.getItem('id_persona');
@@ -124,8 +199,6 @@ export class RegisterCursoComponent implements OnInit {
     }
   }
 
-
-
   onSelectChangeprogramcap(eventTarget: EventTarget | null) {
     const selectElement = eventTarget as HTMLSelectElement;
     if (!selectElement) {
@@ -133,6 +206,7 @@ export class RegisterCursoComponent implements OnInit {
     }
 
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdprogrmamacap.pcaId = Number(selectedValue);
   }
   getProgramas() {
@@ -154,6 +228,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdespecialidad.espId = Number(selectedValue);
   }
   getespecialidades() {
@@ -175,6 +250,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdModalidadCurso.mcuId = Number(selectedValue);
   }
   getmodalidad() {
@@ -196,6 +272,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdTiposCurso.tcuId = Number(selectedValue);
   }
   gettipocurso() {
@@ -217,6 +294,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdDatossilabo.dsiId = Number(selectedValue);
   }
   getdatossilab() {
@@ -237,6 +315,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdNecesidadCurso.ncuId = Number(selectedValue);
   }
   getnecesidades() {
@@ -258,6 +337,7 @@ export class RegisterCursoComponent implements OnInit {
       return;
     }
     const selectedValue = selectElement.value;
+    console.log(selectedValue);
     this.selectedIdDisenoCurricular.dcuId = Number(selectedValue);
   }
   getdisenocurricular() {
@@ -267,10 +347,58 @@ export class RegisterCursoComponent implements OnInit {
     );
   }
 
+  // personas 
+  personanew!: Persona;
+  arraypersona: Persona[] = [];
+  newPersona: Persona = new Persona;
+  selectedIdPersona: Persona = new Persona();
+
+  onSelectChangepersona(eventTarget: EventTarget | null) {
+    const selectElement = eventTarget as HTMLSelectElement;
+    if (!selectElement) {
+      return;
+    }
+    const selectedValue = selectElement.value;
+    console.log(selectedValue);
+    this.selectedIdPersona.id_persona = Number(selectedValue);
+  }
+  getpersonas() {
+    this.personaServ.listarPersonas().subscribe(
+      cursopersona => this.arraypersona = cursopersona.filter(cursopersona => cursopersona.enabled !== false)
+
+    );
+  }
+
+  filtro = '';
+
+  actualizarFiltro() {
+    this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
+  }
+
+  mostrarCursoEnEdicion(curso: any) {
+    this.cursoForm.patchValue({
+      curCodigo: curso.curCodigo,
+      curNombre: curso.curNombre,
+      curFechainicio: curso.curFechainicio,
+      curFechafin: curso.curFechafin,
+      curNumHoras: curso.curNumhoras,
+      curProceso: curso.curProceso,
+      programa: curso.programaCapacitacion.pcaNombre,
+      especialidad: curso.ecursos.espNombre,
+      modalidad: curso.mcursos.mcuNombre,
+      tipoCurso: curso.tipoCurso.tcuNombre,
+      silabo: curso.datosSilabo.dsiIdentificador,
+      necesidad: curso.necesidadCurso.ncuIdentificador,
+      disenoCurricular: curso.disenoCurricular.dcuIdentificador,
+      persona: curso.pcursos.nombre
+    });
   
+    this.cursoSeleccionado = curso;
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+  }
 
-  crearcurso() {
-
+  actualizarCurso(): void {
     // Obtener las fechas del formulario
   const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
   const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
@@ -282,72 +410,29 @@ export class RegisterCursoComponent implements OnInit {
   // Asignar las fechas UTC al objeto cursoSeleccionado
   this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
   this.cursoSeleccionado.curFechafin = fechaFinUTC;
-  
-    const formulario = this.cursoForm.value;
-  
-    this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
-    this.programaCapacitacionService.getProgramaCapacitacionById(this.cursoSeleccionado.programaCapacitacion.pcaId).subscribe(programcapata => {
-      this.cursoSeleccionado.programaCapacitacion = programcapata;
-  
-      this.cursoSeleccionado.ecursos = this.selectedIdespecialidad;
-      this.especialidadServ.getById(this.cursoSeleccionado.ecursos.espId).subscribe(programespe => {
-        this.cursoSeleccionado.ecursos = programespe;
-  
-        this.cursoSeleccionado.mcursos = this.selectedIdModalidadCurso;
-        this.modalidadCurServ.getById(this.cursoSeleccionado.mcursos.mcuId).subscribe(datamodalidad => {
-          this.cursoSeleccionado.mcursos = datamodalidad;
-  
-          this.cursoSeleccionado.tipoCurso = this.selectedIdTiposCurso;
-          this.tipoCurServ.getById(this.cursoSeleccionado.tipoCurso.tcuId).subscribe(datatipocur => {
-            this.cursoSeleccionado.tipoCurso = datatipocur;
-  
-            this.cursoSeleccionado.datosSilabo = this.selectedIdDatossilabo;
-            this.datosSilServ.getById(this.cursoSeleccionado.datosSilabo.dsiId).subscribe(datatsilabo => {
-              this.cursoSeleccionado.datosSilabo = datatsilabo;
-  
-              this.cursoSeleccionado.necesidadCurso = this.selectedIdNecesidadCurso;
-              this.necesidadServ.getById(this.cursoSeleccionado.necesidadCurso.ncuId).subscribe(datanece => {
-                this.cursoSeleccionado.necesidadCurso = datanece;
-  
-                this.cursoSeleccionado.disenoCurricular = this.selectedIdDisenoCurricular;
-                this.disenoCurrServ.getById(this.cursoSeleccionado.disenoCurricular.dcuId).subscribe(datadiseno => {
-                  this.cursoSeleccionado.disenoCurricular = datadiseno;
-  
-                  const idPersona = localStorage.getItem('id_persona');
-                  if (idPersona) {
-                    const selectedId = Number(idPersona);
-                    this.cursoSeleccionado.pcursos.id_persona = selectedId;
-  
-                    this.cursoSeleccionado.curEstado = true;
-  
-                    this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
-                      Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
-                        window.location.reload();
-                      });
-                    });
-                  }
-                });
-              });
-            });
-          });
+    this.cursoServ.update(this.cursoSeleccionado, this.cursoSeleccionado.curId).subscribe(
+      response => {
+        this.getCursos();
+        this.cursoSeleccionado = new Curso();      
+      },
+    );
+  }
+
+  eliminarCurso(curId: number): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar este curso?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cursoServ.delete(curId).subscribe(() => {
+          this.getCursos();
+          Swal.fire('Curso eliminado', 'El curso ha sido eliminado correctamente', 'success');
         });
-      });
+      }
     });
   }
-  
-  
-  
-
-
-
-
-  filtro = '';
-
-  actualizarFiltro() {
-    this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
-  }
-
-
 
 
 

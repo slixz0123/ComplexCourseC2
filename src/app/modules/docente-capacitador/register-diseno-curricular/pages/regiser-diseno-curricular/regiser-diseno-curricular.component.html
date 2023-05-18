@@ -1,70 +1,70 @@
 <div class="container" style="background-color: #ffffff;">
-    <div class="mt-4">
-      <h3 style="text-align: center;">{{ isNew ? 'Nuevo Diseño curricular' : 'Editar Diseño curricular' }}</h3>
-      <form #disenoForm="ngForm" (ngSubmit)="submitForm()">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label for="dcuIdentificador">Identificador/Nombre</label>
-              <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador" [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-                <label for="dcuNiveles">Nivel</label>
-                <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles" required>
-                  <option value="" selected disabled>Seleccione una opción</option>
-                  <option value="Primaria">Primaria</option>
-                  <option value="Secundaria">Secundaria</option>
-                  <option value="Superior">Superior</option>
-                </select>
-              </div>
-              
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label for="dcuTemastransversales">Temas Transversales</label>
-              <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales" [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
-            </div>
+  <div class="mt-4">
+    <h3 style="text-align: center;">{{ isNew ? 'Nuevo Diseño curricular' : 'Editar Diseño curricular' }}</h3>
+    <form #disenoForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="dcuIdentificador">Identificador/Nombre</label>
+            <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador" [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
-      </form>
-    </div>
-    <br>
-    <br>
-    <div class="form-group">
-      <label for="buscar">Buscar:</label>
-      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
-    </div>
-    <br>
-    <h2>Diseños curriculares</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Identificador/Nombre</th>
-          <th>Nivel</th>
-          <th>Temas Transversales</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let diseno of disenos">
-          <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || 
-                     diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase()) || 
-                     diseno.dcuIdentificador.toLowerCase().includes(filtro.toLowerCase())">
-          <td>{{ diseno.dcuIdentificador }}</td>
-          <td>{{ diseno.dcuNiveles }}</td>
-          <td>{{ diseno.dcuTemastransversales }}</td>
-          <td>
-            <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarDiseno(diseno)">Editar</button>
-            <button class="btn btn-danger" (click)="eliminarDiseno(diseno.dcuId)">Eliminar</button>
-          </td>
-          </tr>
-        </ng-container>
-          </tbody>
-          
-            </table>
+        <div class="col-md-6">
+          <div class="form-group">
+              <label for="dcuNiveles">Nivel</label>
+              <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles" required>
+                <option value="" selected disabled>Seleccione una opción</option>
+                <option value="Primaria">Primaria</option>
+                <option value="Secundaria">Secundaria</option>
+                <option value="Superior">Superior</option>
+              </select>
+            </div>
             
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dcuTemastransversales">Temas Transversales</label>
+            <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales" [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
           </div>
-  
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+    </form>
+  </div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+  <br>
+  <h2>Diseños curriculares</h2>
+  <table class="table">
+    <thead>
+      <tr class="bg-primary text-light">
+        <th scope="col">Identificador/Nombre</th>
+        <th scope="col">Nivel</th>
+        <th scope="col">Temas Transversales</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let diseno of disenos">
+        <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || 
+                   diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase()) || 
+                   diseno.dcuIdentificador.toLowerCase().includes(filtro.toLowerCase())">
+        <td>{{ diseno.dcuIdentificador }}</td>
+        <td>{{ diseno.dcuNiveles }}</td>
+        <td>{{ diseno.dcuTemastransversales }}</td>
+        <td>
+          <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarDiseno(diseno)">Editar</button>
+          <button class="btn btn-danger" (click)="eliminarDiseno(diseno.dcuId)">Eliminar</button>
+        </td>
+        </tr>
+      </ng-container>
+        </tbody>
+        
+          </table>
+          
+        </div>
+

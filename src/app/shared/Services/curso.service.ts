@@ -41,7 +41,7 @@ export class CursoService {
       );
   }
 
-  update(cur: Curso, id_cur: number) {
+  update(cur: Curso, id_cur: any) {
     return this.http.put<Curso>(this.URL1+ `actualizar/${id_cur}`, cur);
   }
 

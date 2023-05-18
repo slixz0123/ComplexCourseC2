@@ -49,7 +49,7 @@ export class RegisterEspecialidadComponent {
       this.especialidadServ.create(this.especialidadSeleccionada).subscribe(() => {
         this.getEspecialidades();
         this.especialidadSeleccionada = new Especialidad();
-
+  
         Swal.fire({
           icon: 'success',
           title: 'Especialidad creada',
@@ -71,7 +71,7 @@ export class RegisterEspecialidadComponent {
             this.getEspecialidades();
             this.especialidadSeleccionada = new Especialidad();
             this.isNew = true;
-
+  
             Swal.fire({
               icon: 'success',
               title: 'Especialidad editada',
@@ -79,10 +79,14 @@ export class RegisterEspecialidadComponent {
               confirmButtonText: 'Aceptar'
             });
           });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.especialidadSeleccionada = new Especialidad();
+          this.isNew = true;
         }
       });
     }
   }
+  
 
 
   eliminarEspecialidad(espId: number): void {
@@ -95,10 +99,12 @@ export class RegisterEspecialidadComponent {
       if (result.isConfirmed) {
         this.especialidadServ.delete(espId).subscribe(() => {
           this.getEspecialidades();
+          Swal.fire('¡Éxito!', 'La especialidad ha sido eliminada correctamente', 'success');
         });
       }
     });
   }
+  
 
 
   getAreas(): void {
