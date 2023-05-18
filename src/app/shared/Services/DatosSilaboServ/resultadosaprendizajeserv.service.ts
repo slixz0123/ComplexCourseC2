@@ -31,6 +31,8 @@ getById(ResultadosAprendizaje: number) {
 getAll() {
   return this.http.get<ResultadosAprendizaje[]>(this.URL1 + 'listar')
 }
+
+
 delete(result: ResultadosAprendizaje, id: number) {
   return this.http.put<ResultadosAprendizaje>(this.URL1+ `eliminar/${id}`, result);
 }

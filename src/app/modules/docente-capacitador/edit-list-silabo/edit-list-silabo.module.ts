@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EditListSilaboRoutingModule } from './edit-list-silabo-routing.module';
 import { EditListSilaboComponent } from './pages/edit-list-silabo/edit-list-silabo.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { EditListSilaboComponent } from './pages/edit-list-silabo/edit-list-sila
   ],
   imports: [
     CommonModule,
-    EditListSilaboRoutingModule
+    EditListSilaboRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports:[
     EditListSilaboComponent
