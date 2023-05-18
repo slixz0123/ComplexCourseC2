@@ -31,7 +31,7 @@ export class RegisterProfesorComponent {
   ngOnInit() {
     this.obtenerRol();
     // this.ValidarRole();
-    this.idPersona=localStorage.getItem('id_persona')
+    this.idPersona = localStorage.getItem('id_persona')
     console.log(this.idPersona)
   }
 
@@ -62,29 +62,29 @@ export class RegisterProfesorComponent {
       }
     });
   }
-  ValidarRole(idPersona: any){
+  ValidarRole(idPersona: any) {
     //id del rol 2=docente
-    this.usuarioService.getpersonarol(idPersona,2).subscribe((response: any)=>{
+    this.usuarioService.getpersonarol(idPersona, 2).subscribe((response: any) => {
       console.log(response);
-      if(response!=null){
-        if(response.enabled==true){
+      if (response != null) {
+        if (response.enabled == true) {
           Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente Activa', 'info'); // SweetAlert al editar el área
-              //Limpiar datos 
-        }else{
-        // Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente, desea activarla?', 'info'); // SweetAlert al editar el área
-        Swal.fire({
-          title: 'La persona ya tiene una cuenta de Docente, ¿desea activarla?',
-          showCancelButton: true,
-          confirmButtonText: 'Activar',
-          cancelButtonText: 'Cancelar'
-        }).then((result) => {
-          if (result.isConfirmed) {
-        this.ActualizarEstadouser(response, response.id_usuario);
-          }
-        });  
-        
+          //Limpiar datos 
+        } else {
+          // Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente, desea activarla?', 'info'); // SweetAlert al editar el área
+          Swal.fire({
+            title: 'La persona ya tiene una cuenta de Docente, ¿desea activarla?',
+            showCancelButton: true,
+            confirmButtonText: 'Activar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.ActualizarEstadouser(response, response.id_usuario);
+            }
+          });
+
         }
-      }else{
+      } else {
         Swal.fire('¡Alerta!', 'La persona existe pero no tiene cuenta Docente', 'info'); // SweetAlert al editar el área
         this.validardatos = 1;
       }
@@ -98,9 +98,9 @@ export class RegisterProfesorComponent {
       this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
     });
   }
-  ActualizarEstadouser(usuario: Usuario, idUsuario: any){
+  ActualizarEstadouser(usuario: Usuario, idUsuario: any) {
     console.log("datos actualizados")
-    this.usuarioService.updateUsuariorol(usuario,idUsuario, true).subscribe(
+    this.usuarioService.updateUsuariorol(usuario, idUsuario, true).subscribe(
       (data: any) => {
         console.log('a verrr' + data);
         console.log
@@ -119,6 +119,7 @@ export class RegisterProfesorComponent {
       this.usuario.id_usuario = 0;
       this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
         console.log("Afirmativo pareja")
+        Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
       }, error => {
       });
     } else {
@@ -131,6 +132,7 @@ export class RegisterProfesorComponent {
         console.log(this.usuario)
         this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
           console.log("Afirmativo pareja")
+          Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
         }, error => {
         });
       });

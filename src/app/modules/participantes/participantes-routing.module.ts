@@ -2,6 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  //perfil
+  {
+    path: 'edit-dts-participante',
+    loadChildren: () => import("./edit-dts-participante/edit-dts-participante.module").then(m => m.EditDtsParticipanteModule)
+  },
+  {
+    path: 'vista-perfil-participante',
+    loadChildren: () => import("./vista-perfil-participante/vista-perfil-participante.module").then(m => m.VistaPerfilParticipanteModule)
+  },
     //reportes
     {
       path: '',

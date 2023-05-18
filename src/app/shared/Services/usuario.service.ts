@@ -24,36 +24,46 @@ export class UsuarioService {
   constructor(private http: HttpClient, private rol:RolService) {}
 
 //Listar usuarios por rol---------------------------------------------------------
-listarUsuarios(): Observable<Usuario[]> {
-  return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
-    switchMap((usuarios) => {
-      const requests = usuarios
-        .map((usuario) =>
-          forkJoin({
-            usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
-            persona:
-              usuario.persona && usuario.persona.id_persona
-                ? this.getPersona(usuario.persona.id_persona)
-                : of(undefined),
-            rol2:
-              usuario.rol2 && usuario.rol2.id_rol
-                ? this.getRol(usuario.rol2.id_rol)
-                : of(undefined),
-          })
-        );
-      return forkJoin(requests);
-    }),
-    tap((usuariosWithDetails) =>
-      usuariosWithDetails.map(({ usuario, persona, rol2 }) => {
-        usuario.persona = persona;
-        usuario.rol2 = rol2;
-      })
-    ),
-    map((usuariosWithDetails) => usuariosWithDetails.map(({ usuario }) => usuario))
-  );
+// listarUsuarios(): Observable<Usuario[]> {
+//   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
+//     switchMap((usuarios) => {
+//       const requests = usuarios
+//         .filter((usuario) => usuario.enabled) // <-- Filtro por usuarios activos
+//         .map((usuario) =>
+//           forkJoin({
+//             usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
+//             persona:
+//               usuario.persona && usuario.persona.id_persona
+//                 ? this.getPersona(usuario.persona.id_persona)
+//                 : of(undefined),
+//             rol2:
+//               usuario.rol2 && usuario.rol2.id_rol
+//                 ? this.getRol(usuario.rol2.id_rol)
+//                 : of(undefined),
+//           })
+//         );
+//       return forkJoin(requests);
+//     }),
+//     tap((usuariosWithDetails) =>
+//       usuariosWithDetails.map(({ usuario, persona, rol2 }) => {
+//         usuario.persona = persona;
+//         usuario.rol2 = rol2;
+//       })
+//     ),
+//     map((usuariosWithDetails) => usuariosWithDetails.map(({ usuario }) => usuario))
+//   );
+// }
+
+getpersonarol(idPersona:any,idRol: any) {
+  return this.http.get<Usuario>(`${this.URL}/rolpersonaexist/`+ idPersona+`/`+idRol);
 }
 
-
+updateUsuariorol(usuario:Usuario, idUsuario: any, estado: any) {
+  return this.http.put<Usuario>(this.URL + `/cambiarestadouser/${idUsuario}/${estado}`,usuario);
+}
+saveUsuario(usuario: Usuario) {
+  return this.http.post<Usuario>(`${this.URL}/signup/`, usuario);
+}
 
 private getPersona(id: number): Observable<Persona> {
   return this.http.get<Persona>(`${this.personasApiUrl}/${id}`);
@@ -94,7 +104,7 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   //sin utilizar
 
   getusuario() {
-    return this.http.get<Usuario[]>(`${this.URL}/users/list`);
+    return this.http.get<Usuario[]>(`${this.URL}/listarp`);
   }
 
   getPorusrId(id_usuario: number) {
