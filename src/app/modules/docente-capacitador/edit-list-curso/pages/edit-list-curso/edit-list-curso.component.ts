@@ -92,7 +92,6 @@ export class EditListCursoComponent {
     this.getdatossilab();
     this.getnecesidades();
     this.getdisenocurricular();
-    this.getpersonas();
   
       this.cursoForm = this.formbuilder.group({
         curCodigo: ['', Validators.required],
@@ -346,28 +345,7 @@ export class EditListCursoComponent {
 
     );
   }
-
-  // personas 
-  personanew!: Persona;
-  arraypersona: Persona[] = [];
-  newPersona: Persona = new Persona;
-  selectedIdPersona: Persona = new Persona();
-
-  onSelectChangepersona(eventTarget: EventTarget | null) {
-    const selectElement = eventTarget as HTMLSelectElement;
-    if (!selectElement) {
-      return;
-    }
-    const selectedValue = selectElement.value;
-    console.log(selectedValue);
-    this.selectedIdPersona.id_persona = Number(selectedValue);
-  }
-  getpersonas() {
-    this.personaServ.listarPersonas().subscribe(
-      cursopersona => this.arraypersona = cursopersona.filter(cursopersona => cursopersona.enabled !== false)
-
-    );
-  }
+  
 
   filtro = '';
 

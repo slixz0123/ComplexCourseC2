@@ -41,8 +41,8 @@ export class CursoService {
       );
   }
 
-  update(cur: Curso, id_cur: any) {
-    return this.http.put<Curso>(this.URL1+ `actualizar/${id_cur}`, cur);
+update(cur: Curso, id_cur: any) {
+    return this.http.put<Curso>(this.URLi+ `/actualizar/${id_cur}`, cur);
   }
 
   getAllTrue(): Observable<Curso[]> {
