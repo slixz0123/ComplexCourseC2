@@ -91,6 +91,30 @@ export class EditListAsistenciaComponent {
       this.showContainer4 = false;
     });
   }
+  mostrarCurso(): void {
+    this.showContainer1 = true;
+    this.showContainer2 = false;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+
+  mostrarEstudiantes(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+  
+  mostrarFaltas(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = false;
+    this.showContainer3 = true;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+  
 
   mostrarDetalles(item: { participante: Participante, asistencia: Asistencia }): void {
     // Aquí puedes asignar los datos de la fila seleccionada a las variables correspondientes
@@ -114,8 +138,12 @@ export class EditListAsistenciaComponent {
   }
 
   guardarCambios(): void {
+    const fechaInicio = new Date(this.asistenciaSeleccionada.asiFecha);
+    const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+    this.asistenciaSeleccionada.asiFecha = fechaInicioUTC;
+  
     if (this.asistenciaSeleccionada) {
-      const valorInicialFaltas = this.asistenciaSeleccionada.asiNumfaltas; // Guardar el valor inicial
+      const valorInicialFaltas = this.asistenciaSeleccionada.asiNumfaltas;
   
       Swal.fire({
         icon: 'warning',
@@ -126,32 +154,29 @@ export class EditListAsistenciaComponent {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          // Realizar la actualización
           this.asistenciaServ.updateAsistencia(this.asistenciaSeleccionada, this.asistenciaSeleccionada.asiId)
             .subscribe(
               (response) => {
-                // Lógica de éxito en la actualización
-                Swal.fire('Asistencia modificada', 'El registro ha sido modificado correctamente', 'success');
-                // Resto del código para manejar el éxito en la actualización
-                this.showContainer1 = false;
-                this.showContainer2 = false;
-                this.showContainer3 = true;
-                this.showContainer4 = false;
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Asistencia modificada',
+                  text: 'El registro ha sido modificado correctamente',
+                  confirmButtonText: 'Aceptar'
+                }).then(() => {
+                  this.showContainer1 = false;
+                  this.showContainer2 = true;
+                  this.showContainer3 = false;
+                  this.showContainer4 = false;
+                });
               },
               (error) => {
-                // Lógica de error en la actualización
                 console.error('Error al actualizar la asistencia:', error);
                 // Resto del código para manejar el error en la actualización
               }
             );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          // Cancelar la edición
           Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
-          this.asistenciaSeleccionada.asiNumfaltas = valorInicialFaltas; // Revertir el número de faltas al valor inicial
-                this.showContainer1 = false;
-                this.showContainer2 = true;
-                this.showContainer3 = false;
-                this.showContainer3 = false;
+          this.asistenciaSeleccionada.asiNumfaltas = valorInicialFaltas;
         }
       });
     }

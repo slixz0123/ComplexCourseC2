@@ -16,6 +16,7 @@ import { CursoService } from 'src/app/shared/Services/curso.service';
 })
 export class RegisterAsistenciaComponent {
 
+  asistenciaSeleccionada: Asistencia = new Asistencia();
   participantes: { participante: Participante, asistencia: Asistencia }[] = [];
   formularioAsistencia!: FormGroup;
   curso: Curso = new Curso; // instancia de la clase asistencia curso
@@ -56,6 +57,14 @@ export class RegisterAsistenciaComponent {
   }
 
   registrarAsistencias() {
+    // Obtener las fechas del formulario
+  const fechaInicio = new Date(this.asistenciaSeleccionada.asiFecha);
+
+  // Convertir las fechas a formato UTC
+  const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+
+  // Asignar las fechas UTC al objeto cursoSeleccionado
+  this.asistenciaSeleccionada.asiFecha = fechaInicioUTC;
     if (this.formularioAsistencia.valid) {
       const asistencias: Asistencia[] = this.participantes.map(item => {
         const numFaltas = item.asistencia.asiNumfaltas;

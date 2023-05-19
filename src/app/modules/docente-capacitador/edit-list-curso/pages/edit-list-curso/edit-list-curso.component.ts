@@ -354,11 +354,15 @@ export class EditListCursoComponent {
   }
 
   mostrarCursoEnEdicion(curso: any) {
+    const fechai = new Date(curso.curFechainicio);
+    const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
+    const fechaf = new Date(curso.curFechafin);
+    const fechaFormateadaf = fechaf.toISOString().slice(0, 10); // "2023-05-10"
     this.cursoForm.patchValue({
       curCodigo: curso.curCodigo,
       curNombre: curso.curNombre,
-      curFechainicio: curso.curFechainicio,
-      curFechafin: curso.curFechafin,
+      curFechainicio: fechaFormateadai,
+      curFechafin: fechaFormateadaf,
       curNumHoras: curso.curNumhoras,
       curProceso: curso.curProceso,
       programa: curso.programaCapacitacion.pcaNombre,
@@ -377,7 +381,7 @@ export class EditListCursoComponent {
   }
 
   actualizarCurso(): void {
-    // Obtener las fechas del formulario
+  // Obtener las fechas del formulario
   const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
   const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
@@ -388,13 +392,49 @@ export class EditListCursoComponent {
   // Asignar las fechas UTC al objeto cursoSeleccionado
   this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
   this.cursoSeleccionado.curFechafin = fechaFinUTC;
-    this.cursoServ.update(this.cursoSeleccionado, this.cursoSeleccionado.curId).subscribe(
-      response => {
-        this.getCursos();
-        this.cursoSeleccionado = new Curso();      
-      },
-    );
-  }
+
+  Swal.fire({
+    title: 'Confirmar edición',
+    text: '¿Estás seguro de que deseas editar este curso?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Editar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.cursoServ.update(this.cursoSeleccionado, this.cursoSeleccionado.curId).subscribe(
+        response => {
+          this.getCursos();
+          this.cursoSeleccionado = new Curso();
+
+          Swal.fire({
+            title: 'Curso actualizado',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+          });
+          this.getCursos();
+          this.showContainer1 = true;
+          this.showContainer2 = false;
+        },
+        error => {
+          Swal.fire({
+            title: 'Error al actualizar el curso',
+            text: 'Ha ocurrido un error al actualizar el curso. Por favor, intenta nuevamente.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      );
+      this.showContainer1 = true;
+      this.showContainer2 = false;
+    }
+  });
+  this.getCursos();
+}
 
   eliminarCurso(curId: number): void {
     Swal.fire({
