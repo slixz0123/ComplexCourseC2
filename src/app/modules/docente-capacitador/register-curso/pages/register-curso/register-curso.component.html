@@ -47,12 +47,13 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="photo" class="form-label">Foto</label>
+                        <label for="curFoto" class="form-label">Foto</label>
                         <input
                           type="file"
                           #photoInput
                           class="form-control"
-                          id="photo"
+                          formControlName="curFoto"
+                          id="curFoto"
                           accept="image/*"
                           (change)="onFileChange($event)"
                         />

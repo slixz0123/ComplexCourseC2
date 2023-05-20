@@ -282,10 +282,15 @@ export class RegisterCursoComponent implements OnInit {
     this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
     this.cursoSeleccionado.curFechafin = fechaFinUTC;
 
-    
+    // Obtener el string base64 de la foto y eliminar el encabezado
+    const base64String = this.cursoForm.value.curFoto;
+    const cleanedBase64String = base64String?.replace("data:image/jpeg;base64,", "");
+
+
+    this.cursoSeleccionado.curFoto = cleanedBase64String; // Asignar la foto al curso
+    console.log(cleanedBase64String);
     
 
-    const formulario = this.cursoForm.value;
 
     
     this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
@@ -323,13 +328,18 @@ export class RegisterCursoComponent implements OnInit {
 
                     this.cursoSeleccionado.curEstado = true;
                     this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
+                      console.log(datacursocreado);
+                      
                       Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
                         this.cursoForm.reset();
                         this.getCursos();
-                        this.cursoForm.get('curProceso')?.setValue(null); // Agrega '?' para evitar el error si el control no existe
-                        this.cursoForm.get('programaCapacitacion')?.setValue("Seleccione Una opcion");
-                        this.cursoForm.get('mcursos')?.setValue("Seleccione Una opcion");
-                        this.cursoForm.get('tipoCurso')?.setValue("Seleccione Una opcion");
+                        this.cursoForm.get('pcaId')?.setValue("Seleccione Una opción");
+                        this.cursoForm.get('espId')?.setValue("Seleccione Una opción");
+                        this.cursoForm.get('mcuId')?.setValue("Seleccione Una opción");
+                        this.cursoForm.get('tcuId')?.setValue("Seleccione Una opción");
+                        this.cursoForm.get('dsiId')?.setValue("Seleccione Una opción");
+                        this.cursoForm.get('dcuId')?.setValue("Seleccione Una opción");
+     
                       });
                     });
                   }
@@ -405,7 +415,7 @@ export class RegisterCursoComponent implements OnInit {
       reader.onload = () => {
         const imgBase64 = reader.result as string;
         this.cursoForm.patchValue({
-          photo: imgBase64.split(',')[1],
+          curFoto: imgBase64.split(',')[1],
         });
         this.imagePreview = imgBase64;
       };
