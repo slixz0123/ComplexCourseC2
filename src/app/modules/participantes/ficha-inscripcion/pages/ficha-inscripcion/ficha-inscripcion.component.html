@@ -163,58 +163,58 @@
       <div class="mb-3">
         <label for="institucion" class="form-label">Institución donde trabaja/estudia</label>
         <input type="text" class="form-control" id="inputfinInstituciontraest" placeholder="Ingrese el Nombre"
-          name="finInstituciontraest" [(ngModel)]="fichaInscripcion.finInstituciontraest">
+          name="finInstituciontraest" [(ngModel)]="fichaInscripcion.finInstituciontraest" (keydown)="validarNombre()" (input)="convertirPrimeraLetraNombre()  ">
       </div>
       <div class="mb-3">
         <label for="direccionInstitucion" class="form-label">Dirección de la Institución</label>
         <input type="text" class="form-control" id="inputfinDireccioninst" placeholder="Ingrese la Dirrecion"
-          name="finDireccioninst" [(ngModel)]="fichaInscripcion.finDireccioninst">
+          name="finDireccioninst" [(ngModel)]="fichaInscripcion.finDireccioninst" (input)="verificarCamposVacios()">
       </div>
       <div class="mb-3">
         <label for="correoInstitucion" class="form-label">Correo electrónico de la institución</label>
         <input type="text" class="form-control" id="inputfinCorreoinst" placeholder="Ingrese el Correo"
-          name="finCorreoinst" [(ngModel)]="fichaInscripcion.finCorreoinst">
+          name="finCorreoinst" [(ngModel)]="fichaInscripcion.finCorreoinst" (blur)="validarCorreo()" (input)="verificarCamposVacios()">
       </div>
       <div class="mb-3">
         <label for="telefonoInstitucion" class="form-label">Número Telefónico de la institución</label>
         <input type="text" class="form-control" id="inputfinTelefonoinst" placeholder="Ingrese el Telefono"
-          name="finTelefonoinst" [(ngModel)]="fichaInscripcion.finTelefonoinst">
+          name="finTelefonoinst" [(ngModel)]="fichaInscripcion.finTelefonoinst" (keydown)="validarTelf()" maxlength="10" (input)="verificarCamposVacios()">
       </div>
       <div class="mb-3">
         <label for="actividadInstitucion" class="form-label">Actividad de la Institución</label>
         <input type="text" class="form-control" id="inputfinActividadinst" placeholder="Ingrese la actividad"
-          name="finActividadinst" [(ngModel)]="fichaInscripcion.finActividadinst">
+          name="finActividadinst" [(ngModel)]="fichaInscripcion.finActividadinst" (input)="verificarCamposVacios()">
       </div>
       <div class="mb-3">
         <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?</label>
-        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="fichaInscripcion.finAuspiciadoinst">
+        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="fichaInscripcion.finAuspiciadoinst" (input)="verificarCamposVacios()">
             <option value="true" >Sí</option>
             <option value="false" >No</option>
-        </select>
+        </select >
     </div>
 
     <div *ngIf="fichaInscripcion.finAuspiciadoinst!=true">
       <div class="mb-3">
         <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto</label>
         <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
-          [(ngModel)]="fichaInscripcion.finNombreauspicia">
+          [(ngModel)]="fichaInscripcion.finNombreauspicia" (input)="verificarCamposVacios()">
       </div>
     </div>
 
       <div class="mb-3">
         <label for="enteradoCurso" class="form-label">¿Cómo se enteró del curso?</label>
         <input type="text" class="form-control" id="inputfinComoentero" placeholder="Ingrese su cedula"
-          name="finComoentero" [(ngModel)]="fichaInscripcion.finComoentero">
+          name="finComoentero" [(ngModel)]="fichaInscripcion.finComoentero" (input)="verificarCamposVacios()">
       </div>
       <div class="mb-3">
         <label for="finOtroscursosdesea" class="form-label">¿Qué otros cursos le gustaría seguir?</label>
         <textarea class="form-control" id="finOtroscursosdesea" rows="3" name="finOtroscursosdesea"
-          [(ngModel)]="fichaInscripcion.finOtroscursosdesea"></textarea>
+          [(ngModel)]="fichaInscripcion.finOtroscursosdesea" (input)="verificarCamposVacios()"></textarea>
       </div>
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9 text-secondary">
-          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)">Guardar Programa</button>
+          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)" [disabled]="todosCamposVacios">Guardar Programa</button>
           <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
         </div>
       </div>

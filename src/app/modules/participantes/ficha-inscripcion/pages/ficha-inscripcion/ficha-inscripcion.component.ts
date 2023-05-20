@@ -3,11 +3,13 @@ import { Curso } from 'src/app/Core/models/curso';
 import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
 import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Persona } from 'src/app/Core/models/persona';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { EnvioDatosService } from 'src/app/shared/Services/envioDatos.service';
 import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion.service';
 import { HorarioCursoService } from 'src/app/shared/Services/horarioCurso.service';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ficha-inscripcion',
@@ -106,5 +108,78 @@ this.fichaInscripcion.finAuspiciadoinst=true
     }, error => {
       alert("Ha ocurrido un error al guardar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.");
     });
+  }
+
+  todosCamposVacios: boolean = true;
+  validar: claseValidaciones = new claseValidaciones();
+  validarNombre(){
+    if (this.fichaInscripcion.finInstituciontraest) {
+      const valid = this.validar.validarLetras(this.fichaInscripcion.finInstituciontraest);
+      if (valid) {
+        this.fichaInscripcion.finInstituciontraest = '';
+        Swal.fire({
+          title: 'Advertencia',
+          timer: 700,
+          text: 'Este campo solo debe contener letras',
+          icon: 'warning',});
+      } else {
+      }
+    }
+  }
+
+  validarCorreo(){
+    if (this.fichaInscripcion.finCorreoinst) {
+      const valid = this.validar.validarEmail(this.fichaInscripcion.finCorreoinst);
+      if (!valid) {
+        this.fichaInscripcion.finCorreoinst = '';
+        Swal.fire({
+          title: 'Advertencia',
+          timer: 700,
+          text: 'El correo no cumple las características',
+          icon: 'warning',});
+      } else {
+      }
+    }
+  }
+
+  validarTelf(){
+    if (this.fichaInscripcion.finTelefonoinst) {
+      const valid = this.validar.validarSoloNumeros(this.fichaInscripcion.finTelefonoinst);
+      if (valid) {
+        this.fichaInscripcion.finTelefonoinst = '';
+        Swal.fire({
+          title: 'Advertencia',
+          timer: 700,
+          text: 'El telefono solo contiene numeros',
+          icon: 'warning',});
+      } else {
+      }
+    }
+  }
+  
+  convertirPrimeraLetraNombre() {
+    if (this.fichaInscripcion.finInstituciontraest) {
+      const nombre = this.fichaInscripcion.finInstituciontraest.trim();
+      const palabras = nombre.split(' ');
+      const palabrasCapitalizadas = palabras.map(palabra => {
+        const primeraLetraMayuscula = palabra.charAt(0).toUpperCase() + palabra.slice(1);
+        return primeraLetraMayuscula;
+      });
+      const resultado = palabrasCapitalizadas.join(' ');
+      this.fichaInscripcion.finInstituciontraest = resultado;
+    }
+  }
+
+  verificarCamposVacios() {
+    if (
+      !this.fichaInscripcion.finInstituciontraest || !this.fichaInscripcion.finDireccioninst || !this.fichaInscripcion.finCorreoinst ||
+      !this.fichaInscripcion.finTelefonoinst ||
+      !this.fichaInscripcion.finActividadinst ||
+      !this.fichaInscripcion.finAuspiciadoinst|| !this.fichaInscripcion.finComoentero || !this.fichaInscripcion.finOtroscursosdesea
+    ) {
+      this.todosCamposVacios = true; 
+    } else {
+      this.todosCamposVacios = false; 
+    }
   }
 }
