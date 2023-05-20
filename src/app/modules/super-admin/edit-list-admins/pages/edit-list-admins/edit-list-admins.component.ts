@@ -6,7 +6,6 @@ import Swal from 'sweetalert2';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { RolService } from 'src/app/shared/Services/rol.service';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-list-admins',
@@ -25,15 +24,14 @@ export class EditListAdminsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usuarioService.getusuario().subscribe((usuarioList) => {
+    this.usuarioService.listarUsuariosAdmin().subscribe((usuarioList) => {
       this.usuarios = usuarioList;
     });
   }
-  
-    get adminUsuarios() {
-      return this.usuarios;
-    }
 
+  get adminUsuarios() {
+    return this.usuarios;
+  }
 
   editUsuario(usuario: Usuario): void {
     this.selectedUsuario = usuario;
@@ -152,26 +150,26 @@ export class EditListAdminsComponent implements OnInit {
     });
   }
 
-  async activarUsuario( idUsuario: number, usuario: Usuario) {
+  async activarUsuario(idUsuario: number, usuario: Usuario) {
     const activateUser = async () => {
       try {
         usuario.enabled = true;
         await this.usuarioService.updateUsuario(usuario, idUsuario).toPromise();
-  
+
         const selectedIndex = this.usuarios.findIndex(
           (usr) => usr.id_usuario === idUsuario
         );
-  
+
         if (selectedIndex !== -1) {
           this.usuarios[selectedIndex] = usuario;
         }
-  
+
         this.changeDetectorRef.detectChanges();
       } catch (error) {
         console.error('Error al activar el usuario:', error);
       }
     };
-  
+
     Swal.fire({
       title: '¿Estás seguro de activar este usuario?',
       icon: 'warning',
@@ -193,7 +191,7 @@ export class EditListAdminsComponent implements OnInit {
     });
   }
 
-  async desactivarUsuario( idUsuario: number, usuario: Usuario) {
+  async desactivarUsuario(idUsuario: number, usuario: Usuario) {
     const deactivateUser = async () => {
       try {
         usuario.enabled = false;

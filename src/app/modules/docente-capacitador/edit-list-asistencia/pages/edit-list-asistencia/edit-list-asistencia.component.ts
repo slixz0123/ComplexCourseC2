@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Asistencia } from 'src/app/Core/models/asistencia';
+import { Curso } from 'src/app/Core/models/curso';
 import { Participante } from 'src/app/Core/models/participante';
 import { AsistenciaService } from 'src/app/shared/Services/asistencia.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
 import Swal from 'sweetalert2';
 
@@ -20,28 +22,53 @@ export class EditListAsistenciaComponent {
   showContainer1: boolean = true;
   showContainer2: boolean = false;
   showContainer3: boolean = false;
+  showContainer4: boolean = false;
 
   participanteSeleccionado: Participante | null = null;
   asistenciaSeleccionada: Asistencia = new Asistencia;
   mostrarEditarFaltas = false;
   valorMaximo!: number;
 
-  constructor(private formBuilder: FormBuilder, private asistenciaServ: AsistenciaService, private participanteServ: ParticipanteService) { }
+  curso: Curso = new Curso; // instancia de la clase asistencia curso
+  idPersona: any;
+  estado: boolean = true;
+  cursosList: any[] = [];
+  selectedCursoId!: number;
+
+  constructor(private cursoService: CursoService, private formBuilder: FormBuilder, private asistenciaServ: AsistenciaService, private participanteServ: ParticipanteService) { }
 
   ngOnInit(): void {
     this.obtenerParticipantes();
     this.obtenerAsistencias();
     this.valorMaximo = this.asistenciaSeleccionada.asiNumfaltas; // Almacenar el valor máximo inicial
-
+    this.idPersona = localStorage.getItem('id_persona');
+    this.mostrarCursos(this.idPersona);
   }
 
   obtenerParticipantes(): void {
-    const curId = 1; // Aquí debes colocar el ID del curso que deseas obtener
-    this.participanteServ.obtenerParticipantesPorCurso(curId).subscribe(participantes => {
-      this.participantes = participantes.map(participante => ({
-        participante: participante,
-        asistencia: new Asistencia()
-      }));
+    if (this.selectedCursoId) {
+      this.participanteServ.obtenerParticipantesPorCurso(this.selectedCursoId).subscribe(participantes => {
+        this.participantes = participantes.map(participante => ({
+          participante: participante,
+          asistencia: new Asistencia()
+        }));
+      });
+    }
+  }
+  
+  selectCurso(cursoId: number): void {
+    this.selectedCursoId = cursoId;
+    this.obtenerParticipantes();
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+  }
+
+  mostrarCursos(idPersona: any) {
+    this.cursoService.cursosporDocente(idPersona).subscribe((data: any) => {
+      // Filtrar los datos por estado diferente a finalizado
+      this.cursosList = data.filter((curso: Curso) => curso.curProceso !== 'Finalizado');
     });
   }
 
@@ -59,9 +86,35 @@ export class EditListAsistenciaComponent {
     this.asistenciaServ.obtenerAsistenciasPorParticipante(parId).subscribe(asistencias => {
       this.asistencias = asistencias;
       this.showContainer1 = false;
-      this.showContainer2 = true;
+      this.showContainer2 = false;
+      this.showContainer3 = true;
+      this.showContainer4 = false;
     });
   }
+  mostrarCurso(): void {
+    this.showContainer1 = true;
+    this.showContainer2 = false;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+
+  mostrarEstudiantes(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+  
+  mostrarFaltas(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = false;
+    this.showContainer3 = true;
+    this.showContainer4 = false;
+    this.obtenerAsistencias();
+  }
+  
 
   mostrarDetalles(item: { participante: Participante, asistencia: Asistencia }): void {
     // Aquí puedes asignar los datos de la fila seleccionada a las variables correspondientes
@@ -80,12 +133,17 @@ export class EditListAsistenciaComponent {
     this.valorMaximo = asistencia.asiNumfaltas; // Asignar el valor inicial a valorMaximo
     this.showContainer1 = false;
     this.showContainer2 = false;
-    this.showContainer3 = true;
+    this.showContainer3 = false;
+    this.showContainer4 = true;
   }
 
   guardarCambios(): void {
+    const fechaInicio = new Date(this.asistenciaSeleccionada.asiFecha);
+    const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+    this.asistenciaSeleccionada.asiFecha = fechaInicioUTC;
+  
     if (this.asistenciaSeleccionada) {
-      const valorInicialFaltas = this.asistenciaSeleccionada.asiNumfaltas; // Guardar el valor inicial
+      const valorInicialFaltas = this.asistenciaSeleccionada.asiNumfaltas;
   
       Swal.fire({
         icon: 'warning',
@@ -96,30 +154,29 @@ export class EditListAsistenciaComponent {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          // Realizar la actualización
           this.asistenciaServ.updateAsistencia(this.asistenciaSeleccionada, this.asistenciaSeleccionada.asiId)
             .subscribe(
               (response) => {
-                // Lógica de éxito en la actualización
-                Swal.fire('Asistencia modificada', 'El registro ha sido modificado correctamente', 'success');
-                // Resto del código para manejar el éxito en la actualización
-                this.showContainer1 = false;
-                this.showContainer2 = true;
-                this.showContainer3 = false;
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Asistencia modificada',
+                  text: 'El registro ha sido modificado correctamente',
+                  confirmButtonText: 'Aceptar'
+                }).then(() => {
+                  this.showContainer1 = false;
+                  this.showContainer2 = true;
+                  this.showContainer3 = false;
+                  this.showContainer4 = false;
+                });
               },
               (error) => {
-                // Lógica de error en la actualización
                 console.error('Error al actualizar la asistencia:', error);
                 // Resto del código para manejar el error en la actualización
               }
             );
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          // Cancelar la edición
           Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
-          this.asistenciaSeleccionada.asiNumfaltas = valorInicialFaltas; // Revertir el número de faltas al valor inicial
-                this.showContainer1 = true;
-                this.showContainer2 = false;
-                this.showContainer3 = false;
+          this.asistenciaSeleccionada.asiNumfaltas = valorInicialFaltas;
         }
       });
     }

@@ -14,6 +14,7 @@ import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
+import { FotoService } from 'src/app/shared/Services/foto.service';
 import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
@@ -40,9 +41,13 @@ export class RegisterCursoComponent implements OnInit {
   arrayprogrma: ProgramaCapacitacion[] = [];
   newprogrmas: ProgramaCapacitacion = new ProgramaCapacitacion;
   selectedIdprogrmamacap: ProgramaCapacitacion = new ProgramaCapacitacion();
-
-
-
+  imagePreview: any;
+  editImagePreview: any;
+  nombre_orignal: string = "";
+  cap_nombre_archivo: any;
+  selectedFile!: File;
+  image!: any;
+  file: any = '';
 
   searchText: string = '';
 
@@ -56,7 +61,8 @@ export class RegisterCursoComponent implements OnInit {
     private disenoCurrServ: DisenoCurricularService,
     private personaServ: PersonaService,
     private programaCapacitacionService: ProgramaCapacitacionService,
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder,
+    private fotoService: FotoService
   ) { }
 
   ngOnInit(): void {
@@ -76,6 +82,7 @@ export class RegisterCursoComponent implements OnInit {
       curFechafin: ['', Validators.required],
       curNumHoras: ['', Validators.required],
       curProceso: ['', Validators.required],
+      curFoto: ['', Validators.required],
       pcaId: ['', Validators.required],
       espId: ['', Validators.required],
       mcuId: ['', Validators.required],
@@ -94,6 +101,7 @@ export class RegisterCursoComponent implements OnInit {
       curFechafin: new FormControl(),
       curNumHoras: new FormControl(),
       curProceso: new FormControl(),
+      curFoto: new FormControl(),
       pcaId: new FormControl(),
       espId: new FormControl(),
       mcuId: new FormControl(),
@@ -270,20 +278,19 @@ export class RegisterCursoComponent implements OnInit {
   
 
   crearcurso() {
-
-    // Obtener las fechas del formulario
-  const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
+    const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
   const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
-  // Convertir las fechas a formato UTC
   const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
   const fechaFinUTC = new Date(fechaFin.getUTCFullYear(), fechaFin.getUTCMonth(), fechaFin.getUTCDate());
 
-  // Asignar las fechas UTC al objeto cursoSeleccionado
   this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
   this.cursoSeleccionado.curFechafin = fechaFinUTC;
-  
-    const formulario = this.cursoForm.value;
+
+  const formulario = this.cursoForm.value;
+
+  this.cursoSeleccionado.curFoto = this.nombre_orignal;
+    this.cargarImagen();
   
     this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
     this.programaCapacitacionService.getProgramaCapacitacionById(this.cursoSeleccionado.programaCapacitacion.pcaId).subscribe(programcapata => {
@@ -319,10 +326,8 @@ export class RegisterCursoComponent implements OnInit {
                     this.cursoSeleccionado.pcursos.id_persona = selectedId;
   
                     this.cursoSeleccionado.curEstado = true;
-  
                     this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
                       Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
-                        window.location.reload();
                       });
                     });
                   }
@@ -333,7 +338,9 @@ export class RegisterCursoComponent implements OnInit {
         });
       });
     });
+    this.getCursos();
   }
+  
   
   
   
@@ -347,8 +354,59 @@ export class RegisterCursoComponent implements OnInit {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
 
+  ////////////////////////////////////
+  onEdit(curso: Curso): void {
+    // Implementa la lógica para editar un registro fotográfico aquí
+    console.log('Editar registro:', curso.curId);
+  }
+
+  getImageSrc(base64: string): string {
+    return 'data:image/jpeg;base64,' + base64;
+  }
+
+  onFileChange(event: any) {
+    const reader = new FileReader();
+  
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        const imgBase64 = reader.result as string;
+        this.cursoForm.patchValue({
+          photo: imgBase64.split(',')[1]
+        });
+      };
+  
+      reader.onerror = (error) => {
+        console.log('Error al leer el archivo:', error);
+      };
+    }
+  }
+//////////////////////////222222
+  public imageSelected(event: any) {
+
+    this.selectedFile = event.target.files[0];
+
+    // mostrar imagen seleccionada
+    this.image = this.selectedFile;
+    const reader = new FileReader();
+    reader.readAsDataURL(this.selectedFile);
+    reader.onload = () => {
+      this.file = reader.result;
+    };
 
 
+    // CAPTURAR EL NAME DE LA IMAGEN
+    console.log("Seleciono una imagen: " + event.target.value);
+    this.cap_nombre_archivo = event.target.value;
+    console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
+    this.nombre_orignal = this.cap_nombre_archivo.slice(12);
+    console.log("Nombre imagen original => " + this.nombre_orignal);
+    console.log(this.nombre_orignal);
 
-
-}
+  }
+  cargarImagen() {
+    this.fotoService.guararImagenes(this.selectedFile);
+  }
+}  

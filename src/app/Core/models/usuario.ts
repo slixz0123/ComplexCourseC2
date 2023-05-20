@@ -8,7 +8,7 @@ export class Usuario {
     password: string = ""; 
     enabled?: boolean;
     persona?: Persona;
-    rol: Rol = new Rol;
+    rol?: Rol;
 
     constructor(init?: Partial<Usuario>) {
       Object.assign(this, init);

@@ -1,12 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { window } from 'rxjs';
+import { Component } from '@angular/core';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
+import Swal from 'sweetalert2';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { RolService } from 'src/app/shared/Services/rol.service';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register-admins',
@@ -14,101 +14,127 @@ import Swal from 'sweetalert2'
   styleUrls: ['./register-admins.component.css'],
 })
 export class RegisterAdminsComponent {
-  persona: Persona = new Persona(); // instancia de la clase persona
-  usuario: Usuario = new Usuario(); // instancia de la clase usuario
-  rol: Rol = new Rol(); // instancia de la clase rol
-  
-
-  @ViewChild('successModal', { static: false }) successModalRef!: ElementRef;
-
-
+  persona: Persona = new Persona;
+  usuario: Usuario = new Usuario; // instancia de la clase usuario  
+  rol: Rol = new Rol;// instancia de la clase rol
+  usuariova: Usuario = new Usuario; // instancia de la clase usuario  
+  cedula: string = '';
+  nombreDeUsuario: string = '';
+  validardatos: any;
+  idPersona: any;
   // en el constructor instanciamos los servicios
   constructor(
-    private registerUsrService: PersonaService,
-    private userServiceService: UsuarioService,
+    private personaService: PersonaService,
+    private usuarioService: UsuarioService,
     private rolservices: RolService
-  ) {}
-
-  ngOnInit() {}
-  
-  ngAfterViewInit() {
-    
+  ) { }
+  ngOnInit() {
+    this.obtenerRol();
+    // this.ValidarRole();
+    this.idPersona = localStorage.getItem('id_persona')
+    console.log(this.idPersona)
   }
 
-  resetForm() {
-    this.persona = {
-      cedula: '',
-      nombre: '',
-      apellido: '',
-      email: '',
-      direccion: '',
-      sexo: '',
-      etnia: '',
-      telefono: '',
-      celular: '',
-      nivelintruccion: '',
-    };
-
-    this.usuario = {
-      username: '',
-      password: '',
-      persona: {},
-      rol: {},
-    };
+  personaVacio() { }
+  buscarPersona(cedula: any) {
+    this.personaService.getPersonaCedula(cedula).subscribe((data: any) => {
+      if (null != data) {
+        this.persona = data;
+        console.log(this.persona)
+        this.ValidarRole(this.persona.id_persona);
+      } else {
+        Swal.fire('¡Alerta!', 'Persona no encontrada, se guardara solo su cedula, podra actualizar sus datos despues', 'info'); // SweetAlert al editar el área
+        this.validardatos = 2;
+        this.persona.id_persona = 0;
+        this.persona.cedula = cedula;
+        this.persona.nombre = "Asignar";
+        this.persona.apellido = "Asignar";
+        this.persona.fecha_nacimiento = new Date('2000-01-01');
+        this.persona.email = "Asignar";
+        this.persona.direccion = "Asignar";
+        this.persona.sexo = "Asignar";
+        this.persona.telefono = "Asignar";
+        this.persona.celular = "Asignar";
+        this.persona.etnia = "Asignar";
+        this.persona.nivelintruccion = "Asignar";
+        this.persona.hojavida = "Asignar";
+        this.persona.enabled = true;
+      }
+    });
   }
-
-  onSubmitGuardar() {
-    if (
-      this.persona && this.usuario &&
-      this.persona.nombre && this.persona.apellido &&
-      this.persona.email && this.usuario.password && this.persona.etnia
-      && this.persona.sexo && this.persona.nivelintruccion
-      && this.persona.cedula && this.persona.fecha_nacimiento
-    ) {
-      Swal.fire({
-        title: '¿Estás seguro de guardar?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, guardar',
-        cancelButtonText: 'Cancelar',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.registerUsrService.crearPersona(this.persona).subscribe((response) => {
-            console.log(response);
-            this.persona.id_persona = response.id_persona;
-            this.usuario.persona = this.persona;
-  
-            this.rolservices.getById(3).subscribe((response) => {
-              console.log(response);
-              this.rol.id_rol = response.id_rol;
-              this.usuario.rol = response;
-  
-              this.userServiceService
-                .postUsuario(this.usuario)
-                .subscribe((response) => {
-                  console.log(response);
-                  Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Guardado exitosamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  this.resetForm();
-                });
-            });
+  ValidarRole(idPersona: any) {
+    //id del rol 3=admin
+    this.usuarioService.getpersonarol(idPersona, 3).subscribe((response: any) => {
+      console.log(response);
+      if (response != null) {
+        if (response.enabled == true) {
+          Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente Activa', 'info'); // SweetAlert al editar el área
+          //Limpiar datos 
+        } else {
+          Swal.fire({
+            title: 'La persona ya tiene una cuenta de Admin, ¿desea activarla?',
+            showCancelButton: true,
+            confirmButtonText: 'Activar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.ActualizarEstadouser(response, response.id_usuario);
+            }
           });
+
         }
+      } else {
+        Swal.fire('¡Alerta!', 'La persona existe pero no tiene cuenta de Administrador', 'info'); // SweetAlert al editar el área
+        this.validardatos = 1;
+      }
+    });
+  }
+  obtenerRol() {
+    //id del rol 2=docente
+    this.rolservices.getById(3).subscribe((response: any) => {
+      console.log("mi rol")
+      console.log(response); // Imprime la respuesta de la API en la consola
+      this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
+    });
+  }
+  ActualizarEstadouser(usuario: Usuario, idUsuario: any) {
+    console.log("datos actualizados")
+    this.usuarioService.updateUsuariorol(usuario, idUsuario, true).subscribe(
+      (data: any) => {
+        console.log('a verrr' + data);
+        console.log
+        Swal.fire('¡Éxito!', 'El usuario fue activado correctamente', 'success'); // SweetAlert al editar el área
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  onSubmit() {
+    if (this.validardatos == 3) {
+      this.usuario.rol = this.rol
+      this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
+      this.usuario.enabled = true;
+      this.usuario.id_usuario = 0;
+      this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
+        console.log("Afirmativo pareja")
+        Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
+      }, error => {
       });
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'EXISTEN CAMPOS VACÍOS',
-        text: 'Revise los campos por completar!',
+      this.personaService.crearPersona(this.persona).subscribe((response: any) => {
+        console.log(response); // Imprime la respuesta de la API en la consola
+        this.usuario.persona = response;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
+        this.usuario.rol = this.rol;
+        this.usuario.enabled = true;
+        this.usuario.id_usuario = 0;
+        console.log(this.usuario)
+        this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
+          console.log("Afirmativo pareja")
+          Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
+        }, error => {
+        });
       });
     }
   }
-  
-
 }
