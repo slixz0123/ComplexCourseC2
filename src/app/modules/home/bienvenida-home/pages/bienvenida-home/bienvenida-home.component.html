@@ -26,36 +26,56 @@
 
     <!--   Tarjetas-->
     <div
-  class="container"
-  *ngFor="let programa of programas"
-  [attr.data-programa-id]="programa.pcaId"
->
-  <nav class="navbar bg-dark" data-bs-theme="dark">
-    <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1"
-        >Programa de Capacitacion {{ programa.pcaNombre }}</span
-      >
-    </div>
-  </nav>
-  <div class="container-card" *ngFor="let curso of cursos[programa.pcaId]">
-    <div class="card">
-      <figure>
-        <img
-          src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png"
-        />
-      </figure>
-      <div class="contenido-card">
-        <h3>{{ curso.curNombre }}</h3>
-        <p>
-          {{ curso }} <!-- Asegúrate de que la descripción del curso se encuentra en el objeto del curso -->
-        </p>
-        <a>Ingresar</a>
+      class="container"
+      *ngFor="let programa of programas; let i = index"
+      [attr.data-programa-id]="programa.pcaId"
+    >
+      <nav class="navbar bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">
+            Programa de Capacitacion {{ programa.pcaNombre }}
+          </span>
+        </div>
+      </nav>
+      <div class="row">
+        <ng-container
+          *ngFor="let curso of cursos[programa.pcaId]; let j = index"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              cardComponent;
+              context: {
+                $implicit: curso,
+                index: j,
+                length: cursos[programa.pcaId].length
+              }
+            "
+          >
+          </ng-container>
+        </ng-container>
       </div>
     </div>
-  </div>
-</div>
 
+    <ng-template #cardComponent let-curso let-index="index" let-length="length">
+      <div
+        [class]="length === 1 ? 'col-md-4 offset-md-4' : 'col-md-4'"
+        class="container-card"
+      >
+        <div class="card">
+          <figure>
+            <img
+              src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png"
+            />
+          </figure>
+          <div class="contenido-card">
+            <h3>{{ curso.curNombre }}</h3>
+            <p>{{ curso.datosSilabo.dsiDescripcioncurso }} <a>Ingresar</a></p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
     <!--Fin   Tarjetas-->
+
     <!--Parte de Quienes somos-->
     <div class="about-me">
       <div class="about-me-text">

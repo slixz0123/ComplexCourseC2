@@ -45,7 +45,7 @@
             <td>{{ usuario.persona?.apellido }}</td>
             <td>{{ usuario.persona?.email }}</td>
             <td>{{ usuario.username }}</td>
-            <td>{{ usuario.rol?.rolNombre }}</td>
+            <td *ngIf="usuario.rol">{{ usuario.rol.rolNombre }}</td>
             <td>
               <button
                 type="button"

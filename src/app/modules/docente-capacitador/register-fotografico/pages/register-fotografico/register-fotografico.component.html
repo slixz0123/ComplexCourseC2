@@ -8,87 +8,231 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="container">
-      <h1 class="text-center my-4">Registro Fotográfico</h1>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label for="description" class="form-label">Descripción</label>
-          <input
-            type="text"
-            formControlName="description"
-            class="form-control"
-            id="description"
-            placeholder="Descripción de la foto"
-          />
+    <div class="container1" *ngIf="showContainer1">
+      <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let curso of cursosList">
+          <div
+            class="card bg-c-blue order-card"
+            (click)="
+              showContainer2 = true;
+              showContainer1 = false;
+              selectCurso(curso.curId)
+            "
+          >
+            <div class="card-block">
+              <h6 class="m-b-20">Codigo: {{ curso.curCodigo }}</h6>
+              <h2 class="text-right">
+                <i class="fa fa-graduation-cap f-left"></i
+                ><span>{{ curso.curNombre }}</span>
+              </h2>
+              <div style="margin-bottom: 10px">
+                <h3 class="val">
+                  <span class="f-right">{{
+                    curso.curFechainicio | date : "dd/MM/yyyy"
+                  }}</span
+                  >Inicia
+                </h3>
+                <h3 class="val">
+                  <span class="f-right">{{
+                    curso.curFechafin | date : "dd/MM/yyyy"
+                  }}</span
+                  >Termina
+                </h3>
+              </div>
+              <div style="margin-bottom: 10px"></div>
+            </div>
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="date" class="form-label">Fecha</label>
-          <input
-            type="date"
-            formControlName="date"
-            class="form-control"
-            id="date"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="photo" class="form-label">Foto</label>
-          <input
-            type="file"
-            #photoInput
-            class="form-control"
-            id="photo"
-            accept="image/*"
-            (change)="onFileChange($event)"
-          />
-        </div>
-        <div class="mb-3">
-          <img
-            *ngIf="imagePreview"
-            class="img-thumbnail"
-            [src]="imagePreview"
-            alt="Previsualización de la foto"
-            id="preview"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </form>
+      </div>
     </div>
-    <!-- Agrega la tabla aquí -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Imagen</th>
-          <th scope="col">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let registro of getFilteredRegistrosFotograficos()">
-          <th scope="row">{{ registro.rfoId }}</th>
-          <td>{{ registro.rfoDescripcion }}</td>
-          <td>
-            <img
-              [src]="'data:image/jpeg;base64,' + registro.rfoFoto"
-              alt="Foto"
-              class="img-thumbnail"
-              width="100"
+
+    <div class="container2" *ngIf="showContainer2">
+      <div class="container">
+        <h1 class="text-center my-4">Registro Fotográfico</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="description" class="form-label">Descripción</label>
+            <input
+              type="text"
+              formControlName="description"
+              class="form-control"
+              id="description"
+              placeholder="Descripción de la foto"
             />
-          </td>
-          <td>
-            <button class="btn btn-primary" (click)="onEdit(registro)">
-              Editar
+          </div>
+          <div class="mb-3">
+            <label for="date" class="form-label">Fecha</label>
+            <input
+              type="date"
+              formControlName="date"
+              class="form-control"
+              id="date"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="photo" class="form-label">Foto</label>
+            <input
+              type="file"
+              #photoInput
+              class="form-control"
+              id="photo"
+              accept="image/*"
+              (change)="onFileChange($event)"
+            />
+          </div>
+          <div class="mb-3">
+            <img
+              *ngIf="imagePreview"
+              class="img-thumbnail"
+              [src]="imagePreview"
+              alt="Previsualización de la foto"
+              id="preview"
+            />
+          </div>
+
+          <div class="mb-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              (click)="showContainer2 = false; showContainer1 = true"
+            >
+              Atras
             </button>
-            <button class="btn btn-danger" (click)="onDelete(registro)">
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </form>
+      </div>
+      <!-- Agrega la tabla aquí -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let registro of getFilteredRegistrosFotograficos()">
+            <th scope="row">{{ registro.rfoId }}</th>
+            <td>{{ registro.rfoDescripcion }}</td>
+            <td>
+              <img
+                [src]="'data:image/jpeg;base64,' + registro.rfoFoto"
+                alt="Foto"
+                class="img-thumbnail"
+                width="100"
+              />
+            </td>
+            <td>{{ registro.rfoFecha | date : "yyyy-MM-dd" }}</td>
+            <td>
+              <button class="btn btn-primary" (click)="onEdit(registro)">
+                Editar
+              </button>
+              <button class="btn btn-danger" (click)="onDelete(registro)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <!-- ... -->
-    
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">
+              Editar Registro Fotogreafico
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="editForm">
+              <div class="mb-3">
+                <label for="descriptionModal" class="form-label"
+                  >Descripción</label
+                >
+                <input
+                  type="text"
+                  formControlName="descriptionModal"
+                  class="form-control"
+                  id="descriptionModal"
+                  placeholder="Descripción de la foto"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="dateModal" class="form-label">Fecha</label>
+                <input
+                  type="date"
+                  formControlName="dateModal"
+                  class="form-control"
+                  id="dateModal"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="photo" class="form-label">Foto</label>
+                <input
+                  type="file"
+                  #editPhotoInput
+                  class="form-control"
+                  id="photoModal"
+                  accept="image/*"
+                  (change)="onEditFileChange($event)"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  *ngIf="editImagePreview"
+                  class="img-thumbnail"
+                  [src]="editImagePreview"
+                  alt="Previsualización de la foto"
+                  id="preview"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              id="saveChangesButton"
+              type="button"
+              class="btn btn-primary"
+              (click)="guardarEditar()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN MODAL -->
   </body>
 </html>

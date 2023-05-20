@@ -24,35 +24,66 @@ export class UsuarioService {
   constructor(private http: HttpClient, private rol:RolService) {}
 
 //Listar usuarios por rol---------------------------------------------------------
-// listarUsuarios(): Observable<Usuario[]> {
-//   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
-//     switchMap((usuarios) => {
-//       const requests = usuarios
-//         .filter((usuario) => usuario.enabled) // <-- Filtro por usuarios activos
-//         .map((usuario) =>
-//           forkJoin({
-//             usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
-//             persona:
-//               usuario.persona && usuario.persona.id_persona
-//                 ? this.getPersona(usuario.persona.id_persona)
-//                 : of(undefined),
-//             rol2:
-//               usuario.rol2 && usuario.rol2.id_rol
-//                 ? this.getRol(usuario.rol2.id_rol)
-//                 : of(undefined),
-//           })
-//         );
-//       return forkJoin(requests);
-//     }),
-//     tap((usuariosWithDetails) =>
-//       usuariosWithDetails.map(({ usuario, persona, rol2 }) => {
-//         usuario.persona = persona;
-//         usuario.rol2 = rol2;
-//       })
-//     ),
-//     map((usuariosWithDetails) => usuariosWithDetails.map(({ usuario }) => usuario))
-//   );
-// }
+listarUsuariosAdmin(): Observable<Usuario[]> {
+  return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
+    switchMap((usuarios) => {
+      const requests = usuarios
+        .filter((usuario) => usuario.rol?.rolNombre == 'Admin') // <-- Filtro por usuarios Admin
+        .map((usuario) =>
+          forkJoin({
+            usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
+            persona:
+              usuario.persona && usuario.persona.id_persona
+                ? this.getPersona(usuario.persona.id_persona)
+                : of(undefined),
+            rol:
+              usuario.rol && usuario.rol.id_rol
+                ? this.getRol(usuario.rol.id_rol)
+                : of(undefined),
+          })
+        );
+      return forkJoin(requests);
+    }),
+    tap((usuariosWithDetails) =>
+      usuariosWithDetails.map(({ usuario, persona, rol }) => {
+        usuario.persona = persona;
+        usuario.rol = rol;
+      })
+    ),
+    map((usuariosWithDetails) => usuariosWithDetails.map(({ usuario }) => usuario))
+  );
+}
+
+listarUsuariosDocente(): Observable<Usuario[]> {
+  return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
+    switchMap((usuarios) => {
+      const requests = usuarios
+        .filter((usuario) => usuario.rol?.rolNombre == 'Docente') // <-- Filtro por usuarios Docente
+        .map((usuario) =>
+          forkJoin({
+            usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
+            persona:
+              usuario.persona && usuario.persona.id_persona
+                ? this.getPersona(usuario.persona.id_persona)
+                : of(undefined),
+            rol:
+              usuario.rol && usuario.rol.id_rol
+                ? this.getRol(usuario.rol.id_rol)
+                : of(undefined),
+          })
+        );
+      return forkJoin(requests);
+    }),
+    tap((usuariosWithDetails) =>
+      usuariosWithDetails.map(({ usuario, persona, rol }) => {
+        usuario.persona = persona;
+        usuario.rol = rol;
+      })
+    ),
+    map((usuariosWithDetails) => usuariosWithDetails.map(({ usuario }) => usuario))
+  );
+}
+//---------------------------------------------------------------------------------
 
 getpersonarol(idPersona:any,idRol: any) {
   return this.http.get<Usuario>(`${this.URL}/rolpersonaexist/`+ idPersona+`/`+idRol);
@@ -104,7 +135,7 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   //sin utilizar
 
   getusuario() {
-    return this.http.get<Usuario[]>(`${this.URL}/listarp`);
+    return this.http.get<Usuario[]>(`${this.URL}/users/list`);
   }
 
   getPorusrId(id_usuario: number) {
