@@ -14,7 +14,6 @@ import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
-import { FotoService } from 'src/app/shared/Services/foto.service';
 import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
@@ -43,11 +42,8 @@ export class RegisterCursoComponent implements OnInit {
   selectedIdprogrmamacap: ProgramaCapacitacion = new ProgramaCapacitacion();
   imagePreview: any;
   editImagePreview: any;
-  nombre_orignal: string = "";
-  cap_nombre_archivo: any;
-  selectedFile!: File;
-  image!: any;
-  file: any = '';
+
+
 
   searchText: string = '';
 
@@ -61,8 +57,7 @@ export class RegisterCursoComponent implements OnInit {
     private disenoCurrServ: DisenoCurricularService,
     private personaServ: PersonaService,
     private programaCapacitacionService: ProgramaCapacitacionService,
-    private formbuilder: FormBuilder,
-    private fotoService: FotoService
+    private formbuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -275,59 +270,66 @@ export class RegisterCursoComponent implements OnInit {
     );
   }
 
-  
+
 
   crearcurso() {
     const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
-  const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
+    const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
-  const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
-  const fechaFinUTC = new Date(fechaFin.getUTCFullYear(), fechaFin.getUTCMonth(), fechaFin.getUTCDate());
+    const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+    const fechaFinUTC = new Date(fechaFin.getUTCFullYear(), fechaFin.getUTCMonth(), fechaFin.getUTCDate());
 
-  this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
-  this.cursoSeleccionado.curFechafin = fechaFinUTC;
+    this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
+    this.cursoSeleccionado.curFechafin = fechaFinUTC;
 
-  const formulario = this.cursoForm.value;
+    
+    
 
-  this.cursoSeleccionado.curFoto = this.nombre_orignal;
-    this.cargarImagen();
-  
+    const formulario = this.cursoForm.value;
+
+    
     this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
     this.programaCapacitacionService.getProgramaCapacitacionById(this.cursoSeleccionado.programaCapacitacion.pcaId).subscribe(programcapata => {
       this.cursoSeleccionado.programaCapacitacion = programcapata;
-  
+
       this.cursoSeleccionado.ecursos = this.selectedIdespecialidad;
       this.especialidadServ.getById(this.cursoSeleccionado.ecursos.espId).subscribe(programespe => {
         this.cursoSeleccionado.ecursos = programespe;
-  
+
         this.cursoSeleccionado.mcursos = this.selectedIdModalidadCurso;
         this.modalidadCurServ.getById(this.cursoSeleccionado.mcursos.mcuId).subscribe(datamodalidad => {
           this.cursoSeleccionado.mcursos = datamodalidad;
-  
+
           this.cursoSeleccionado.tipoCurso = this.selectedIdTiposCurso;
           this.tipoCurServ.getById(this.cursoSeleccionado.tipoCurso.tcuId).subscribe(datatipocur => {
             this.cursoSeleccionado.tipoCurso = datatipocur;
-  
+
             this.cursoSeleccionado.datosSilabo = this.selectedIdDatossilabo;
             this.datosSilServ.getById(this.cursoSeleccionado.datosSilabo.dsiId).subscribe(datatsilabo => {
               this.cursoSeleccionado.datosSilabo = datatsilabo;
-  
+
               this.cursoSeleccionado.necesidadCurso = this.selectedIdNecesidadCurso;
               this.necesidadServ.getById(this.cursoSeleccionado.necesidadCurso.ncuId).subscribe(datanece => {
                 this.cursoSeleccionado.necesidadCurso = datanece;
-  
+
                 this.cursoSeleccionado.disenoCurricular = this.selectedIdDisenoCurricular;
                 this.disenoCurrServ.getById(this.cursoSeleccionado.disenoCurricular.dcuId).subscribe(datadiseno => {
                   this.cursoSeleccionado.disenoCurricular = datadiseno;
-  
+
                   const idPersona = localStorage.getItem('id_persona');
                   if (idPersona) {
                     const selectedId = Number(idPersona);
                     this.cursoSeleccionado.pcursos.id_persona = selectedId;
-  
+
                     this.cursoSeleccionado.curEstado = true;
                     this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
                       Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
+                        this.cursoForm.reset();
+                        this.getCursos();
+                        this.cursoForm.get('curProceso')?.setValue(null); // Agrega '?' para evitar el error si el control no existe
+                        this.cursoForm.get('programaCapacitacion')?.setValue("Seleccione Una opcion");
+                        this.cursoForm.get('mcursos')?.setValue("Seleccione Una opcion");
+                        this.cursoForm.get('tipoCurso')?.setValue("Seleccione Una opcion");
                       });
                     });
                   }
@@ -340,10 +342,10 @@ export class RegisterCursoComponent implements OnInit {
     });
     this.getCursos();
   }
-  
-  
-  
-  
+
+
+
+
 
 
 
@@ -364,49 +366,49 @@ export class RegisterCursoComponent implements OnInit {
     return 'data:image/jpeg;base64,' + base64;
   }
 
-  onFileChange(event: any) {
+  onEditFileChange(event: any) {
     const reader = new FileReader();
-  
+
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-  
+
       reader.onload = () => {
         const imgBase64 = reader.result as string;
         this.cursoForm.patchValue({
-          photo: imgBase64.split(',')[1]
+          photoModal: imgBase64.split(',')[1],
         });
+        this.editImagePreview = imgBase64;
       };
-  
-      reader.onerror = (error) => {
-        console.log('Error al leer el archivo:', error);
+    } else {
+      // Si no hay un archivo seleccionado, establecemos `photoModal` y `editImagePreview` a `null`.
+      this.cursoForm.patchValue({
+        photoModal: null,
+      });
+      this.editImagePreview = null;
+    }
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+      this.cursoForm.patchValue({
+        photoModal: null,
+      });
+      this.editImagePreview = null;
+    };
+  }
+  onFileChange(event: any) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        const imgBase64 = reader.result as string;
+        this.cursoForm.patchValue({
+          photo: imgBase64.split(',')[1],
+        });
+        this.imagePreview = imgBase64;
       };
     }
-  }
-//////////////////////////222222
-  public imageSelected(event: any) {
-
-    this.selectedFile = event.target.files[0];
-
-    // mostrar imagen seleccionada
-    this.image = this.selectedFile;
-    const reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    reader.onload = () => {
-      this.file = reader.result;
-    };
-
-
-    // CAPTURAR EL NAME DE LA IMAGEN
-    console.log("Seleciono una imagen: " + event.target.value);
-    this.cap_nombre_archivo = event.target.value;
-    console.log("Numero de datos del nombre del archivo => " + this.cap_nombre_archivo.length)
-    this.nombre_orignal = this.cap_nombre_archivo.slice(12);
-    console.log("Nombre imagen original => " + this.nombre_orignal);
-    console.log(this.nombre_orignal);
-
-  }
-  cargarImagen() {
-    this.fotoService.guararImagenes(this.selectedFile);
   }
 }  
