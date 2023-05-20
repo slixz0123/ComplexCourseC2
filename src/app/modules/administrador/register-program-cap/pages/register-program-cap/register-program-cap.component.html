@@ -37,7 +37,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
                                         placeholder="Ingrese el nombre del programa" name="cedula"
-                                        [(ngModel)]="programaCapacitacion.pcaNombre">
+                                        [(ngModel)]="programaCapacitacion.pcaNombre" (keydown)="validarInputNombre()" (input)="convertirPrimeraLetraMayuscula()"
+                                        (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -47,7 +48,9 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="date" class="form-control" id="inputApellido"
                                         placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
-                                        [(ngModel)]="programaCapacitacion.pcaFechainicio">
+                                        [(ngModel)]="programaCapacitacion.pcaFechainicio"
+                                        (input)="verificarCamposVacios()"
+                                        [min]="fechaActual">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -57,7 +60,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="date" class="form-control" id="inputApellido"
                                         placeholder="Ingrese la fecha de finalización" name="fecha_fin"
-                                        [(ngModel)]="programaCapacitacion.pcaFechafin">
+                                        [(ngModel)]="programaCapacitacion.pcaFechafin" [min]="fechaActual"
+                                        (input)="verificarCamposVacios()" [min]="fechaInicio?.toISOString()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -66,7 +70,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputProceso" class="form-control" name="sexo"
-                                        [(ngModel)]="programaCapacitacion.pcaProceso">
+                                        [(ngModel)]="programaCapacitacion.pcaProceso"  (input)="verificarCamposVacios()">
                                         <option selected>Seleccione una opción...</option>
                                         <option>Proximamente</option>
                                         <option>En proceso</option>
@@ -78,7 +82,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button (click)="onSubmit()">Guardar Programa</button>
+                                    <Span></Span> <button (click)="onSubmit()" [disabled]="todosCamposVacios">Guardar Programa</button>
                                     <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
                                 </div>
                             </div>

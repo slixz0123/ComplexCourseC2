@@ -110,7 +110,7 @@ export class claseValidaciones {
 
 
     //solo letras
-    letras = /^[a-zA-Z]+$/;
+    letras = /^[a-zA-Z\s]+$/;
     validarLetras(cadena: string) {
         if (this.letras.test(cadena)) {
             return false;

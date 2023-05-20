@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-program-cap',
@@ -53,5 +55,63 @@ export class RegisterProgramCapComponent {
     programa.pcaFechafin = fechaFormateadaf;
     this.programaCapacitacion = programa;
   }
-  
+
+  //validaciones
+  fechaInicio: Date | undefined; // Variable para almacenar la fecha de inicio
+  todosCamposVacios: boolean = true;
+  fechaActual: string = new Date().toISOString().split('T')[0];
+
+// Función para verificar si todos los campos están vacíos
+verificarCamposVacios() {
+  if (
+    !this.programaCapacitacion.pcaNombre ||
+    !this.programaCapacitacion.pcaFechainicio ||
+    !this.programaCapacitacion.pcaFechafin ||
+    !this.programaCapacitacion.pcaProceso
+  ) {
+    this.todosCamposVacios = true; // Todos los campos están vacíos
+  } else {
+    this.todosCamposVacios = false; // Al menos un campo no está vacío
+  }
 }
+
+
+
+// Función para verificar la fecha de inicio y actualizar la variable correspondiente
+verificarFechaInicio() {
+  if (this.programaCapacitacion.pcaFechainicio) {
+    this.fechaInicio = new Date(this.programaCapacitacion.pcaFechainicio);
+  } else {
+  }
+}
+
+  validar: claseValidaciones = new claseValidaciones();
+  validarInputNombre() {
+    if (this.programaCapacitacion.pcaNombre != undefined) {
+      const valid = this.validar.validarLetras(this.programaCapacitacion.pcaNombre);
+      if (valid) {
+        this.programaCapacitacion.pcaNombre = '';
+        Swal.fire({
+          title: 'Advertencia',
+          timer: 700,
+          text: 'El nombre solo debe contener letras',
+          icon: 'warning',});
+      } else {
+      }
+    }
+  }
+  
+  convertirPrimeraLetraMayuscula() {
+    if (this.programaCapacitacion.pcaNombre) {
+      const nombre = this.programaCapacitacion.pcaNombre.trim();
+      const primeraLetraMayuscula = nombre.charAt(0).toUpperCase() + nombre.slice(1);
+      this.programaCapacitacion.pcaNombre = primeraLetraMayuscula;
+    }
+  }
+}
+
+
+function swal(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
