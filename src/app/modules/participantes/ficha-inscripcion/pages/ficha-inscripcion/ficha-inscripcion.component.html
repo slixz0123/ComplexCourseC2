@@ -17,13 +17,13 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="codigoCurso" class="form-label">Código de Curso</label>
-            <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.curCodigo}}" />
+            <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.curCodigo}}" disabled/>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="nombreCurso" class="form-label">Nombre del Curso</label>
-            <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" />
+            <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" disabled/>
           </div>
         </div>
       </div>
@@ -45,12 +45,12 @@
       </div> -->
       <div class="mb-3">
         <label for="modalidad" class="form-label">Modalidad</label>
-        <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
+        <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" disabled/>
       </div>
       <!-- los horarios -->
       <div class="mb-3">
         <label for="sexo" class="form-label">Horarios del curso</label>
-        <select class="form-select" id="horarios">
+        <select class="form-select" id="horarios" disabled>
           <option *ngFor="let hc of horarioscursoList" [value]="hc.id">
             {{ hc.horario.horInicio }} - {{ hc.horario.horFin }}
           </option>
@@ -70,14 +70,14 @@
           <div class="mb-3">
             <label for="cedula" class="form-label">Apellidos</label>
             <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese sus Apellidos"
-              name="apellido" [(ngModel)]="persona.apellido">
+              name="apellido" [(ngModel)]="persona.apellido" disabled>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="cedula" class="form-label">Nombres</label>
             <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese sus Nombres" name="nombre"
-              [(ngModel)]="persona.nombre">
+              [(ngModel)]="persona.nombre" disabled>
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
           <div class="mb-3">
             <label for="cedula" class="form-label">Cédula de Ciudadanía</label>
             <input type="text" class="form-control" id="inputCedula" placeholder="Ingrese su cedula" name="cedula"
-              [(ngModel)]="persona.cedula">
+              [(ngModel)]="persona.cedula" disabled>
           </div>
         </div>
         <div class="col-md-6">
@@ -96,7 +96,7 @@
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
             <input type="date" class="form-control" id="inputFechanacimiento"
               placeholder="Ingrese su Fecha de Nacimiento" name="fecha_nacimiento"
-              [(ngModel)]="persona.fecha_nacimiento">
+              [(ngModel)]="persona.fecha_nacimiento" disabled>
           </div>
         </div>
       </div>
@@ -105,7 +105,7 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="sexo" class="form-label">Sexo</label>
-            <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo">
+            <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo" disabled>
               <option selected>Seleccione una opción...</option>
               <option>Masculino</option>
               <option>Femenino</option>
@@ -116,7 +116,7 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="etnia" class="form-label">Etnia</label>
-            <select id="inputEtnia" class="form-control" name="etnia" [(ngModel)]="persona.etnia">
+            <select id="inputEtnia" class="form-control" name="etnia" [(ngModel)]="persona.etnia" disabled>
               <option selected>Seleccione una opción...</option>
               <option>Mestizo</option>
               <option>Indígena</option>
@@ -132,26 +132,26 @@
           <div class="mb-3">
             <label for="telefonoConvencional" class="form-label">Nro. de Teléfono Convencional</label>
             <input type="text" class="form-control" id="inputTelefono" placeholder="Ingrese su numero Telefono"
-              name="telefono" [(ngModel)]="persona.telefono">
+              name="telefono" [(ngModel)]="persona.telefono" disabled>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="telefonoCelular" class="form-label">Nro. de Teléfono Celular</label>
             <input type="text" class="form-control" id="inputCelular" placeholder="Ingrese su numero Celular"
-              name="celular" [(ngModel)]="persona.celular">
+              name="celular" [(ngModel)]="persona.celular" disabled>
           </div>
         </div>
       </div>
       <div class="mb-3">
         <label for="correo" class="form-label">Correo Electrónico</label>
         <input type="text" class="form-control" id="inputEmail" placeholder="Ingrese su  Email" name="email"
-          [(ngModel)]="persona.email">
+          [(ngModel)]="persona.email" disabled>
       </div>
       <div class="mb-3">
         <label for="nivelInstruccion" class="form-label">Nivel de Instrucción</label>
         <select id="inputNivelInstruccion" class="form-control" name="nivelInstruccion"
-          [(ngModel)]="persona.nivelintruccion">
+          [(ngModel)]="persona.nivelintruccion" disabled>
           <option selected>Seleccione una opción...</option>
           <option>Primaria</option>
           <option>Secundaria</option>
