@@ -126,4 +126,21 @@ export class ReportesComponent {
   tipoReporte(num: number){
 
   }
+
+   /////validaciones
+   fechaActual: string = new Date().toISOString().split('T')[0]; //muestra la fecha actual del sistema
+   validar: claseValidaciones = new claseValidaciones();
+   todosCamposVacios: boolean = true;
+
+   
+  verificarCamposVacios() {
+    if (
+      !this.informeFinal.ifiFecha || !this.informeFinal.ifiObservaciones
+    ) {
+      this.todosCamposVacios = true; // Todos los campos están vacíos
+    } else {
+      this.todosCamposVacios = false; // Al menos un campo no está vacío
+    }
+  }
+
 }

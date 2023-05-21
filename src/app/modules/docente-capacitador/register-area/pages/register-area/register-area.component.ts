@@ -4,6 +4,7 @@ import { Area } from 'src/app/Core/models/area';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AreaService } from 'src/app/shared/Services/area.service';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
 @Component({
   selector: 'app-register-area',
@@ -109,5 +110,50 @@ export class RegisterAreaComponent implements OnInit {
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
+
+  /////validaciones
+  validar: claseValidaciones = new claseValidaciones();
+  todosCamposVacios: boolean = true;
+
+  
+ verificarCamposVacios() {
+   if (
+     !this.areaSeleccionada.areNombre || !this.areaSeleccionada.areCodigo
+   ) {
+     this.todosCamposVacios = true; // Todos los campos están vacíos
+   } else {
+     this.todosCamposVacios = false; // Al menos un campo no está vacío
+   }
+ }
+
+ validarNombre(){
+  if(this.areaSeleccionada.areNombre){
+    const valid=this.validar.validarLetras(this.areaSeleccionada.areNombre);
+    if(valid){
+      this.areaSeleccionada.areNombre='';
+      Swal.fire({
+        title: 'Advertencia',
+        timer: 700,
+        text: 'El nombre solo debe contener letras',
+        icon: 'warning',
+      });
+    }
+  }
+ }
+
+ validarCodigo(){
+  if(this.areaSeleccionada.areCodigo){
+    const valid=this.validar.validarLetrasNumeros(this.areaSeleccionada.areCodigo);
+    if(valid){
+      this.areaSeleccionada.areCodigo='';
+      Swal.fire({
+        title: 'Advertencia',
+        timer: 700,
+        text: 'El código no contiene caracteres especciales',
+        icon: 'warning',
+      });
+    }
+  }
+ }
 
 }

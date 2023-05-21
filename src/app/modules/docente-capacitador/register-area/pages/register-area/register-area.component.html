@@ -6,17 +6,17 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="areCodigo">Código</label>
-            <input type="text" class="form-control" id="areCodigo" name="areCodigo" [(ngModel)]="areaSeleccionada.areCodigo" required>
+            <input type="text" class="form-control" id="areCodigo" name="areCodigo" [(ngModel)]="areaSeleccionada.areCodigo" required (input)="verificarCamposVacios()" (keydown)="validarCodigo()">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="areNombre">Nombre</label>
-            <input type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="areaSeleccionada.areNombre" required>
+            <input type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="areaSeleccionada.areNombre" required (input)="verificarCamposVacios()" (keydown)="validarNombre()">
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      <button type="submit" class="btn btn-primary" [disabled]="todosCamposVacios">{{ isNew ? 'Crear' : 'Guardar' }}</button>
     </form>
   </div>
   <br>

@@ -154,7 +154,7 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="date" class="form-control" id="inputApellido"
                                             placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
-                                            [(ngModel)]="informeFinal.ifiFecha">
+                                            [(ngModel)]="informeFinal.ifiFecha" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
 
@@ -165,7 +165,7 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="form-control" id="inputCedula"
                                             placeholder="Ingrese las observaciones del curso" name="cedula"
-                                            [(ngModel)]="informeFinal.ifiObservaciones">
+                                            [(ngModel)]="informeFinal.ifiObservaciones" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
 
@@ -173,7 +173,7 @@
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
                                         <Span></Span> <button (click)="saveInformefinal()">Guardar Informe</button>
-                                        <Span></Span> <button (click)="AllInformesFinal()">Obtener Informes</button>
+                                        <Span></Span> <button (click)="AllInformesFinal()" [disabled]="todosCamposVacios">Obtener Informes</button>
 
                                         <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button   > -->
                                     </div>
