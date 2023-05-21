@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
 import { Participante } from 'src/app/Core/models/participante';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
 
@@ -33,6 +34,9 @@ export class RegisterNotasComponent {
     this.mostrarCursos(this.idPersona);
     // this.mostrarParticipante(1)
   }
+
+
+
   cursosList: any[] = [];
   mostrarCursos(idPersona: any) {
     this.cursoService.cursosporDocente(idPersona).subscribe((data: any) => {
@@ -53,5 +57,19 @@ export class RegisterNotasComponent {
   }
   editarNotas(participnated: any) {
     this.participante = participnated
+  }
+
+  //validaciones
+  todosCamposVacios: boolean = true;
+  validar: claseValidaciones = new claseValidaciones();
+  verificarCamposVacios() {
+    if (
+      !this.participante.parNotaparcial || !this.participante.parNotafinal || !this.participante.parPromedio ||
+      !this.participante.parObservacion
+    ) {
+      this.todosCamposVacios = true; 
+    } else {
+      this.todosCamposVacios = false; 
+    }
   }
 }

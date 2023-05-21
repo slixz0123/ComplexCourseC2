@@ -79,8 +79,8 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputNparcial"
-                                            placeholder="Ingrese la nota del 1er Parcial" name="notaParcial"
-                                            [(ngModel)]="participante.parNotaparcial">
+                                          placeholder="Ingrese la nota del 1er Parcial" name="notaParcial"
+                                          [(ngModel)]="participante.parNotaparcial" step="0.01" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -90,7 +90,7 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputNfinal"
                                             placeholder="Ingrese la nota Final" name="notafinal"
-                                            [(ngModel)]="participante.parNotafinal">
+                                            [(ngModel)]="participante.parNotafinal" step="0.01" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -100,7 +100,7 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputPromedio"
                                             placeholder="Ingrese la nota del 1er Parcial" name="promedio"
-                                            [(ngModel)]="participante.parPromedio">
+                                            [(ngModel)]="participante.parPromedio" step="0.01" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
 
@@ -111,14 +111,14 @@
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="form-control" id="inputObservaciones"
                                             placeholder="Ingrese las observaciones del Estudiante" name="Obcervaciones"
-                                            [(ngModel)]="participante.parObservacion">
+                                            [(ngModel)]="participante.parObservacion" (input)="verificarCamposVacios()">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
-                                        <Span></Span> <button (click)="savenotas(participante)">Guardar Cambios</button>
+                                        <Span></Span> <button (click)="savenotas(participante)" [disabled]="todosCamposVacios">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </form>
