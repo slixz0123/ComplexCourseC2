@@ -86,6 +86,8 @@ export class RegisterParticipanteComponent implements OnInit {
         console.log(data);
         this.fichapa=data
         this.crearparticipante(this.fichapa);
+        this.mostrarFichas(this.fichapa.finCurso?.curId);
+
         // this.mostrarFichas(fichaactualizada.finCurso.curId);
         console.log("afirmativo pareja")
       },

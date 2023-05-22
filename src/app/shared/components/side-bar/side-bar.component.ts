@@ -189,6 +189,13 @@ export class SideBarComponent {
       console.log($event)
      }
 
+     //////////////////////////////////////////////////////
+   goToRegisterparticipante($event: any) :void{
+
+    this.router.navigate(['/Capacitador/register-participante'])
+    console.log($event)
+    }
+
      //////////////////////////////////////////////////////////////////
     goToregisHorarioCur($event: any) :void{
 
