@@ -15,9 +15,11 @@ import { RolService } from './rol.service';
 })
 export class UsuarioService {
   private URL = 'http://localhost:8080/usuarios';
+  private URLu = 'http://localhost:8080/usuarios/search/';
   private URLcre = 'http://localhost:8080/usuarios/signup';
   private usuariosApiUrl = 'http://localhost:8080/usuarios/users/list';
   private personasApiUrl = 'http://localhost:8080/api/persona/buscar';
+  
   private rolesApiUrl = 'http://localhost:8080/api/rol/buscar';
   
 
@@ -96,7 +98,7 @@ saveUsuario(usuario: Usuario) {
   return this.http.post<Usuario>(`${this.URL}/signup/`, usuario);
 }
 
-private getPersona(id: number): Observable<Persona> {
+ getPersona(id: number): Observable<Persona> {
   return this.http.get<Persona>(`${this.personasApiUrl}/${id}`);
 }
 
@@ -117,20 +119,33 @@ crearUsuario(usuario: Usuario): Observable<Usuario> {
   );
 }
 //---------------------------------------------------------------------------------
+private rolActual: string ='';
+setRol(rol: string) {
+  this.rolActual = rol;
+}
+obtenerRol(): string {
+  return this.rolActual;
+}
+
 
   //utilizados
   login(nombreUsuario: string, password: string) {
-    // http://localhost:8080/usuario/login/
-    return this.http.get<Usuario>(
-      this.URL + `/login/${nombreUsuario}/${password}`
+    return this.http.get<Usuario>(this.URL + `/login/${nombreUsuario}/${password}`).pipe(
+      tap((usuario: Usuario) => {
+        if (usuario && usuario.rol) {
+          this.setRol(usuario.rol.rolNombre);
+        }
+      })
     );
   }
-
+  
   postUsuario(usuario: Usuario) {
     return this.http.post<Usuario>(this.URLcre +'', usuario);
   }
 
-  
+  getPorId(idUsuario: any) {
+    return this.http.get<Usuario>(this.URL + idUsuario);
+  }
 
   //sin utilizar
 

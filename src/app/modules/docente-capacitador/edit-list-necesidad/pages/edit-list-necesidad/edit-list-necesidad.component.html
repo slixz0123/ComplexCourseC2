@@ -48,16 +48,21 @@
                         <input type="text"  name="ncuIdentificador" class="form-control"  [(ngModel)]="neceseleccionada.ncuIdentificador" formControlName="ncuIdentificador" />
                 
                         <label  class="form-label">Dias</label>
-                        <select (change)="onSelectChange2($event.target)" [(ngModel)]="neceseleccionada.dia"  class="form-select">
-                          <option  formControlName="dias" [(ngModel)]="neceseleccionada.dia" *ngFor="let clasedia of arraydias" [value]="clasedia.diaId">{{ clasedia.diaNombre }} </option>
+                        <select formControlName="dia" [(ngModel)]="neceseleccionada.dia.diaId" class="form-select"   >
+                          <option *ngFor="let clasedia of arraydias" [value]="clasedia.diaId">{{ clasedia.diaNombre }}</option>
                         </select>
-                
-                        <label  class="form-label">Fecha prevista de Iniciación</label>
-                        <input type="date" formControlName="ncuFechaprevisfin" [(ngModel)]="neceseleccionada.ncuFechaprevisfin" class="form-control" />
-
                         
-                          
-                            <label  class="form-label">Participantes a ser inscritos</label>
+                        <label  class="form-label">Fecha prevista de Iniciación</label>
+
+                        <input type="date" class="form-control" formControlName="ncuFechaprevisfin"
+                          [(ngModel)]="neceseleccionada.ncuFechaprevisfin" required>
+                        <input type="text" class="form-control" [value]="neceseleccionada.ncuFechaprevisfin | date: 'dd/MM/yyyy'"
+                          disabled>
+                            
+
+                       
+                        
+                        <label  class="form-label">Participantes a ser inscritos</label>
                         <input type="text"  name="ncuNumparticipantes" class="form-control"  [(ngModel)]="neceseleccionada.ncuNumparticipantes" formControlName="ncuNumparticipantes" />
                 
                         
@@ -92,7 +97,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" (click)="editadia(neceseleccionada,neceseleccionada.ncuId)">Actualizar</button>
+              <button type="button" class="btn btn-primary" (click)="actualizarnecesidad(neceseleccionada,neceseleccionada.ncuId)">Actualizar</button>
             </div>
           </div>
         </div>
@@ -136,7 +141,7 @@
                        
                       </td>
                       <td>
-                        <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" (click)="eliminar(nece.ncuId)"   data-target="#Employee">Eliminar</button>
+                        <button id="btnnes" style=" background-color: red; padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" (click)="eliminar(nece.ncuId)"   data-target="#Employee">Eliminar</button>
 
                       </td>
                   </tr>

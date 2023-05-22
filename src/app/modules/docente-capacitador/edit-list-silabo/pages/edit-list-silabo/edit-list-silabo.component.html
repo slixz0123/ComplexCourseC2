@@ -1,11 +1,5 @@
 
 
-
-  <!-- 
-     diaId?: number;
-    diaNombre?: string;
-    diaEstado?:boolean;
- -->
  <!DOCTYPE html>
  <html lang="es">
    <head>
@@ -30,7 +24,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form id="contenedorform" [formGroup]="silaboForm"  *ngIf="dtsilabselec"   >
+              <form id="contenedorform" [formGroup]="silaboForm"  *ngIf="dtsilabselec,dtresultselec"    >
                 <h2 class="mb-3">1. Información General del Curso</h2>
                 <div class="row mb-3 ">
                   <div class="">
@@ -130,7 +124,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let resultado of resultadosAprendizajes; let i = index" [class.selected]="resultado.rapId ">
+              <tr *ngFor="let resultado of dtresultselec; let i = index" [class.selected]="resultado.rapId ">
         
                 <td>
                   <textarea
@@ -142,7 +136,7 @@
                     #texcrapUnidadcompe
                     style="width: 410px;"
                     rows="8"
-                    [(ngModel)]="resultadosAprendizajes[i].rapUnidadcompe"
+                    [(ngModel)]="dtresultselec[i].rapUnidadcompe"
                   ></textarea>
                   <button  type="button" class="btn btn-success" (click)="addBullet(texcrapUnidadcompe)">Agregar viñeta</button>
                  <button  type="button" class="btn btn-warning" (click)="addLINE(texcrapUnidadcompe)">Agregar linea de separacion</button>
@@ -230,36 +224,23 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let resultado of contenidosCurso; let i = index" [class.selected]="resultado.ccuId ">
-        
+                      <tr *ngFor="let resultado of contenidosCurso; let i = index" [class.selected]="registroSeleccionado.ccuId ">
                         <td>
                           <input  style="width: 60px;" type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"
-                          [(ngModel)]="contenidosCurso[i].ccuDia" />
+                          [(ngModel)]="registroSeleccionado[i].ccuDia" />
                         </td>
                         <td>
-                         
-                         
-                         
+
                           <textarea #textcontenido id="ccuContenidos" name="ccuContenidos" rows="8" class="form-control" formControlName="ccuContenidos"
-                            [(ngModel)]="resultado.ccuContenidos" style="width: 410px;"></textarea>
-                         
+                            [(ngModel)]="registroSeleccionado.ccuContenidos" style="width: 410px;"></textarea>
                             <button  type="button" class="btn btn-success" (click)="addBullet(textcontenido)">Agregar viñeta</button>
                             <button  type="button" class="btn btn-warning" (click)="addLINE(textcontenido)">Agregar linea de separacion</button>
-        
-                        </td>
+                       
+                          </td>
                         <td>
-                          <input
-                            type="number"
-                            id="ccuHorasclase"
-                            name="ccuHorasclase"
-                            class="form-control"
-                            
-                            formControlName="ccuHorasclase"
-                            style="width: 60px;"
-                            row="8"
-                            [(ngModel)]="contenidosCurso[i].ccuHorasclase"
-                          />
+                          <input type="number" id="ccuHorasclase" name="ccuHorasclase" class="form-control" formControlName="ccuHorasclase" style="width: 60px;" row="8" [(ngModel)]="dtcontenidoselec[i].ccuHorasclase"/>
                         </td>
+                        
                         <td>
                           <textarea 
                             id="ccuActividaddocencia"
@@ -269,7 +250,7 @@
                             #texcuActividaddocenci
                             style="width: 410px;"
                             rows="8"
-                            [(ngModel)]="contenidosCurso[i].ccuActividaddocencia"
+                            [(ngModel)]="registroSeleccionado[i].ccuActividaddocencia"
                           ></textarea>
                           <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividaddocenci)">Agregar viñeta</button>
                           <button  type="button" class="btn btn-warning" (click)="addLINE(texcuActividaddocenci)">Agregar linea de separacion</button>
@@ -282,7 +263,7 @@
                             name="ccuHoraspractica"
                             class="form-control"
                             formControlName="ccuHoraspractica"
-                            [(ngModel)]="contenidosCurso[i].ccuHoraspractica"
+                            [(ngModel)]="registroSeleccionado[i].ccuHoraspractica"
                           />
                         </td>
                         <td>
@@ -294,7 +275,7 @@
                             #texcuActividadpractica
                             style="width: 410px;"
                             rows="8"
-                            [(ngModel)]="contenidosCurso[i].ccuActividadpractica"
+                            [(ngModel)]="registroSeleccionado[i].ccuActividadpractica"
                             
                           ></textarea>
                           <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividaddocenci)">Agregar viñeta</button>
@@ -308,7 +289,7 @@
                             name="ccuHorastrabajoauto"
                             class="form-control"
                             formControlName="ccuHorastrabajoauto"
-                            [(ngModel)]="contenidosCurso[i].ccuHorastrabajoauto"
+                            [(ngModel)]="registroSeleccionado[i].ccuHorastrabajoauto"
                           />
                         </td>
                         <td>
@@ -321,7 +302,7 @@
                             #texcuActividadtrabajoauto
                             style="width: 410px;"
                             rows="8"
-                            [(ngModel)]="contenidosCurso[i].ccuActividadtrabajoauto"
+                            [(ngModel)]="registroSeleccionado[i].ccuActividadtrabajoauto"
                           ></textarea>
                           <button  type="button" class="btn btn-success" (click)="addBullet(texcuActividadtrabajoauto)">Agregar viñeta</button>
                           <button  type="button" class="btn btn-warning" (click)="addLINE(texcuActividadtrabajoauto)">Agregar linea de separacion</button>
@@ -337,7 +318,7 @@
                             #texcuObservaciones
                             style="width: 410px;"
                             rows="8"
-                            [(ngModel)]="contenidosCurso[i].ccuObservaciones"
+                            [(ngModel)]="registroSeleccionado[i].ccuObservaciones"
                           ></textarea>
                           <button  type="button" class="btn btn-success" (click)="addBullet(texcuObservaciones)">Agregar viñeta</button>
                           <button  type="button" class="btn btn-warning" (click)="addLINE(texcuObservaciones)">Agregar linea de separacion</button>
@@ -414,28 +395,28 @@
                 </div>
                 <h2 class="mb-3">recurso didactico</h2>
                 <div class="mb-3">
-                  <label for="dsiBibliografia" class="form-label"
+                  <label for="rdiMateconvencional" class="form-label"
                     >materiales convencionales</label
                   >
                   <textarea
-                    id="dsiBibliografia"
-                    name="dsiBibliografia"
+                    id="rdiMateconvencional"
+                    name="rdiMateconvencional"
                     rows="3"
                     class="form-control" 
-                    formControlName="dsiBibliografia"
-                    [(ngModel)]="recurdidactico.rdiMateconvencional"
+                    formControlName="rdiMateconvencional"
+                    [(ngModel)]="recursosDidactic.rdiMateconvencional"
                   ></textarea>
         
                   <label for="dsiBibliografia" class="form-label"
                   >materiales audiovisuales</label
                 >
                 <textarea
-                  id="dsiBibliografia"
-                  name="dsiBibliografia"
+                  id="rdiMateconvencional"
+                  name="rdiMateconvencional"
                   rows="3"
                   class="form-control" 
-                  formControlName="dsiBibliografia"
-                  [(ngModel)]="recurdidactico.rdiMateaudiovisula"
+                  formControlName="rdiMateconvencional"
+                  [(ngModel)]="recursosDidactic.rdiMateaudiovisula"
                 ></textarea>
         
                    
@@ -557,34 +538,29 @@
        <div class="table-responsive">
  
       </div> 
-      <table   class=" table-bordered table table-responsive table-dark table-striped " >
-        <thead>
-          <th class="sticky-header centered-header " colspan="5">Datos Silabo</th>
-          <th class="sticky-header table-primary align-center table-striped  centered-header" colspan="4">Resultados de Aprendizaje </th>
-          <th class="sticky-header table-warning align-top centered-header " colspan="9">Contenidos del Curso </th>
-          <th class="sticky-header table-info  align-top centered-header" colspan="2">Estrategias Metodologicas </th>
-          <th class="sticky-header table-danger  align-top centered-header" colspan="2">Recursos Didacticos </th>
-          <th class="sticky-header table-secondary  align-top centered-header" colspan="4">Evaluacion de estudiante por Resultado de aprendizaje  </th>
-          <th class="sticky-header table-warning  align-top centered-header" colspan="2">Acciones</th>
-         
-        
-          <tr class="bg-primary text-light">
-           
-            
-            <th  class="sticky-column">ID</th>
-            <th  class="sticky-column">Identiificador</th>
+      <table id="myTable" class="table-bordered table table-responsive table-dark table-striped custom-table">
+        <thead  id="tableHead" class="sticky-headers">
+          <th class="sticky-header table-bordered centered-header   table-striped " colspan="5">Datos Silabo</th>
+          <th class="sticky-header table-primary align-center table-striped centered-header  " colspan="4">Resultados de Aprendizaje</th>
+          <th class="sticky-header table-warning align-top centered-header" colspan="9">Contenidos del Curso</th>
+          <th class="sticky-header table-info align-top centered-header" colspan="2">Estrategias Metodologicas</th>
+          <th class="sticky-header table-danger align-top centered-header" colspan="2">Recursos Didacticos</th>
+          <th class="sticky-header table-secondary align-top centered-header" colspan="4">Evaluacion de estudiante por Resultado de aprendizaje</th>
+          <th class="sticky-header table-warning align-top centered-header" colspan="2">Acciones</th>
+        </thead>
+        <thead  id="tableHead"  class="sticky-headers-second table-bordered"  >
+          <tr >
+            <th  >ID</th>
+            <th  >Identiificador</th>
             <th>Descripción</th>
             <th>Objetivo general</th>
             <th>Prerrequisitos</th>
- 
-         
+          <!-- segunda tabla -->
             <th class="table-primary">Unidades de Competencia</th>
             <th class="table-primary">Elementos de competencia</th>
             <th class="table-primary">Resultados de aprendizaje</th>
             <th class="table-primary">Forma de evidenciar</th>
-         
-
-           
+          <!-- tercera tabla -->
             <th class="table-warning">Día</th>
             <th class="table-warning">Contenido</th>
             <th class="table-warning">Hora clase</th>
@@ -594,48 +570,42 @@
             <th class="table-warning">Horas trabajo auto.</th>
             <th class="table-warning">Actividad trabajo auto.</th>
             <th class="table-warning">Observación.</th>
-
+          <!-- cuerta tabla -->
             <th class="table-info">Estrategia Metodologica.</th>
             <th class="table-info">Finalidad</th>
-
+          <!-- quinta tabla -->
             <th class="table-danger">Meteriales Convencionales</th>
             <th class="table-danger">Materiale Audiovisuales</th>
-
-           
-
+          <!-- sexta tabla -->
             <th class="table-secondary">Actividades evaluativas</th>
             <th class="table-secondary">Cantidade Activididades</th>
             <th class="table-secondary">Porcentaje calificacion</th>
             <th class="table-secondary">Total </th>
-
             <th class="table-warning">Editar </th>
             <th class="table-warning">Eliminar </th>
           </tr>
         </thead>
         <tbody>
-          <tr  *ngFor="let silabo of datossilan">
+          <tr *ngFor="let silabo of datossilan" >
             <td class="sticky-column">{{ silabo.dsiId }}</td>
-            <td  class="sticky-column">{{ silabo.dsiIdentificador }}</td>
+            <td class="sticky-column">{{ silabo.dsiIdentificador }}</td>
             <td>{{ silabo.dsiDescripcioncurso }}</td>
             <td>{{ silabo.dsiObjetivogeneralc }}</td>
             <td>{{ silabo.dsiPrerrequisitos }}</td>
-            <td class="table-primary align-top table-striped "  colspan="4">
+            <td class="table-primary align-top table-striped" colspan="4">
               <table>
                 <tbody>
-               
                   <tr *ngFor="let dataresult of getContenidosResultadosAprendId(silabo.dsiId)">
-                    <td >{{ dataresult.rapUnidadcompe }}</td>
+                    <td>{{ dataresult.rapUnidadcompe }}</td>
                     <td>{{ dataresult.rapElementoscompe }}</td>
                     <td>{{ dataresult.rapResultadosaprenactiv }}</td>
                     <td>{{ dataresult.rapFormaevidenciar }}</td>
-                    
                   </tr>
                 </tbody>
-               
               </table>
             </td>
-            <td  class="table-warning align-top" colspan="9">
-              <table >
+            <td class="table-warning align-top" colspan="9">
+              <table>
                 <tbody>
                   <tr *ngFor="let dataconten of getContenidosPorSilaboId(silabo.dsiId)">
                     <td>{{ dataconten.ccuDia }}</td>
@@ -651,71 +621,57 @@
                 </tbody>
               </table>
             </td>
-
-            <td  class="table-info  align-top " colspan="2">
-              <table >
+            <td class="table-info align-top" colspan="2">
+              <table>
                 <tbody>
                   <tr *ngFor="let dataestrate of getEstrategiasId(silabo.dsiId)">
-             
                     <td>{{ dataestrate.emeEstrategia }}</td>
                     <td>{{ dataestrate.emeFinalidad }}</td>
-                   
-                   
                   </tr>
                 </tbody>
               </table>
             </td>
-
-            <td  class="table-danger  align-top " colspan="2">
-              <table >
+            <td class="table-danger align-top" colspan="2">
+              <table>
                 <tbody>
                   <tr *ngFor="let datarecursodida of getrecurdidaIdb(silabo.dsiId)">
-                    
-                    <td>{{datarecursodida.rdiMateconvencional}}</td>
-                    <td>{{datarecursodida.rdiMateaudiovisula}}</td>
-
+                    <td>{{ datarecursodida.rdiMateconvencional }}</td>
+                    <td>{{ datarecursodida.rdiMateaudiovisula }}</td>
                   </tr>
                 </tbody>
               </table>
             </td>
-
-            <td  class="table-secondary  align-top " colspan="4">
-              <table >
+            <td class="table-secondary align-top" colspan="4">
+              <table>
                 <tbody>
                   <tr *ngFor="let datareva of getevaId(silabo.dsiId)">
-                   
                     <td>{{ datareva.eraTipoactividades }}</td>
                     <td>{{ datareva.eraCantactvidades }}</td>
                     <td>{{ datareva.eraPorcentcalificacion }}</td>
                     <td>{{ datareva.eraTotal }}</td>
-                   
-                   
                   </tr>
                 </tbody>
               </table>
             </td>
-            <td  class="table-warning  align-top " colspan="2">
-              <table >
+            <td class="table-warning align-top" colspan="2">
+              <table>
                 <tbody>
                   <tr>
                     <td>
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selecdatosilab(silabo,silabo.dsiId)"  > Editar</button>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selecdatosilab(silabo, silabo.dsiId)">Editar</button>
                     </td>
                     <td>
-                      <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary"   data-target="#Employee">Eliminar</button>
+                      <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" data-target="#Employee">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </td>
-
-
-
           </tr>
-          
         </tbody>
       </table>
+      
 
      </div>
  

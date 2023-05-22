@@ -14,5 +14,7 @@ export class Persona {
     nivelintruccion?: string;
     hojavida?: string;
     enabled?: boolean;
+  persona: any;
+  rol: any;
 
   }

@@ -7,6 +7,10 @@ import { WelcomeParticipantesComponent } from './modules/participantes/welcome-p
 import { WelcomeSupAdminComponent } from './modules/super-admin/welcome-sup-admin/welcome-sup-admin.component';
 import { VigilanteRoutesGuard } from './Core/guards/vigilante-routes.guard';
 
+import { AdminGuard } from './Core/guards/admin.guard';
+import { UsuarioService } from './shared/Services/usuario.service';
+
+
 
 const routes: Routes = [
   {
@@ -16,33 +20,42 @@ const routes: Routes = [
 
   },
   {
+    path: 'Participante',
+    component: WelcomeParticipantesComponent,
+    canActivate: [AdminGuard],
+    data: {
+      expectedRole: 'Participante'
+    },
+    loadChildren: () => import('./modules/participantes/participantes.module').then(m => m.ParticipantesModule)
+  },
+  {
     path: 'Admin',
+    canActivate: [AdminGuard],
     component: WelcomeAdministradorComponent,
-    loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule), // se importa un modulo que tiene routing es decir ruta
-  // canActivateChild:[VigilanteRoutesGuard]
+    data: {
+      expectedRole: 'Admin'
+    },
+    loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule)
+  },
+  {
+    path: 'Supadmin',
+    canActivate: [AdminGuard],
+    component: WelcomeSupAdminComponent,
+    data: {
+      expectedRole: 'Supadmin'
+    },
+    loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
   {
     path: 'Capacitador',
     component: WelcomeDocenteCapacitadorComponent,
-    loadChildren: () => import('./modules/docente-capacitador/docente-capacitador.module').then(m => m.DocenteCapacitadorModule) // se importa un modulo que tiene routing es decir ruta
-
+    canActivate: [AdminGuard],
+    data: {
+      expectedRole: 'Docente'
+    },
+    loadChildren: () => import('./modules/docente-capacitador/docente-capacitador.module').then(m => m.DocenteCapacitadorModule)
   },
-  {
-    path: 'Participante',
-    component: WelcomeParticipantesComponent,
-    loadChildren: () => import('./modules/participantes/participantes.module').then(m => m.ParticipantesModule) // se importa un modulo que tiene routing es decir ruta
-
-  },
-  {
-    path: 'Sup-Admin',
-    component: WelcomeSupAdminComponent,
-    loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule) // se importa un modulo que tiene routing es decir ruta
-
-  },
-
-
-
-
+  // Otras rutas...
 ];
 
 @NgModule({
@@ -50,5 +63,14 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-  
- }
+  constructor(private usuarioService: UsuarioService) {
+    const userRole = this.usuarioService.obtenerRol(); // Obtener el rol actual del usuario
+    this.usuarioService.setRol(userRole); // Configurar el rol en el servicio UsuarioService
+  }
+}
+
+
+
+
+
+
