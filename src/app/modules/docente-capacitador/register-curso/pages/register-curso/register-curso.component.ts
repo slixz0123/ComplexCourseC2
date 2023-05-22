@@ -270,9 +270,20 @@ export class RegisterCursoComponent implements OnInit {
     );
   }
 
+generarcodigoFoto(){
+  // Obtener el string base64 de la foto y eliminar el encabezado
+  const base64String = this.cursoForm.value.curFoto;
+  const cleanedBase64String = base64String?.replace("data:image/jpeg;base64,", "");
+
+
+  this.cursoSeleccionado.curFoto = cleanedBase64String; // Asignar la foto al curso
+  console.log(cleanedBase64String);
+  
+}
 
 
   crearcurso() {
+    this.generarcodigoFoto();
     const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
     const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
@@ -282,15 +293,8 @@ export class RegisterCursoComponent implements OnInit {
     this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
     this.cursoSeleccionado.curFechafin = fechaFinUTC;
 
-    // Obtener el string base64 de la foto y eliminar el encabezado
-    const base64String = this.cursoForm.value.curFoto;
-    const cleanedBase64String = base64String?.replace("data:image/jpeg;base64,", "");
-
-
-    this.cursoSeleccionado.curFoto = cleanedBase64String; // Asignar la foto al curso
-    console.log(cleanedBase64String);
     
-
+    
 
     
     this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
@@ -333,6 +337,7 @@ export class RegisterCursoComponent implements OnInit {
                       Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
                         this.cursoForm.reset();
                         this.getCursos();
+                        this.cursoForm.get('curFoto')?.reset();
                         this.cursoForm.get('pcaId')?.setValue("Seleccione Una opción");
                         this.cursoForm.get('espId')?.setValue("Seleccione Una opción");
                         this.cursoForm.get('mcuId')?.setValue("Seleccione Una opción");

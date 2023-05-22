@@ -9,6 +9,7 @@
     <table class="table">
       <thead>
         <tr class="bg-primary text-light">
+          <th th scope="col">Foto</th>
           <th th scope="col">Código</th>
           <th th scope="col">Nombre</th>
           <th th scope="col">Fecha Inicio/Fin</th>
@@ -24,6 +25,14 @@
         <ng-container *ngFor="let curso of cursos">
           <tr
             *ngIf="curso.curNombre.toLowerCase().includes(filtro.toLowerCase()) || curso.curCodigo.toLowerCase().includes(filtro.toLowerCase())">
+            <td>
+              <img
+              [src]="'data:image/jpeg;base64,' + curso.curFoto"
+              alt="Foto"
+              class="img-thumbnail"
+              width="100"
+            />
+          </td>
             <td>{{ curso.curCodigo }}</td>
             <td>{{ curso.curNombre }}</td>
             <td>{{ curso.curFechainicio | date: 'dd/MM/yyyy' }} / {{ curso.curFechafin | date: 'dd/MM/yyyy'
@@ -169,6 +178,12 @@
                   cursodiseno.dcuIdentificador }}</option>
               </select>
             </div>
+            <div class="col-md-4">
+              <label>Seleccione una nueva foto</label>
+              <input type="file" (change)="onEditFileChange($event)" accept="image/*" class="form-control">
+              <img [src]="editImagePreview" alt="Vista previa de la imagen" class="img-thumbnail" *ngIf="editImagePreview">
+            </div>
+            
           </div>
         </div>
         <button (click)="actualizarCurso()" type="submit" class="btn btn-primary">Actualizar</button>
