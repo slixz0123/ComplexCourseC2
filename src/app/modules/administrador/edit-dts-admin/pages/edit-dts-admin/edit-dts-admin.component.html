@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
-                                        placeholder="Ingrese su cedula" name="cedula" [(ngModel)]="persona.cedula" (blur)="validarInputCedula()" (input)="verificarCamposVacios()">
+                                        placeholder="Ingrese su cedula" name="cedula" maxlength="10" [(ngModel)]="persona.cedula" (blur)="validarInputCedula()" (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -111,7 +111,7 @@
                                     <input type="tel" class="form-control" id="inputTelefono"
                                         placeholder="Ingrese su teléfono" name="telefono"
                                         [(ngModel)]="persona.telefono" (keydown)="validarTelf()"
-                                        (input)="verificarCamposVacios()">
+                                        (input)="verificarCamposVacios()" maxlength="10">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -122,7 +122,7 @@
                                     <input type="tel" class="form-control" id="inputCelular"
                                         placeholder="Ingrese su celular" name="celular" 
                                         [(ngModel)]="persona.celular" (keydown)="validarCel()"
-                                        (input)="verificarCamposVacios()">
+                                        (input)="verificarCamposVacios()" maxlength="10">
                                 </div>
                             </div>
                             <div class="row mb-3">
