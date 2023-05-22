@@ -6,11 +6,11 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="tcuNombre">Nombre</label>
-              <input type="text" class="form-control" id="tcuNombre" name="tcuNombre" [(ngModel)]="tipoCSeleccionado.tcuNombre" required>
+              <input type="text" class="form-control" id="tcuNombre" name="tcuNombre" [(ngModel)]="tipoCSeleccionado.tcuNombre" required (keydown)="validarInputNombre()" (input)="convertirPrimeraLetraMayuscula()">
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+        <button type="submit" class="btn btn-primary" [disabled]="todosCamposVacios">{{ isNew ? 'Crear' : 'Guardar' }}</button>
       </form>
     </div>
     <br>

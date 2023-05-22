@@ -123,16 +123,7 @@ export class EditDtsDocentesComponent {
       }
     }
   }
-  // this.toastr.error('El nombre no debe contener caracteres no permitidos', 'Error', {
-  //   positionClass: 'toast-bottom-right',
-  //   toastClass: 'toast-bottom-right',
-  // });
-  // this.toastr.show('El nombre debe contener solo letras', 'warn', {
-  //   closeButton: false,
-  //   timeOut: 3000,
-  //   positionClass: 'toast-top-right'
-  // });
-
+ 
     convertirPrimeraLetraMayuscula() {
     if (this.persona.apellido) {
       const nombre = this.persona.apellido.trim();
