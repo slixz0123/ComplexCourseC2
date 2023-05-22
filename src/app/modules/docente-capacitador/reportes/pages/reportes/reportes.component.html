@@ -39,8 +39,9 @@
         </ol>
     </nav>
     <!-- /Breadcrumb -->
-
+    <!-- Desde aca duplicar -->
     <div class="row">
+
         <!-- //desde aqui -->
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card" (click)="tipoReporte(1)"
@@ -58,7 +59,9 @@
             </div>
         </div>
         <!-- hasata aqui -->
-        <div class="col-md-4 col-xl-3">
+    <!--hasta aca duplicar -->
+      <div class="col-md-4 col-xl-3">
+
             <div class="card bg-c-blue order-card" (click)="tipoReporte(1)"
                 (click)="showContainer2 = false; showContainer4 = true;">
                 <div class="card-block">
@@ -89,6 +92,21 @@
             </div>
         </div>
     </div>
+    <!-- <div class="col-md-4 col-xl-3">
+      <div class="card bg-c-blue order-card" (click)="tipoReporte(1)"
+          (click)="showContainer2 = false; showContainer3 = true;">
+          <div class="card-block">
+              <h6 class="m-b-20">Tipo de Reporte</h6>
+              <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span
+                      style="font-size: 25px;">Silabo</span>
+              </h2>
+              <div style="margin-bottom: 10px;">
+              </div>
+              <div style="margin-bottom: 10px;">
+              </div>
+          </div>
+      </div>
+  </div> -->
 </div>
 
 
@@ -196,6 +214,7 @@
                     <th scope="col">Fecha Emision</th>
                     <th scope="col">Estado</th>
                     <th scope="col">editar</th>
+                    <th scope="col">Imprimir</th>
                 </tr>
             </thead>
             <tbody>
@@ -206,6 +225,12 @@
                     <td>{{ informefinal.ifiEstado }}</td>
                     <td><button type="button" class="btn btn-primary"
                             (click)="editarInformefinal(informefinal)">Editar</button>
+                    </td>
+                    <td><button type="button" class="btn btn-primary"
+                            (click)="imprimirReporteFinal(informefinal)">Imprimir</button>
+                    </td>
+                    <td><button type="button" class="btn btn-primary"
+                      (click)="imprimirSilabo(curso)">Imprimir</button>
                     </td>
                 </tr>
             </tbody>
@@ -318,6 +343,7 @@
                 <th scope="col">Fecha Emision</th>
                 <th scope="col">Estado</th>
                 <th scope="col">editar</th>
+                <th scope="col">Imprimir</th>
             </tr>
         </thead>
         <tbody>

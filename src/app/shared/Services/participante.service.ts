@@ -2,7 +2,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Curso } from "src/app/Core/models/curso";
 import { Participante } from "src/app/Core/models/participante";
+import { Persona } from "src/app/Core/models/persona";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +19,7 @@ import { Participante } from "src/app/Core/models/participante";
     public crearParticipante(participante: Participante){
         return this.http.post<Participante>(this.URLCre, participante);
     }
-    public saveFichaIncripcion(participante: Participante) {
+    public saveparticipante(participante: Participante) {
       return this.http.post<Participante>(`${this.URL}/crear`, participante);
     }
     obtenerParticipantesPorCurso(curId: number): Observable<Participante[]> {
@@ -47,4 +49,6 @@ import { Participante } from "src/app/Core/models/participante";
     obtenerAprobados(){
       return this.http.get<any>(`${this.URL}/listarAprobados`);
     }
+
+    
   }

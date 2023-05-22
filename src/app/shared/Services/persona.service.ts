@@ -3,6 +3,8 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from 'src/app/Core/models/persona';
 import { Usuario } from 'src/app/Core/models/usuario';
+import { Curso } from 'src/app/Core/models/curso';
+import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
 
 @Injectable({
   providedIn: 'root'
@@ -118,6 +120,4 @@ export class PersonaService {
     //       })))
     //     );
     // }
-  
-
 }

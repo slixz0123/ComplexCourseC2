@@ -1,1 +1,48 @@
-<p>tipo-curso works!</p>
+<div class="container" style="background-color: #ffffff;">
+    <div class="mt-4">
+      <h3 style="text-align: center;">{{ isNew ? 'Nuevo Tipo de curso' : 'Editar Tipo de curso' }}</h3>
+      <form #tipoCForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="tcuNombre">Nombre</label>
+              <input type="text" class="form-control" id="tcuNombre" name="tcuNombre" [(ngModel)]="tipoCSeleccionado.tcuNombre" required>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="buscar">Buscar:</label>
+      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+    </div>
+    <br>
+    <h2>Tipos de curso</h2>
+    <table class="table">
+      <thead>
+        <tr class="bg-primary text-light">
+          <th scope="col">Nombre</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let tipo of tipos">
+          <tr *ngIf="tipo.tcuNombre.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ tipo.tcuNombre }}</td>
+          <td>{{ tipo.tcuEstado ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarTiposCurso(tipo)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarTiposCurso(tipo.tcuId)">Eliminar</button>
+          </td>
+          </tr>
+        </ng-container>
+          </tbody>
+          
+            </table>
+            
+          </div>
+  

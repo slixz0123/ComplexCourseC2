@@ -24,4 +24,55 @@
     /* Ajusta estos estilos si deseas que la tabla sea responsive */
     overflow-x: auto;
   }
+  .custom-table {
+    height: 900px; /* ajusta la altura según tus necesidades */
+    overflow-y: scroll;
+  }
   
+  .custom-table thead th {
+    position: sticky;
+    top: 0;
+
+  }
+  
+  
+  .custom-table .sticky-column {
+    position: sticky;
+    left: 0;
+
+
+  }
+  
+
+
+
+  .sticky-headers {
+    position: sticky;
+    top: 0;
+
+    z-index: 2;
+  }
+  
+  .sticky-headers-second {
+    position: sticky;
+    top: 40px; /* Ajusta esta altura según el tamaño del primer encabezado */
+
+    z-index: 1;
+  }
+  
+  .sticky-headers th {
+    font-weight: bold; /* Ajusta el estilo de fuente según tus preferencias */
+  }
+  
+  .sticky-headers .sticky-column {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+
+  }
+  
+  .custom-table {
+    height: 900px;
+    overflow-y: scroll;
+  }
+ 

@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 
 @Injectable({
@@ -9,12 +10,12 @@ export class TipoCursoService {
 
   private URL = "http://localhost:8080/api/tipocurso/buscar/";
   private URL1 = "http://localhost:8080/api/tipocurso/";
-  private URL2 = "http://localhost:8080/api/tipocurso/crear";
  
 
   constructor(private http: HttpClient) { }
-  post(tipcur: TiposCurso) {
-    return this.http.post<TiposCurso>(this.URL2 + '?', tipcur);
+  
+  post(tipo: TiposCurso) {
+    return this.http.post(`${this.URL1}crear`, tipo);
   }
   getById(idtpc: any) {
     return this.http.get<TiposCurso>(this.URL + idtpc);
@@ -25,11 +26,30 @@ export class TipoCursoService {
   getAll() {
     return this.http.get<TiposCurso[]>(this.URL1 + 'listar')
   }
-  delete(tipcur: TiposCurso, idtpc: number) {
-    return this.http.put<TiposCurso>(this.URL1+ `eliminar/${idtpc}`, tipcur);
+  update(horario: TiposCurso, horId: any) {
+    return this.http.put<TiposCurso>(this.URL1 + `actualizar/${horId}`, horario);
   }
-  update(tipcur: TiposCurso, idtpc: number) {
-    return this.http.put<TiposCurso>(this.URL1+ `actualizar/${idtpc}`, tipcur);
-  }
+
+  delete(id: number): Observable<any> {
+   const url = `${this.URL1}eliminar/${id}`;
+   const httpOptions = {
+     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+   };
+   return this.http.put(url, {}, httpOptions)
+     .pipe(
+       catchError((error: any) => {
+         console.error(error);
+         return throwError('Error eliminando el tipo de curso');
+       })
+     );
+ }
+
+ getTiposCursosTrue(): Observable<TiposCurso[]> {
+  return this.http.get<TiposCurso[]>(`${this.URL1}listartrue`);
+}
+
+getTiposCursosFalse(): Observable<TiposCurso[]> {
+  return this.http.get<TiposCurso[]>(`${this.URL1}listarfalse`);
+}
  
 }

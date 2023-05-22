@@ -1,9 +1,101 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <p class="h4">Ingreso de horarios -cursos</p>
-    </head>
-    <body>
-        <a>esto es una prueba</a>
-    </body>
-</html>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<br>
+<div class="container1" *ngIf="showContainer1">
+    <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let curso of cursosList">
+            <div class="card bg-c-blue order-card" (click)="selectCurso(curso.curId)">
+                <div class="card-block">
+                    <h6 class="m-b-20">Codigo: {{curso.curCodigo}}</h6>
+                    <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{curso.curNombre}}</span>
+                    </h2>
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="val"><span class="f-right">{{curso.curFechainicio | date:
+                                'dd/MM/yyyy'}}</span>Inicia</h3>
+                        <h3 class="val"><span class="f-right">{{curso.curFechafin | date:
+                                'dd/MM/yyyy'}}</span>Termina</h3>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+    <div class="container2" *ngIf="showContainer2">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Cursos</a></li>
+                <li class="breadcrumb-item"><a>Horarios</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="container" style="background-color: #ffffff;">
+                    <h4>ASIGNAR HORARIOS A UN CURSO</h4>
+                    <div class="mt-4">
+                        <h3 style="text-align: center;">{{ isNew ? 'Nueva Asignación de horario' : 'Editar Asignación de horario' }}</h3>
+                        <form #horarioCurForm="ngForm" (ngSubmit)="submitForm()">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="hcuNombre">Nombre</label>
+                                        <input type="text" class="form-control" id="hcuNombre" name="hcuNombre"
+                                            [(ngModel)]="horarioCurSeleccionado.hcuNombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="horario">Seleccione el/los horario/s en el que se va a impartir la
+                                            capacitación:</label>
+                                        <select class="form-control" id="horario"
+                                            [(ngModel)]="horarioCurSeleccionado.horario.horId" name="horario">
+                                            <option *ngFor="let horario of horarios" [value]="horario.horId"
+                                                [selected]="horario.horId === horarioCurSeleccionado.horario.horId">{{
+                                                horario.horInicio }} - {{ horario.horFin }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+                        </form>
+                    </div>
+
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label for="buscar">Buscar:</label>
+                        <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro"
+                            (keyup)="actualizarFiltro()">
+                    </div>
+
+                    <br>
+                    <h2>Horario/s del Curso</h2>
+                    <table class="table">
+                        <thead>
+                            <tr class="bg-primary text-light">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Horario Inicio/Fin</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let horarioCur of horariosCur">
+                              <!-- Filtrar los horarios por el ID del curso seleccionado -->
+                              <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId">
+                                <td>{{ horarioCur.hcuNombre }}</td>
+                                <td>{{ horarioCur?.horario?.horInicio }} - {{ horarioCur?.horario?.horFin }}</td>
+                                <td>
+                                  <button class="btn btn-primary" (click)="editarHorarioCur(horarioCur)">Editar</button>
+                                  <button class="btn btn-danger" (click)="eliminarHorarioCur(horarioCur.hcuId)">Eliminar</button>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -49,6 +49,7 @@ export class EditListCursoComponent {
   necesidades!: any[]; // Variable para almacenar las necesidades
   disenosCurriculares!: any[]; // Variable para almacenar los diseños curriculares
   personas!: any[]; // Variable para almacenar las personas
+  editImagePreview: any;
 
 
   cursoSelec = {
@@ -57,7 +58,8 @@ export class EditListCursoComponent {
       curFechainicio: '', 
       curFechafin: '', 
       curNumHoras: '', 
-      curProceso: '', 
+      curProceso: '',
+      curFoto: '', 
       programa: '',
       especialidad: '',
       modalidad: '',
@@ -100,6 +102,7 @@ export class EditListCursoComponent {
         curFechafin: ['', Validators.required],
         curNumHoras: ['', Validators.required],
         curProceso: ['', Validators.required],
+        curFoto: ['', Validators.required],
         programa: ['', Validators.required],
         especialidad: ['', Validators.required],
         modalidad: ['', Validators.required],
@@ -121,6 +124,7 @@ export class EditListCursoComponent {
       curFechafin: this.cursoSeleccionado.curFechafin,
       curNumHoras: this.cursoSeleccionado.curNumhoras,
       curProceso: this.cursoSeleccionado.curProceso,
+      curFoto: this.cursoSeleccionado.curProceso,
       programa: this.cursoSeleccionado.programaCapacitacion.pcaNombre,
       especialidad: this.cursoSeleccionado.ecursos.espNombre,
       modalidad: this.cursoSeleccionado.mcursos.mcuNombre,
@@ -365,6 +369,7 @@ export class EditListCursoComponent {
       curFechafin: fechaFormateadaf,
       curNumHoras: curso.curNumhoras,
       curProceso: curso.curProceso,
+      curFoto: curso.curFoto,
       programa: curso.programaCapacitacion.pcaNombre,
       especialidad: curso.ecursos.espNombre,
       modalidad: curso.mcursos.mcuNombre,
@@ -418,6 +423,7 @@ export class EditListCursoComponent {
           this.getCursos();
           this.showContainer1 = true;
           this.showContainer2 = false;
+          this.cursoForm.get('curFoto')?.reset();
         },
         error => {
           Swal.fire({
@@ -452,6 +458,34 @@ export class EditListCursoComponent {
     });
   }
 
+onEditFileChange(event: any) {
+    const reader = new FileReader();
 
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        const imgBase64 = reader.result as string;
+        this.cursoForm.patchValue({
+          photoModal: imgBase64.split(',')[1],
+        });
+        this.editImagePreview = imgBase64;
+      };
+    } else {
+      // Si no hay un archivo seleccionado, establecemos `photoModal` y `editImagePreview` a `null`.
+      this.cursoForm.patchValue({
+        photoModal: null,
+      });
+      this.editImagePreview = null;
+    }
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+      this.cursoForm.patchValue({
+        photoModal: null,
+      });
+      this.editImagePreview = null;
+    };
+  }
 
 }

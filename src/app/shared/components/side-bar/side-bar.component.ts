@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CargarjsTemplatesService } from '../../Services/cargarjsTemplates.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../Services/usuario.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SideBarComponent {
   constructor(
-    private _CargarSc: CargarjsTemplatesService, private router : Router)
+    private _CargarSc: CargarjsTemplatesService, private router : Router,private usuarioser: UsuarioService)
   {
       _CargarSc.carga_apexcharts(["apexcharts.min"])
       _CargarSc.carga_boostrap(["bootstrap.bundle.min"])
@@ -110,7 +111,7 @@ export class SideBarComponent {
 
   ngOnInit(): void {
 
-
+    this.obtenerUsuario()
   }
 
    //////////////////////////////////////////////////////
@@ -167,9 +168,102 @@ export class SideBarComponent {
       this.router.navigate(['Capacitador/register-cur'])
       console.log($event)
      }
-      
+      //////////////////////////////////////////////////////////////////
+    goToregisHorario($event: any) :void{
 
+      this.router.navigate(['Capacitador/horarios'])
+      console.log($event)
+     }
 
+     //////////////////////////////////////////////////////////////////
+    goToregisTipoCur($event: any) :void{
+
+      this.router.navigate(['Capacitador/tipo-cursos'])
+      console.log($event)
+     }
+
+     //////////////////////////////////////////////////////////////////
+    goToregisModalidadCur($event: any) :void{
+
+      this.router.navigate(['Capacitador/modalidad'])
+      console.log($event)
+     }
+
+     //////////////////////////////////////////////////////
+   goToRegisterparticipante($event: any) :void{
+
+    this.router.navigate(['/Capacitador/register-participante'])
+    console.log($event)
+    }
+
+     //////////////////////////////////////////////////////////////////
+    goToregisHorarioCur($event: any) :void{
+
+      this.router.navigate(['Capacitador/horario-cursos'])
+      console.log($event)
+     }
+     id: any;
+     nombreUsuario: any;
+     nombreRol: any;
+   
+
+   
+     isSuperAdmin: boolean = false;
+     isClientAdmin: boolean = false;
+     isparticipante: boolean = false;
+     isadmin: boolean = false;
+     isdocente: boolean = false;
+   
+     displayMaximizable: any;
+     isLogin: boolean = false;
+     obtenerUsuario() {
+      this.id = localStorage.getItem('id_persona');
+      if (this.id != '' && this.id != undefined) {
+        this.usuarioser.getPersona(this.id).subscribe((data) => {
+          console.log(data);
+       
+          if (data != null) {
+            this.isLogin = true;
+    
+            this.nombreUsuario = data.nombre + ' ' + data.apellido;
+            
+            console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
+           
+    
+            // switch (data.rol?.rolNombre) {
+    
+            //   case 'Participante':
+    
+            //     this.isparticipante = true;
+    
+            //     break;
+            //     case 'Supadmin':
+    
+            //     this.isSuperAdmin = true;
+    
+            //     break;
+            //     case 'Admin':
+    
+            //     this.isadmin = true;
+    
+            //     break;
+    
+            //   case 'Docente':
+            //     this.isdocente = true;
+               
+            //     break;
+            //   default:
+            //     alert('Rol desconocido');
+            //     break;
+            // };
+    
+          } else {
+            this.isLogin = false;
+            this.nombreUsuario = 'NULL';
+          }
+        });
+      }
+    }
 
 
 

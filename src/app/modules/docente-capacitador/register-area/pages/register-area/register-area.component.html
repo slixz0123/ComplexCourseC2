@@ -44,7 +44,7 @@
         <td>{{ area.areNombre }}</td>
         <td>{{ area.areEstado ? 'Activo' : 'Inactivo' }}</td>
         <td>
-          <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarArea(area)">Editar</button>
+          <button class="btn btn-primary" (click)="editarArea(area)">Editar</button>
           <button class="btn btn-danger" (click)="eliminarArea(area.areId)">Eliminar</button>
         </td>
         </tr>

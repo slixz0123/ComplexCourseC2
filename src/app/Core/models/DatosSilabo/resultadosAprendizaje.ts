@@ -6,7 +6,7 @@ export class ResultadosAprendizaje {
     rapResultadosaprenactiv: String="";
     rapFormaevidenciar: String="";
     rapElementoscompe:String="";
-    rapEstado?: boolean;
+    rapEstado: Boolean=true;
 
     rapSilabo: Datossilabo = new Datossilabo;
   }

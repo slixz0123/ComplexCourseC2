@@ -1,91 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <title>
-        <a>Registro de horarios</a>
-    </title>
-</head>
-
-<body>
-    <input type="radio" class="btn-check" name="options-outlined" id="registrar" autocomplete="off">
-    <label class="btn btn-outline-success" for="registrar" (click)="selectedForm = 'registrar'">Registrar</label>
-
-    <input type="radio" class="btn-check" name="options-outlined" id="listas" autocomplete="off">
-    <label class="btn btn-outline-success" for="listas" (click)="selectedForm = 'listas'">Listar</label>
-
-    <div *ngIf="selectedForm === 'registrar'">
-        <form class="form-row">
-
-            <div>
-                <label>Estado</label>
-                <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
+<div class="container" style="background-color: #ffffff;">
+    <div class="mt-4">
+      <h3 style="text-align: center;">{{ isNew ? 'Nueva Horario' : 'Editar Horario' }}</h3>
+      <form #horarioForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="horInicio">Hora Inicio</label>
+                <input type="text" class="form-control" id="horInicio" name="horInicio" [(ngModel)]="horarioSeleccionado.horInicio" required pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                <small class="form-text text-muted">Formato: hh:mm</small>
+              </div>
             </div>
-            <div class="col">
-
-                <label>Hora inicio</label>
-                <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
-                <label>Hora fin</label>
-                <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="horFin">Hora Fin</label>
+                <input type="text" class="form-control" id="horFin" name="horFin" [(ngModel)]="horarioSeleccionado.horFin" required pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+                <small class="form-text text-muted">Formato: hh:mm</small>
+              </div>
             </div>
-        </form>
-        <form>
-            <div class="form-row">
-                <div class="col">
-                    <button class="btn-success" (click)="registrarHorario()">Registrar</button>
-                </div>
-                <div>
-                    <button class="btn-danger">Cancelar</button>
-                </div>
-            </div>
-        </form>
+          </div>          
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+      </form>
     </div>
-    <div *ngIf="selectedForm === 'listas'">
-        <div class="input-group">
-            <input type="search" id="cedula" name="cedula" class="form-control rounded" placeholder="Search"
-                aria-label="Search" aria-describedby="search-addon" (input)="onSearchInputChange($event)"
-                [(ngModel)]="nombre" />
-            <button type="button" class="btn btn-outline-primary">Buscar</button>
-        </div>
-        <div class="table-hover">
-            <table class="table" id="myTable">
-                <thead >
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Hora de inicio</th>
-                        <th scope="col">Hora de fin</th>
-                        <th scope="col">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let horario of horarios" (click)="seleccionarHorario(horario)">
-                        <th scope="row">{{ horario.horId}}</th>
-                        <td>{{ horario.horInicio }}</td>
-                        <td> {{ horario. horFin}} </td>
-                        <td>{{ horario.horEstado }}</td>
-                    </tr>
-                </tbody>
+    <br>
+    <br>
+    <div class="form-group">
+      <label for="buscar">Buscar:</label>
+      <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+    </div>
+    <br>
+    <h2>Horarios</h2>
+    <table class="table">
+      <thead>
+        <tr class="bg-primary text-light">
+          <th scope="col">Hora Inicio</th>
+          <th scope="col">Hora Fin</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let horario of horarios">
+          <tr *ngIf="horario.horInicio.toLowerCase().includes(filtro.toLowerCase()) || 
+                     horario.horFin.toLowerCase().includes(filtro.toLowerCase())">
+          <td>{{ horario.horInicio }}</td>
+          <td>{{ horario.horFin }}</td>
+          <td>{{ horario.horEstado ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarHorario(horario)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarHorario(horario.horId)">Eliminar</button>
+          </td>
+          </tr>
+        </ng-container>
+          </tbody>
+          
             </table>
-        </div>
-        <button class="btn-success" (click)="listarHorarios()">listar</button>
-        <div>
-            <label>Estado</label>
-            <input type="checkbox" name="horEstado" [(ngModel)]="horario.horEstado">
-        </div>
-        <div class="col">
-
-            <label>Hora inicio</label>
-            <input type="number" id="horainicio" name="horainicio" maxlength="5" [(ngModel)]="horario.horInicio" />
-            <label>Hora fin</label>
-            <input id="horafin" name="horafin" type="number" maxlength="5" [(ngModel)]="horario.horFin" />
-        </div>
-        <div colspan="4">
-            <div class="float-right">
-                <button class="btn btn-primary mr-2" [disabled]="!formularioValido">Editar Horario</button>
-                <button class="btn btn-danger" [disabled]="!formularioValido">Eliminar Horarios</button>
-            </div>
-        </div>
-    </div>
-</body>
-
-</html>
+            
+          </div>
+  

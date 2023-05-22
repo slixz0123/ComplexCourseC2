@@ -1,7 +1,7 @@
 export class ModalidadCurso {
     
-    mcuId?: number;
-    mcuNombre?: string;
-    mcuEstado?: boolean;
+    mcuId: number = 0;
+    mcuNombre: string = '';
+    mcuEstado?: boolean = true;
 
   }

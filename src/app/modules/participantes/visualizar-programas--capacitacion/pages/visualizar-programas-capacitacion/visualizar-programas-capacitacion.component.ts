@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Curso } from 'src/app/Core/models/curso';
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { CursoService } from 'src/app/shared/Services/curso.service';
@@ -25,7 +26,8 @@ export class VisualizarProgramasCapacitacionComponent {
     private programaCapacitacionServ: ProgramaCapacitacionService,
     private horarioCursoService: HorarioCursoService,
     private enviarDatosService: EnvioDatosService ,
-    private cursoService: CursoService
+    private cursoService: CursoService,
+    private router : Router
 
   ) { }
 
@@ -89,5 +91,10 @@ export class VisualizarProgramasCapacitacionComponent {
     console.log(idCurso)
     this.enviarDatosService.setIdCurso(idCurso);
   }
+  
+  goTogenfichains($event: any) :void{
 
+    this.router.navigate(['/Participante/ficha-inscripcion'])
+    console.log($event)
+   }
 }

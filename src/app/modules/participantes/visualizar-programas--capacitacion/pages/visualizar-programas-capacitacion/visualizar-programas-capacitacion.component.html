@@ -79,7 +79,7 @@
                                 <h4>{{this.curso.curNombre}}</h4>
                                 <p class="text-secondary mb-1">Codigo del curso</p>
                                 <p class="text-muted font-size-sm">{{this.curso.curCodigo}}</p>
-                                <button class="btn btn-primary" (click)="EnviarCurso(curso.curId)">Inscribirse</button>
+                                <button class="btn btn-primary" (click)="EnviarCurso(curso.curId)" (click)="goTogenfichains($event)">Inscribirse</button>
                                 <!-- <button class="btn btn-outline-primary">Message</button> -->
                             </div>
                         </div>

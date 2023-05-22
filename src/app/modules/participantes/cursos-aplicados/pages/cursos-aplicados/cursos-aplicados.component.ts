@@ -9,20 +9,20 @@ import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion
 })
 export class CursosAplicadosComponent {
   fichaIncripcion: FichaInscripcion = new FichaInscripcion();
-
+  idPersona:any;
   constructor(
     private fichaIncripcionService: FichaIncripcionService
 
   ) { }
 
   ngOnInit(): void {
-    // this.id_persona = localStorage.getItem('id_persona');
-    this.getAllfichasIncripcion();
+    this.idPersona = localStorage.getItem('id_persona')
+    this.getAllfichasIncripcion(this.idPersona);
 
   }
   fichasList: any[] = [];
-  getAllfichasIncripcion() {
-    this.fichaIncripcionService.getAllFichaIncripcion().subscribe((data: any) => {
+  getAllfichasIncripcion(idPersona: any) {
+    this.fichaIncripcionService.getfichasbypersona(idPersona).subscribe((data: any) => {
       this.fichasList = data;
       console.log("Siiuu")
       console.log(this.fichasList)

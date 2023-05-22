@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { Dias } from 'src/app/Core/models/dias';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
@@ -6,10 +6,11 @@ import { DiasService } from 'src/app/shared/Services/dias.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
+import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
 import { ContenidocurservService } from 'src/app/shared/Services/DatosSilaboServ/contenidocurserv.service';
-import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
+
 import { ResultadosaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/resultadosaprendizajeserv.service';
 import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
 import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboServ/estrategiasmetserv.service';
@@ -23,15 +24,14 @@ import { Curso } from 'src/app/Core/models/curso';
 
 
 interface ResultadosAprendizajes {
-  rapId: number;
-  rapUnidadcompe: string;
-  rapResultadosaprenactiv: string;
-  rapElementoscompe: string;
-  rapFormaevidenciar: string;
-  rapEstado: boolean;
+  rapId: Number;
+  rapUnidadcompe: String;
+  rapResultadosaprenactiv: String;
+  rapElementoscompe: String;
+  rapFormaevidenciar: String;
+  rapEstado: Boolean;
   rapSilabo: Datossilabo;
 
- 
   
 }
 interface EvaluacionEpras {
@@ -76,28 +76,8 @@ interface EstrategiasMetodologicass {
   styleUrls: ['./edit-list-silabo.component.css']
 })
 export class EditListSilaboComponent {
-
-  agregarVinetas(): void {
-    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
-    textarea.value += "\u2022 "; // Agrega una viñeta al principio de la línea
-  }
-
-  agregarLine(): void {
-    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
-    textarea.value += "\n_____________________________________\n"; // Agrega una línea de división
-  }
-  agregarLinecome(): void {
-    const textarea = document.getElementById("elementos_competencias_{{i}}") as HTMLTextAreaElement;
-    textarea.value += "\n_____________________________________\n"; // Agrega una línea de división
-  }
-
-  agregarVinetasResultadoApren(): void {
-    const textarea = document.getElementById("ccuContenidos") as HTMLTextAreaElement;
-    textarea.value += "\u2022 "; // Agrega una viñeta al principio de la línea
-  }
-
-  textInput: string = '';
-
+  
+ 
   addBullet(inputBox:   HTMLTextAreaElement): void {
     inputBox.value += ' • ';
   }
@@ -105,236 +85,86 @@ export class EditListSilaboComponent {
   addLINE(inputBox:   HTMLTextAreaElement): void {
     inputBox.value += '_____________________________________________';
   }
-  mostrarVinetas = false;
-mostrarLinea = false;
-vinetaIndex: number | undefined;
-
-
-
-agregarVinetas2(rowIndex: number) {
-  // Asignar el índice de fila actual
-  this.vinetaIndex = rowIndex;
-
-  // Obtener el contenido actual de la fila
-  const currentContenido = this.contenidosCurso[this.vinetaIndex].ccuContenidos;
-
-  // Agregar las viñetas al contenido actual
-  const nuevoContenido = this.mostrarVinetas ? `${currentContenido}\n• ` : `• `;
-
-
-  // Actualizar el contenido en la fila actual
-  this.contenidosCurso[this.vinetaIndex].ccuContenidos = nuevoContenido;
-  this.vinetaIndex = undefined;
-
-}
-
-
-  
-
-
+ 
 
   silaboForm!: FormGroup;
 
 
-  
-  silabos: Datossilabo = new Datossilabo;
-  recurdidactico: RecursosDidacticos = new RecursosDidacticos;
+
+
   horasapren: HorasAprendizaje = new HorasAprendizaje;
 
- 
- 
 
+
+ ////////////////////////////////////////////////////////////////////////////////////////////
   evaluacioneprea: EvaluacionEpras[] = [];
 
   contenidosCurso: ContenidosCursos[] = [];
 
   estrategiasMetodologicas: EstrategiasMetodologicass[] = [];
 
+  resultadosAprendizajes: ResultadosAprendizajes[]=[];
 
-
-
-
-
-
-
-  resultadosAprendizajes: ResultadosAprendizaje[]=[];
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //LISTAR
-  dia?: Dias[];
-  di: Dias = new Dias(); 
-  selectedId: Dias = new Dias();
-
+//////////////////////////////// METODOS PARA CARGAR EN LA TABLA //////////////////////////////////////////////////////////
+  //SILABO ////////////////////////////////////////////////////////
   datossilan?: Datossilabo[];
   datos: Datossilabo = new Datossilabo(); 
   selectedIdsilabo: Datossilabo = new Datossilabo();
- //contenedor curso
+ 
+ //contenedor curso ////////////////////////////////////////////////////////
   contencurso: ContenidosCurso[]=[];
   contencur: ContenidosCurso = new ContenidosCurso(); 
   selectedIdcontenido: ContenidosCurso = new ContenidosCurso();
-// resultados de aprtendizaje 
-resultadosAprendizaje: ResultadosAprendizaje[]=[];
-  resultapren: ResultadosAprendizaje = new ResultadosAprendizaje(); 
-  selectedIdresultapren: ResultadosAprendizaje = new ResultadosAprendizaje();
-//estrategias
+  getContenidosPorSilaboId(silaboId: number): any[] {
+    return this.contencurso.filter(dataconten => dataconten.ccuSilabo.dsiId === silaboId);
+   
+  }
+// resultados de aprtendizaje  ////////////////////////////////////////////////////////
+resultaprendi: ResultadosAprendizaje = new ResultadosAprendizaje (); 
+
+
+  getContenidosResultadosAprendId(aprendoId: number): any[] {
+  return this.resultadosAprendizajes.filter(dataresult => dataresult.rapSilabo.dsiId === aprendoId);
+ 
+  }
+//estrategias ////////////////////////////////////////////////////////
   estrategiasmetodo: EstrategiasMetodologicas[]=[];
   estrategiasme: EstrategiasMetodologicas = new EstrategiasMetodologicas(); 
-  selectedIdestrategiameto: EstrategiasMetodologicas = new EstrategiasMetodologicas();
-// recursos didacticos 
-recursosDidacticos: RecursosDidacticos[]=[];
-recursosDidactic: RecursosDidacticos = new RecursosDidacticos(); 
-selectedIdrecurso: RecursosDidacticos = new RecursosDidacticos();
-// eva aprendi didacticos 
-evaluacionEpra: EvaluacionEpra[]=[];
-evaluacionEp: EvaluacionEpra = new EvaluacionEpra(); 
-selectedIdEVA: EvaluacionEpra = new EvaluacionEpra();
 
-
-  datossilabForm:any
-  arraysilba : Datossilabo[]=[];
-
-  seleccionarId(event: any) {
-    this.selectedId = event.target?.value ?? 0;
-  }
-  seleccionarIdcur(event: any) {
-    this.selectedIdsilabo = event.target?.value ?? 0;
-  }
-
-  seleccionarIdcont(event: any) {
-    this.seleccionarIdcont = event.target?.value ?? 0;
-  }
-  onSelectChange(eventTarget: EventTarget | null) {
-    const selectElement = eventTarget as HTMLSelectElement;
-    if (!selectElement) {
-      return; // Salimos de la función si no hay ningún elemento seleccionado
-    }
-
-    const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
-    this.selectedId.diaId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
-  }
-
-
-  onSelectChange2(eventTarget: EventTarget | null) {
-    const selectElement = eventTarget as HTMLSelectElement;
-    if (!selectElement) {
-      return; // Salimos de la función si no hay ningún elemento seleccionado
-    }
-
-    const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
-    this.selectedIdsilabo.dsiId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
-  }
-
-  onSelectChange3(eventTarget: EventTarget | null) {
-    const selectElement = eventTarget as HTMLSelectElement;
-    if (!selectElement) {
-      return; // Salimos de la función si no hay ningún elemento seleccionado
-    }
-
-    const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
-    this.selectedIdcontenido.ccuId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
-  }
-
-
-  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder, 
-    private datosilabserv:DatossilaboservService,private contencursoserv:ContenidocurservService,
-    private resultaprendiserv: ResultadosaprendizajeservService,private estrateserv:EstrategiasmetservService,
-    private recurdidacticoserv: RecursosdidacticosservService,
-    private evapraserv:EvaluaepraService, private formbuilder:FormBuilder ){
-    _CargarSc.carga3(["modal"])
-  }
-  sendData3(selectedValue2: number) {
-
-    const payload = { id: selectedValue2 };
-    this.diaserv.getPorId( payload).subscribe(
-      (response) => {
-        console.log('Solicitud POST enviada con éxito:', response);
-      },
-      (error) => {
-        console.log('Error al enviar la solicitud POST:', error);
-      }
-    );
-  }
-
-
-
-       
-
-
-
-  diaSeleccionada: Dias = new Dias;
-
-selecdia(dia: Dias,id:number) {
-  this.diaSeleccionada = dia;
-  this.di.diaId = dia.diaId
-  this.diaserv.getById(id).subscribe(
-    data =>{
-      console.log(data)
-    }
-  )
-}
-
-
-
-selecdtssilan: Datossilabo = new Datossilabo;
-
-selecnece(nece: Datossilabo,id:number) {
-  this.selecdtssilan = nece;
-  this.datos.dsiId = nece.dsiId
-
-  this.datosilabserv.getById(id).subscribe(
-    data =>{
-      console.log(data)
-      
-    }
-  )
-}
-filteredContencurso: any[] | undefined;
-
-getContenidosPorSilaboId(silaboId: number): any[] {
-  return this.contencurso.filter(dataconten => dataconten.ccuSilabo.dsiId === silaboId);
- 
-}
-getContenidosResultadosAprendId(aprendoId: number): any[] {
-  return this.resultadosAprendizaje.filter(dataresult => dataresult.rapSilabo.dsiId === aprendoId);
- 
-}
-
-getEstrategiasId(estrategiasId: number): any[] {
+  getEstrategiasId(estrategiasId: number): any[] {
   return this.estrategiasmetodo.filter(dataestrate => dataestrate.emeSilabo.dsiId === estrategiasId);
+ }
+// recursos didacticos  ////////////////////////////////////////////////////////
+  recursosDidacticos: RecursosDidacticos[]=[];
+  recursosDidactic: RecursosDidacticos = new RecursosDidacticos(); 
  
-}
-getrecurdidaIdb(recurdidaId: number): any[] {
-  return this.recursosDidacticos.filter(datarecursodida => datarecursodida.rdiSilabo.dsiId === recurdidaId);
- 
-}
-getevaId(evapraId: number): any[] {
-  return this.evaluacionEpra.filter(datareva => datareva.eraSilabo.dsiId === evapraId);
- 
-}
+  getrecurdidaIdb(recurdidaId: number): any[] {
+    return this.recursosDidacticos.filter(datarecursodida => datarecursodida.rdiSilabo.dsiId === recurdidaId); 
+  }
+// eva aprendi didacticos ////////////////////////////////////////////////////////
+  evaluacionEpra: EvaluacionEpra[]=[];
+  evaluacionEp: EvaluacionEpra = new EvaluacionEpra(); 
+  selectedIdEVA: EvaluacionEpra = new EvaluacionEpra();
+  getevaId(evapraId: number): any[] {
+      return this.evaluacionEpra.filter(datareva => datareva.eraSilabo.dsiId === evapraId);
+    }
 
 
+///////////////////////////////////////////CONSTRUCTOR//////////////////////////////////////////////////////////////
+  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,
+    private router : Router,private _CargarSc: CargarjsTemplatesService,
+    private formBuilder:FormBuilder, private datosilabserv:DatossilaboservService,
+    private contencursoserv:ContenidocurservService, private resultaprendiserv: ResultadosaprendizajeservService,
+    private estrateserv:EstrategiasmetservService, private recurdidacticoserv: RecursosdidacticosservService,
+    private evapraserv:EvaluaepraService, private formbuilder:FormBuilder){
+    _CargarSc.carga3(["modal"]),
+    _CargarSc.carga3(["tablasilab"])
+  }
 
-
+ /////////////////////////////////////////////////////ngOnInit///////////////////////////////////////////////////////////
 
 ngOnInit(): void {
- 
+
   // datos silabo
   this.datosilabserv.getAll().subscribe(Datosilab => {
     this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
@@ -345,23 +175,19 @@ ngOnInit(): void {
       // resultado de parendizaje 
        this.resultaprendiserv.getAll().subscribe(dataresult => {
         console.log(dataresult)
-         this.resultadosAprendizaje = dataresult.filter(dataresult => dataresult.rapEstado !== false );    
+         this.resultadosAprendizajes = dataresult.filter(dataresult => dataresult.rapEstado !== false );    
           // estategias metodologicas 
           this.estrateserv.getAll().subscribe(dataestrate => {
            console.log(dataestrate)
             this.estrategiasmetodo = dataestrate.filter(dataestrate => dataestrate.emeEstado !== false &&   dataestrate.emeSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataestrate.emeSilabo.dsiId) );
-    
-          
+          // RESULTADOS DE APRENDIZAJE 
             this.resultaprendiserv.getAll().subscribe(datare => {
               console.log(datare,"data resultado aprend")
             })
-       
-       
+
          });
 
       });
-
-
     });
      // Recursos didacticos
      this.recurdidacticoserv.getAll().subscribe(datarecursodida => {
@@ -380,22 +206,27 @@ ngOnInit(): void {
   });
   
 
-    this.silabos.dsiDescripcioncurso= '';
-    this.silabos.dsiPrerrequisitos = '';
-    this.silabos.dsiObjetivogeneralc = '';
-    this.silabos.dsiBibliografia = '';
-    this.silabos.dsiIdentificador = '';
-    this.silabos.dsiEstado = true;     
+    this.datos.dsiDescripcioncurso= '';
+    this.datos.dsiPrerrequisitos = '';
+    this.datos.dsiObjetivogeneralc = '';
+    this.datos.dsiBibliografia = '';
+    this.datos.dsiIdentificador = '';
+    this.datos.dsiEstado = true;     
     //recurso didactico
-    this.recurdidactico.rdiMateaudiovisula = '';    
-    this.recurdidactico.rdiMateconvencional = '';     
-    this.recurdidactico.rdiEstado = true;      
+    this.recursosDidactic.rdiMateaudiovisula = '';    
+    this.recursosDidactic.rdiMateconvencional = '';     
+    this.recursosDidactic.rdiEstado = true;      
     // horas aprendizaje
     this.horasapren.hapPracticas=0;
     this.horasapren.hapDocencia=0;
     this.horasapren.hapTrabajoAutonomo=0;
     this.horasapren.hapEstado=true;
-    //
+    //resultados
+    this.resultaprendi.rapElementoscompe='';
+     this.resultaprendi.rapFormaevidenciar='';
+     this.resultaprendi.rapResultadosaprenactiv='';
+    this.resultaprendi.rapUnidadcompe='';
+   this.resultaprendi.rapEstado=true;
 
 
 
@@ -500,17 +331,17 @@ eliminarFila(index: number) {
   this.resultadosAprendizajes.splice(index, 1);
 }
 public agregarFila() {
-  const nuevaFila: ResultadosAprendizajes = {
+  const nuevaFila: ResultadosAprendizaje = {
     rapId: 0,
     rapUnidadcompe: '',
     rapElementoscompe: '', // Asignar la propiedad "rapElementoscomp" aquí
     rapResultadosaprenactiv: '',
     rapFormaevidenciar: '',
     rapEstado:true,
-    rapSilabo: this.silabos ,
+    rapSilabo: this.datos ,
     
   };
-  this.resultadosAprendizaje.push(nuevaFila);
+  this.resultadosAprendizajes.push(nuevaFila);
 
   //evaluacion epra 
 }
@@ -525,7 +356,7 @@ public agregarFilaevaluaepra() {
     eraPorcentcalificacion: 0,
     eraTotal: 0,
     eraEstado:true,
-    eraSilabo: this.silabos ,
+    eraSilabo: this.datos ,
 
     
   };
@@ -550,7 +381,7 @@ public agregarFilaevacontenidocur() {
     ccuActividadtrabajoauto: '',
     ccuObservaciones: '',
     ccuEstado:true,
-    ccuSilabo: this.silabos ,
+    ccuSilabo: this.datos ,
   };
   this.contenidosCurso.push(nuevaFilacontent);
 }
@@ -565,24 +396,46 @@ public agregarFilaevaestrategia() {
     emeEstrategia: '',
     emeFinalidad: '',
     emeEstado:true,
-    emeSilabo: this.silabos ,
+    emeSilabo: this.datos ,
   };
   this.estrategiasMetodologicas.push(nuevaFilaestrategi);
 }
 
-dtsilabselec: Datossilabo = new Datossilabo;
-
-selecdatosilab(datossila: Datossilabo,id:number) {
+// Variables para almacenar los datos seleccionados
+public dtsilabselec: any;
+public dtresultselec: any;
+public dtcontenidoselec: any; 
+public registroSeleccionado: any;
+datossilabo: Datossilabo = new Datossilabo;
+selecdatosilab(datossila: any, id: number) {
+  this.registroSeleccionado = datossila;
   this.dtsilabselec = datossila;
-  this.dtsilabselec.dsiId = datossila.dsiId
+  this.dtsilabselec.dsiId = datossila.dsiId;
 
-  this.datosilabserv.getById(id).subscribe(
-    data =>{
-      console.log(data)
-      
-    }
-  )
+  // Obtener los datos de dataresult utilizando las funciones correspondientes
+  const dataresult = this.getContenidosResultadosAprendId(id)[0]; // Obtén el primer elemento de la lista
+  const idresult = dataresult.rapId;
+
+  this.dtresultselec = dataresult;
+  this.dtresultselec.rapId = idresult;
+
+  // Obtener los datos de datresult utilizando la función correspondiente
+  this.resultaprendiserv.getById(idresult).subscribe(datresult => {
+    console.log(datresult);
+  });
+
+  // Obtener los datos de dataconte utilizando las funciones correspondientes
+  const dataconte = this.getContenidosPorSilaboId(id)[0]; // Obtén el primer elemento de la lista
+  const iddata = dataconte.ccuId;
+  this.dtcontenidoselec = dataconte;
+  this.dtcontenidoselec.ccuId = idresult;
+
+  // Obtener los datos de dataconte utilizando la función correspondiente
+  this.contencursoserv.getById(iddata).subscribe(dataconte => {
+    console.log(dataconte);
+  });
 }
+
 
 editarsilabo(sialboedit:Datossilabo,id_silabo:number){
   
@@ -598,13 +451,29 @@ editarsilabo(sialboedit:Datossilabo,id_silabo:number){
         sialboedit.dsiBibliografia=this.dtsilabselec.dsiBibliografia
         sialboedit.dsiDescripcioncurso=this.dtsilabselec.dsiDescripcioncurso
         sialboedit.dsiId=this.dtsilabselec.dsiId
-        
-        
+
          console.log(data,"actualizado");
 
-        
-       
          this.dtsilabselec = data;
+         this.resultaprendiserv.update(this.dtresultselec,this.dtresultselec.rapId).subscribe(
+          data=>{
+            console.log(data,"resultado de apendizaje")
+            this.dtresultselec = data
+         
+         
+         
+          })
+          
+         this.contencursoserv.update(this.dtcontenidoselec,this.dtcontenidoselec.ccuId).subscribe(
+          data=>{
+            console.log(data,"contenido curso")
+            this.dtresultselec = data
+         
+         
+         
+          })
+
+
         },
        error => {
         console.error(error);})
@@ -686,5 +555,8 @@ eliminar(ncuId: number){
   //   )
   
   // }
+
+
+  
 
 }

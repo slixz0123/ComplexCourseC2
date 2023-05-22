@@ -105,61 +105,64 @@ selecnece(nece: NecesidadCurso,id:number) {
     data =>{
       console.log(data)
       
+      
     }
   )
+ 
+
+
 }
 
 ngOnInit(): void {
  
-  
-
   this.necesidadserv.getAll().subscribe(NecesidadCurso => {
      
     this.necesidadcurs = NecesidadCurso.filter(NecesidadCurso => NecesidadCurso.ncuEstado !== false);
    
   });
-
+ 
   this.neceForm = this.formBuilder.group({
-    ncuId: ['', Validators.required],
+    ncuLugardicta: ['', Validators.required],
+    ncuIdentificador: ['', Validators.required],
+    dia: ['', Validators.required],
     ncuFechaprevisfin: ['', Validators.required],
     ncuNumparticipantes: ['', Validators.required],
-    ncuIdentificador: ['', Validators.required],
     ncuResumenyproyecto: ['', Validators.required],
-    ncuLugardicta: ['', Validators.required],
-    ncuEstado: ['', Validators.required],
-    ncuPoblaciondirigida: ['', Validators.required],
+    ncuPoblaciondirigida: ['', Validators.required]
     
   });
 
-  this.getdias()
+
+
+  this.getdia()
 }
 
 
 
-
+getdia() {
+  this.diaserv.getAll().subscribe(clasedia => {
+    // Filtra los días deseados y asigna los resultados a `arraydias`
+    this.arraydias = clasedia.filter(clasedia => clasedia.diaEstado !== false);
+    console.log(this.arraydias)
+  });
+}
 
 
 
 
 
 eliminar(ncuId: number){
- 
- 
-   
- 
 
-
-   const swalWithBootstrapButtons = Swal.mixin({
+  const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: 'btn btn-success',
       cancelButton: 'btn btn-danger'
     },
     buttonsStyling: false
   })
-  
   swalWithBootstrapButtons.fire({
     title: 'Estas seguro que desas eliminar este registro?',
-    text: "Tu np podras revertir este cambio!",
+    text: "Tu no podras revertir este cambio!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: 'Si, Eliminar!',
@@ -172,74 +175,103 @@ eliminar(ncuId: number){
           console.log(data);
 
           this.necesidad = data;
- 
+          window.location.reload();
         }
       )
-
       swalWithBootstrapButtons.fire(
         'Eliminado!',
         'Tu registro se borró exitosmente.',
         'success',
       )
-      
-     
-      
-     
     } else if (
-      /* Read more about handling dismissals below */
+    
       result.dismiss === Swal.DismissReason.cancel
     ) {
       swalWithBootstrapButtons.fire(
         'Cancelado',
         'Tu registro de necesidad no se borró :)',
         'error'
-      )
-    }
-  })
-
-
-
-
-
-
-
-
+      )}
+    })
  }
 
 
-
-
-
-   editadia(neceedit:NecesidadCurso,id_dia:number){
-  
-    this.necesidadserv.getById(id_dia).subscribe(
-      data =>{
-        console.log(data ,"encontrado")
-         
-       this.necesidadserv.update(neceedit,neceedit.ncuId).subscribe(
-         data=>{
-          neceedit.ncuLugardicta=this.neceseleccionada.ncuLugardicta
-          neceedit.dia=this.neceseleccionada.dia
-          neceedit.ncuFechaprevisfin=this.neceseleccionada.ncuFechaprevisfin
-          neceedit.ncuNumparticipantes=this.neceseleccionada.ncuNumparticipantes
-          neceedit.ncuResumenyproyecto=this.neceseleccionada.ncuResumenyproyecto
-          neceedit.ncuPoblaciondirigida=this.neceseleccionada.ncuPoblaciondirigida
-          neceedit.ncuId=this.neceseleccionada.ncuId
-           console.log(data,"actualixado");
-  
-          
-         
-           this.necesidad = data;
-          },
-         error => {
-          console.error(error);})
-        },error => {
-        console.error(error);
-      }
-  
-    )
-  
+ actualizarnecesidad(neceedit: NecesidadCurso, id_dia: number): void {
+  if (this.neceForm.invalid) {
+    Swal.fire({
+      title: 'Campos inválidos',
+      text: 'Por favor, completa todos los campos obligatorios.',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Aceptar'
+    });
+    return;
   }
 
+  Swal.fire({
+    title: 'Confirmar edición',
+    text: '¿Estás seguro de que deseas editar este curso?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Editar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.necesidadserv.getById(id_dia).subscribe(
+        data => {
+          console.log(data, "encontrado");
+
+          this.necesidadserv.update(neceedit, neceedit.ncuId).subscribe(
+            data => {
+              neceedit.ncuLugardicta = this.neceseleccionada.ncuLugardicta;
+              neceedit.dia = this.neceseleccionada.dia;
+            
+              neceedit.ncuFechaprevisfin = this.neceseleccionada.ncuFechaprevisfin;
+              neceedit.ncuNumparticipantes = this.neceseleccionada.ncuNumparticipantes;
+              neceedit.ncuResumenyproyecto = this.neceseleccionada.ncuResumenyproyecto;
+              neceedit.ncuPoblaciondirigida = this.neceseleccionada.ncuPoblaciondirigida;
+              neceedit.ncuId = this.neceseleccionada.ncuId;
+              console.log(data, "actualizado");
+              this.necesidad = data;
+              window.location.reload();
+              Swal.fire({
+                title: 'Curso actualizado',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              });
+            },
+            error => {
+              Swal.fire({
+                title: 'Error al actualizar el curso',
+                text: 'Ha ocurrido un error al actualizar el curso. Por favor, intenta nuevamente.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              });
+            }
+          );
+
+        },
+        error => {
+          Swal.fire({
+            title: 'Error al obtener el curso',
+            text: 'Ha ocurrido un error al obtener el curso. Por favor, intenta nuevamente.',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      );
+
+    }
+  });
+
+  this.necesidadserv.getAll().subscribe(NecesidadCurso => {
+    this.necesidadcurs = NecesidadCurso.filter(NecesidadCurso => NecesidadCurso.ncuEstado !== false);
+  });
+}
 
 }

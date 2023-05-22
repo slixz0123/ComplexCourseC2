@@ -1,7 +1,7 @@
 export class TiposCurso {
 
-    tcuId?: number;
-    tcuNombre?: string;
-    tcuEstado?:boolean;
+    tcuId: number = 0;
+    tcuNombre: string = '';
+    tcuEstado:boolean = true;
     
   }

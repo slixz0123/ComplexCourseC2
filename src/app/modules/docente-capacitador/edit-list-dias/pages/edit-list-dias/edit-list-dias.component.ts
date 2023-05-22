@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Dias } from 'src/app/Core/models/dias';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-list-dias',
@@ -63,20 +64,60 @@ ngOnInit(): void {
 }
 
 eliminar(id_dia: number){
+
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  })
+  
+  swalWithBootstrapButtons.fire({
+    title: 'Estas seguro que desas eliminar este registro?',
+    text: "Tu no podras revertir este cambio!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Si, Eliminar!',
+    cancelButtonText: 'No, Cancelar!',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+     this.diaserv.delete(this.di,id_dia).subscribe(
+       data=>{
+         console.log(data);
+         this.di = data;
+         window.location.reload();})
  
- 
-   this.diaserv.delete(this.di,id_dia).subscribe(
-     data=>{
-       console.log(data);
- 
- 
-       this.di = data;
-       window.location.reload();
-       
-     }
-   )
- 
+      swalWithBootstrapButtons.fire(
+        'Eliminado!',
+        'Tu registro se borró exitosmente.',
+        'success',
+      )
+      
+     
+      
+     
+    } else if (
+    
+      result.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado',
+        'Tu registro de necesidad no se borró :)',
+        'error'
+      )
+    }
+  })
  }
+
+
+
+
+
+
+
+
  buscarporid(id_dia: number){
    this.di.diaId = this.di.diaId
    this.diaserv.getById(id_dia).subscribe(

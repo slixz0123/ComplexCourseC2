@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -50,6 +50,12 @@ export class AuthComponent {
 
 
    }
+   goTosupAdmin() :void{
+
+    this.router.navigate(['/Sup-Admin'])
+
+
+   }
 // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
    goToCapacitador() :void{
 
@@ -69,53 +75,48 @@ export class AuthComponent {
 En este metodo llamado login recibe un parametro de tipo any en este caso form en la cual  nos ayudara ingresar 
 
 */
-  login(form: any) {
-    /*
-Se utiliza el metodo login ubicado en el servicio  UserServiceService en la cual realiza una consulta a la api 
- en la que recibe el parametro de username y password  ubacdos en el objeto de usuario 
-    */
-    this.usuarioService.login(this.usuario.username, this.usuario.password).subscribe(
-      (data:any) => {
-        console.log(data);
+login(form: any) {
+  this.usuarioService.login(this.usuario.username, this.usuario.password).subscribe(
+    (data: any) => {
+      if (data != null) {
+        if (data.id_usuario) {
+          this.usuario.id_usuario = data.id_usuario;
+          localStorage.setItem('id_persona', String(data.persona?.id_persona));
+          localStorage.setItem('id_usuario', String(data.id_usuario));
+          this.iRol = data.rol.rolNombre;
 
-        // valida que el resultado de la consulta no sea nulo es decir data debe ser diferente a null 
-        if (data != null) {
-        // se  valida que si este usuario tiene un id_usuario compile la continuacion del codigo 
-          if (data.id_usuario) {
-
-            this.usuario.id_usuario = data.id_usuario; // asignamos la data.id_usuario a this.usuario.id_usuario
-
-            localStorage.setItem('id_persona', String( data.persona?.id_persona)); // se utiliza el localStorage para guardar el id_persona y para poder realizar la transaccionalidad 
-
-              this.iRol = data.rol.rolNombre; //se asigna la  data.rol.rolNombre a la variable iRol para realizar el redireccionamiento de nuestra pagina 
-            // this.cookieservice.set('token_acces',data.accessToken,4,'/')
-              // condiciona y valida que si el rol tiene un valor de ADMINISTRADOR nos redirije a la ruta del administrador devido a que se encuentra el metodo de redireccion 
-              if(this.iRol == "Participante"){
-               this.goToParticipante()
-              } // en caso de que no se cumpla la condicion esta misma ejecuta el emtodo que redirecciona al usuario a la pagina con privilegios de cliente 
-              else if(this.iRol == "Admin"){
-                this.goToAdmin()
-              }else if(this.iRol == "Docente"){
-                this.goToCapacitador()
-              }
-          // en caso de que el usario no contenga un id lanza un mensaje por consola 
-          } else {
-            console.log("Usuario inhabilitado, no puede ingresar!", "Advertencia!");
-            this.usuario = new Usuario;
-        
-          }
-  // en caso de que el usario o la contraseña sean incorrectos lanzara un mennsaje por consola   // en caso de que el usario o la contraseña sean incorrectos lanzara un mennsaje por consola 
+          Swal.fire({
+            title: 'Inicio de sesión exitoso',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+          }).then(() => {
+            if (this.iRol == 'Participante') {
+              this.goToParticipante();
+            } else if (this.iRol == 'Admin') {
+              this.goToAdmin();
+            } else if (this.iRol == 'Supadmin') {
+              this.goTosupAdmin();
+            } else if (this.iRol == 'Docente') {
+              this.goToCapacitador();
+            }
+          });
         } else {
-          console.log("USERNAME O PASSWORD INCORRECTOS!", "Login");
-          this.usuario = new Usuario;
-      
-
+          Swal.fire({
+            title: 'Usuario inhabilitado, no puede ingresar',
+            icon: 'warning'
+          });
+          this.usuario = new Usuario();
         }
-
+      } else {
+        Swal.fire({
+          title: 'USERNAME O PASSWORD INCORRECTOS',
+          icon: 'error'
+        });
+        this.usuario = new Usuario();
       }
-    )
-  }
-
-
+    }
+  );
+}
 
 }

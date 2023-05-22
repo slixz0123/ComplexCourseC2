@@ -9,6 +9,7 @@ import { InformeFinal } from 'src/app/Core/models/informeFinal';
 export class InformeFinalService {
 
   private URL = "http://localhost:8080/api/informefinal";
+  private URLReporte = "http://localhost:8080/api/reporteInformefinal";
 
   constructor(private http: HttpClient) { }
 
@@ -28,6 +29,10 @@ export class InformeFinalService {
     return this.http.put<InformeFinal>(`${this.URL}/Actualizar/` + idInformefinal, informefinal);
   }
 
-
+  public printInformeFinalCurso(informeFinal: InformeFinal): Observable<any> {
+    return this.http.post(`${this.URLReporte}/generarReporte`, informeFinal, {
+      responseType: 'blob'
+    });
+  }
 }
 
