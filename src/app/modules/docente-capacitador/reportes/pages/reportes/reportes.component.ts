@@ -8,6 +8,8 @@ import { AfterViewInit } from '@angular/core';
 import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
 import { AsistenciaCursoService } from 'src/app/shared/Services/asistenciaCurso.service';
 import { CursoService } from 'src/app/shared/Services/curso.service';
+import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
+import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 
 
 @Component({
@@ -16,6 +18,7 @@ import { CursoService } from 'src/app/shared/Services/curso.service';
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent {
+
   informeFinal : InformeFinal = new InformeFinal; // instancia de la clase informe finla
   asistenciaCurso: AsistenciaCurso = new AsistenciaCurso; // instancia de la clase asistencia curso
   curso: Curso = new Curso; // instancia de la clase asistencia curso
@@ -23,7 +26,7 @@ export class ReportesComponent {
   idInformefinal: any;
   idAsistenciaCurso: any;
   estado: boolean = true;
-  
+
   showContainer1: boolean = true;
   showContainer2: boolean = false;
   showContainer3: boolean = false;
@@ -33,6 +36,7 @@ export class ReportesComponent {
     private informeFinalServ : InformeFinalService,
     private cursoService: CursoService,
     private asistenciaCursoServ : AsistenciaCursoService,
+    private silaboServ: DatossilaboservService
   ){
 
   }
@@ -44,13 +48,12 @@ export class ReportesComponent {
     this.idPersona= localStorage.getItem('id_persona');
     this.mostrarCursos(this.idPersona);
   }
- 
   saveInformefinal() {
 
     this.informeFinal.curso= this.curso;
     this.informeFinal.ifiEstado=this.estado;
     console.log(this.informeFinal)
-    this.informeFinalServ.saveInformefinal(this.informeFinal).subscribe(   
+    this.informeFinalServ.saveInformefinal(this.informeFinal).subscribe(
       (data: any) => {
         console.log('a verrr' + data);
       },
@@ -59,6 +62,26 @@ export class ReportesComponent {
       }
     );
   }
+
+  public imprimirReporteFinal(informefinal: InformeFinal) {
+    this.informeFinalServ.printInformeFinalCurso(informefinal).subscribe((data: Blob) => {
+      const url = URL.createObjectURL(data);
+
+      // Crear un enlace de descarga
+      const downloadLink = document.createElement('a');
+      downloadLink.href = url;
+      downloadLink.download = 'reporteFinalCurso.pdf';
+
+      // Agregar el enlace al DOM y hacer clic en él
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+
+      // Limpiar y revocar el objeto URL creado
+      URL.revokeObjectURL(url);
+      document.body.removeChild(downloadLink);
+    });
+  }
+
   informefinalList: any[] = [];
   public AllInformesFinal() {
 
@@ -66,7 +89,6 @@ export class ReportesComponent {
       this.informefinalList = data;
       console.log("aquiiii")
       console.log(data)
-
     });
   }
 
@@ -85,7 +107,7 @@ export class ReportesComponent {
     this.asistenciaCurso.curso= this.curso;
     this.asistenciaCurso.acuEstado=this.estado;
     console.log(this.asistenciaCurso)
-    this.asistenciaCursoServ.saveAsistenciaCurso(this.asistenciaCurso).subscribe(   
+    this.asistenciaCursoServ.saveAsistenciaCurso(this.asistenciaCurso).subscribe(
       (data: any) => {
         console.log('a verrr' + data);
       },
@@ -120,6 +142,26 @@ export class ReportesComponent {
       this.cursosList = data;
       console.log("Siiuu Curso")
       console.log(this.cursosList)
+    });
+  }
+
+  public imprimirSilabo(curso: Curso) {
+    console.log(curso);
+    this.silaboServ.printSilabo(curso).subscribe((data: Blob) => {
+      const url = URL.createObjectURL(data);
+
+      // Crear un enlace de descarga
+      const downloadLink = document.createElement('a');
+      downloadLink.href = url;
+      downloadLink.download = 'Silabo.pdf';
+
+      // Agregar el enlace al DOM y hacer clic en él
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+
+      // Limpiar y revocar el objeto URL creado
+      URL.revokeObjectURL(url);
+      document.body.removeChild(downloadLink);
     });
   }
 

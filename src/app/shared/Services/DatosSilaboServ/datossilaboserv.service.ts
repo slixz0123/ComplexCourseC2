@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
 import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
+import { Observable } from 'rxjs';
+import { Curso } from 'src/app/Core/models/curso';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +12,13 @@ export class DatossilaboservService {
   private URL = "http://localhost:8080/api/DatosSilabo/buscar/";
   private URL1 = "http://localhost:8080/api/DatosSilabo/";
   private URL2 = "http://localhost:8080/api/DatosSilabo/crear";
+  private URLReporte = "http://localhost:8080/api/reporteSilabo";
   private items: ResultadosAprendizaje[] = [];
 
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 getItems(): ResultadosAprendizaje[] {
   return this.items;
 }
@@ -47,4 +50,10 @@ update(dtssilab: Datossilabo, iddts: number) {
 getPorId(iddtssil: any) {
   return this.http.get<Datossilabo>(this.URL + iddtssil);
 }
+public printSilabo(curso: Curso): Observable<any> {
+  return this.http.post(`${this.URLReporte}/imprimirSilabo`, curso, {
+    responseType: 'blob'
+  });
+}
+
 }
