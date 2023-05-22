@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
+import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
 import Swal from 'sweetalert2';
 
@@ -108,5 +109,45 @@ export class ModalidadCursoComponent {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
 
+   /////validaciones
+   validar: claseValidaciones = new claseValidaciones();
+   todosCamposVacios: boolean = true;
+ 
+   convertirPrimeraLetraMayuscula() {
+     if (this.modalidadSeleccionada.mcuNombre) {
+       const nombre = this.modalidadSeleccionada.mcuNombre.trim();
+       const palabras = nombre.split(' ');
+       const palabrasCapitalizadas = palabras.map(palabra => {
+         const primeraLetraMayuscula = palabra.charAt(0).toUpperCase() + palabra.slice(1);
+         return primeraLetraMayuscula;
+       });
+       const resultado = palabrasCapitalizadas.join(' ');
+       this.modalidadSeleccionada.mcuNombre = resultado;
+     }
+     if (
+       !this.modalidadSeleccionada.mcuNombre
+     ) {
+       this.todosCamposVacios = true; // Todos los campos están vacíos
+     } else {
+       this.todosCamposVacios = false; // Al menos un campo no está vacío
+     }
+   }
+ 
+   validarInputNombre() {
+     if (this.modalidadSeleccionada.mcuNombre) {
+       const valid = this.validar.validarLetras(this.modalidadSeleccionada.mcuNombre);
+       if (valid) {
+         this.modalidadSeleccionada.mcuNombre = '';
+         Swal.fire({
+           title: 'Advertencia',
+           timer: 700,
+           text: 'El nombre solo debe contener letras',
+           icon: 'warning',
+         });
+       } else {
+       }
+     }
+   }
+ 
 
 }
