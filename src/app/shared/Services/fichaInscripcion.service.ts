@@ -30,7 +30,7 @@ export class FichaIncripcionService {
     return this.http.put<FichaInscripcion>(`${this.URL}/actualizar/` + idFichaInscripcio, fichaInscripcion);
   }
 
-<<<<<<< Updated upstream
+
   public getfichasbypersona(idPersona: any){
     return this.http.get<any>(`${this.URL}/fichasbypersona/` + idPersona);
   }
@@ -39,8 +39,8 @@ export class FichaIncripcionService {
     const url = `${this.URL}/fichasbycurso/${curId}`;
     return this.http.get<FichaInscripcion[]>(url);
   }
-}
-=======
+
+
   public printFichaInscripcion(ficha: FichaInscripcion): Observable<any> {
     return this.http.post(`${this.URLFicha}/generarReporte`, ficha, {
       responseType: 'blob'
@@ -50,5 +50,6 @@ export class FichaIncripcionService {
   public getFichaIncripcionByCurId(curId: any): Observable<FichaInscripcion> {
     return this.http.get<FichaInscripcion>(`${this.URL}/buscarPorCurso/` + curId);
   }
+
+
 }
->>>>>>> Stashed changes
