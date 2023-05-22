@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
-                                        placeholder="Ingrese su cedula" name="cedula" [(ngModel)]="persona.cedula">
+                                        placeholder="Ingrese su cedula" name="cedula" [(ngModel)]="persona.cedula" (blur)="validarInputCedula()" (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputNombre"
-                                        placeholder="Ingrese su nombre" name="nombre" [(ngModel)]="persona.nombre">
+                                        placeholder="Ingrese su nombre" name="nombre" [(ngModel)]="persona.nombre" (keydown)="validarInputNombre()" (input)="convertirPrimeraLetraNombre()">
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputApellido"
                                         placeholder="Ingrese su apellido" name="apellido"
-                                        [(ngModel)]="persona.apellido">
+                                        [(ngModel)]="persona.apellido" (keydown)="validarInputApellido()" (input)="convertirPrimeraLetraMayuscula()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -78,7 +78,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="date" class="form-control" id="inputApellido"
                                         placeholder="Ingrese su apellido" name="fecha_nacimiento"
-                                        [(ngModel)]="persona.fecha_nacimiento">
+                                        [(ngModel)]="persona.fecha_nacimiento" [max]="fechaActual"
+                                        (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -88,7 +89,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="email" class="form-control" id="inputEmail"
                                         placeholder="Ingrese su correo electrónico" name="email"
-                                        [(ngModel)]="persona.email">
+                                        [(ngModel)]="persona.email" (blur)="validarInputEmail()"
+                                        (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -98,7 +100,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputDireccion"
                                         placeholder="Ingrese su dirección" name="direccion"
-                                        [(ngModel)]="persona.direccion">
+                                        [(ngModel)]="persona.direccion" (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -108,7 +110,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="tel" class="form-control" id="inputTelefono"
                                         placeholder="Ingrese su teléfono" name="telefono"
-                                        [(ngModel)]="persona.telefono">
+                                        [(ngModel)]="persona.telefono" (keydown)="validarTelf()"
+                                        (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -117,7 +120,9 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="tel" class="form-control" id="inputCelular"
-                                        placeholder="Ingrese su celular" name="celular" [(ngModel)]="persona.celular">
+                                        placeholder="Ingrese su celular" name="celular" 
+                                        [(ngModel)]="persona.celular" (keydown)="validarCel()"
+                                        (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -126,7 +131,9 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.etnia">
+                                        placeholder="Ingrese su etnia" name="etnia"
+                                         [(ngModel)]="persona.etnia" (keydown)="validarEtnia()"
+                                         (input)="verificarCamposVacios()">
                                 </div>
                             </div>
 
@@ -135,7 +142,7 @@
                                     <h6 class="mb-0">Sexo</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo">
+                                    <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo" (input)="verificarCamposVacios()">
                                         <option selected>Seleccione una opción...</option>
                                         <option>Masculino</option>
                                         <option>Femenino</option>
@@ -149,7 +156,7 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputSexo" class="form-control" name="nivelintruccion"
-                                        [(ngModel)]="persona.nivelintruccion">
+                                        [(ngModel)]="persona.nivelintruccion" (input)="verificarCamposVacios()">
                                         <option selected>Seleccione una opción...</option>
                                         <option>Primaria</option>
                                         <option>Secundaria</option>
@@ -166,13 +173,14 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.hojavida">
+                                        placeholder="Ingrese su etnia" name="etnia" 
+                                        [(ngModel)]="persona.hojavida" (input)="verificarCamposVacios()">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button (click)="onSubmit()">Guardar Cambios</button>
+                                    <Span></Span> <button (click)="onSubmit()" [disabled]="todosCamposVacios">Guardar Cambios</button>
                                     <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
                                 </div>
                             </div>
