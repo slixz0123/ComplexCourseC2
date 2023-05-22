@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  //Registro participantes
+  {
+    path: 'register-participante',
+    loadChildren: () => import("./register-participante/register-participante.module").then(m => m.RegisterParticipanteModule)
+  },
   //home de capacitador
   {
     path: '',
