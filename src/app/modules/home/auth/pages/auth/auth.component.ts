@@ -52,7 +52,7 @@ export class AuthComponent {
    }
    goTosupAdmin() :void{
 
-    this.router.navigate(['/Sup-Admin'])
+    this.router.navigate(['/Supadmin'])
 
 
    }
