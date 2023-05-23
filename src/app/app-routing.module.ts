@@ -38,11 +38,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule)
   },
   {
-    path: 'Supadmin',
+    path: 'Sup-Admin',
     canActivate: [AdminGuard],
     component: WelcomeSupAdminComponent,
     data: {
-      expectedRole: 'Supadmin'
+      expectedRole: 'Sup-Admin'
     },
     loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
