@@ -689,6 +689,30 @@
         <li class="nav-item">
           <a
             class="nav-link collapsed"
+            data-bs-target="#fichaEva-nav"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i class="bi bi-gem"></i><span>Fichas de Evaluación</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="fichaEva-nav"
+            class="nav-content collapse"
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <a (click)="goToregisFichaEva($event)">
+                <i class="bi bi-circle"></i><span>Registrar Ficha Evaluación</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- End Charts Nav -->
+
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
             data-bs-target="#chacrts-nav"
             data-bs-toggle="collapse"
             href="#"

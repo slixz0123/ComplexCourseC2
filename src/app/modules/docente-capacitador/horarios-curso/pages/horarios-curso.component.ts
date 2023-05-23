@@ -27,7 +27,7 @@ export class HorariosCursoComponent {
   showContainer1: boolean = true;
   showContainer2: boolean = false;
   selectedCursoId!: number;
-
+  horariosCurList: any[] = [];
 
   constructor(private cursoService: CursoService, private formBuilder: FormBuilder, private horarioCurServ: HorarioCursoService, private horarioServ: horarioService) { }
 
@@ -54,11 +54,10 @@ export class HorariosCursoComponent {
   }
 
   getHorariosByCurso(idCurso: number): void {
-    this.horarioCurSeleccionado.hcurso.curId = idCurso;    
+    this.horarioCurSeleccionado.hcurso.curId = idCurso;
     this.horarioCurServ.getAllHorariosByCurso(idCurso).subscribe(
       horarios => {
-        this.horariosCur = horarios;
-        console.log(this.horariosCur); // Verificar los datos recibidoss
+        this.horariosCur = horarios.filter((horarioCur: HorarioCurso) => horarioCur.hcuEstado === true);
       },
       error => {
         console.log("Error al obtener los horarios del curso");
@@ -66,6 +65,7 @@ export class HorariosCursoComponent {
       }
     );
   }
+  
   
   
 
@@ -93,7 +93,6 @@ export class HorariosCursoComponent {
           text: 'El horario ha sido asignado al curso correctamente.',
           confirmButtonText: 'Aceptar'
         });
-        this.horarioCurForm.reset();
 
       });
     } else { 

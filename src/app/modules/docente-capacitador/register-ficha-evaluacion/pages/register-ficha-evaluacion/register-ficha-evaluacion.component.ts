@@ -15,6 +15,7 @@ import { DetalleFichaevaluacionService } from 'src/app/shared/Services/detalleFi
 import { Curso } from 'src/app/Core/models/curso';
 import { DetalleFichaevaluacion } from 'src/app/Core/models/detalleFichaevaluacion';
 import Swal from 'sweetalert2';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 
 class Category {
   name: string = '';
@@ -35,6 +36,17 @@ export class RegisterFichaEvaluacionComponent {
   addQuestionForm: FormGroup;
   selectedCategoryName = '';
   questionIdCounter = 1;
+  curso: Curso = new Curso; // instancia de la clase asistencia curso
+  idPersona: any;
+  estado: boolean = true;
+  fichaSeleccionada: FichaEvaluacion = new FichaEvaluacion();
+  selectedCursoId!: number;
+
+
+  showContainer1: boolean = true;
+  showContainer2: boolean = false;
+  showContainer3: boolean = false;
+  showContainer4: boolean = false;
 
   @Input() isModalVisible = false;
   @Output() onClose = new EventEmitter<void>();
@@ -42,19 +54,26 @@ export class RegisterFichaEvaluacionComponent {
 
   constructor(
     private serviceFichaEvaluacion: FichaEvaluacionService,
-    private serviceDetalleFichaEvaluacion: DetalleFichaevaluacionService
+    private serviceDetalleFichaEvaluacion: DetalleFichaevaluacionService,
+    private cursoService: CursoService
   ) {
     this.addQuestionForm = new FormGroup({
       newQuestionInput: new FormControl(''),
     });
   }
 
+  ngOnInit(): void {
+    this.idPersona = localStorage.getItem('id_persona');
+    this.mostrarCursos(this.idPersona);
+  }
+
+
   async saveCategories() {
     const saveData = async () => {
       for (const category of this.categories) {
         const fichaEvaluacion = new FichaEvaluacion();
         const curso = new Curso();
-        curso.curId = 2;
+        curso.curId = this.selectedCursoId;
         fichaEvaluacion.fevNombre = category.name;
         fichaEvaluacion.fevCurso = curso;
         fichaEvaluacion.fevEstado = true;
@@ -104,8 +123,10 @@ export class RegisterFichaEvaluacionComponent {
           position: 'center',
           icon: 'success',
           title: 'Ficha de Evaluación guardado correctamente',
-          confirmButtonText: 'IMPRIMIR',
+          confirmButtonText: 'ACEPTAR',
         });
+        this.showContainer1=true;
+        this.showContainer2=false;
       }
     });
   }
@@ -189,5 +210,21 @@ export class RegisterFichaEvaluacionComponent {
         timer: 1500,
       });
     }
+  }
+
+  cursosList: any[] = [];
+  mostrarCursos(idPersona: any) {
+    this.cursoService.cursosporDocente(idPersona).subscribe((data: any) => {
+      // Filtrar los datos por estado diferente a finalizado
+      this.cursosList = data.filter((curso: Curso) => curso.curProceso !== 'Finalizado');
+    });
+  }
+
+  selectCurso(cursoId: number): void {   
+    this.fichaSeleccionada.fevCurso.curId = cursoId; 
+    this.selectedCursoId = cursoId;
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+
   }
 }

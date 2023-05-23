@@ -202,6 +202,13 @@ export class SideBarComponent {
       this.router.navigate(['Capacitador/horario-cursos'])
       console.log($event)
      }
+
+     //////////////////////////////////////////////////////////////////
+    goToregisFichaEva($event: any) :void{
+
+      this.router.navigate(['Capacitador/register-fichaEvaluacion'])
+      console.log($event)
+     }
      id: any;
      nombreUsuario: any;
      nombreRol: any;
