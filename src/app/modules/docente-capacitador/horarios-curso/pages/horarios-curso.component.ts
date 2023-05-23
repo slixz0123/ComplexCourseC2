@@ -21,9 +21,9 @@ export class HorariosCursoComponent {
   horariosCur: HorarioCurso[] = [];
   editando: boolean = false;
   isNew: boolean = true; // Definición de la propiedad isNew
-  horarioCurForm: FormGroup | undefined;
+  horarioCurForm!: FormGroup;
   submitted = false;
-
+  horariosCurso: any[] = [];
   showContainer1: boolean = true;
   showContainer2: boolean = false;
   selectedCursoId!: number;
@@ -35,8 +35,6 @@ export class HorariosCursoComponent {
     this.idPersona = localStorage.getItem('id_persona');
     this.mostrarCursos(this.idPersona);
     this.getHorarios();
-    console.log(this.selectedCursoId);
-    
   }
 
   mostrarCursos(idPersona: any) {
@@ -51,19 +49,24 @@ export class HorariosCursoComponent {
     this.selectedCursoId = cursoId;
     this.showContainer1 = false;
     this.showContainer2 = true;
-    console.log(this.selectedCursoId);
+    this.getHorariosByCurso(this.selectedCursoId);    
 
   }
 
-  getHorariosByCurso(idCurso: any) {
-    this.selectedCursoId = idCurso;
-    this.horarioCurServ.horariobycurso(idCurso).subscribe(
+  getHorariosByCurso(idCurso: number): void {
+    this.horarioCurSeleccionado.hcurso.curId = idCurso;    
+    this.horarioCurServ.getAllHorariosByCurso(idCurso).subscribe(
       horarios => {
-        console.log(idCurso);
-        console.log(horarios);
-        
-      });
+        this.horariosCur = horarios;
+        console.log(this.horariosCur); // Verificar los datos recibidoss
+      },
+      error => {
+        console.log("Error al obtener los horarios del curso");
+        console.log(error);
+      }
+    );
   }
+  
   
 
   editarHorarioCur(horarioCur: HorarioCurso): void {
@@ -78,6 +81,7 @@ export class HorariosCursoComponent {
 
   submitForm(): void {
     if (this.isNew) { 
+      this.horarioCurSeleccionado.hcurso.curId = this.selectedCursoId; // Asignar el ID del curso seleccionado
       this.horarioCurServ.create(this.horarioCurSeleccionado).subscribe(() => {
             this.getHorariosByCurso(this.selectedCursoId);
 ;
@@ -89,6 +93,8 @@ export class HorariosCursoComponent {
           text: 'El horario ha sido asignado al curso correctamente.',
           confirmButtonText: 'Aceptar'
         });
+        this.horarioCurForm.reset();
+
       });
     } else { 
       Swal.fire({

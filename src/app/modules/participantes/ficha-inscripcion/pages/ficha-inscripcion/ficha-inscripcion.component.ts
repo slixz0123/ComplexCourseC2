@@ -46,7 +46,7 @@ this.fichaInscripcion.finAuspiciadoinst=true
   //   this.mostrarSegundoDiv = this.fichaInscripcion.finAuspiciadoinst;
   // }
   public mostrarDatosp(){
-    this.personaService.getPorId(2).subscribe(
+    this.personaService.getPorId(this.id_persona).subscribe(
         (data: any) => {
           const fechai = new Date(data.fecha_nacimiento);
           const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"

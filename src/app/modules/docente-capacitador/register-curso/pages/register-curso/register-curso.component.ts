@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Curso } from 'src/app/Core/models/curso';
 import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
@@ -57,7 +58,8 @@ export class RegisterCursoComponent implements OnInit {
     private disenoCurrServ: DisenoCurricularService,
     private personaServ: PersonaService,
     private programaCapacitacionService: ProgramaCapacitacionService,
-    private formbuilder: FormBuilder
+    private formbuilder: FormBuilder,
+    private router : Router
   ) { }
 
   ngOnInit(): void {
@@ -284,6 +286,7 @@ generarcodigoFoto(){
 
   crearcurso() {
     this.generarcodigoFoto();
+    this.cursoSeleccionado.curProceso = "Próximamente";
     const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
     const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
@@ -356,9 +359,14 @@ generarcodigoFoto(){
       });
     });
     this.getCursos();
+    this.goToeditprofile(event);
   }
 
+  goToeditprofile($event: any) :void{
 
+    this.router.navigate(['Capacitador/edit-list-curso'])
+    console.log($event)
+   }
 
 
 

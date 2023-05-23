@@ -178,12 +178,28 @@
                   cursodiseno.dcuIdentificador }}</option>
               </select>
             </div>
-            <div class="col-md-4">
+            <div class="mb-3">
               <label>Seleccione una nueva foto</label>
-              <input type="file" (change)="onEditFileChange($event)" accept="image/*" class="form-control">
-              <img [src]="editImagePreview" alt="Vista previa de la imagen" class="img-thumbnail" *ngIf="editImagePreview">
+              <label for="photo" class="form-label">Foto</label>
+              <input
+                type="file"
+                #editPhotoInput
+                class="form-control"
+                formControlName="curFoto"
+                id="photoModal"
+                accept="image/*"
+                (change)="onEditFileChange($event)"
+              />
             </div>
-            
+            <div class="mb-3">
+              <img
+                *ngIf="editImagePreview"
+                class="img-thumbnail"
+                [src]="editImagePreview"
+                alt="Previsualización de la foto"
+                id="preview"
+              />
+            </div>
           </div>
         </div>
         <button (click)="actualizarCurso()" type="submit" class="btn btn-primary">Actualizar</button>

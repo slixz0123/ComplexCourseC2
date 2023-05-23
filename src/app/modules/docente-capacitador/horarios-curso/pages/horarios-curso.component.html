@@ -74,26 +74,27 @@
                     <h2>Horario/s del Curso</h2>
                     <table class="table">
                         <thead>
-                            <tr class="bg-primary text-light">
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Horario Inicio/Fin</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
+                          <tr class="bg-primary text-light">
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Horario Inicio/Fin</th>
+                            <th scope="col">Acciones</th>
+                          </tr>
                         </thead>
                         <tbody>
-                            <ng-container *ngFor="let horarioCur of horariosCur">
-                              <!-- Filtrar los horarios por el ID del curso seleccionado -->
-                              <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId">
-                                <td>{{ horarioCur.hcuNombre }}</td>
-                                <td>{{ horarioCur?.horario?.horInicio }} - {{ horarioCur?.horario?.horFin }}</td>
-                                <td>
-                                  <button class="btn btn-primary" (click)="editarHorarioCur(horarioCur)">Editar</button>
-                                  <button class="btn btn-danger" (click)="eliminarHorarioCur(horarioCur.hcuId)">Eliminar</button>
-                                </td>
-                              </tr>
-                            </ng-container>
-                          </tbody>
-                    </table>
+                          <ng-container *ngFor="let horarioCur of horariosCur">
+                            <!-- Filtrar los horarios por el ID del curso seleccionado -->
+                            <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId">
+                              <td>{{ horarioCur.hcuNombre }}</td>
+                              <td>{{ horarioCur?.horario?.horInicio }} - {{ horarioCur?.horario?.horFin }}</td>
+                              <td>
+                                <button class="btn btn-primary" (click)="editarHorarioCur(horarioCur)">Editar</button>
+                                <button class="btn btn-danger" (click)="eliminarHorarioCur(horarioCur.hcuId)">Eliminar</button>
+                              </td>
+                            </tr>
+                          </ng-container>
+                        </tbody>
+                      </table>
+                      
                 </div>
             </div>
         </div>

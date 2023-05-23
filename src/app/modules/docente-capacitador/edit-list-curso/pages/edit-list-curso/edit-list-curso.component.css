@@ -4,5 +4,9 @@
     margin: 5px;
     border: 1px solid #ccc;
   }
-  
+  #preview {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+  }
   

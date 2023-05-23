@@ -7,7 +7,6 @@ import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
 import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
-import { Persona } from 'src/app/Core/models/persona';
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
@@ -15,7 +14,6 @@ import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricula
 import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
 import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
-import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 import { TipoCursoService } from 'src/app/shared/Services/tipoCurso.service';
 import Swal from 'sweetalert2';
@@ -50,6 +48,7 @@ export class EditListCursoComponent {
   disenosCurriculares!: any[]; // Variable para almacenar los diseños curriculares
   personas!: any[]; // Variable para almacenar las personas
   editImagePreview: any;
+  selectedFoto?: Curso;
 
 
   cursoSelec = {
@@ -80,7 +79,6 @@ export class EditListCursoComponent {
     private datosSilServ: DatossilaboservService,
     private necesidadServ: NecesidadCursoService,
     private disenoCurrServ: DisenoCurricularService,
-    private personaServ: PersonaService,
     private programaCapacitacionService: ProgramaCapacitacionService,
     private formbuilder: FormBuilder
   ) { }
@@ -358,6 +356,7 @@ export class EditListCursoComponent {
   }
 
   mostrarCursoEnEdicion(curso: any) {
+    this.selectedFoto = curso;
     const fechai = new Date(curso.curFechainicio);
     const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
     const fechaf = new Date(curso.curFechafin);

@@ -1,3 +1,9 @@
     .table-container {
         overflow-x: auto;
     }
+
+    #preview {
+        max-width: 300px;
+        max-height: 300px;
+        object-fit: contain;
+      }

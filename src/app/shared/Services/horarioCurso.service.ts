@@ -24,6 +24,11 @@ export class HorarioCursoService {
     return this.http.get<any>(`${this.URL}/allhorariosbycurso/` + idCurso);
   }
 
+  getAllHorariosByCurso(idCurso: number): Observable<HorarioCurso[]> {
+    const url = `${this.URL}/allhorariosbycurso/${idCurso}`;
+    return this.http.get<HorarioCurso[]>(url);
+  }
+
   create(data: any): Observable<HorarioCurso> {
     return this.http.post<HorarioCurso>(`${this.URL}/crear`, data);
   }
