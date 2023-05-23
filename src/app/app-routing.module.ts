@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     component: WelcomeSupAdminComponent,
     data: {
-      expectedRole: 'Sup-Admin'
+      expectedRole: 'Supadmin'
     },
     loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
