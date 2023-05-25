@@ -45,9 +45,12 @@
                                         <label for="hcuNombre">Nombre</label>
                                         <input type="text" class="form-control" id="hcuNombre" name="hcuNombre"
                                             [(ngModel)]="horarioCurSeleccionado.hcuNombre" required>
+                                        <small *ngIf="!hcuNombreValido" class="text-danger">Campo requerido. Debe
+                                            ingresar el nombre del horario que va a asignar al curso.</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="horario">Seleccione el/los horario/s en el que se va a impartir la
+                                        <label for="horario">Seleccione el/los horario/s en el/los que se va a impartir
+                                            la
                                             capacitación:</label>
                                         <select class="form-control" id="horario"
                                             [(ngModel)]="horarioCurSeleccionado.horario.horId" name="horario">
@@ -55,6 +58,8 @@
                                                 [selected]="horario.horId === horarioCurSeleccionado.horario.horId">{{
                                                 horario.horInicio }} - {{ horario.horFin }}</option>
                                         </select>
+                                        <small *ngIf="!horarioValido" class="text-danger">Campo requerido. Debe
+                                            seleccionar un horario</small>
                                     </div>
                                 </div>
                             </div>
@@ -74,27 +79,29 @@
                     <h2>Horario/s del Curso</h2>
                     <table class="table">
                         <thead>
-                          <tr class="bg-primary text-light">
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Horario Inicio/Fin</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
+                            <tr class="bg-primary text-light">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Horario Inicio/Fin</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
                         </thead>
                         <tbody>
-                          <ng-container *ngFor="let horarioCur of horariosCur">
-                            <!-- Filtrar los horarios por el ID del curso seleccionado -->
-                            <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId">
-                              <td>{{ horarioCur.hcuNombre }}</td>
-                              <td>{{ horarioCur?.horario?.horInicio }} - {{ horarioCur?.horario?.horFin }}</td>
-                              <td>
-                                <button class="btn btn-primary" (click)="editarHorarioCur(horarioCur)">Editar</button>
-                                <button class="btn btn-danger" (click)="eliminarHorarioCur(horarioCur.hcuId)">Eliminar</button>
-                              </td>
-                            </tr>
-                          </ng-container>
+                            <ng-container *ngFor="let horarioCur of horariosCur">
+                                <!-- Filtrar los horarios por el ID del curso seleccionado -->
+                                <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId">
+                                    <td>{{ horarioCur.hcuNombre }}</td>
+                                    <td>{{ horarioCur?.horario?.horInicio }} - {{ horarioCur?.horario?.horFin }}</td>
+                                    <td>
+                                        <button class="btn btn-primary"
+                                            (click)="editarHorarioCur(horarioCur)">Editar</button>
+                                        <button class="btn btn-danger"
+                                            (click)="eliminarHorarioCur(horarioCur.hcuId)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </ng-container>
                         </tbody>
-                      </table>
-                      
+                    </table>
+
                 </div>
             </div>
         </div>

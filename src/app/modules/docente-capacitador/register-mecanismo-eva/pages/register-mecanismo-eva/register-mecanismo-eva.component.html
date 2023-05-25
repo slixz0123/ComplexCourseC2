@@ -1,19 +1,27 @@
 <div class="container" style="background-color: #ffffff;">
   <div class="mt-4">
-    <h3 style="text-align: center;">{{ isNew ? 'Nuevo Mecanismo de evaluación' : 'Editar Mecanismo de evaluación' }}</h3>
+    <h3 style="text-align: center;">{{ isNew ? 'Nuevo Mecanismo de evaluación' : 'Editar Mecanismo de evaluación' }}
+    </h3>
     <form #mecanismoForm="ngForm" (ngSubmit)="submitForm()">
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
             <label for="diseno">Seleccione el diseño curricular al que pertenece:</label>
-            <select class="form-control" id="diseno" [(ngModel)]="mecanismoSeleccionado.mevDiseno.dcuId" name="diseno">
-              <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === mecanismoSeleccionado.mevDiseno.dcuId">{{ diseno.dcuIdentificador }}</option>
+            <select class="form-control" id="diseno" [(ngModel)]="mecanismoSeleccionado.mevDiseno.dcuId" name="diseno"
+              required>
+              <option *ngFor="let diseno of disenos" [value]="diseno.dcuId"
+                [selected]="diseno.dcuId === mecanismoSeleccionado.mevDiseno.dcuId">{{ diseno.dcuIdentificador }}
+              </option>
             </select>
+            <small class="text-danger" *ngIf="!disenoSeleccionadoValido">Campo requerido. Debes seleccionar un Diseño
+              curricular.</small>
           </div>
           <div class="form-group">
             <label for="mevDescripcion">Descripción</label>
             <textarea type="text" class="form-control" id="mevDescripcion" name="mevDescripcion"
               [(ngModel)]="mecanismoSeleccionado.mevDescripcion" required></textarea>
+            <small class="text-danger" *ngIf="!mevDescripcionValido">Campo requerido. Debes ingresar una
+              descripción.</small>
           </div>
         </div>
       </div>
@@ -41,15 +49,15 @@
     <tbody>
       <ng-container *ngFor="let mecanismo of mecanismos">
         <tr *ngIf="mecanismo.mevDescripcion.toLowerCase().includes(filtro.toLowerCase())">
-        <td>{{ mecanismo.mevId }}</td>
-        <td>{{ mecanismo.mevDescripcion }}</td>
-        <td>{{ mecanismo.mevDiseno ? mecanismo.mevDiseno.dcuIdentificador : '' }}</td>
-        <td>
-          <button class="btn btn-primary" (click)="editarMecanismo(mecanismo)">Editar</button>
-          <button class="btn btn-danger" (click)="eliminarMecanismo(mecanismo.mevId)">Eliminar</button>
-        </td>
+          <td>{{ mecanismo.mevId }}</td>
+          <td>{{ mecanismo.mevDescripcion }}</td>
+          <td>{{ mecanismo.mevDiseno ? mecanismo.mevDiseno.dcuIdentificador : '' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarMecanismo(mecanismo)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarMecanismo(mecanismo.mevId)">Eliminar</button>
+          </td>
         </tr>
       </ng-container>
     </tbody>
-  </table>    
+  </table>
 </div>

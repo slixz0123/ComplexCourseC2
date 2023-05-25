@@ -6,17 +6,26 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="area">Seleccione el área a la que pertenece:</label>
-            <select class="form-control" id="area" [(ngModel)]="especialidadSeleccionada.area.areId" name="area">
-              <option *ngFor="let area of areas" [value]="area.areId" [selected]="area.areId === especialidadSeleccionada.area.areId">{{ area.areCodigo }}.- {{ area.areNombre }}</option>
+            <select class="form-control" id="area" [(ngModel)]="especialidadSeleccionada.area.areId" name="area"
+              required>
+              <option *ngFor="let area of areas" [value]="area.areId"
+                [selected]="area.areId === especialidadSeleccionada.area.areId">{{ area.areCodigo }}.- {{ area.areNombre
+                }}</option>
             </select>
+            <small class="text-danger" *ngIf="!areaValido">Campo requerido. Debes seleccionar un área.</small>
           </div>
           <div class="form-group">
             <label for="espCodigo">Código</label>
-            <input type="text" class="form-control" id="espCodigo" name="espCodigo" [(ngModel)]="especialidadSeleccionada.espCodigo" required>
+            <input type="text" class="form-control" id="espCodigo" name="espCodigo"
+              [(ngModel)]="especialidadSeleccionada.espCodigo" pattern="[A-Z0-9.]*" required>
+            <small class="text-danger" *ngIf="!espCodigoValido">Campo requerido. El código debe contener letras
+              mayúsculas, números y el punto (.).</small>
           </div>
           <div class="form-group">
             <label for="espNombre">Nombre</label>
-            <input type="text" class="form-control" id="espNombre" name="espNombre" [(ngModel)]="especialidadSeleccionada.espNombre" required>
+            <input type="text" class="form-control" id="espNombre" name="espNombre"
+              [(ngModel)]="especialidadSeleccionada.espNombre" required>
+            <small class="text-danger" *ngIf="!espNombreValido">Campo requerido.</small>
           </div>
         </div>
       </div>
@@ -24,12 +33,12 @@
     </form>
   </div>
 
-<br>
-<br>
-<div class="form-group">
-  <label for="buscar">Buscar:</label>
-  <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
-</div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
 
   <br>
   <h2>Especialidades</h2>
@@ -56,8 +65,5 @@
         </tr>
       </ng-container>
     </tbody>
-    
-        
-          </table>
-</div>          
-        
+  </table>
+</div>

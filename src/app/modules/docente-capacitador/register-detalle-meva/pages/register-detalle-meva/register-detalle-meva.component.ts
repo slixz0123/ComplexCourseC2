@@ -23,6 +23,10 @@ export class RegisterDetalleMevaComponent {
   detalleForm: FormGroup | undefined;
   submitted = false;
   selectedMecanismo!: MecanismoEvaluacion;
+  mecanismoValido: boolean = true;
+  dmeInstrumentoValido: boolean = true;
+  dmeTecnicaValido: boolean = true;
+  filtro = '';
 
   constructor(private detalleMevaServService: DetalleMevaService, private mecanismoServ: MecanismoEvaluacionService) { }
 
@@ -46,47 +50,78 @@ export class RegisterDetalleMevaComponent {
   }
 
   submitForm(): void {
-    if (this.isNew) {
-      this.detalleMevaServService.create(this.detalleSeleccionado).subscribe(() => {
-        this.getDetalles();
-        this.detalleSeleccionado = new DetalleMe();
-  
-        Swal.fire({
-          icon: 'success',
-          title: 'Detale creado',
-          text: 'El detalle del mecanismo de evaluación ha sido registrado correctamente.',
-          confirmButtonText: 'Aceptar'
-        });
-      });
+
+    const tecnicaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.dmeTecnicaValido = tecnicaRegex.test(this.detalleSeleccionado.dmeTecnica);
+
+    const instrumentoRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.dmeInstrumentoValido = instrumentoRegex.test(this.detalleSeleccionado.dmeInstrumento);
+
+    // Validación de selección de mecanismo de evaluación
+    if (!this.detalleSeleccionado.mecanismoEvaluacion || !this.detalleSeleccionado.mecanismoEvaluacion.mevId) {
+      this.mecanismoValido = false;
+      return;
     } else {
-      Swal.fire({
-        icon: 'warning',
-        title: '¿Estás seguro?',
-        text: '¿Deseas editar este detalle del mecanismo de evaluación?',
-        showCancelButton: true,
-        confirmButtonText: 'Editar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) { // Si el usuario confirma la edición
-          this.detalleMevaServService.update(this.detalleSeleccionado, this.detalleSeleccionado.dmeId).subscribe(() => {
-            this.getDetalles();
-            this.detalleSeleccionado = new DetalleMe();
-            this.isNew = true;
-  
-            Swal.fire({
-              icon: 'success',
-              title: 'Detalle editado',
-              text: 'El detalle del mecanismo de evaluación ha sido modificado correctamente.',
-              confirmButtonText: 'Aceptar'
-            });
-          });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          this.detalleSeleccionado = new DetalleMe();
-          this.isNew = true;
-        }
-      });
+      this.mecanismoValido = true;
     }
-  } 
+    if (this.dmeTecnicaValido && this.dmeInstrumentoValido) {
+      if (this.isNew) {
+        this.detalleMevaServService.create(this.detalleSeleccionado).subscribe(() => {
+          this.getDetalles();
+          this.detalleSeleccionado = new DetalleMe();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Detale creado',
+            text: 'El detalle del mecanismo de evaluación ha sido registrado correctamente.',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: '¿Estás seguro?',
+          text: '¿Deseas editar este detalle del mecanismo de evaluación?',
+          showCancelButton: true,
+          confirmButtonText: 'Editar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          // Validación de selección de mecanismo de evaluación
+          if (!this.detalleSeleccionado.mecanismoEvaluacion || !this.detalleSeleccionado.mecanismoEvaluacion.mevId) {
+            this.mecanismoValido = false;
+            return;
+          }
+
+          this.dmeTecnicaValido = tecnicaRegex.test(this.detalleSeleccionado.dmeTecnica);
+          this.dmeInstrumentoValido = instrumentoRegex.test(this.detalleSeleccionado.dmeInstrumento);
+
+          if (this.mecanismoValido && this.dmeTecnicaValido && this.dmeInstrumentoValido) {
+            if (result.isConfirmed) { // Si el usuario confirma la edición
+              this.detalleMevaServService.update(this.detalleSeleccionado, this.detalleSeleccionado.dmeId).subscribe(() => {
+                this.getDetalles();
+                this.detalleSeleccionado = new DetalleMe();
+                this.isNew = true;
+
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Detalle editado',
+                  text: 'El detalle del mecanismo de evaluación ha sido modificado correctamente.',
+                  confirmButtonText: 'Aceptar'
+                });
+              });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              this.detalleSeleccionado = new DetalleMe();
+              this.isNew = true;
+            }
+          }else{
+            Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+          }
+        });
+      }
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+    }
+  }
 
   eliminarDetalle(dmeId: number): void {
     Swal.fire({
@@ -108,8 +143,6 @@ export class RegisterDetalleMevaComponent {
   getMecanismos(): void {
     this.mecanismoServ.getMecanismosTrue().subscribe((mecanismos) => (this.mecanismos = mecanismos));
   }
-
-  filtro = '';
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();

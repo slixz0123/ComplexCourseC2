@@ -10,12 +10,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modalidad-curso.component.css']
 })
 export class ModalidadCursoComponent {
+  
   modalidades: ModalidadCurso[] = [];
   modalidadSeleccionada: ModalidadCurso = new ModalidadCurso();
   editando: boolean = false;
   isNew: boolean = true;
   modalidadForm: FormGroup | undefined;
   submitted = false;
+  mcuNombreValido: Boolean = true;
+  filtro = '';
 
   constructor(private modalidadCurServ: ModalidadService) { }
 
@@ -64,8 +67,6 @@ export class ModalidadCursoComponent {
       }
     });
   }
-  
-
 
   seleccionarModalidad(modalidad: ModalidadCurso): void {
     this.modalidadSeleccionada = Object.assign({}, modalidad);
@@ -92,21 +93,23 @@ export class ModalidadCursoComponent {
     if (this.modalidadForm && this.modalidadForm.invalid) {
       return;
     }
-    if (this.isNew) {
-      this.crearModalidad();
-    } else {
-      this.guardarModalidad();
+    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.mcuNombreValido = nombreRegex.test(this.modalidadSeleccionada.mcuNombre);
+    if (this.mcuNombreValido) {
+      if (this.isNew) {
+        this.crearModalidad();
+      } else {
+        this.guardarModalidad();
+      }
+      this.modalidadForm?.reset();
+      this.submitted = false;
+      this.isNew = true;
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
-    this.modalidadForm?.reset();
-    this.submitted = false;
-    this.isNew = true;
   }
-
-  filtro = '';
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
-
-
 }

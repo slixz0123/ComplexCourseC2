@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterAreaRoutingModule } from './register-area-routing.module';
 import { RegisterAreaComponent } from './pages/register-area/register-area.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,7 +15,10 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RegisterAreaRoutingModule,
-    FormsModule
+    SharedModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],exports:[
     RegisterAreaComponent
   ]

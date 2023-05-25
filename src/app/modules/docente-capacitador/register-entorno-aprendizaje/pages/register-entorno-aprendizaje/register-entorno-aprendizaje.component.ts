@@ -21,6 +21,12 @@ export class RegisterEntornoAprendizajeComponent {
   especialidadForm: FormGroup | undefined;
   submitted = false;
   selectedDiseno!: DisenoCurricular;
+  disenoValido: boolean = true;
+  eapInstalacionesValido: boolean = true;
+  eapRecursosValido: boolean = true;
+  eapFaseteoricaValido: boolean = true;
+  eapFasePracticaValido: boolean = true;
+  filtro = '';
 
   constructor(private entornoServ: EntornoAprendizajeService, private disenoServ: DisenoCurricularService) { }
 
@@ -44,42 +50,83 @@ export class RegisterEntornoAprendizajeComponent {
   }
 
   submitForm(): void {
-    if (this.isNew) {
-      this.entornoServ.create(this.entornoSeleccionado).subscribe(() => {
-        this.getEntornos();
-        this.entornoSeleccionado = new EntornoAprendizaje();
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Entorno de aprendizaje creado',
-          text: 'El entorno de aprendizaje ha sido registrado correctamente.',
-          confirmButtonText: 'Aceptar'
-        });
-      });
+    if (!this.entornoSeleccionado.eapDiseno || !this.entornoSeleccionado.eapDiseno.dcuId) {
+      this.disenoValido = false;
+      return;
     } else {
-      Swal.fire({
-        icon: 'warning',
-        title: '¿Estás seguro?',
-        text: '¿Deseas editar este registro?',
-        showCancelButton: true,
-        confirmButtonText: 'Editar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) { // Si el usuario confirma la edición
-          this.entornoServ.update(this.entornoSeleccionado, this.entornoSeleccionado.eapId).subscribe(() => {
-            this.getEntornos();
-            this.entornoSeleccionado = new EntornoAprendizaje();
-            this.isNew = true;
+      this.disenoValido = true;
+    }
 
-            Swal.fire({
-              icon: 'success',
-              title: 'Entorno de aprendizaje editado',
-              text: 'El entorno de aprendizaje ha sido modificado correctamente.',
-              confirmButtonText: 'Aceptar'
-            });
+    const instalacionesRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.eapInstalacionesValido = instalacionesRegex.test(this.entornoSeleccionado.eapInstalaciones);
+
+    const recursosRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.eapRecursosValido = recursosRegex.test(this.entornoSeleccionado.eapRecursos);
+
+    const faseteoricaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.eapFaseteoricaValido = faseteoricaRegex.test(this.entornoSeleccionado.eapFaseteorica);
+
+    const fasepracticaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.eapFasePracticaValido = fasepracticaRegex.test(this.entornoSeleccionado.eapFasepractica);
+
+    if (this.eapInstalacionesValido && this.eapRecursosValido && this.eapFaseteoricaValido && this.eapFasePracticaValido) {
+      if (this.isNew) {
+        this.entornoServ.create(this.entornoSeleccionado).subscribe(() => {
+          this.getEntornos();
+          this.entornoSeleccionado = new EntornoAprendizaje();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Entorno de aprendizaje creado',
+            text: 'El entorno de aprendizaje ha sido registrado correctamente.',
+            confirmButtonText: 'Aceptar'
           });
-        }
-      });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: '¿Estás seguro?',
+          text: '¿Deseas editar este registro?',
+          showCancelButton: true,
+          confirmButtonText: 'Editar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+
+          if (!this.entornoSeleccionado.eapDiseno || !this.entornoSeleccionado.eapDiseno.dcuId) {
+            this.disenoValido = false;
+            return;
+          }
+
+          this.eapInstalacionesValido = instalacionesRegex.test(this.entornoSeleccionado.eapInstalaciones);
+
+          this.eapRecursosValido = recursosRegex.test(this.entornoSeleccionado.eapRecursos);
+
+          this.eapFaseteoricaValido = faseteoricaRegex.test(this.entornoSeleccionado.eapFaseteorica);
+
+          this.eapFasePracticaValido = fasepracticaRegex.test(this.entornoSeleccionado.eapFasepractica);
+
+          if (this.disenoValido && this.eapInstalacionesValido && this.eapRecursosValido && this.eapFaseteoricaValido && this.eapFasePracticaValido) {
+            if (result.isConfirmed) { // Si el usuario confirma la edición
+              this.entornoServ.update(this.entornoSeleccionado, this.entornoSeleccionado.eapId).subscribe(() => {
+                this.getEntornos();
+                this.entornoSeleccionado = new EntornoAprendizaje();
+                this.isNew = true;
+
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Entorno de aprendizaje editado',
+                  text: 'El entorno de aprendizaje ha sido modificado correctamente.',
+                  confirmButtonText: 'Aceptar'
+                });
+              });
+            }
+          }else{
+            Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+          }
+        });
+      }
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
   }
 
@@ -93,6 +140,7 @@ export class RegisterEntornoAprendizajeComponent {
       if (result.isConfirmed) {
         this.entornoServ.delete(eapId).subscribe(() => {
           this.getEntornos();
+          Swal.fire('¡Éxito!', 'El entorno de aprendizaje ha sido eliminado correctamente', 'success');
         });
       }
     });
@@ -101,8 +149,6 @@ export class RegisterEntornoAprendizajeComponent {
   getDisenos(): void {
     this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
   }
-
-  filtro = '';
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();

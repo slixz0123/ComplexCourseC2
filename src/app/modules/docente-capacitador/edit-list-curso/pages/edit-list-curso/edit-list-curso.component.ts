@@ -50,23 +50,36 @@ export class EditListCursoComponent {
   editImagePreview: any;
   selectedFoto?: Curso;
 
+  programaValido: boolean = true;
+  especialidadValido: boolean = true;
+  modalidadValido: boolean = true;
+  tipoValido: boolean = true;
+  silaboValido: boolean = true;
+  necesidadValido: boolean = true;
+  disenoValido: boolean = true;
+  curCodigoValido: boolean = true;
+  curNombreValido: boolean = true;
+  curFechaIValido: boolean = true;
+  curFechaFValido: boolean = true;
+  curNumHorasValido: boolean = true;
+  curFotoValido: boolean = true;
 
   cursoSelec = {
-    curCodigo: '', 
-      curNombre: '', 
-      curFechainicio: '', 
-      curFechafin: '', 
-      curNumHoras: '', 
-      curProceso: '',
-      curFoto: '', 
-      programa: '',
-      especialidad: '',
-      modalidad: '',
-      tipoCurso: '',
-      silabo: '',
-      necesidad: '',
-      disenoCurricular: '',
-      persona: '' 
+    curCodigo: '',
+    curNombre: '',
+    curFechainicio: '',
+    curFechafin: '',
+    curNumHoras: '',
+    curProceso: '',
+    curFoto: '',
+    programa: '',
+    especialidad: '',
+    modalidad: '',
+    tipoCurso: '',
+    silabo: '',
+    necesidad: '',
+    disenoCurricular: '',
+    persona: ''
   };
 
   searchText: string = '';
@@ -92,27 +105,27 @@ export class EditListCursoComponent {
     this.getdatossilab();
     this.getnecesidades();
     this.getdisenocurricular();
-  
-      this.cursoForm = this.formbuilder.group({
-        curCodigo: ['', Validators.required],
-        curNombre: ['', Validators.required],
-        curFechainicio: ['', Validators.required],
-        curFechafin: ['', Validators.required],
-        curNumHoras: ['', Validators.required],
-        curProceso: ['', Validators.required],
-        curFoto: ['', Validators.required],
-        programa: ['', Validators.required],
-        especialidad: ['', Validators.required],
-        modalidad: ['', Validators.required],
-        tipoCurso: ['', Validators.required],
-        silabo: ['', Validators.required],
-        necesidad: ['', Validators.required],
-        disenoCurricular: ['', Validators.required],
-        persona: ['', Validators.required]
-      });
-    
-      this.cargarDatos();
-    }
+
+    this.cursoForm = this.formbuilder.group({
+      curCodigo: ['', Validators.required],
+      curNombre: ['', Validators.required],
+      curFechainicio: ['', Validators.required],
+      curFechafin: ['', Validators.required],
+      curNumHoras: ['', Validators.required],
+      curProceso: ['', Validators.required],
+      curFoto: ['', Validators.required],
+      programa: ['', Validators.required],
+      especialidad: ['', Validators.required],
+      modalidad: ['', Validators.required],
+      tipoCurso: ['', Validators.required],
+      silabo: ['', Validators.required],
+      necesidad: ['', Validators.required],
+      disenoCurricular: ['', Validators.required],
+      persona: ['', Validators.required]
+    });
+
+    this.cargarDatos();
+  }
 
   cargarDatos() {
     this.cursoForm.patchValue({
@@ -139,14 +152,14 @@ export class EditListCursoComponent {
         programa: this.cursoSeleccionado.programaCapacitacion.pcaNombre
       });
     });
-  
+
     this.especialidadServ.getAllTrue().subscribe((especialidades) => {
       this.especialidades = especialidades;
       this.cursoForm.patchValue({
         especialidad: this.cursoSeleccionado.ecursos.espNombre
       });
     });
-  
+
     this.modalidadCurServ.getAll().subscribe((modalidades) => {
       this.modalidades = modalidades;
       this.cursoForm.patchValue({
@@ -182,7 +195,7 @@ export class EditListCursoComponent {
       });
     });
   }
-  
+
 
   getCursos(): void {
     const idPersona = localStorage.getItem('id_persona');
@@ -192,6 +205,8 @@ export class EditListCursoComponent {
         cursos => {
           // Lógica para manejar los cursos obtenidos
           this.cursos = cursos;
+          const nuevoCurso = new Curso();
+          nuevoCurso.actualizarProceso();
         },
         error => {
           // Lógica para manejar el error
@@ -207,7 +222,6 @@ export class EditListCursoComponent {
     }
 
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdprogrmamacap.pcaId = Number(selectedValue);
   }
   getProgramas() {
@@ -229,7 +243,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdespecialidad.espId = Number(selectedValue);
   }
   getespecialidades() {
@@ -251,7 +264,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdModalidadCurso.mcuId = Number(selectedValue);
   }
   getmodalidad() {
@@ -273,7 +285,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdTiposCurso.tcuId = Number(selectedValue);
   }
   gettipocurso() {
@@ -295,7 +306,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdDatossilabo.dsiId = Number(selectedValue);
   }
   getdatossilab() {
@@ -316,7 +326,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdNecesidadCurso.ncuId = Number(selectedValue);
   }
   getnecesidades() {
@@ -338,7 +347,6 @@ export class EditListCursoComponent {
       return;
     }
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
     this.selectedIdDisenoCurricular.dcuId = Number(selectedValue);
   }
   getdisenocurricular() {
@@ -347,7 +355,7 @@ export class EditListCursoComponent {
 
     );
   }
-  
+
 
   filtro = '';
 
@@ -378,68 +386,117 @@ export class EditListCursoComponent {
       disenoCurricular: curso.disenoCurricular.dcuIdentificador,
       persona: curso.pcursos.nombre
     });
-  
+
     this.cursoSeleccionado = curso;
     this.showContainer1 = false;
     this.showContainer2 = true;
   }
 
   actualizarCurso(): void {
-  // Obtener las fechas del formulario
-  const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
-  const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
+    // Obtener las fechas del formulario
+    const fechaInicio = new Date(this.cursoSeleccionado.curFechainicio);
+    const fechaFin = new Date(this.cursoSeleccionado.curFechafin);
 
-  // Convertir las fechas a formato UTC
-  const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
-  const fechaFinUTC = new Date(fechaFin.getUTCFullYear(), fechaFin.getUTCMonth(), fechaFin.getUTCDate());
+    // Convertir las fechas a formato UTC
+    const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+    const fechaFinUTC = new Date(fechaFin.getUTCFullYear(), fechaFin.getUTCMonth(), fechaFin.getUTCDate());
 
-  // Asignar las fechas UTC al objeto cursoSeleccionado
-  this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
-  this.cursoSeleccionado.curFechafin = fechaFinUTC;
+    // Asignar las fechas UTC al objeto cursoSeleccionado
+    this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
+    this.cursoSeleccionado.curFechafin = fechaFinUTC;
+    const codigoRegex = /^[a-zA-Z0-9.\s]+$/;
+    this.curCodigoValido = codigoRegex.test(this.cursoSeleccionado.curCodigo.toString());
 
-  Swal.fire({
-    title: 'Confirmar edición',
-    text: '¿Estás seguro de que deseas editar este curso?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Editar',
-    cancelButtonText: 'Cancelar'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.cursoServ.update(this.cursoSeleccionado, this.cursoSeleccionado.curId).subscribe(
-        response => {
-          this.getCursos();
-          this.cursoSeleccionado = new Curso();
+    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.curNombreValido = nombreRegex.test(this.cursoSeleccionado.curNombre);
 
-          Swal.fire({
-            title: 'Curso actualizado',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Aceptar'
-          });
-          this.getCursos();
+    // Verificar que la fecha de inicio no sea menor o igual a la fecha actual del sistema
+    this.curFechaIValido = new Date(this.cursoSeleccionado.curFechainicio) > new Date();
+
+    // Verificar que la fecha de fin sea mayor a la fecha de inicio
+    this.curFechaFValido = new Date(this.cursoSeleccionado.curFechafin) > new Date(this.cursoSeleccionado.curFechainicio);
+
+    // Verificar que el número de horas sea un entero mayor a 0
+    const numHoras = parseInt(this.cursoSeleccionado.curNumhoras.toString(), 10);
+    this.curNumHorasValido = Number.isInteger(numHoras) && numHoras > 0;
+
+    if (!this.cursoSeleccionado.programaCapacitacion || !this.cursoSeleccionado.programaCapacitacion.pcaId) {
+      this.programaValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.ecursos || !this.cursoSeleccionado.ecursos.espId) {
+      this.especialidadValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.mcursos || !this.cursoSeleccionado.mcursos.mcuId) {
+      this.modalidadValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.tipoCurso || !this.cursoSeleccionado.tipoCurso.tcuId) {
+      this.tipoValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.datosSilabo || !this.cursoSeleccionado.datosSilabo.dsiId) {
+      this.silaboValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.necesidadCurso || !this.cursoSeleccionado.necesidadCurso.ncuId) {
+      this.necesidadValido = false;
+      return;
+    }
+    if (!this.cursoSeleccionado.disenoCurricular || !this.cursoSeleccionado.disenoCurricular.dcuId) {
+      this.disenoValido = false;
+      return;
+    }
+    if (this.curCodigoValido && this.curNombreValido && this.curFechaIValido && this.curFechaFValido && this.curNumHorasValido &&
+      this.programaValido && this.especialidadValido && this.modalidadValido && this.tipoValido && this.silaboValido && this.necesidadServ && this.disenoValido) {
+
+      Swal.fire({
+        title: 'Confirmar edición',
+        text: '¿Estás seguro de que deseas editar este curso?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cursoServ.update(this.cursoSeleccionado, this.cursoSeleccionado.curId).subscribe(
+            response => {
+              this.getCursos();
+              this.cursoSeleccionado = new Curso();
+
+              Swal.fire({
+                title: 'Curso actualizado',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              });
+              this.getCursos();
+              this.showContainer1 = true;
+              this.showContainer2 = false;
+              this.cursoForm.get('curFoto')?.reset();
+            },
+            error => {
+              Swal.fire({
+                title: 'Error al actualizar el curso',
+                text: 'Ha ocurrido un error al actualizar el curso. Por favor, intenta nuevamente.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Aceptar'
+              });
+            }
+          );
           this.showContainer1 = true;
           this.showContainer2 = false;
-          this.cursoForm.get('curFoto')?.reset();
-        },
-        error => {
-          Swal.fire({
-            title: 'Error al actualizar el curso',
-            text: 'Ha ocurrido un error al actualizar el curso. Por favor, intenta nuevamente.',
-            icon: 'error',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Aceptar'
-          });
         }
-      );
-      this.showContainer1 = true;
-      this.showContainer2 = false;
+      });
+      this.getCursos();
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
-  });
-  this.getCursos();
-}
+  }
 
   eliminarCurso(curId: number): void {
     Swal.fire({
@@ -457,7 +514,7 @@ export class EditListCursoComponent {
     });
   }
 
-onEditFileChange(event: any) {
+  onEditFileChange(event: any) {
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {

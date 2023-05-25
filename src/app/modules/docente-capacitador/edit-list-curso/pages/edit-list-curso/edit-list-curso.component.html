@@ -9,7 +9,6 @@
     <table class="table">
       <thead>
         <tr class="bg-primary text-light">
-          <th th scope="col">Foto</th>
           <th th scope="col">Código</th>
           <th th scope="col">Nombre</th>
           <th th scope="col">Fecha Inicio/Fin</th>
@@ -25,14 +24,6 @@
         <ng-container *ngFor="let curso of cursos">
           <tr
             *ngIf="curso.curNombre.toLowerCase().includes(filtro.toLowerCase()) || curso.curCodigo.toLowerCase().includes(filtro.toLowerCase())">
-            <td>
-              <img
-              [src]="'data:image/jpeg;base64,' + curso.curFoto"
-              alt="Foto"
-              class="img-thumbnail"
-              width="100"
-            />
-          </td>
             <td>{{ curso.curCodigo }}</td>
             <td>{{ curso.curNombre }}</td>
             <td>{{ curso.curFechainicio | date: 'dd/MM/yyyy' }} / {{ curso.curFechafin | date: 'dd/MM/yyyy'
@@ -72,11 +63,13 @@
               <div class="form-group col-md-4">
                 <label>Código</label>
                 <input type="text" class="form-control" formControlName="curCodigo" required readonly>
+                <small class="text-danger" *ngIf="!curCodigoValido">Campo requerido.</small>
               </div>
               <div class="form-group col-md-8">
                 <label>Nombre del Curso/Capacitación</label>
                 <input type="text" class="form-control" formControlName="curNombre"
                   [(ngModel)]="cursoSeleccionado.curNombre" required>
+                <small class="text-danger" *ngIf="!curNombreValido">Campo requerido. Debe ingresar un nombre.</small>
               </div>
             </div>
             <div class="mt-4 row">
@@ -86,6 +79,12 @@
                   [(ngModel)]="cursoSeleccionado.curFechainicio" required>
                 <input type="text" class="form-control" [value]="cursoSeleccionado.curFechainicio | date: 'dd/MM/yyyy'"
                   disabled>
+                <small class="text-danger" *ngIf="!curFechaIValido">Fecha de inicio inválida. La fecha debe ser mayor a
+                  la fecha actual.</small>
+                <small class="text-danger"
+                  *ngIf="cursoForm.controls['curFechainicio'].errors && cursoForm.controls['curFechainicio'].touched">
+                  Fecha de inicio inválida. La fecha debe ser mayor a la fecha actual.
+                </small>
               </div>
               <div class="col-md-4">
                 <label>Fecha de Finalización</label>
@@ -93,11 +92,23 @@
                   [(ngModel)]="cursoSeleccionado.curFechafin" required>
                 <input type="text" class="form-control" [value]="cursoSeleccionado.curFechafin | date: 'dd/MM/yyyy'"
                   disabled>
+                <small class="text-danger" *ngIf="!curFechaFValido">Fecha de finalización inválida. La fecha debe ser
+                  mayor a la fecha inicial.</small>
+                <small class="text-danger"
+                  *ngIf="cursoForm.controls['curFechafin'].errors && cursoForm.controls['curFechafin'].touched">
+                  Fecha de finalización inválida. La fecha debe ser mayor a la fecha de inicio.
+                </small>
               </div>
               <div class="col-md-4">
                 <label>Número de horas del curso</label>
                 <input type="number" class="form-control" formControlName="curNumHoras"
                   [(ngModel)]="cursoSeleccionado.curNumhoras" required>
+                <small class="text-danger" *ngIf="!curFechaIValido">Campo requerido. El número de horas debe ser mayor a
+                  0.</small>
+                <small class="text-danger"
+                  *ngIf="cursoForm.controls['curNumHoras'].errors && cursoForm.controls['curNumHoras'].touched">
+                  Número de horas inválido. Ingrese un número entero mayor a 0.
+                </small>
               </div>
             </div>
 
@@ -119,6 +130,7 @@
                 <option *ngFor="let cursoscap of arrayprogrma" [value]="cursoscap.pcaId">{{ cursoscap.pcaNombre }}
                 </option>
               </select>
+              <small class="text-danger" *ngIf="!programaValido">Campo requerido. Debes seleccionar un programa.</small>
             </div>
 
 
@@ -129,6 +141,8 @@
                 <option *ngFor="let cursosespe of arrayespecialidad" [value]="cursosespe.espId">{{ cursosespe.espNombre
                   }}</option>
               </select>
+              <small class="text-danger" *ngIf="!especialidadValido">Campo requerido. Debes seleccionar una
+                especialidad.</small>
             </div>
 
 
@@ -139,6 +153,8 @@
                 <option *ngFor="let cursosmoda of arraymodalidad" [value]="cursosmoda.mcuId">{{ cursosmoda.mcuNombre }}
                 </option>
               </select>
+              <small class="text-danger" *ngIf="!modalidadValido">Campo requerido. Debes seleccionar una
+                modalidad.</small>
             </div>
 
             <div class="form-group">
@@ -148,6 +164,8 @@
                 <option *ngFor="let cursotipocur of arraytipocirsp" [value]="cursotipocur.tcuId">{{
                   cursotipocur.tcuNombre }}</option>
               </select>
+              <small class="text-danger" *ngIf="!tipoValido">Campo requerido. Debes seleccionar un tipo de
+                capacitación.</small>
             </div>
 
             <div class="form-group">
@@ -157,6 +175,7 @@
                 <option *ngFor="let cursodtsilab of arraydatosilab" [value]="cursodtsilab.dsiId">{{
                   cursodtsilab.dsiIdentificador }}</option>
               </select>
+              <small class="text-danger" *ngIf="!silaboValido">Campo requerido. Debes seleccionar un sílabo.</small>
             </div>
 
             <div class="form-group">
@@ -167,6 +186,8 @@
                 <option *ngFor="let cursonecesidades of arraynecesidades" [value]="cursonecesidades.ncuId">{{
                   cursonecesidades.ncuIdentificador }}</option>
               </select>
+              <small class="text-danger" *ngIf="!necesidadValido">Campo requerido. Debes seleccionar una
+                necesidad.</small>
             </div>
 
             <div class="form-group">
@@ -177,28 +198,8 @@
                 <option *ngFor="let cursodiseno of arraydseno" [value]="cursodiseno.dcuId">{{
                   cursodiseno.dcuIdentificador }}</option>
               </select>
-            </div>
-            <div class="mb-3">
-              <label>Seleccione una nueva foto</label>
-              <label for="photo" class="form-label">Foto</label>
-              <input
-                type="file"
-                #editPhotoInput
-                class="form-control"
-                formControlName="curFoto"
-                id="photoModal"
-                accept="image/*"
-                (change)="onEditFileChange($event)"
-              />
-            </div>
-            <div class="mb-3">
-              <img
-                *ngIf="editImagePreview"
-                class="img-thumbnail"
-                [src]="editImagePreview"
-                alt="Previsualización de la foto"
-                id="preview"
-              />
+              <small class="text-danger" *ngIf="!disenoValido">Campo requerido. Debes seleccionar un diseño
+                curricular.</small>
             </div>
           </div>
         </div>

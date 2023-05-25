@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Horario } from 'src/app/Core/models/horario';
 import { horarioService } from 'src/app/shared/Services/horario.service';
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './horarios.component.html',
   styleUrls: ['./horarios.component.css']
 })
-export class HorariosComponent implements OnInit{
+export class HorariosComponent implements OnInit {
 
   horarios: Horario[] = [];
   horarioSeleccionado: Horario = new Horario();
@@ -30,10 +30,10 @@ export class HorariosComponent implements OnInit{
 
   crearHorario(): void {
     if (!this.validarFormatoHorario()) {
-      Swal.fire('Error', 'El formato del horario no es válido (hh:mm)', 'error');
+      Swal.fire('Error', 'Datos incorrectos. El formato del horario no es válido (hh:mm)', 'error');
       return;
     }
-  
+
     this.horarioServ.crearHorario(this.horarioSeleccionado).subscribe(() => {
       this.getHorarios();
       this.horarioSeleccionado = new Horario();
@@ -49,10 +49,10 @@ export class HorariosComponent implements OnInit{
 
   guardarHorario(): void {
     if (!this.validarFormatoHorario()) {
-      Swal.fire('Error', 'El formato del horario no es válido (hh:mm)', 'error');
+      Swal.fire('Error', 'Datos incorrectos. El formato del horario no es válido (hh:mm)', 'error');
       return;
     }
-  
+
     Swal.fire({
       title: '¿Está seguro de que desea editar este registro?',
       showCancelButton: true,
@@ -75,13 +75,11 @@ export class HorariosComponent implements OnInit{
       }
     });
   }
-  
+
   validarFormatoHorario(): boolean {
     const formatoHora = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
     return formatoHora.test(this.horarioSeleccionado.horInicio) && formatoHora.test(this.horarioSeleccionado.horFin);
   }
-  
-
 
   seleccionarHorario(horario: Horario): void {
     this.horarioSeleccionado = Object.assign({}, horario);
@@ -123,6 +121,4 @@ export class HorariosComponent implements OnInit{
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
-
-  
 }

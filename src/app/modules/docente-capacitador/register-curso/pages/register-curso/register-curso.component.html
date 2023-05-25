@@ -1,178 +1,195 @@
 <div class="container" style="background-color: #ffffff;">
-    <div class="mt-4">
-        <h3 style="text-align: center;">{{ isNew ? 'Nuevo Curso' : 'Editar Curso' }}</h3>
-        <form [formGroup]="cursoForm">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label>Código</label>
-                            <input type="text" class="form-control" formControlName="curCodigo"
-                                [(ngModel)]="cursoSeleccionado.curCodigo" required>
-                        </div>
-
-                        <div class="form-group col-md-8">
-                            <label>Nombre del Curso/Capacitación</label>
-                            <input type="text" class="form-control" formControlName="curNombre"
-                                [(ngModel)]="cursoSeleccionado.curNombre" required>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 row">
-                        <div class="col-md-4">
-                            <label>Fecha de Inicio</label>
-                            <input type="date" class="form-control" formControlName="curFechainicio"
-                                [(ngModel)]="cursoSeleccionado.curFechainicio" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Fecha de Finalización</label>
-                            <input type="date" class="form-control" formControlName="curFechafin"
-                                [(ngModel)]="cursoSeleccionado.curFechafin" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Número de horas del curso</label>
-                            <input type="number" class="form-control" formControlName="curNumHoras"
-                                [(ngModel)]="cursoSeleccionado.curNumhoras" required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="mb-3">
-                        <label for="curFoto" class="form-label">Foto</label>
-                        <input
-                          type="file"
-                          #photoInput
-                          class="form-control"
-                          id="curFoto"
-                          accept="image/*"
-                          (change)="onFileChange($event)"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <img
-                          *ngIf="imagePreview"
-                          class="img-thumbnail"
-                          [src]="imagePreview"
-                          alt="Previsualización de la foto"
-                          id="preview"
-                        />
-                      </div>
-                    <div class="form-group">
-                        <label>Seleccione el programa al que pertenece el curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangeprogramcap($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursoscap of arrayprogrma" [value]="cursoscap.pcaId">{{
-                                cursoscap.pcaNombre }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione la especialidad a la que pertenece el curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangeespecialidad($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursosespe of arrayespecialidad" [value]="cursosespe.espId">{{
-                                cursosespe.espNombre }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione la modalidad a la que pertenece el curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangemodalidad($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursosmoda of arraymodalidad" [value]="cursosmoda.mcuId">{{
-                                cursosmoda.mcuNombre }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione el tipo al que pertenece el curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangetipocurso($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursotipocur of arraytipocirsp" [value]="cursotipocur.tcuId">{{
-                                cursotipocur.tcuNombre }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione el sílabo que pertenece al curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangedatossilab($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursodtsilab of arraydatosilab" [value]="cursodtsilab.dsiId">{{
-                                cursodtsilab.dsiIdentificador }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione la necesidad que pertenece al curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangenecesidades($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursonecesidades of arraynecesidades" [value]="cursonecesidades.ncuId">
-                                {{ cursonecesidades.ncuIdentificador }}</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Seleccione el diseño curricular que pertenece al curso de capacitación:</label>
-                        <select class="form-control" (change)="onSelectChangediseno($event.target)">
-                            <option value="" disabled selected hidden>Seleccione una opción</option>
-                            <option *ngFor="let cursodiseno of arraydseno" [value]="cursodiseno.dcuId">{{
-                                cursodiseno.dcuIdentificador }}</option>
-                        </select>
-                    </div>
-
-                </div>
+  <div class="mt-4">
+    <h3 style="text-align: center;">{{ isNew ? 'Nuevo Curso' : 'Editar Curso' }}</h3>
+    <form [formGroup]="cursoForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="form-group col-md-4">
+              <label>Código</label>
+              <input type="text" class="form-control" formControlName="curCodigo"
+                [(ngModel)]="cursoSeleccionado.curCodigo" required>
+              <small class="text-danger" *ngIf="!curCodigoValido">Campo requerido.</small>
             </div>
-            <button (click)="crearcurso()" type="submit" class="btn btn-primary">Guardar</button>       
-        </form>
-    </div>
-    <br>
-    <br>
-    <div class="form-group">
-        <label for="buscar">Buscar:</label>
-        <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro"
-            (keyup)="actualizarFiltro()">
-    </div>
+            <div class="form-group col-md-8">
+              <label>Nombre del Curso/Capacitación</label>
+              <input type="text" class="form-control" formControlName="curNombre"
+                [(ngModel)]="cursoSeleccionado.curNombre" required>
+              <small class="text-danger" *ngIf="!curNombreValido">Campo requerido. Debe ingresar un nombre.</small>
+            </div>
+          </div>
 
-    <br>
-    <div class="container table-container">
+          <div class="mt-4 row">
+            <div class="col-md-4">
+              <label>Fecha de Inicio</label>
+              <input type="date" class="form-control" formControlName="curFechainicio"
+                [(ngModel)]="cursoSeleccionado.curFechainicio" required>
+              <small class="text-danger" *ngIf="!curFechaIValido">Fecha de inicio inválida. La fecha debe ser mayor a la
+                fecha actual.</small>
+              <small class="text-danger"
+                *ngIf="cursoForm.controls['curFechainicio'].errors && cursoForm.controls['curFechainicio'].touched">
+                Fecha de inicio inválida. La fecha debe ser mayor a la fecha actual.
+              </small>
+            </div>
+            <div class="col-md-4">
+              <label>Fecha de Finalización</label>
+              <input type="date" class="form-control" formControlName="curFechafin"
+                [(ngModel)]="cursoSeleccionado.curFechafin" required>
+              <small class="text-danger" *ngIf="!curFechaFValido">Fecha de finalización inválida. La fecha debe ser
+                mayor a la fecha inicial.</small>
+              <small class="text-danger"
+                *ngIf="cursoForm.controls['curFechafin'].errors && cursoForm.controls['curFechafin'].touched">
+                Fecha de finalización inválida. La fecha debe ser mayor a la fecha de inicio.
+              </small>
+            </div>
+            <div class="col-md-4">
+              <label>Número de horas del curso</label>
+              <input type="number" class="form-control" formControlName="curNumHoras"
+                [(ngModel)]="cursoSeleccionado.curNumhoras" required>
+              <small class="text-danger" *ngIf="!curFechaIValido">Campo requerido. El número de horas debe ser mayor a
+                0.</small>
+              <small class="text-danger"
+                *ngIf="cursoForm.controls['curNumHoras'].errors && cursoForm.controls['curNumHoras'].touched">
+                Número de horas inválido. Ingrese un número entero mayor a 0.
+              </small>
+            </div>
+          </div>
+
+          <br>
+          <div class="mb-3">
+            <label for="curFoto" class="form-label">Foto</label>
+            <input type="file" #photoInput class="form-control" id="curFoto" accept="image/*"
+              (change)="onFileChange($event)" />
+            <small class="text-danger" *ngIf="!curFotoValido">Campo requerido. Debes seleccionar una imagen del
+              curso.</small>
+          </div>
+          
+          <div class="mb-3">
+            <img *ngIf="imagePreview" class="img-thumbnail" [src]="imagePreview" alt="Previsualización de la foto"
+              id="preview" />
+          </div>
+          <div class="form-group">
+            <label>Seleccione el programa al que pertenece el curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangeprogramcap($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursoscap of arrayprogrma" [value]="cursoscap.pcaId">{{
+                cursoscap.pcaNombre }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!programaValido">Campo requerido. Debes seleccionar un programa.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione la especialidad a la que pertenece el curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangeespecialidad($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursosespe of arrayespecialidad" [value]="cursosespe.espId">{{
+                cursosespe.espNombre }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!especialidadValido">Campo requerido. Debes seleccionar una
+              especialidad.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione la modalidad a la que pertenece el curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangemodalidad($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursosmoda of arraymodalidad" [value]="cursosmoda.mcuId">{{
+                cursosmoda.mcuNombre }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!modalidadValido">Campo requerido. Debes seleccionar una
+              modalidad.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione el tipo al que pertenece el curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangetipocurso($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursotipocur of arraytipocirsp" [value]="cursotipocur.tcuId">{{
+                cursotipocur.tcuNombre }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!tipoValido">Campo requerido. Debes seleccionar un tipo de
+              capacitación.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione el sílabo que pertenece al curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangedatossilab($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursodtsilab of arraydatosilab" [value]="cursodtsilab.dsiId">{{
+                cursodtsilab.dsiIdentificador }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!silaboValido">Campo requerido. Debes seleccionar un sílabo.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione la necesidad que pertenece al curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangenecesidades($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursonecesidades of arraynecesidades" [value]="cursonecesidades.ncuId">
+                {{ cursonecesidades.ncuIdentificador }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!necesidadValido">Campo requerido. Debes seleccionar una
+              necesidad.</small>
+          </div>
+
+          <div class="form-group">
+            <label>Seleccione el diseño curricular que pertenece al curso de capacitación:</label>
+            <select class="form-control" (change)="onSelectChangediseno($event.target)">
+              <option value="" disabled selected hidden>Seleccione una opción</option>
+              <option *ngFor="let cursodiseno of arraydseno" [value]="cursodiseno.dcuId">{{
+                cursodiseno.dcuIdentificador }}</option>
+            </select>
+            <small class="text-danger" *ngIf="!disenoValido">Campo requerido. Debes seleccionar un diseño
+              curricular.</small>
+          </div>
+        </div>
+      </div>
+      <button (click)="crearcurso()" type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
+
+  <br>
+  <div class="container table-container">
     <h2>Listado Cursos</h2>
     <table class="table">
-        <thead>
-            <tr class="bg-primary text-light">
-                <th scope="col">Código</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Fecha Inicio/Fin</th>
-                <th scope="col">Número Horas</th>
-                <th scope="col">Proceso</th>
-                <th scope="col">Programa</th>
-                <th scope="col">Modalidad</th>
-                <th scope="col">Tipo de Curso</th>
-                <th scope="col">Foto</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let curso of cursos">
-                <tr
-                    *ngIf="curso.curNombre.toLowerCase().includes(filtro.toLowerCase()) || curso.curCodigo.toLowerCase().includes(filtro.toLowerCase())">
-                    <td>{{ curso.curCodigo }}</td>
-                    <td>{{ curso.curNombre }}</td>
-                    <td>{{ curso.curFechainicio | date: 'dd/MM/yyyy' }} / {{ curso.curFechafin | date: 'dd/MM/yyyy' }}
-                    </td>
-                    <td>{{ curso.curNumhoras }}</td>
-                    <td>{{ curso.curProceso }}</td>
-                    <td>{{ curso?.programaCapacitacion?.pcaNombre }}</td>
-                    <td>{{ curso?.mcursos?.mcuNombre }}</td>
-                    <td>{{ curso?.tipoCurso?.tcuNombre }}</td>
-                    <td>
-                        <img
-                        [src]="'data:image/jpeg;base64,' + curso.curFoto"
-                        alt="Foto"
-                        class="img-thumbnail"
-                        width="100"
-                      />
-                    </td>
-                </tr>
-            </ng-container>
-        </tbody>
+      <thead>
+        <tr class="bg-primary text-light">
+          <th scope="col">Código</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Fecha Inicio/Fin</th>
+          <th scope="col">Número Horas</th>
+          <th scope="col">Proceso</th>
+          <th scope="col">Programa</th>
+          <th scope="col">Modalidad</th>
+          <th scope="col">Tipo de Curso</th>
+          <th scope="col">Foto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let curso of cursos">
+          <tr
+            *ngIf="curso.curNombre.toLowerCase().includes(filtro.toLowerCase()) || curso.curCodigo.toLowerCase().includes(filtro.toLowerCase())">
+            <td>{{ curso.curCodigo }}</td>
+            <td>{{ curso.curNombre }}</td>
+            <td>{{ curso.curFechainicio | date: 'dd/MM/yyyy' }} / {{ curso.curFechafin | date: 'dd/MM/yyyy' }}
+            </td>
+            <td>{{ curso.curNumhoras }}</td>
+            <td>{{ curso.curProceso }}</td>
+            <td>{{ curso?.programaCapacitacion?.pcaNombre }}</td>
+            <td>{{ curso?.mcursos?.mcuNombre }}</td>
+            <td>{{ curso?.tipoCurso?.tcuNombre }}</td>
+            <td>
+              <img [src]="'data:image/jpeg;base64,' + curso.curFoto" alt="Foto" class="img-thumbnail" width="100" />
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
     </table>
-    </div>
+  </div>
 </div>

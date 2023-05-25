@@ -6,25 +6,32 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="dcuIdentificador">Identificador/Nombre</label>
-            <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador" [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
+            <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador"
+              [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
+            <small *ngIf="!dcuIdentificadorValido" class="text-danger">Campo requerido. Debe ingresar el nombre o
+              identificador del Diseño curricular</small>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-              <label for="dcuNiveles">Nivel</label>
-              <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles" required>
-                <option value="" selected disabled>Seleccione una opción</option>
-                <option value="Primaria">Primaria</option>
-                <option value="Secundaria">Secundaria</option>
-                <option value="Superior">Superior</option>
-              </select>
-            </div>
-            
+            <label for="dcuNiveles">Nivel</label>
+            <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles"
+              required>
+              <option value="" selected disabled>Seleccione una opción</option>
+              <option value="Primaria">Primaria</option>
+              <option value="Secundaria">Secundaria</option>
+              <option value="Superior">Superior</option>
+            </select>
+            <small *ngIf="!dcuNivelesValido" class="text-danger">Campo requerido. Debe seleccionar un nivel</small>
+          </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="dcuTemastransversales">Temas Transversales</label>
-            <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales" [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
+            <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales"
+              [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
+            <small *ngIf="!dcuTemasValido" class="text-danger">Campo requerido. Debe ingresar los temas transversales de
+              la capacitación</small>
           </div>
         </div>
       </div>
@@ -53,18 +60,15 @@
         <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || 
                    diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase()) || 
                    diseno.dcuIdentificador.toLowerCase().includes(filtro.toLowerCase())">
-        <td>{{ diseno.dcuIdentificador }}</td>
-        <td>{{ diseno.dcuNiveles }}</td>
-        <td>{{ diseno.dcuTemastransversales }}</td>
-        <td>
-          <button class="btn btn-primary"  onclick="scrollToTop()" (click)="editarDiseno(diseno)">Editar</button>
-          <button class="btn btn-danger" (click)="eliminarDiseno(diseno.dcuId)">Eliminar</button>
-        </td>
+          <td>{{ diseno.dcuIdentificador }}</td>
+          <td>{{ diseno.dcuNiveles }}</td>
+          <td>{{ diseno.dcuTemastransversales }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarDiseno(diseno)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarDiseno(diseno.dcuId)">Eliminar</button>
+          </td>
         </tr>
       </ng-container>
-        </tbody>
-        
-          </table>
-          
-        </div>
-
+    </tbody>
+  </table>
+</div>

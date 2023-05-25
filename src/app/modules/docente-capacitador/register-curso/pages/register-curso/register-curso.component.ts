@@ -7,17 +7,14 @@ import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
 import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
-import { Persona } from 'src/app/Core/models/persona';
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
-import { CursosAplicadosComponent } from 'src/app/modules/participantes/cursos-aplicados/pages/cursos-aplicados/cursos-aplicados.component';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DatossilaboservService } from 'src/app/shared/Services/DatosSilaboServ/datossilaboserv.service';
 import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import { EspecialidadService } from 'src/app/shared/Services/especialidad.service';
 import { ModalidadService } from 'src/app/shared/Services/modalidad.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
-import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
 import { TipoCursoService } from 'src/app/shared/Services/tipoCurso.service';
 import Swal from 'sweetalert2';
@@ -28,7 +25,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register-curso.component.css']
 })
 export class RegisterCursoComponent implements OnInit {
-
 
   cursos: Curso[] = [];
   editando: boolean = false;
@@ -44,8 +40,20 @@ export class RegisterCursoComponent implements OnInit {
   imagePreview: any;
   editImagePreview: any;
 
-
-
+  programaValido: boolean = true;
+  especialidadValido: boolean = true;
+  modalidadValido: boolean = true;
+  tipoValido: boolean = true;
+  silaboValido: boolean = true;
+  necesidadValido: boolean = true;
+  disenoValido: boolean = true;
+  curCodigoValido: boolean = true;
+  curNombreValido: boolean = true;
+  curFechaIValido: boolean = true;
+  curFechaFValido: boolean = true;
+  curNumHorasValido: boolean = true;
+  curFotoValido: boolean = true;
+  filtro = '';
   searchText: string = '';
 
   constructor(
@@ -56,10 +64,9 @@ export class RegisterCursoComponent implements OnInit {
     private datosSilServ: DatossilaboservService,
     private necesidadServ: NecesidadCursoService,
     private disenoCurrServ: DisenoCurricularService,
-    private personaServ: PersonaService,
     private programaCapacitacionService: ProgramaCapacitacionService,
     private formbuilder: FormBuilder,
-    private router : Router
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -121,6 +128,8 @@ export class RegisterCursoComponent implements OnInit {
         cursos => {
           // Lógica para manejar los cursos obtenidos
           this.cursos = cursos;
+          const nuevoCurso = new Curso();
+          nuevoCurso.actualizarProceso();
         },
         error => {
           // Lógica para manejar el error
@@ -128,8 +137,6 @@ export class RegisterCursoComponent implements OnInit {
       );
     }
   }
-
-
 
   onSelectChangeprogramcap(eventTarget: EventTarget | null) {
     const selectElement = eventTarget as HTMLSelectElement;
@@ -161,6 +168,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdespecialidad.espId = Number(selectedValue);
   }
+
   getespecialidades() {
     this.especialidadServ.getAllTrue().subscribe(
       cursosespe => this.arrayespecialidad = cursosespe.filter(cursosespe => cursosespe.espEstado !== false)
@@ -182,6 +190,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdModalidadCurso.mcuId = Number(selectedValue);
   }
+
   getmodalidad() {
     this.modalidadCurServ.getAll().subscribe(
       cursosmoda => this.arraymodalidad = cursosmoda.filter(cursosmoda => cursosmoda.mcuEstado !== false)
@@ -203,6 +212,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdTiposCurso.tcuId = Number(selectedValue);
   }
+
   gettipocurso() {
     this.tipoCurServ.getAll().subscribe(
       cursotipocur => this.arraytipocirsp = cursotipocur.filter(cursotipocur => cursotipocur.tcuEstado !== false)
@@ -224,6 +234,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdDatossilabo.dsiId = Number(selectedValue);
   }
+
   getdatossilab() {
     this.datosSilServ.getAll().subscribe(
       cursodtsilab => this.arraydatosilab = cursodtsilab.filter(cursodtsilab => cursodtsilab.dsiEstado !== false)
@@ -244,6 +255,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdNecesidadCurso.ncuId = Number(selectedValue);
   }
+
   getnecesidades() {
     this.necesidadServ.getAll().subscribe(
       cursonecesidades => this.arraynecesidades = cursonecesidades.filter(cursonecesidades => cursonecesidades.ncuEstado !== false)
@@ -265,6 +277,7 @@ export class RegisterCursoComponent implements OnInit {
     const selectedValue = selectElement.value;
     this.selectedIdDisenoCurricular.dcuId = Number(selectedValue);
   }
+
   getdisenocurricular() {
     this.disenoCurrServ.getAllTrue().subscribe(
       cursodiseno => this.arraydseno = cursodiseno.filter(cursodiseno => cursodiseno.dcuEstado !== false)
@@ -272,17 +285,16 @@ export class RegisterCursoComponent implements OnInit {
     );
   }
 
-generarcodigoFoto(){
-  // Obtener el string base64 de la foto y eliminar el encabezado
-  const base64String = this.cursoForm.value.curFoto;
-  const cleanedBase64String = base64String?.replace("data:image/jpeg;base64,", "");
+  generarcodigoFoto() {
+    const base64String = this.cursoForm.value.curFoto;
 
-
-  this.cursoSeleccionado.curFoto = cleanedBase64String; // Asignar la foto al curso
-  console.log(cleanedBase64String);
-  
-}
-
+    if (base64String) {
+      const cleanedBase64String = base64String.replace("data:image/jpeg;base64,", "");
+      this.cursoSeleccionado.curFoto = cleanedBase64String;
+    } else {
+      this.cursoSeleccionado.curFoto = ""; // Asignar un valor vacío si no se proporciona imagen
+    }
+  }
 
   crearcurso() {
     this.generarcodigoFoto();
@@ -296,10 +308,6 @@ generarcodigoFoto(){
     this.cursoSeleccionado.curFechainicio = fechaInicioUTC;
     this.cursoSeleccionado.curFechafin = fechaFinUTC;
 
-    
-    
-
-    
     this.cursoSeleccionado.programaCapacitacion = this.selectedIdprogrmamacap;
     this.programaCapacitacionService.getProgramaCapacitacionById(this.cursoSeleccionado.programaCapacitacion.pcaId).subscribe(programcapata => {
       this.cursoSeleccionado.programaCapacitacion = programcapata;
@@ -334,22 +342,84 @@ generarcodigoFoto(){
                     this.cursoSeleccionado.pcursos.id_persona = selectedId;
 
                     this.cursoSeleccionado.curEstado = true;
-                    this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
-                      console.log(datacursocreado);
-                      
-                      Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
-                        this.cursoForm.reset();
-                        this.getCursos();
-                        this.cursoForm.get('curFoto')?.reset();
-                        this.cursoForm.get('pcaId')?.setValue("Seleccione Una opción");
-                        this.cursoForm.get('espId')?.setValue("Seleccione Una opción");
-                        this.cursoForm.get('mcuId')?.setValue("Seleccione Una opción");
-                        this.cursoForm.get('tcuId')?.setValue("Seleccione Una opción");
-                        this.cursoForm.get('dsiId')?.setValue("Seleccione Una opción");
-                        this.cursoForm.get('dcuId')?.setValue("Seleccione Una opción");
-     
+                    const codigoRegex = /^[a-zA-Z0-9.\s]+$/;
+                    this.curCodigoValido = codigoRegex.test(this.cursoSeleccionado.curCodigo.toString());
+
+                    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+                    this.curNombreValido = nombreRegex.test(this.cursoSeleccionado.curNombre);
+
+                    // Verificar que la fecha de inicio no sea menor o igual a la fecha actual del sistema
+                    this.curFechaIValido = new Date(this.cursoSeleccionado.curFechainicio) > new Date();
+
+                    // Verificar que la fecha de fin sea mayor a la fecha de inicio
+                    this.curFechaFValido = new Date(this.cursoSeleccionado.curFechafin) > new Date(this.cursoSeleccionado.curFechainicio);
+
+                    // Verificar que el número de horas sea un entero mayor a 0
+                    const numHoras = parseInt(this.cursoSeleccionado.curNumhoras.toString(), 10);
+                    this.curNumHorasValido = Number.isInteger(numHoras) && numHoras > 0;
+
+                    if (!this.cursoSeleccionado.programaCapacitacion || !this.cursoSeleccionado.programaCapacitacion.pcaId) {
+                      this.programaValido = false;
+                      return;
+                    } else {
+                      this.programaValido = true;
+                    }
+                    if (!this.cursoSeleccionado.ecursos || !this.cursoSeleccionado.ecursos.espId) {
+                      this.especialidadValido = false;
+                      return;
+                    } else {
+                      this.especialidadValido = true;
+                    }
+                    if (!this.cursoSeleccionado.mcursos || !this.cursoSeleccionado.mcursos.mcuId) {
+                      this.modalidadValido = false;
+                      return;
+                    } else {
+                      this.modalidadValido = true;
+                    }
+                    if (!this.cursoSeleccionado.tipoCurso || !this.cursoSeleccionado.tipoCurso.tcuId) {
+                      this.tipoValido = false;
+                      return;
+                    } else {
+                      this.tipoValido = true;
+                    }
+                    if (!this.cursoSeleccionado.datosSilabo || !this.cursoSeleccionado.datosSilabo.dsiId) {
+                      this.silaboValido = false;
+                      return;
+                    } else {
+                      this.silaboValido = true;
+                    }
+                    if (!this.cursoSeleccionado.necesidadCurso || !this.cursoSeleccionado.necesidadCurso.ncuId) {
+                      this.necesidadValido = false;
+                      return;
+                    } else {
+                      this.necesidadValido = true;
+                    }
+                    if (!this.cursoSeleccionado.disenoCurricular || !this.cursoSeleccionado.disenoCurricular.dcuId) {
+                      this.disenoValido = false;
+                      return;
+                    } else {
+                      this.disenoValido = true;
+                    }
+                    if (this.curCodigoValido && this.curNombreValido && this.curFechaIValido && this.curFechaFValido && this.curNumHorasValido) {
+                      this.cursoServ.crearCurso(this.cursoSeleccionado).subscribe(datacursocreado => {
+                        Swal.fire('¡Éxito!', 'El curso ha sido creado correctamente', 'success').then(() => {
+                          this.cursoForm.reset();
+                          this.getCursos();
+                          this.cursoForm.get('curFoto')?.reset();
+                          this.cursoForm.get('pcaId')?.setValue("Seleccione una opción");
+                          this.cursoForm.get('espId')?.setValue("Seleccione una opción");
+                          this.cursoForm.get('mcuId')?.setValue("Seleccione una opción");
+                          this.cursoForm.get('tcuId')?.setValue("Seleccione una opción");
+                          this.cursoForm.get('dsiId')?.setValue("Seleccione una opción");
+                          this.cursoForm.get('dcuId')?.setValue("Seleccione una opción");
+                          this.getCursos();
+                          this.goToeditprofile(event);
+
+                        });
                       });
-                    });
+                    }else{
+                      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+                    }
                   }
                 });
               });
@@ -358,31 +428,15 @@ generarcodigoFoto(){
         });
       });
     });
-    this.getCursos();
-    this.goToeditprofile(event);
   }
 
-  goToeditprofile($event: any) :void{
-
+  goToeditprofile($event: any): void {
     this.router.navigate(['Capacitador/edit-list-curso'])
-    console.log($event)
-   }
-
-
-
-
-
-
-  filtro = '';
+    this.getCursos();
+  }
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
-  }
-
-  ////////////////////////////////////
-  onEdit(curso: Curso): void {
-    // Implementa la lógica para editar un registro fotográfico aquí
-    console.log('Editar registro:', curso.curId);
   }
 
   getImageSrc(base64: string): string {
@@ -418,9 +472,9 @@ generarcodigoFoto(){
       this.editImagePreview = null;
     };
   }
+
   onFileChange(event: any) {
     const reader = new FileReader();
-
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);

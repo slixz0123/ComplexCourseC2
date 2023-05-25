@@ -6,13 +6,19 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="areCodigo">Código</label>
-            <input type="text" class="form-control" id="areCodigo" name="areCodigo" [(ngModel)]="areaSeleccionada.areCodigo" required>
+            <input type="text" class="form-control" id="areCodigo" name="areCodigo"
+              [(ngModel)]="areaSeleccionada.areCodigo" required>
+            <small *ngIf="!areCodigoValido" class="text-danger">Campo requerido. El código debe contener solo letras
+              mayúsculas</small>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="areNombre">Nombre</label>
-            <input type="text" class="form-control" id="areNombre" name="areNombre" [(ngModel)]="areaSeleccionada.areNombre" required>
+            <input type="text" class="form-control" id="areNombre" name="areNombre"
+              [(ngModel)]="areaSeleccionada.areNombre" required>
+            <small *ngIf="!areNombreValido" class="text-danger">Campo requerido. El nombre debe contener solo letras
+              mayúsculas</small>
           </div>
         </div>
       </div>
@@ -40,17 +46,15 @@
       <ng-container *ngFor="let area of areas">
         <tr *ngIf="area.areCodigo.toLowerCase().includes(filtro.toLowerCase()) || 
                    area.areNombre.toLowerCase().includes(filtro.toLowerCase())">
-        <td>{{ area.areCodigo }}</td>
-        <td>{{ area.areNombre }}</td>
-        <td>{{ area.areEstado ? 'Activo' : 'Inactivo' }}</td>
-        <td>
-          <button class="btn btn-primary" (click)="editarArea(area)">Editar</button>
-          <button class="btn btn-danger" (click)="eliminarArea(area.areId)">Eliminar</button>
-        </td>
+          <td>{{ area.areCodigo }}</td>
+          <td>{{ area.areNombre }}</td>
+          <td>{{ area.areEstado ? 'Activo' : 'Inactivo' }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarArea(area)">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarArea(area.areId)">Eliminar</button>
+          </td>
         </tr>
       </ng-container>
-        </tbody>
-        
-          </table>
-          
-        </div>
+    </tbody>
+  </table>
+</div>

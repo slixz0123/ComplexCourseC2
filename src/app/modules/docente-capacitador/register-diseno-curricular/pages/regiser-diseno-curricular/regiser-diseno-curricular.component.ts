@@ -17,6 +17,10 @@ export class RegiserDisenoCurricularComponent {
   isNew: boolean = true; // Definición de la propiedad isNew
   disenoForm: FormGroup | undefined;
   submitted = false;
+  dcuIdentificadorValido: boolean = true;
+  dcuNivelesValido: boolean = true;
+  dcuTemasValido: boolean = true;
+  filtro = '';
 
   constructor(private disenoServ: DisenoCurricularService) { }
 
@@ -32,7 +36,6 @@ export class RegiserDisenoCurricularComponent {
     this.disenoServ.create(this.disenoSeleccionaddo).subscribe(() => {
       this.getDisenos();
       this.disenoSeleccionaddo = new DisenoCurricular();
-      console.log(this.disenoSeleccionaddo);
       Swal.fire('¡Éxito!', 'El diseño curricular ha sido registrado correctamente', 'success');
 
     });
@@ -64,7 +67,7 @@ export class RegiserDisenoCurricularComponent {
         this.isNew = true;
       }
     });
-  }  
+  }
 
   seleccionarArea(diseno: DisenoCurricular): void {
     this.disenoSeleccionaddo = Object.assign({}, diseno);
@@ -86,23 +89,38 @@ export class RegiserDisenoCurricularComponent {
     });
   }
 
-
   submitForm(): void {
     this.submitted = true;
     if (this.disenoForm && this.disenoForm.invalid) {
       return;
     }
-    if (this.isNew) {
-      this.crearDiseno();
-    } else {
-      this.guardarDiseno();
-    }
-    this.disenoForm?.reset();
-    this.submitted = false;
-    this.isNew = true;
-  }
 
-  filtro = '';
+    const identificadorRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.dcuIdentificadorValido = identificadorRegex.test(this.disenoSeleccionaddo.dcuIdentificador);
+
+    if (!this.disenoSeleccionaddo.dcuNiveles) {
+      this.dcuNivelesValido = false;
+      return;
+    } else {
+      this.dcuNivelesValido = true;
+    }
+
+    const temasRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.dcuTemasValido = temasRegex.test(this.disenoSeleccionaddo.dcuTemastransversales);
+
+    if (this.dcuIdentificadorValido && this.dcuNivelesValido && this.dcuTemasValido) {
+      if (this.isNew) {
+        this.crearDiseno();
+      } else {
+        this.guardarDiseno();
+      }
+      this.disenoForm?.reset();
+      this.submitted = false;
+      this.isNew = true;
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+    }
+  }
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();

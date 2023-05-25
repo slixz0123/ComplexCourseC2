@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./horarios-curso.component.css']
 })
 export class HorariosCursoComponent {
+  
   cursosList: any[] = [];
   idPersona: any;
   horarios: Horario[] = [];
@@ -28,6 +29,8 @@ export class HorariosCursoComponent {
   showContainer2: boolean = false;
   selectedCursoId!: number;
   horariosCurList: any[] = [];
+  horarioValido: boolean = true;
+  hcuNombreValido: boolean = true;
 
   constructor(private cursoService: CursoService, private formBuilder: FormBuilder, private horarioCurServ: HorarioCursoService, private horarioServ: horarioService) { }
 
@@ -44,13 +47,12 @@ export class HorariosCursoComponent {
     });
   }
 
-  selectCurso(cursoId: number): void {   
-    this.horarioCurSeleccionado.hcurso.curId = cursoId; 
+  selectCurso(cursoId: number): void {
+    this.horarioCurSeleccionado.hcurso.curId = cursoId;
     this.selectedCursoId = cursoId;
     this.showContainer1 = false;
     this.showContainer2 = true;
-    this.getHorariosByCurso(this.selectedCursoId);    
-
+    this.getHorariosByCurso(this.selectedCursoId);
   }
 
   getHorariosByCurso(idCurso: number): void {
@@ -58,16 +60,9 @@ export class HorariosCursoComponent {
     this.horarioCurServ.getAllHorariosByCurso(idCurso).subscribe(
       horarios => {
         this.horariosCur = horarios.filter((horarioCur: HorarioCurso) => horarioCur.hcuEstado === true);
-      },
-      error => {
-        console.log("Error al obtener los horarios del curso");
-        console.log(error);
       }
     );
   }
-  
-  
-  
 
   editarHorarioCur(horarioCur: HorarioCurso): void {
     this.horarioCurSeleccionado = Object.assign({}, horarioCur);
@@ -80,53 +75,62 @@ export class HorariosCursoComponent {
   }
 
   submitForm(): void {
-    if (this.isNew) { 
-      this.horarioCurSeleccionado.hcurso.curId = this.selectedCursoId; // Asignar el ID del curso seleccionado
-      this.horarioCurServ.create(this.horarioCurSeleccionado).subscribe(() => {
-            this.getHorariosByCurso(this.selectedCursoId);
-;
-        this.horarioCurSeleccionado = new HorarioCurso();
-  
-        Swal.fire({
-          icon: 'success',
-          title: 'Horario Asignado',
-          text: 'El horario ha sido asignado al curso correctamente.',
-          confirmButtonText: 'Aceptar'
-        });
+    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.hcuNombreValido = nombreRegex.test(this.horarioCurSeleccionado.hcuNombre);
 
-      });
-    } else { 
-      Swal.fire({
-        icon: 'warning',
-        title: '¿Estás seguro?',
-        text: '¿Deseas editar este registro?',
-        showCancelButton: true,
-        confirmButtonText: 'Editar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) { // Si el usuario confirma la edición
-          this.horarioCurServ.update(this.horarioCurSeleccionado, this.horarioCurSeleccionado.hcuId).subscribe(() => {
-                this.getHorariosByCurso(this.selectedCursoId);
-;
+    if (!this.horarioCurSeleccionado.horario || !this.horarioCurSeleccionado.horario.horId) {
+      this.horarioValido = false;
+      return;
+    } else {
+      this.horarioValido = true;
+    }
+
+    if (this.hcuNombreValido && this.horarioValido) {
+      if (this.isNew) {
+        this.horarioCurSeleccionado.hcurso.curId = this.selectedCursoId; // Asignar el ID del curso seleccionado
+        this.horarioCurServ.create(this.horarioCurSeleccionado).subscribe(() => {
+          this.getHorariosByCurso(this.selectedCursoId);
+          this.horarioCurSeleccionado = new HorarioCurso();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Horario Asignado',
+            text: 'El horario ha sido asignado al curso correctamente.',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: '¿Estás seguro?',
+          text: '¿Deseas editar este registro?',
+          showCancelButton: true,
+          confirmButtonText: 'Editar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) { // Si el usuario confirma la edición
+            this.horarioCurServ.update(this.horarioCurSeleccionado, this.horarioCurSeleccionado.hcuId).subscribe(() => {
+              this.getHorariosByCurso(this.selectedCursoId);
+              this.horarioCurSeleccionado = new HorarioCurso();
+              this.isNew = true;
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Registro editado',
+                text: 'Este registro ha sido modificado correctamente.',
+                confirmButtonText: 'Aceptar'
+              });
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
             this.horarioCurSeleccionado = new HorarioCurso();
             this.isNew = true;
-  
-            Swal.fire({
-              icon: 'success',
-              title: 'Registro editado',
-              text: 'Este registro ha sido modificado correctamente.',
-              confirmButtonText: 'Aceptar'
-            });
-          });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          this.horarioCurSeleccionado = new HorarioCurso();
-          this.isNew = true;
-        }
-      });
+          }
+        });
+      }
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
   }
-  
-
 
   eliminarHorarioCur(espId: number): void {
     Swal.fire({
@@ -137,15 +141,13 @@ export class HorariosCursoComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.horarioCurServ.delete(espId).subscribe(() => {
-              this.getHorariosByCurso(this.selectedCursoId);
-;
+          this.getHorariosByCurso(this.selectedCursoId);
+          ;
           Swal.fire('¡Éxito!', 'Este registro ha sido eliminado correctamente', 'success');
         });
       }
     });
   }
-  
-
 
   getHorarios(): void {
     this.horarioServ.getHorariosTrue().subscribe((horarios) => (this.horarios = horarios));

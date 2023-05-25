@@ -6,19 +6,28 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="mecanismo">Seleccione el mecanismo de evaluación al que pertenece:</label>
-            <select class="form-control" id="mecanismo" [(ngModel)]="detalleSeleccionado.mecanismoEvaluacion.mevId" name="mecanismo">
-              <option *ngFor="let mecanismo of mecanismos" [value]="mecanismo.mevId" [selected]="mecanismo.mevId === detalleSeleccionado.mecanismoEvaluacion.mevId">{{ mecanismo.mevDescripcion }}</option>
+            <select class="form-control" id="mecanismo" [(ngModel)]="detalleSeleccionado.mecanismoEvaluacion.mevId"
+              name="mecanismo" required>
+              <option *ngFor="let mecanismo of mecanismos" [value]="mecanismo.mevId"
+                [selected]="mecanismo.mevId === detalleSeleccionado.mecanismoEvaluacion.mevId">{{
+                mecanismo.mevDescripcion }}</option>
             </select>
+            <small class="text-danger" *ngIf="!mecanismoValido">Campo requerido. Debes seleccionar un Mecanismo de
+              evaluación.</small>
           </div>
-          
-          
           <div class="form-group">
             <label for="dmeTecnica">Técnica</label>
-            <input type="text" class="form-control" id="dmeTecnica" name="dmeTecnica" [(ngModel)]="detalleSeleccionado.dmeTecnica" required>
+            <input type="text" class="form-control" id="dmeTecnica" name="dmeTecnica"
+              [(ngModel)]="detalleSeleccionado.dmeTecnica" required>
+            <small class="text-danger" *ngIf="!dmeTecnicaValido">Campo requerido. Debes ingresar una técnica de
+              evaluación</small>
           </div>
           <div class="form-group">
             <label for="dmeInstrumento">Instrumento</label>
-            <input type="text" class="form-control" id="dmeInstrumento" name="dmeInstrumento" [(ngModel)]="detalleSeleccionado.dmeInstrumento" required>
+            <input type="text" class="form-control" id="dmeInstrumento" name="dmeInstrumento"
+              [(ngModel)]="detalleSeleccionado.dmeInstrumento" required>
+            <small class="text-danger" *ngIf="!dmeInstrumentoValido">Campo requerido. Debes ingresar un Instrumento de
+              evaluación</small>
           </div>
         </div>
       </div>
@@ -26,12 +35,12 @@
     </form>
   </div>
 
-<br>
-<br>
-<div class="form-group">
-  <label for="buscar">Buscar:</label>
-  <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
-</div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
 
   <br>
   <h2>Detalles </h2>
@@ -58,7 +67,5 @@
         </tr>
       </ng-container>
     </tbody>
-    
-        
-          </table>
-</div>       
+  </table>
+</div>

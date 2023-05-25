@@ -28,4 +28,16 @@ export class Curso {
   disenoCurricular: DisenoCurricular = new DisenoCurricular;
   pcursos: Persona = new Persona;
 
+  actualizarProceso(): void {
+    const fechaActual = new Date();
+
+    if (fechaActual >= this.curFechainicio && fechaActual <= this.curFechafin) {
+      this.curProceso = 'En Proceso';
+    } else if (fechaActual > this.curFechafin) {
+      this.curProceso = 'Finalizado';
+    } else {
+      this.curProceso = 'Próximamente';
+    }
+  }
+
 }

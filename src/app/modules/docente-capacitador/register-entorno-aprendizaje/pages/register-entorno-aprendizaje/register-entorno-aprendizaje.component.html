@@ -6,39 +6,55 @@
         <div class="col-md-12">
           <div class="form-group">
             <label for="diseno">Seleccione el diseño curricular al que pertenece:</label>
-            <select class="form-control" id="diseno" [(ngModel)]="entornoSeleccionado.eapDiseno.dcuId" name="diseno">
-              <option *ngFor="let diseno of disenos" [value]="diseno.dcuId" [selected]="diseno.dcuId === entornoSeleccionado.eapDiseno.dcuId">{{ diseno.dcuIdentificador }}</option>
+            <select class="form-control" id="diseno" [(ngModel)]="entornoSeleccionado.eapDiseno.dcuId" name="diseno"
+              required>
+              <option *ngFor="let diseno of disenos" [value]="diseno.dcuId"
+                [selected]="diseno.dcuId === entornoSeleccionado.eapDiseno.dcuId">{{ diseno.dcuIdentificador }}</option>
             </select>
+            <small class="text-danger" *ngIf="!disenoValido">Campo requerido. Debes seleccionar un diseño
+              curricular</small>
           </div>
           <div class="form-group">
             <label for="eapInstalaciones">Instalaciones</label>
-            <input type="text" class="form-control" id="eapInstalaciones" name="eapInstalaciones" [(ngModel)]="entornoSeleccionado.eapInstalaciones" required>
+            <input type="text" class="form-control" id="eapInstalaciones" name="eapInstalaciones"
+              [(ngModel)]="entornoSeleccionado.eapInstalaciones" required>
+            <small class="text-danger" *ngIf="!eapInstalacionesValido">Campo requerido. Debe ingresar la instalación en
+              donde se impartirá la capacitación.</small>
           </div>
           <div class="form-group">
             <label for="eapRecursos">Recursos</label>
-            <input type="text" class="form-control" id="eapRecursos" name="eapRecursos" [(ngModel)]="entornoSeleccionado.eapRecursos" required>
+            <input type="text" class="form-control" id="eapRecursos" name="eapRecursos"
+              [(ngModel)]="entornoSeleccionado.eapRecursos" required>
+            <small class="text-danger" *ngIf="!eapRecursosValido">Campo requerido. Debe ingresar los recursos para la
+              capacitación.</small>
           </div>
-        
-        <div class="form-group">
-          <label for="eapFaseteorica">Fase Teórica</label>
-          <input type="text" class="form-control" id="eapFaseteorica" name="eapFaseteorica" [(ngModel)]="entornoSeleccionado.eapFaseteorica" required>
-        </div>
-        <div class="form-group">
-          <label for="eapFasepractica">Fase Práctica</label>
-          <input type="text" class="form-control" id="eapFasepractica" name="eapFasepractica" [(ngModel)]="entornoSeleccionado.eapFasepractica" required>
+
+          <div class="form-group">
+            <label for="eapFaseteorica">Fase Teórica</label>
+            <input type="text" class="form-control" id="eapFaseteorica" name="eapFaseteorica"
+              [(ngModel)]="entornoSeleccionado.eapFaseteorica" required>
+            <small class="text-danger" *ngIf="!eapFaseteoricaValido">Campo requerido. Debe ingresar la información
+              solicitada.</small>
+          </div>
+          <div class="form-group">
+            <label for="eapFasepractica">Fase Práctica</label>
+            <input type="text" class="form-control" id="eapFasepractica" name="eapFasepractica"
+              [(ngModel)]="entornoSeleccionado.eapFasepractica" required>
+            <small class="text-danger" *ngIf="!eapFasePracticaValido">Campo requerido. Debe ingresar la información
+              solicitada.</small>
+          </div>
         </div>
       </div>
-  </div>
       <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
     </form>
   </div>
 
-<br>
-<br>
-<div class="form-group">
-  <label for="buscar">Buscar:</label>
-  <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
-</div>
+  <br>
+  <br>
+  <div class="form-group">
+    <label for="buscar">Buscar:</label>
+    <input type="text" class="form-control" id="buscar" name="buscar" [(ngModel)]="filtro" (keyup)="actualizarFiltro()">
+  </div>
 
   <br>
   <h2>Entornos de Aprendizaje</h2>
@@ -71,8 +87,5 @@
         </tr>
       </ng-container>
     </tbody>
-    
-        
-          </table>
-</div>          
-        
+  </table>
+</div>

@@ -13,6 +13,7 @@ import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricula
   styleUrls: ['./register-mecanismo-eva.component.css']
 })
 export class RegisterMecanismoEvaComponent {
+  
   mecanismos: MecanismoEvaluacion[] = [];
   mecanismoSeleccionado: MecanismoEvaluacion = new MecanismoEvaluacion();
   disenos: DisenoCurricular[] = [];
@@ -20,6 +21,9 @@ export class RegisterMecanismoEvaComponent {
   isNew: boolean = true; // Definición de la propiedad isNew
   mecanismoForm: FormGroup | undefined;
   submitted = false;
+  disenoSeleccionadoValido: boolean = true;
+  mevDescripcionValido: boolean = true;
+  filtro = '';
 
   constructor(private mecanismoEvaluacionServ: MecanismoEvaluacionService, private disenoServ: DisenoCurricularService) { }
 
@@ -60,11 +64,33 @@ export class RegisterMecanismoEvaComponent {
   }
 
   submitForm(): void {
+    // Validación de selección de diseño curricular
+    if (!this.mecanismoSeleccionado.mevDiseno || !this.mecanismoSeleccionado.mevDiseno.dcuId) {
+      this.disenoSeleccionadoValido = false;
+      return;
+    } else {
+      this.disenoSeleccionadoValido = true;
+    }
+
+    // Validación de descripción
+    const descripcionRegedex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+
+    if (!this.mecanismoSeleccionado.mevDescripcion || !descripcionRegedex.test(this.mecanismoSeleccionado.mevDescripcion)) {
+      this.mevDescripcionValido = false;
+      
+        Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+      
+      return;
+    } else {
+      this.mevDescripcionValido = true;
+      
+    }
+
     if (this.isNew) {
       this.mecanismoEvaluacionServ.saveMecanismo(this.mecanismoSeleccionado).subscribe(() => {
         this.getMecanismos();
         this.mecanismoSeleccionado = new MecanismoEvaluacion();
-  
+
         Swal.fire({
           icon: 'success',
           title: 'Mecanismo de evaluación creado',
@@ -81,12 +107,27 @@ export class RegisterMecanismoEvaComponent {
         confirmButtonText: 'Editar',
         cancelButtonText: 'Cancelar'
       }).then((result) => {
+        // Validación de selección de diseño curricular
+        if (!this.mecanismoSeleccionado.mevDiseno || !this.mecanismoSeleccionado.mevDiseno.dcuId) {
+          this.disenoSeleccionadoValido = false;
+          
+            Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+          
+          return;
+        }
+
+        // Validación de descripción
+        if (!this.mecanismoSeleccionado.mevDescripcion || !descripcionRegedex.test(this.mecanismoSeleccionado.mevDescripcion)) {
+          this.mevDescripcionValido = false;
+          return;
+        }
+
         if (result.isConfirmed) { // Si el usuario confirma la edición
           this.mecanismoEvaluacionServ.updateMecanismo(this.mecanismoSeleccionado, this.mecanismoSeleccionado.mevId).subscribe(() => {
             this.getMecanismos();
             this.mecanismoSeleccionado = new MecanismoEvaluacion();
             this.isNew = true;
-  
+
             Swal.fire({
               icon: 'success',
               title: 'Mecanismo de evaluación editado',
@@ -100,13 +141,11 @@ export class RegisterMecanismoEvaComponent {
         }
       });
     }
-  }  
+  }
 
   getDisenos(): void {
     this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
   }
-
-  filtro = '';
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();

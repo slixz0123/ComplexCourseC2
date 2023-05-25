@@ -18,6 +18,9 @@ export class RegisterAreaComponent implements OnInit {
   isNew: boolean = true;
   areaForm: FormGroup | undefined;
   submitted = false;
+  areCodigoValido: boolean = true;
+  areNombreValido: boolean = true;
+  filtro = '';
 
   constructor(private areaServ: AreaService) { }
 
@@ -66,8 +69,6 @@ export class RegisterAreaComponent implements OnInit {
       }
     });
   }
-  
-
 
   seleccionarArea(area: Area): void {
     this.areaSeleccionada = Object.assign({}, area);
@@ -94,20 +95,30 @@ export class RegisterAreaComponent implements OnInit {
     if (this.areaForm && this.areaForm.invalid) {
       return;
     }
-    if (this.isNew) {
-      this.crearArea();
-    } else {
-      this.guardarArea();
-    }
-    this.areaForm?.reset();
-    this.submitted = false;
-    this.isNew = true;
-  }
 
-  filtro = '';
+    // Validación de areCodigo
+    const codigoRegex = /^[A-Z\s]+$/; // Expresión regular para letras mayúsculas
+    this.areCodigoValido = codigoRegex.test(this.areaSeleccionada.areCodigo);
+
+    // Validación de areNombre
+    const nombreRegex = /^[A-Z\s.ÁÉÍÓÚÜÑ]+$/i; // Expresión regular para letras
+    this.areNombreValido = nombreRegex.test(this.areaSeleccionada.areNombre);
+
+    if (this.areCodigoValido && this.areNombreValido) {
+      if (this.isNew) {
+        this.crearArea();
+      } else {
+        this.guardarArea();
+      }
+      this.areaForm?.reset();
+      this.submitted = false;
+      this.isNew = true;
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+    }
+  }
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
-
 }

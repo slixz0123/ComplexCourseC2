@@ -10,12 +10,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./tipo-curso.component.css']
 })
 export class TipoCursoComponent {
+  
   tipos: TiposCurso[] = [];
   tipoCSeleccionado: TiposCurso = new TiposCurso();
   editando: boolean = false;
   isNew: boolean = true;
   tipoCForm: FormGroup | undefined;
   submitted = false;
+  tcuNombreValido: Boolean = true;
+  filtro = '';
 
   constructor(private tipoCurServ: TipoCursoService) { }
 
@@ -64,8 +67,6 @@ export class TipoCursoComponent {
       }
     });
   }
-  
-
 
   seleccionarTiposCurso(tipo: TiposCurso): void {
     this.tipoCSeleccionado = Object.assign({}, tipo);
@@ -92,21 +93,23 @@ export class TipoCursoComponent {
     if (this.tipoCForm && this.tipoCForm.invalid) {
       return;
     }
-    if (this.isNew) {
-      this.crearTiposCurso();
-    } else {
-      this.guardarTiposCurso();
+    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.tcuNombreValido = nombreRegex.test(this.tipoCSeleccionado.tcuNombre);
+    if (this.tcuNombreValido) {
+      if (this.isNew) {
+        this.crearTiposCurso();
+      } else {
+        this.guardarTiposCurso();
+      }
+      this.tipoCForm?.reset();
+      this.submitted = false;
+      this.isNew = true;
+    }else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
-    this.tipoCForm?.reset();
-    this.submitted = false;
-    this.isNew = true;
   }
-
-  filtro = '';
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
-
-
 }
