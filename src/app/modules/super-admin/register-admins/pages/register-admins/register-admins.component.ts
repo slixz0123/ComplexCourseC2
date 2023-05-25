@@ -21,6 +21,7 @@ export class RegisterAdminsComponent {
   cedula: string = '';
   nombreDeUsuario: string = '';
   validardatos: any;
+  validarAdminExist: any;
   idPersona: any;
   // en el constructor instanciamos los servicios
   constructor(
@@ -59,6 +60,7 @@ export class RegisterAdminsComponent {
         this.persona.nivelintruccion = "Asignar";
         this.persona.hojavida = "Asignar";
         this.persona.enabled = true;
+        this.validarAdminExist = 1;
       }
     });
   }
@@ -68,8 +70,9 @@ export class RegisterAdminsComponent {
       console.log(response);
       if (response != null) {
         if (response.enabled == true) {
-          Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Docente Activa', 'info'); // SweetAlert al editar el área
+          Swal.fire('¡Alerta!', 'Esta Persona ya tiene una cuenta de ADMINISTRADOR Activa', 'info'); // SweetAlert al editar el área
           //Limpiar datos 
+          this.validarAdminExist = 2;
         } else {
           Swal.fire({
             title: 'La persona ya tiene una cuenta de Admin, ¿desea activarla?',
@@ -79,6 +82,7 @@ export class RegisterAdminsComponent {
           }).then((result) => {
             if (result.isConfirmed) {
               this.ActualizarEstadouser(response, response.id_usuario);
+              this.validarAdminExist = 2;
             }
           });
 
@@ -86,6 +90,7 @@ export class RegisterAdminsComponent {
       } else {
         Swal.fire('¡Alerta!', 'La persona existe pero no tiene cuenta de Administrador', 'info'); // SweetAlert al editar el área
         this.validardatos = 1;
+        this.validarAdminExist = 1;
       }
     });
   }
@@ -111,30 +116,35 @@ export class RegisterAdminsComponent {
     );
   }
   onSubmit() {
-    if (this.validardatos == 3) {
-      this.usuario.rol = this.rol
-      this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
-      this.usuario.enabled = true;
-      this.usuario.id_usuario = 0;
-      this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
-        console.log("Afirmativo pareja")
-        Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
-      }, error => {
-      });
-    } else {
-      this.personaService.crearPersona(this.persona).subscribe((response: any) => {
-        console.log(response); // Imprime la respuesta de la API en la consola
-        this.usuario.persona = response;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
-        this.usuario.rol = this.rol;
+    if (this.validarAdminExist === 2){
+      Swal.fire('¡Alerta!', this.persona.nombre+' ya tiene cuenta de ADMINISTRADOR', 'info'); // SweetAlert 
+    }else{
+      if (this.validardatos === 1) {
+        this.usuario.rol = this.rol
+        this.usuario.persona = this.persona;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
         this.usuario.enabled = true;
         this.usuario.id_usuario = 0;
-        console.log(this.usuario)
         this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
           console.log("Afirmativo pareja")
           Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
         }, error => {
         });
-      });
+      } else {
+        this.personaService.crearPersona(this.persona).subscribe((response: any) => {
+          console.log(response); // Imprime la respuesta de la API en la consola
+          this.usuario.persona = response;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
+          this.usuario.rol = this.rol;
+          this.usuario.enabled = true;
+          this.usuario.id_usuario = 0;
+          console.log(this.usuario)
+          this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
+            console.log("Afirmativo pareja")
+            Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
+          }, error => {
+          });
+        });
+      }
     }
+    
   }
 }

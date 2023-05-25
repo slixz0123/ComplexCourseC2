@@ -45,12 +45,16 @@ export class EditListAdminsComponent implements OnInit {
     const usernameInput = document.getElementById(
       'username'
     ) as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      'password'
+    ) as HTMLInputElement;
 
     if (nombreInput && apellidoInput && emailInput && usernameInput) {
       nombreInput.value = usuario.persona?.nombre || '';
       apellidoInput.value = usuario.persona?.apellido || '';
       emailInput.value = usuario.persona?.email || '';
       usernameInput.value = usuario.username || '';
+      passwordInput.value = usuario.password || '';
     }
 
     const editModalElement = document.getElementById('editModal');
@@ -76,6 +80,9 @@ export class EditListAdminsComponent implements OnInit {
     const usernameInput = document.getElementById(
       'username'
     ) as HTMLInputElement;
+    const passwordInput = document.getElementById(
+      'password'
+    ) as HTMLInputElement;
 
     const updatedUsuario: Usuario = {
       ...this.selectedUsuario,
@@ -86,6 +93,7 @@ export class EditListAdminsComponent implements OnInit {
         email: emailInput.value,
       },
       username: usernameInput.value,
+      password: passwordInput.value,
     };
 
     const updateData = async () => {
