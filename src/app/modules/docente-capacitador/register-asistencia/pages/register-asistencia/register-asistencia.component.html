@@ -24,9 +24,45 @@
 <div class="container" style="background-color: #ffffff;">
   <div class="container2" *ngIf="showContainer2">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="main-breadcrumb">
+    <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Cursos</a></li>
+        <li class="breadcrumb-item"><a>Horarios</a></li>
+      </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+    <h2>Horario/s del Curso</h2>
+    <table class="table">
+      <thead>
+        <tr class="bg-primary text-light">
+          <th scope="col">Nombre</th>
+          <th scope="col">Hora Inicio</th>
+          <th scope="col">Hora Fin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let horarioCur of horariosCur">
+          <!-- Filtrar los horarios por el ID del curso seleccionado -->
+          <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId" (click)="selectHorariosCurso(horarioCur.hcuId)">
+            <td>{{ horarioCur.hcuNombre }}</td>
+            <td>{{ horarioCur?.horario?.horInicio }}</td>
+            <td>{{ horarioCur?.horario?.horFin }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+  <div class="container2" *ngIf="showContainer3">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a
+            (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false;">Cursos</a></li>
+        <li class="breadcrumb-item"><a
+            (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false;">Horarios</a></li>
         <li class="breadcrumb-item"><a>Asistencia</a></li>
       </ol>
     </nav>

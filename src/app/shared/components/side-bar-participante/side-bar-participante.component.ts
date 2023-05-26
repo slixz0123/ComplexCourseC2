@@ -71,6 +71,11 @@ goToRegisterInscripcion($event: any) :void{
   this.router.navigate(['Participante/certif-curso-aprovee'])
   console.log($event)
  }
+ goToverReglamento($event: any) :void{
+
+  this.router.navigate(['Participante/ver-reglamento'])
+  console.log($event)
+ }
 
   ngOnInit(): void {
 

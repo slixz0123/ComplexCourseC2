@@ -93,7 +93,7 @@ export class ModalidadCursoComponent {
     if (this.modalidadForm && this.modalidadForm.invalid) {
       return;
     }
-    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const nombreRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.mcuNombreValido = nombreRegex.test(this.modalidadSeleccionada.mcuNombre);
     if (this.mcuNombreValido) {
       if (this.isNew) {

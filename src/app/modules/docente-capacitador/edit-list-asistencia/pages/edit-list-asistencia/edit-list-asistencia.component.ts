@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Asistencia } from 'src/app/Core/models/asistencia';
 import { Curso } from 'src/app/Core/models/curso';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Participante } from 'src/app/Core/models/participante';
 import { AsistenciaService } from 'src/app/shared/Services/asistencia.service';
 import { CursoService } from 'src/app/shared/Services/curso.service';
+import { HorarioCursoService } from 'src/app/shared/Services/horarioCurso.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
 import Swal from 'sweetalert2';
 
@@ -18,11 +20,14 @@ export class EditListAsistenciaComponent {
   participantes: { participante: Participante, asistencia: Asistencia }[] = [];
   formularioAsistencia!: FormGroup;
   asistencias: Asistencia[] = [];
+  horariosCur: HorarioCurso[] = [];
+  horarioCurSeleccionado: HorarioCurso = new HorarioCurso();
 
   showContainer1: boolean = true;
   showContainer2: boolean = false;
   showContainer3: boolean = false;
   showContainer4: boolean = false;
+  showContainer5: boolean = false;
 
   participanteSeleccionado: Participante | null = null;
   asistenciaSeleccionada: Asistencia = new Asistencia;
@@ -34,35 +39,57 @@ export class EditListAsistenciaComponent {
   estado: boolean = true;
   cursosList: any[] = [];
   selectedCursoId!: number;
+  selectedHorarioId!: number;
+  filtro = '';
 
-  constructor(private cursoService: CursoService, private formBuilder: FormBuilder, private asistenciaServ: AsistenciaService, private participanteServ: ParticipanteService) { }
+  constructor(private cursoService: CursoService, private formBuilder: FormBuilder, private asistenciaServ: AsistenciaService, private participanteServ: ParticipanteService, private horarioCurService: HorarioCursoService) { }
 
   ngOnInit(): void {
-    this.obtenerParticipantes();
-    this.obtenerAsistencias();
     this.valorMaximo = this.asistenciaSeleccionada.asiNumfaltas; // Almacenar el valor máximo inicial
     this.idPersona = localStorage.getItem('id_persona');
     this.mostrarCursos(this.idPersona);
   }
 
   obtenerParticipantes(): void {
+    this.horarioCurSeleccionado.hcurso.curId = this.selectedCursoId;
     if (this.selectedCursoId) {
-      this.participanteServ.obtenerParticipantesPorCurso(this.selectedCursoId).subscribe(participantes => {
-        this.participantes = participantes.map(participante => ({
-          participante: participante,
-          asistencia: new Asistencia()
-        }));
-      });
+      this.participanteServ.ParticipantesPorhorarioc(this.selectedCursoId, this.selectedHorarioId)
+        .subscribe(participantes => {
+          this.participantes = participantes.map(participante => ({
+            participante: participante,
+            asistencia: new Asistencia()
+          }));
+        });
     }
   }
-  
+
   selectCurso(cursoId: number): void {
     this.selectedCursoId = cursoId;
-    this.obtenerParticipantes();
     this.showContainer1 = false;
     this.showContainer2 = true;
     this.showContainer3 = false;
     this.showContainer4 = false;
+    this.getHorariosByCurso(this.selectedCursoId);
+  }
+
+  getHorariosByCurso(idCurso: number): void {
+    this.horarioCurSeleccionado.hcurso.curId = idCurso;
+    idCurso = this.selectedCursoId;
+    this.horarioCurService.getAllHorariosByCurso(idCurso).subscribe(
+      horarios => {
+        this.horariosCur = horarios.filter((horarioCur: HorarioCurso) => horarioCur.hcuEstado === true);
+      }
+    );
+  }
+
+  selectHorariosCurso(hcuId: number): void {
+    this.selectedHorarioId = hcuId;
+    this.showContainer1 = false;
+    this.showContainer2 = false;
+    this.showContainer3 = true;
+    this.showContainer4 = false;
+    this.showContainer5 = false;
+    this.obtenerParticipantes();
   }
 
   mostrarCursos(idPersona: any) {
@@ -87,34 +114,48 @@ export class EditListAsistenciaComponent {
       this.asistencias = asistencias;
       this.showContainer1 = false;
       this.showContainer2 = false;
-      this.showContainer3 = true;
-      this.showContainer4 = false;
+      this.showContainer3 = false;
+      this.showContainer4 = true;
+      this.showContainer5 = false;
     });
   }
+
   mostrarCurso(): void {
     this.showContainer1 = true;
     this.showContainer2 = false;
     this.showContainer3 = false;
     this.showContainer4 = false;
+    this.showContainer5 = false;
+    this.obtenerAsistencias();
+  }
+
+  mostrarHorarios(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = true;
+    this.showContainer3 = false;
+    this.showContainer4 = false;
+    this.showContainer5 = false;
     this.obtenerAsistencias();
   }
 
   mostrarEstudiantes(): void {
     this.showContainer1 = false;
-    this.showContainer2 = true;
-    this.showContainer3 = false;
-    this.showContainer4 = false;
-    this.obtenerAsistencias();
-  }
-  
-  mostrarFaltas(): void {
-    this.showContainer1 = false;
     this.showContainer2 = false;
     this.showContainer3 = true;
     this.showContainer4 = false;
+    this.showContainer5 = false;
     this.obtenerAsistencias();
   }
-  
+
+  mostrarFaltas(): void {
+    this.showContainer1 = false;
+    this.showContainer2 = false;
+    this.showContainer3 = false;
+    this.showContainer4 = true;
+    this.showContainer5 = false;
+    this.obtenerAsistencias();
+  }
+
 
   mostrarDetalles(item: { participante: Participante, asistencia: Asistencia }): void {
     // Aquí puedes asignar los datos de la fila seleccionada a las variables correspondientes
@@ -134,17 +175,18 @@ export class EditListAsistenciaComponent {
     this.showContainer1 = false;
     this.showContainer2 = false;
     this.showContainer3 = false;
-    this.showContainer4 = true;
+    this.showContainer4 = false;
+    this.showContainer5 = true;
   }
 
   guardarCambios(): void {
     const fechaInicio = new Date(this.asistenciaSeleccionada.asiFecha);
     const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
     this.asistenciaSeleccionada.asiFecha = fechaInicioUTC;
-  
+
     if (this.asistenciaSeleccionada) {
       const valorInicialFaltas = this.asistenciaSeleccionada.asiNumfaltas;
-  
+
       Swal.fire({
         icon: 'warning',
         title: '¿Estás seguro?',
@@ -164,9 +206,10 @@ export class EditListAsistenciaComponent {
                   confirmButtonText: 'Aceptar'
                 }).then(() => {
                   this.showContainer1 = false;
-                  this.showContainer2 = true;
-                  this.showContainer3 = false;
+                  this.showContainer2 = false;
+                  this.showContainer3 = true;
                   this.showContainer4 = false;
+                  this.showContainer5 = false;
                 });
               },
               (error) => {
@@ -181,10 +224,10 @@ export class EditListAsistenciaComponent {
       });
     }
   }
-  
-  
-  
-  
+
+
+
+
 
   validarHorasFalta() {
     const valorIngresado = this.asistenciaSeleccionada.asiNumfaltas;
@@ -196,11 +239,7 @@ export class EditListAsistenciaComponent {
     }
   }
 
-  filtro = '';
-
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
-
-
 }

@@ -52,6 +52,10 @@ const routes: Routes = [
   path: 'certif-curso-aprovee',
   loadChildren: () => import("./reporte-certificado-curso-aprobados/reporte-certificado-curso-aprobados.module").then(m => m.ReporteCertificadoCursoAprobadosModule)
 },
+{
+  path: 'ver-reglamento',
+  loadChildren:() => import("./ver-reglamento/ver-reglamento.module").then(m=>m.VerReglamentoModule)
+},
 ];
 
 @NgModule({

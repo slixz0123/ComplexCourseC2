@@ -209,6 +209,19 @@ export class SideBarComponent {
       this.router.navigate(['Capacitador/register-fichaEvaluacion'])
       console.log($event)
      }
+     //////////////////////////////////////////////////////////////////
+    goToverReglamento($event: any) :void{
+
+      this.router.navigate(['Capacitador/ver-reglamento'])
+      console.log($event)
+     }
+
+     //////////////////////////////////////////////////////////////////
+    goToverCertificado($event: any) :void{
+
+      this.router.navigate(['Capacitador/entrega'])
+      console.log($event)
+     }
      id: any;
      nombreUsuario: any;
      nombreRol: any;

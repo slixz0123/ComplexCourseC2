@@ -51,10 +51,10 @@ export class RegisterDetalleMevaComponent {
 
   submitForm(): void {
 
-    const tecnicaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const tecnicaRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.dmeTecnicaValido = tecnicaRegex.test(this.detalleSeleccionado.dmeTecnica);
 
-    const instrumentoRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const instrumentoRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.dmeInstrumentoValido = instrumentoRegex.test(this.detalleSeleccionado.dmeInstrumento);
 
     // Validación de selección de mecanismo de evaluación

@@ -120,4 +120,31 @@ export class PersonaService {
     //       })))
     //     );
     // }
+    uploadHojaVida(file: File): Observable<any> {
+      const formData: FormData = new FormData();
+      formData.append('file', file);    
+      return this.http.post<any>(`${this.URL}/hojavida`, formData);
+    }
+
+    guardarHojavida(formData: FormData) {
+    return this.http.post<any>(`${this.apiUrl}/guardar-hojavida`, formData);
+  }
+  updatePersonaWithFile(formData: FormData, persona: Persona, id_persona: number) {
+    formData.append('id_persona', id_persona.toString());
+    formData.append('cedula', persona.cedula || '');
+    formData.append('nombre', persona.nombre || '');
+    formData.append('apellido', persona.apellido || '');
+    formData.append('email', persona.email || '');
+    formData.append('direccion', persona.direccion || '');
+    formData.append('sexo', persona.sexo || '');
+    formData.append('etnia', persona.etnia || '');
+    formData.append('telefono', persona.telefono || '');
+    formData.append('celular', persona.celular || '');
+    formData.append('nivelintruccion', persona.nivelintruccion || '');
+    formData.append('hojavida', persona.hojavida || '');
+    
+    // Agrega otros campos de la persona que deseas actualizar
+
+    return this.http.post<any>(`${this.URL}/guardar-hojavida`, formData);
+}
 }

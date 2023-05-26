@@ -56,6 +56,10 @@ const routes: Routes = [
     path: 'reg-institucion',
     loadChildren: () => import("./register-institucion/register-institucion.module").then(m => m.RegisterInstitucionModule)
   },
+  {
+    path: 'ver-reglamento',
+    loadChildren:() => import("./ver-reglamento/ver-reglamento.module").then(m=>m.VerReglamentoModule)
+  },
 ];
 
 @NgModule({

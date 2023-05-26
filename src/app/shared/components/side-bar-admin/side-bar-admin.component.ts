@@ -81,7 +81,11 @@ export class SideBarAdminComponent {
     this.router.navigate(['/Admin/reg-institucion'])
     console.log($event)
   }
-
+  goToverReglamento($event: any) :void{
+  
+      this.router.navigate(['Admin/ver-reglamento'])
+      console.log($event)
+  }
 
 
   ngOnInit(): void {

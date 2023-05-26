@@ -73,7 +73,7 @@ export class RegisterMecanismoEvaComponent {
     }
 
     // Validación de descripción
-    const descripcionRegedex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const descripcionRegedex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
 
     if (!this.mecanismoSeleccionado.mevDescripcion || !descripcionRegedex.test(this.mecanismoSeleccionado.mevDescripcion)) {
       this.mevDescripcionValido = false;

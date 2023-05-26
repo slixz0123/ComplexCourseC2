@@ -95,7 +95,7 @@ export class RegiserDisenoCurricularComponent {
       return;
     }
 
-    const identificadorRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const identificadorRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.dcuIdentificadorValido = identificadorRegex.test(this.disenoSeleccionaddo.dcuIdentificador);
 
     if (!this.disenoSeleccionaddo.dcuNiveles) {
@@ -105,7 +105,7 @@ export class RegiserDisenoCurricularComponent {
       this.dcuNivelesValido = true;
     }
 
-    const temasRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const temasRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.dcuTemasValido = temasRegex.test(this.disenoSeleccionaddo.dcuTemastransversales);
 
     if (this.dcuIdentificadorValido && this.dcuNivelesValido && this.dcuTemasValido) {

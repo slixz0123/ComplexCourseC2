@@ -345,7 +345,7 @@ export class RegisterCursoComponent implements OnInit {
                     const codigoRegex = /^[a-zA-Z0-9.\s]+$/;
                     this.curCodigoValido = codigoRegex.test(this.cursoSeleccionado.curCodigo.toString());
 
-                    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+                    const nombreRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
                     this.curNombreValido = nombreRegex.test(this.cursoSeleccionado.curNombre);
 
                     // Verificar que la fecha de inicio no sea menor o igual a la fecha actual del sistema

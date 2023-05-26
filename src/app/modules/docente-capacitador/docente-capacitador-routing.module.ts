@@ -159,6 +159,10 @@ const routes: Routes = [
   path: 'entrega',
   loadChildren:() => import("./entrega-certificados/entrega-certificados.module").then(m=>m.EntregaCertificadosModule)
 },
+{
+  path: 'ver-reglamento',
+  loadChildren:() => import("./ver-reglamento/ver-reglamento.module").then(m=>m.VerReglamentoModule)
+},
 ];
 
 @NgModule({

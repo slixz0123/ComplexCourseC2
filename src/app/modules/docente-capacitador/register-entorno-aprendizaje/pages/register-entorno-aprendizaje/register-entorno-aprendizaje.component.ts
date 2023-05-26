@@ -57,17 +57,14 @@ export class RegisterEntornoAprendizajeComponent {
       this.disenoValido = true;
     }
 
-    const instalacionesRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const instalacionesRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.eapInstalacionesValido = instalacionesRegex.test(this.entornoSeleccionado.eapInstalaciones);
 
-    const recursosRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
-    this.eapRecursosValido = recursosRegex.test(this.entornoSeleccionado.eapRecursos);
+    this.eapRecursosValido = instalacionesRegex.test(this.entornoSeleccionado.eapRecursos);
 
-    const faseteoricaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
-    this.eapFaseteoricaValido = faseteoricaRegex.test(this.entornoSeleccionado.eapFaseteorica);
+    this.eapFaseteoricaValido = instalacionesRegex.test(this.entornoSeleccionado.eapFaseteorica);
 
-    const fasepracticaRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
-    this.eapFasePracticaValido = fasepracticaRegex.test(this.entornoSeleccionado.eapFasepractica);
+    this.eapFasePracticaValido = instalacionesRegex.test(this.entornoSeleccionado.eapFasepractica);
 
     if (this.eapInstalacionesValido && this.eapRecursosValido && this.eapFaseteoricaValido && this.eapFasePracticaValido) {
       if (this.isNew) {
@@ -99,11 +96,11 @@ export class RegisterEntornoAprendizajeComponent {
 
           this.eapInstalacionesValido = instalacionesRegex.test(this.entornoSeleccionado.eapInstalaciones);
 
-          this.eapRecursosValido = recursosRegex.test(this.entornoSeleccionado.eapRecursos);
+          this.eapRecursosValido = instalacionesRegex.test(this.entornoSeleccionado.eapRecursos);
 
-          this.eapFaseteoricaValido = faseteoricaRegex.test(this.entornoSeleccionado.eapFaseteorica);
+          this.eapFaseteoricaValido = instalacionesRegex.test(this.entornoSeleccionado.eapFaseteorica);
 
-          this.eapFasePracticaValido = fasepracticaRegex.test(this.entornoSeleccionado.eapFasepractica);
+          this.eapFasePracticaValido = instalacionesRegex.test(this.entornoSeleccionado.eapFasepractica);
 
           if (this.disenoValido && this.eapInstalacionesValido && this.eapRecursosValido && this.eapFaseteoricaValido && this.eapFasePracticaValido) {
             if (result.isConfirmed) { // Si el usuario confirma la edición

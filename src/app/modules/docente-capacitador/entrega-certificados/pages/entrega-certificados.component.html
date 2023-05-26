@@ -1,66 +1,187 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-
-</head>
-
-<body>
-    <form style="display: flex; justify-content: center;">
-        <div style="align-items: center;">
-            <h3>Entrega certificados</h3>
-        </div>
-    </form>
-    <form style="display: flex; justify-content: center;" class="row">
-        <div class="row" style="display: flex;">
-            <div class="input-group">
-                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-                    aria-describedby="search-addon" />
-                <button type="button" class="btn btn-outline-primary">search</button>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<br>
+<div class="container1" *ngIf="showContainer1">
+    <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let curso of cursosList">
+            <div class="card bg-c-blue order-card" (click)="selectCurso(curso.curId)">
+                <div class="card-block">
+                    <h6 class="m-b-20">Codigo: {{curso.curCodigo}}</h6>
+                    <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{curso.curNombre}}</span>
+                    </h2>
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="val"><span class="f-right">{{curso.curFechainicio | date: 'dd/MM/yyyy'}}</span>Inicia
+                        </h3>
+                        <h3 class="val"><span class="f-right">{{curso.curFechafin | date: 'dd/MM/yyyy'}}</span>Termina
+                        </h3>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                    </div>
+                </div>
             </div>
-            <div style="background-color: aquamarine">
-                <Label>Datos del participante</Label>
-                <table class="table-hover">
-                    <thead>
-                        <tr>
-                            <th>Cedula</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Correo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>usuaio.cedula</td>
-                            <td>usuario.nombre</td>
-                            <td>usuario.apellido</td>
-                            <td>usuario.corrreo</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div style="background-color: aqua;">
-                    <h5>Datos del curso</h5>
-                    <table class="table-hover">
+        </div>
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+    <div class="container2" *ngIf="showContainer2">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false;">Cursos</a>
+                </li>
+                <li class="breadcrumb-item"><a>Horarios</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <h2>Horario/s del Curso</h2>
+        <table class="table">
+            <thead>
+                <tr class="bg-primary text-light">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Hora Inicio</th>
+                    <th scope="col">Hora Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let horarioCur of horariosCur">
+                    <!-- Filtrar los horarios por el ID del curso seleccionado -->
+                    <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId"
+                        (click)="selectHorariosCurso(horarioCur.hcuId)">
+                        <td>{{ horarioCur.hcuNombre }}</td>
+                        <td>{{ horarioCur?.horario?.horInicio }}</td>
+                        <td>{{ horarioCur?.horario?.horFin }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+    <div class="container2" *ngIf="showContainer3">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false;">Cursos</a>
+                </li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false; showContainer4 = false;">Horarios</a>
+                </li>
+                <li class="breadcrumb-item"><a>Estudiantes Aprobados</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="container" style="background-color: #ffffff;">
+                    <h4>LISTADO DE ESTUDIANTES</h4>
+                    <table class="table">
                         <thead>
-                            <th>Codigo</th>
-                            <th>Nombre</th>
-                            <th>Fecha de inicio</th>
-                            <th>Fecha de fin</th>
+                            <tr class="bg-primary text-light">
+                                <th scope="col">Cédula</th>
+                                <th scope="col">Nombre y apellido</th>
+                                <th scope="col">Códigos</th>
+                            </tr>
                         </thead>
                         <tbody>
-                            <td>curso.codigo</td>
-                            <td>curso.nombre</td>
-                            <td>curso.fechaInicio</td>
-                            <td>curso.fechaFin</td>
+                            <tr *ngFor="let item of participantesList">
+                                <td>{{ item.parPersona?.cedula }}</td>
+                                <td>{{ item.parPersona?.apellido }} {{ item.parPersona?.nombre }}</td>
+                                <td>
+                                    <button class="btn btn-primary"
+                                        (click)="selectEstudiantes(item.parId)">Certificado</button>
+                                </td>
+                            </tr>
                         </tbody>
-                   </table>
-                </div>
-                <div>
-                    <button class="btn-outline-success">Generar certificados</button>
+                    </table>
                 </div>
             </div>
         </div>
-    </form>
-</body>
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
+    <div class="container2" *ngIf="showContainer4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false;">Cursos</a>
+                </li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false; showContainer4 = false;">Horarios</a>
+                </li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = false; showContainer2 = false; showContainer3 = true; showContainer4 = false;">Estudiantes
+                        Aprobados</a></li>
+                <li class="breadcrumb-item"><a>Certificados</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
 
-</html>
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="container" style="background-color: #ffffff;">
+                    <h4>Certificado Aprobación</h4>
+                    <div class="mt-4">
+                        <h3 style="text-align: center;">{{ isNew ? 'Nuevo Certificado' : 'Editar Certificado' }}</h3>
+                        <form #certificadoForm="ngForm" (ngSubmit)="submitForm()">
+
+                            <div class="form-group">
+                                <label for="espCodigo">Código</label>
+                                <input type="text" class="form-control" id="espCodigo" name="espCodigo"
+                                    [(ngModel)]="certificadoSeleccionado.eceCodigocertificado" pattern="[A-Z0-9.]*"
+                                    required>
+                                <small class="text-danger" *ngIf="!eceCodigoValido">Campo requerido. Es necesario que
+                                    Ingrese el código.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="espNombre">Fecha</label>
+                                <input type="date" class="form-control" id="espNombre" name="espNombre"
+                                    [(ngModel)]="certificadoSeleccionado.eceFecharetiro" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="espNombre">Firma</label>
+                                <select class="form-control" id="espNombre" name="espNombre"
+                                    [(ngModel)]="certificadoSeleccionado.eceFirma" required>
+                                    <option value="" disabled selected >Seleccione una opción</option>
+                                    <option *ngFor="let opcion of opcionesFirma" [value]="opcion.valor">{{
+                                        opcion.etiqueta }}</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <h2>Certificado</h2>
+                    <table class="table">
+                        <thead>
+                            <tr class="bg-primary text-light">
+                                <th scope="col">Código</th>
+                                <td scope="col">Fecha Retiro</td>
+                                <td scope="col">Firma</td>
+                                <td scope="col">Acciones</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of certificados">
+                                <td>{{ item.eceCodigocertificado }}</td>
+                                <td>{{ item.eceFecharetiro | date: 'dd/MM/yyyy'}}</td>
+                                <td>{{ item.eceFirma ? 'Firmado' : 'Sin Firmar' }}</td>
+                                <td>
+                                    <button class="btn btn-primary" (click)="editarCertificado(item)">Editar</button>
+                                    <button class="btn btn-danger"
+                                        (click)="eliminarCertificado(item.eceId)">Eliminar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

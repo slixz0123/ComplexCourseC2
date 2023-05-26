@@ -75,7 +75,8 @@ export class HorariosCursoComponent {
   }
 
   submitForm(): void {
-    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const nombreRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+
     this.hcuNombreValido = nombreRegex.test(this.horarioCurSeleccionado.hcuNombre);
 
     if (!this.horarioCurSeleccionado.horario || !this.horarioCurSeleccionado.horario.horId) {

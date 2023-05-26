@@ -62,7 +62,7 @@ export class RegisterEspecialidadComponent {
     this.espCodigoValido = codigoRegex.test(this.especialidadSeleccionada.espCodigo);
 
     // Validación de espNombre
-    const nombreRegex = /^[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    const nombreRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
     this.espNombreValido = nombreRegex.test(this.especialidadSeleccionada.espNombre);
 
     if (this.espCodigoValido && this.espNombreValido) {

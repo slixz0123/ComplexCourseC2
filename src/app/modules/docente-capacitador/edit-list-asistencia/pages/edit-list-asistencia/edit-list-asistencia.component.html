@@ -24,17 +24,54 @@
     </div>
 </div>
 <div class="container" style="background-color: #ffffff;">
-    
+    <div class="container2" *ngIf="showContainer2">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false; showContainer5 = false;">Cursos</a>
+                </li>
+                <li class="breadcrumb-item"><a>Horarios</a></li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+        <h2>Horario/s del Curso</h2>
+        <table class="table">
+            <thead>
+                <tr class="bg-primary text-light">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Hora Inicio</th>
+                    <th scope="col">Hora Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let horarioCur of horariosCur">
+                    <!-- Filtrar los horarios por el ID del curso seleccionado -->
+                    <tr *ngIf="horarioCur.hcurso.curId === selectedCursoId"
+                        (click)="selectHorariosCurso(horarioCur.hcuId)">
+                        <td>{{ horarioCur.hcuNombre }}</td>
+                        <td>{{ horarioCur?.horario?.horInicio }}</td>
+                        <td>{{ horarioCur?.horario?.horFin }}</td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
 
-
-
+    </div>
+</div>
+<div class="container" style="background-color: #ffffff;">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <div class="container" *ngIf="showContainer2">
+    <div class="container" *ngIf="showContainer3">
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false;">Cursos</a></li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false; showContainer5 = false;">Cursos</a>
+                </li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false; showContainer4 = false; showContainer5 = false;">Horarios</a>
+                </li>
                 <li class="breadcrumb-item"><a>Estudiantes</a></li>
             </ol>
         </nav>
@@ -62,15 +99,18 @@
     </div>
 </div>
 <div class="container" style="background-color: #ffffff;">
-    <div class="container2" *ngIf="showContainer3">
+    <div class="container2" *ngIf="showContainer4">
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a
-                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false;">Cursos</a>
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false; showContainer5 = false;">Cursos</a>
                 </li>
                 <li class="breadcrumb-item"><a
-                        (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false; showContainer4 = false;">Estudiantes</a>
+                        (click)="showContainer1 = false; showContainer2 = true; showContainer3 = false; showContainer4 = false; showContainer5 = false;">Horarios</a>
+                </li>
+                <li class="breadcrumb-item"><a
+                        (click)="showContainer1 = false; showContainer2 = false; showContainer3 = true; showContainer4 = false; showContainer5 = false;">Estudiantes</a>
                 </li>
                 <li class="breadcrumb-item"><a>Faltas</a></li>
             </ol>
@@ -112,14 +152,15 @@
     </div>
 </div>
 <div class="container" style="background-color: #ffffff;">
-    <div class="container3" *ngIf="showContainer4">
+    <div class="container3" *ngIf="showContainer5">
         <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a (click)="mostrarCurso()">Cursos</a></li>                
-                  <li class="breadcrumb-item"><a (click)="mostrarEstudiantes()">Estudiantes</a></li>
+                <li class="breadcrumb-item"><a (click)="mostrarCurso()">Cursos</a></li>
+                <li class="breadcrumb-item"><a (click)="mostrarHorarios()">Horarios</a></li>
+                <li class="breadcrumb-item"><a (click)="mostrarEstudiantes()">Estudiantes</a></li>
                 <li class="breadcrumb-item"><a (click)="mostrarFaltas()">Faltas</a></li>
-                <li class="breadcrumb-item"><a >Justificar</a>
+                <li class="breadcrumb-item"><a>Justificar</a>
                 </li>
             </ol>
         </nav>

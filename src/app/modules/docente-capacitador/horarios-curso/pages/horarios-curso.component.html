@@ -49,9 +49,7 @@
                                             ingresar el nombre del horario que va a asignar al curso.</small>
                                     </div>
                                     <div class="form-group">
-                                        <label for="horario">Seleccione el/los horario/s en el/los que se va a impartir
-                                            la
-                                            capacitación:</label>
+                                        <label for="horario">Seleccione el/los horario/s en el/los que se va a impartir la capacitación:</label>
                                         <select class="form-control" id="horario"
                                             [(ngModel)]="horarioCurSeleccionado.horario.horId" name="horario">
                                             <option *ngFor="let horario of horarios" [value]="horario.horId"
