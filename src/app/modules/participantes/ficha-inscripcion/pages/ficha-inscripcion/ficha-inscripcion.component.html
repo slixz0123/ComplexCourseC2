@@ -27,43 +27,24 @@
           </div>
         </div>
       </div>
-      <!-- las modalidades -->
-      <!-- <div class="mb-3">
-        <label for="modalidad" class="form-label">Modalidad</label>
-        <div>
-          <div *ngIf="this.curso.mcursos.mcuNombre === 'Hibrida'">
-            <select class="form-select" id="modalidad">
-              <option value="presencial">Presencial</option>
-              <option value="virtual">Virtual</option>
-            </select>
-          </div>
-          <div *ngIf="this.curso.mcursos.mcuNombre !== 'Hibrida'">
-            <h6 class="val">*El curso solo tiene esta modalidad</h6>
-            <input type="text" class="form-control" id="modalidad" value="{{this.curso.mcursos.mcuNombre}}" />
-          </div>
-        </div>
-      </div> -->
       <div class="mb-3">
         <label for="modalidad" class="form-label">Modalidad</label>
         <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
       </div>
       <!-- los horarios -->
       <div class="mb-3">
-        <label for="sexo" class="form-label">Horarios del curso</label>
-        <select class="form-select" id="horarios">
-          <option *ngFor="let hc of horarioscursoList" [value]="hc.id">
-            {{ hc.horario.horInicio }} - {{ hc.horario.horFin }}
+        <label for="horarion" class="form-label">Horarios del curso
+          <span style="color: red; font-size: 20px;" *ngIf="camp10===false">*</span>
+        </label>
+        <select class="form-select" id="horarion" [(ngModel)]="horarioCurso" name="horarion">
+          <option *ngFor="let horarioCurso of horarioscursoList" [ngValue]="horarioCurso">
+            {{ horarioCurso.horario.horInicio }} - {{ horarioCurso.horario.horFin }}
           </option>
         </select>
       </div>
 
       <!-- ***************************** -->
       <h4 class="mt-4">2. Datos Personales</h4>
-
-      <!-- <div class="mb-3">
-        <label for="nombresApellidos" class="form-label">Apellidos y Nombres</label>
-        <input type="text" class="form-control" id="Apellidos" placeholder="Ingrese su cedula" name="apellido" [(ngModel)]="persona.apellido" />
-      </div> -->
 
       <div class="row">
         <div class="col-md-6">
@@ -161,60 +142,100 @@
       <!-- DATOS DEL INFORME -->
       <h4 class="mt-4">3. Información Laboral / Estudios</h4>
       <div class="mb-3">
-        <label for="institucion" class="form-label">Institución donde trabaja/estudia</label>
+        <label for="institucion" class="form-label">Institución donde trabaja/estudia
+          <span style="color: red; font-size: 20px;" *ngIf="camp1==false">*</span>
+        </label>
         <input type="text" class="form-control" id="inputfinInstituciontraest" placeholder="Ingrese el Nombre"
-          name="finInstituciontraest" [(ngModel)]="fichaInscripcion.finInstituciontraest">
+          name="finInstituciontraest" [(ngModel)]="fichaInscripcion.finInstituciontraest" required>
       </div>
       <div class="mb-3">
-        <label for="direccionInstitucion" class="form-label">Dirección de la Institución</label>
+        <label for="direccionInstitucion" class="form-label">Dirección de la Institución
+          <span style="color: red; font-size: 20px;" *ngIf="camp2==false">*</span>
+        </label>
         <input type="text" class="form-control" id="inputfinDireccioninst" placeholder="Ingrese la Dirrecion"
           name="finDireccioninst" [(ngModel)]="fichaInscripcion.finDireccioninst">
       </div>
       <div class="mb-3">
-        <label for="correoInstitucion" class="form-label">Correo electrónico de la institución</label>
+        <label for="correoInstitucion" class="form-label">Correo electrónico de la institución
+          <span style="color: red; font-size: 20px;" *ngIf="camp3==false">*</span>
+        </label>
         <input type="text" class="form-control" id="inputfinCorreoinst" placeholder="Ingrese el Correo"
           name="finCorreoinst" [(ngModel)]="fichaInscripcion.finCorreoinst">
       </div>
       <div class="mb-3">
-        <label for="telefonoInstitucion" class="form-label">Número Telefónico de la institución</label>
-        <input type="text" class="form-control" id="inputfinTelefonoinst" placeholder="Ingrese el Telefono"
-          name="finTelefonoinst" [(ngModel)]="fichaInscripcion.finTelefonoinst">
+        <label for="telefonoInstitucion" class="form-label">Número Telefónico de la institución
+          <span style="color: red; font-size: 20px;" *ngIf="camp4==false">*</span>
+        </label>
+        <input type="text" class="form-control" id="inputTelefonoInst" placeholder="Ingrese el Teléfono"
+          name="telefonoInst" [(ngModel)]="fichaInscripcion.finTelefonoinst" (input)="filtrarNumeros($event)"
+          inputmode="numeric">
       </div>
       <div class="mb-3">
-        <label for="actividadInstitucion" class="form-label">Actividad de la Institución</label>
+        <label for="actividadInstitucion" class="form-label">Actividad de la Institución
+          <span style="color: red; font-size: 20px;" *ngIf="camp5==false">*</span>
+        </label>
         <input type="text" class="form-control" id="inputfinActividadinst" placeholder="Ingrese la actividad"
           name="finActividadinst" [(ngModel)]="fichaInscripcion.finActividadinst">
       </div>
+ 
       <div class="mb-3">
-        <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?</label>
-        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="fichaInscripcion.finAuspiciadoinst">
-            <option value="true" >Sí</option>
-            <option value="false" >No</option>
+        <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?
+          <span style="color: red; font-size: 20px;" *ngIf="camp6==false">*</span>
+        </label>
+        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="opcionSeleccionada" (change)="mostrarSeleccion()">
+          <option>Sí</option>
+          <option>No</option>
         </select>
-    </div>
-
-    <div *ngIf="fichaInscripcion.finAuspiciadoinst!=true">
-      <div class="mb-3">
-        <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto</label>
-        <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
-          [(ngModel)]="fichaInscripcion.finNombreauspicia">
       </div>
-    </div>
+      
+      <div *ngIf="fichaInscripcion.finAuspiciadoinst === true">
+        <div class="mb-3">
+          <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto
+            <span style="color: red; font-size: 20px;" *ngIf="camp7==false">*</span>
+          </label>
+          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
+            [(ngModel)]="fichaInscripcion.finNombreauspicia">
+        </div>
+      </div>  
+
+      <!-- <div class="mb-3">
+        <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?
+          <span style="color: red; font-size: 20px;" *ngIf="camp6==false">*</span>
+        </label>
+        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="opcionSeleccionada" (change)="mostrarSeleccion()">
+          <option>Sí</option>
+          <option>No</option>
+        </select>
+      </div>
+      
+      <div *ngIf="fichaInscripcion.finAuspiciadoinst === true">
+        <div class="mb-3">
+          <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto
+            <span style="color: red; font-size: 20px;" *ngIf="camp7==false">*</span>
+          </label>
+          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
+            [(ngModel)]="fichaInscripcion.finNombreauspicia">
+        </div>
+      </div>   -->
 
       <div class="mb-3">
-        <label for="enteradoCurso" class="form-label">¿Cómo se enteró del curso?</label>
+        <label for="enteradoCurso" class="form-label">¿Cómo se enteró del curso?
+          <span style="color: red; font-size: 20px;" *ngIf="camp8==false">*</span>
+        </label>
         <input type="text" class="form-control" id="inputfinComoentero" placeholder="Ingrese su cedula"
           name="finComoentero" [(ngModel)]="fichaInscripcion.finComoentero">
       </div>
       <div class="mb-3">
-        <label for="finOtroscursosdesea" class="form-label">¿Qué otros cursos le gustaría seguir?</label>
+        <label for="finOtroscursosdesea" class="form-label">¿Qué otros cursos le gustaría seguir?
+          <span style="color: red; font-size: 20px;" *ngIf="camp9==false">*</span>
+        </label>
         <textarea class="form-control" id="finOtroscursosdesea" rows="3" name="finOtroscursosdesea"
           [(ngModel)]="fichaInscripcion.finOtroscursosdesea"></textarea>
       </div>
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9 text-secondary">
-          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)">Guardar Programa</button>
+          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)">Guardar Ficha</button>
           <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
         </div>
       </div>

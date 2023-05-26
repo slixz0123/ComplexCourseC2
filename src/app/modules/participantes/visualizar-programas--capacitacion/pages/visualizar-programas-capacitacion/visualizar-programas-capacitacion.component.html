@@ -27,7 +27,7 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="main-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Programas</a></li>
+            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false; showContainer4 = false">Programas</a></li>
             <li class="breadcrumb-item"><a>Cursos</a></li>
         </ol>
     </nav>
@@ -38,7 +38,7 @@
             <div class="card bg-c-blue order-card" (click)="mostrarDatosCurso(curso)"
                 (click)="showContainer2 = false; showContainer3 = true;">
                 <div class="card-block">
-                    <h6 class="m-b-20">Codigo: {{curso.curCodigo}}</h6>
+                    <h6 class="m-b-20">Código: {{curso.curCodigo}}</h6>
                     <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{curso.curNombre}}</span>
                     </h2>
                     <div style="margin-bottom: 10px;">
@@ -60,9 +60,9 @@
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a
-                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false">Programas</a>
+                        (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false; showContainer4 = false">Programas</a>
                 </li>
-                <li class="breadcrumb-item"><a (click)="showContainer2 = true; showContainer3 = false">Cursos</a></li>
+                <li class="breadcrumb-item"><a (click)="showContainer2 = true; showContainer3 = false; showContainer4 = false">Cursos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{this.curso.curNombre}}</li>
             </ol>
         </nav>
@@ -73,14 +73,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
-                                class="rounded-circle" width="150">
+                            <img src="https://e7.pngegg.com/pngimages/575/29/png-clipart-computer-icons-instructor-led-training-course-education-toolbox-miscellaneous-blue.png"
+                            alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>{{this.curso.curNombre}}</h4>
-                                <p class="text-secondary mb-1">Codigo del curso</p>
+                                <p class="text-secondary mb-1">Código del curso</p>
                                 <p class="text-muted font-size-sm">{{this.curso.curCodigo}}</p>
-                                <button class="btn btn-primary" (click)="EnviarCurso(curso.curId)" (click)="goTogenfichains($event)">Inscribirse</button>
-                                <!-- <button class="btn btn-outline-primary">Message</button> -->
+                                <button class="btn btn-primary" (click)="goTogenfichains($event,curso.curId )">Inscribirse</button>
                             </div>
                         </div>
                     </div>
@@ -95,6 +94,7 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 {{this.curso.pcursos.apellido}} {{this.curso.pcursos.nombre}}
+                                <button class="btn btn-primary" (click)="showContainer4 = !showContainer4; mostrarDatosdocete(this.curso.pcursos.id_persona);">Ver Datos</button>
                             </div>
                         </div>
                         <hr>
@@ -146,85 +146,189 @@
             </div>
         </div>
     </div>
-
-
-    <!-- <div class="container mt-4">
-        <h4>Datos del Curso</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="codigoCurso" class="form-label">Código de Curso</label>
-                    <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.pcursos?.nombre}}" />
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="nombreCurso" class="form-label">Nombre del Curso</label>
-                    <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" />
-                </div>
-            </div>
-        </div> -->
-    <!-- las modalidades -->
-    <!-- <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="modalidad" class="form-label">Modalidad</label>
-                    <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
-                </div> -->
-
-    <!-- <div class="mb-3">
-                    <label for="modalidad" class="form-label">Modalidad</label>
-                    <div>
-                        <div *ngIf="this.curso.mcursos.mcuNombre === 'Hibrida'">
-                            <select class="form-select" id="modalidad">
-                                <option value="presencial">Presencial</option>
-                                <option value="virtual">Virtual</option>
-                            </select>
-                        </div>
-                        <div *ngIf="this.curso.mcursos.mcuNombre !== 'Hibrida'">
-                            <h6 class="val">*El curso solo tiene esta modalidad</h6>
-                            <input type="text" class="form-control" id="modalidad"
-                                value="{{this.curso.mcursos.mcuNombre}}" />
-                        </div>
-                    </div>
-                </div> -->
-    <!-- </div> -->
-    <!-- los horarios -->
-    <!-- <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="horarios" class="form-label">Horarios del curso</label> <br>
-                    <textarea name="horarios" id="horarios" cols="30" rows="3" [(ngModel)]="horariosTexto"></textarea>
-                </div>
-            </div>
-        </div> -->
-
-
-
-
-    <!-- FECHAS -->
-    <!-- <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="inputFechainicio" class="form-label">Fecha de Inicio</label>
-                    <input type="text" class="form-control" id="inputFechainicio"
-                        placeholder="Ingrese su Fecha de Nacimiento" name="curFechainicio"
-                        value="{{curso.curFechainicio | date: 'dd/MM/yyyy'}}">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="curFechafin" class="form-label">Fecha de Finalización</label>
-                    <input type="text" class="form-control" id="inputFechafin"
-                        placeholder="Ingrese su Fecha de Nacimiento" name="curFechafin"
-                        value="{{curso.curFechafin | date: 'dd/MM/yyyy'}}">
-                </div>
-            </div>
-        </div> -->
-    <!-- ***************************** -->
-    <!-- <div class="mb-3">
-            <button (click)="EnviarCurso(curso.curId)">Incribirse</button>
-        </div>
-
-    </div> -->
-
 </div>
+<div class="container4"  *ngIf="showContainer4">
+    <div class="main-body">
+      <div class="row gutters-sm">
+  
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-column align-items-center text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle"
+                  width="150">
+                <div class="mt-3">
+                  <h4>{{persona.nombre}} {{persona.apellido}}</h4>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                    class="bi bi-award-fill" viewBox="0 0 16 16">
+                    <path
+                      d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
+                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                  </svg>
+                  <p class="text-secondary mb-1">Docente</p>
+                  <!-- <p class="text-muted font-size-sm">Celular: {{persona.celular}}</p> -->
+                  <!-- <button class="btn btn-primary" (click)="mostrarDatos()">Ver</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-mortarboard" viewBox="0 0 16 16">
+                    <path
+                      d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z" />
+                    <path
+                      d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z" />
+                  </svg>
+                  Nivel Instrucción
+                </h6>
+                <span class="text-secondary">{{persona.nivelintruccion}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-calendar" viewBox="0 0 16 16">
+                    <path
+                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                  </svg>
+                  Fecha de Nacimiento
+                </h6>
+                <span class="text-secondary"><time>{{persona.fecha_nacimiento| date: 'dd/MM/yyyy'}} </time></span>
+                <!-- <time>{{persona.fecha_nacimiento| date: 'dd/MM/yyyy'}} </time> -->
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-gender-ambiguous" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M11.5 1a.5.5 0 0 1 0-1h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-3.45 3.45A4 4 0 0 1 8.5 10.97V13H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V14H6a.5.5 0 0 1 0-1h1.5v-2.03a4 4 0 1 1 3.471-6.648L14.293 1H11.5zm-.997 4.346a3 3 0 1 0-5.006 3.309 3 3 0 0 0 5.006-3.31z" />
+                  </svg>
+                  Genero
+                </h6>
+                <span class="text-secondary">{{persona.sexo}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" />
+                  </svg>
+                  Etnia
+                </h6>
+                <span class="text-secondary">{{persona.etnia}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-person-vcard" viewBox="0 0 16 16">
+                    <path
+                      d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z" />
+                    <path
+                      d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z" />
+                  </svg>
+                  Hoja de vida
+                </h6>
+                <span class="text-secondary">{{persona.hojavida}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="col-md-8">
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Cedula</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{persona.cedula}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{persona.email}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Telefono:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{persona.telefono}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Celular:</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{persona.celular}}
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Dirección</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  {{persona.direccion}}
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+          <div class="row gutters-sm">
+            <div class="col-sm-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="d-flex align-items-center mb-3">
+                    <i class="material-icons text-info mr-2">Cursos Impartidos</i>
+                  </h6>
+                  <div *ngFor="let curso of cursoList">
+                    <div *ngIf="curso.curProceso=='Finalizado' && curso.curEstado==1">
+                      <small>{{curso.curNombre}}</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 100%" aria-valuenow="80"
+                          aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h6 class="d-flex align-items-center mb-3">
+                    <i class="material-icons text-info mr-2">Cursos en Proceso</i>
+                  </h6>
+                  <div *ngFor="let curso of cursoList">
+                    <div *ngIf="curso.curProceso!='Finalizado' && curso.curEstado==1">
+                      <small>{{curso.curNombre}}</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80"
+                          aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+

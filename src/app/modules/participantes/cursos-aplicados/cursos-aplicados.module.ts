@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { CursosAplicadosRoutingModule } from './cursos-aplicados-routing.module';
 import { CursosAplicadosComponent } from './pages/cursos-aplicados/cursos-aplicados.component';
 
@@ -11,7 +13,10 @@ import { CursosAplicadosComponent } from './pages/cursos-aplicados/cursos-aplica
   ],
   imports: [
     CommonModule,
-    CursosAplicadosRoutingModule
+    CursosAplicadosRoutingModule,
+    SharedModule,
+    FormsModule,
+    HttpClientModule
   ],
   exports:[
     CursosAplicadosComponent

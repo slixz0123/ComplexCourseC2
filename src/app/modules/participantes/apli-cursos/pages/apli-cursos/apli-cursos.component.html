@@ -6,17 +6,17 @@
         <div class="card bg-c-blue order-card">
             <div class="card-block">
                 <div *ngIf="curso.finAprobacion==0">
-                    <h6 class="m-b-20">Codigo: {{curso.finCurso.curCodigo}}
+                    <h6 class="m-b-20">Código: {{curso.finCurso.curCodigo}}
                         <span class="f-right" style="color: rgb(240, 255, 30);">Pendiente</span>
                     </h6>
                 </div>
                 <div *ngIf="curso.finAprobacion==2">
-                    <h6 class="m-b-20">Codigo: {{curso.finCurso.curCodigo}}
-                        <span class="f-right" style="color: rgb(255, 174, 0);">Correccion</span>
+                    <h6 class="m-b-20">Código: {{curso.finCurso.curCodigo}}
+                        <span class="f-right" style="color: rgb(255, 174, 0);">Corregir</span>
                     </h6>
                 </div>
                 <div *ngIf="curso.finAprobacion==3">
-                    <h6 class="m-b-20">Codigo: {{curso.finCurso.curCodigo}}
+                    <h6 class="m-b-20">Código: {{curso.finCurso.curCodigo}}
                         <span class="f-right" style="color: red;">Rechazado</span>
                     </h6>
                 </div>

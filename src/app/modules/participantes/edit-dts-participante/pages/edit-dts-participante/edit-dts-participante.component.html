@@ -16,7 +16,7 @@
                                         d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
                                 </svg>
-                                <h4>Docente </h4>
+                                <h4>Estudiante </h4>
                                 <p class="text-secondary mb-1"></p>
                                 <!-- <p class="text-muted font-size-sm">Celular: {{persona.celular}}</p> -->
                                 <!-- <button class="btn btn-primary" (click)="mostrarDatos()">Ver</button> -->
@@ -29,7 +29,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 style="text-align: center;">Actualizacion de Datos </h4>
+                        <h4 style="text-align: center;">Actualización de Datos </h4>
                         <br>
                         <form>
                             <!-- <div class="row mb-3">
@@ -44,7 +44,7 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Cedula</h6>
+                                    <h6 class="mb-0">Cédula</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
@@ -73,7 +73,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Fechas de Nacimiento</h6>
+                                    <h6 class="mb-0">Fecha de Nacimiento</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="date" class="form-control" id="inputApellido"
@@ -93,7 +93,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Direccion</h6>
+                                    <h6 class="mb-0">Dirección</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputDireccion"
@@ -103,7 +103,7 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Telefono</h6>
+                                    <h6 class="mb-0">Teléfono</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="tel" class="form-control" id="inputTelefono"
@@ -139,13 +139,13 @@
                                         <option selected>Seleccione una opción...</option>
                                         <option>Masculino</option>
                                         <option>Femenino</option>
-                                        <option>No binario</option>
+                                        <option>No especificar</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Nivel Instruccion</h6>
+                                    <h6 class="mb-0">Nivel de Instrucción</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputSexo" class="form-control" name="nivelintruccion"
@@ -154,7 +154,7 @@
                                         <option>Primaria</option>
                                         <option>Secundaria</option>
                                         <option>Bachiller</option>
-                                        <option>Tercer nivel</option>
+                                        <option>Tercer Nivel</option>
                                         <option>Cuarto Nivel</option>
                                     </select>
                                 </div>
@@ -162,18 +162,18 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Hoja de vida</h6>
+                                    <h6 class="mb-0">Hoja de Vida</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.hojavida">
+                                    <input type="text" class="form-control" id="inputhojav"
+                                        placeholder="Ingrese su hoja de vida" name="hojav" [(ngModel)]="persona.hojavida">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button (click)="onSubmit()">Guardar Cambios</button>
-                                    <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
+                                    <Span></Span> <button type="button" class="btn btn-primary"
+                                        (click)="onSubmit()">Guardar Cambios</button>
                                 </div>
                             </div>
                         </form>

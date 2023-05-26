@@ -257,9 +257,9 @@
     <tbody>
         <tr *ngFor="let ficha of fichas" (click)="seleccionarFicha(ficha)">
             <th>{{ ficha.finCorreoinst}}</th>
-            <td>{{ ficha.finCurso?.curCodigo }}</td>
+            <td>{{ ficha.finCurso.curCodigo }}</td>
             <td>{{ ficha.finDireccioninst}}</td>
-            <td>{{ ficha.finPersona?.cedula}}</td>
+            <td>{{ ficha.finPersona.cedula}}</td>
             <td>{{ ficha.finAuspiciadoinst }}</td>
             <td>{{ ficha.finActividadinst }}</td>
             

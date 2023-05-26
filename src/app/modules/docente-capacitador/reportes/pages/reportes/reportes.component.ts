@@ -84,7 +84,7 @@ export class ReportesComponent {
     this.mostrarCursos(this.idPersona);
   }
   saveInformefinal() {
-    this.informeFinal.curso = this.curso;
+    this.informeFinal.ifiCurso = this.curso;
     this.informeFinal.ifiEstado = this.estado;
     console.log(this.informeFinal);
     this.informeFinalServ.saveInformefinal(this.informeFinal).subscribe(

@@ -3,9 +3,9 @@
 <div class="container1" *ngIf="showContainer1">
     <div class="row">
         <div class="col-md-4 col-xl-3" *ngFor="let curso of cursosList">
-            <div class="card bg-c-blue order-card" (click)="showContainer2 = true; showContainer1 = false; mostrarParticipante(curso.curId)">
+            <div class="card bg-c-blue order-card" (click)="showContainer2 = true; showContainer1 = false; showContainer3 = false; mostrarDatoshc(curso.curId)">
                 <div class="card-block">
-                    <h6 class="m-b-20">Codigo: {{curso.curCodigo}}</h6>
+                    <h6 class="m-b-20">Código: {{curso.curCodigo}}</h6>
                     <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{curso.curNombre}}</span>
                     </h2>
                     <div style="margin-bottom: 10px;">
@@ -21,11 +21,42 @@
         </div>
     </div>
 </div>
-<div class="container2" *ngIf="showContainer2">
+<div class="showContainer2" *ngIf="showContainer2">
+     <!-- Breadcrumb -->
+     <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;showContainer3 = false">Cursos</a></li>
+            <li class="breadcrumb-item"><a>Horarios</a></li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+    <div class="row">
+        <div class="col-md-4 col-xl-3" *ngFor="let horario of horarioscursoList">
+            <div class="card bg-c-blue order-card" (click)="showContainer3 = true; showContainer2 = false; mostrarParticipante(horario.hcurso.curId,horario.hcuId)">
+                <div class="card-block">
+                    <h6 class="m-b-20">Horario: {{horario.hcuNombre}}</h6>
+                    <h2 class="text-right"><i class="fa fa-graduation-cap f-left"></i><span>{{horario.hcurso.curNombre}}</span>
+                    </h2>
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="valn"><span class="f-right valn">{{horario.horario.horInicio}}</span>Hora Inicio</h3>
+                        <h3 class="valn"><span class="f-right valn">{{horario.horario.horFin}}</span>Hora Fin</h3>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container3" *ngIf="showContainer3">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false;">Cursos</a></li>
+                <li class="breadcrumb-item"><a (click)="showContainer1 = true; showContainer2 = false; showContainer3 = false">Cursos</a></li>
+                <li class="breadcrumb-item"><a (click)="showContainer2 = true; showContainer1 = false; showContainer3 = false">Horarios</a></li>
                 <li class="breadcrumb-item"><a>Registrar Notas</a></li>
             </ol>
         </nav>
@@ -68,7 +99,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="form-control" id="inputCedula"
-                                            placeholder="Ingrese el nombre del programa" name="cedula"
+                                            placeholder="" name="cedula"
                                             [(ngModel)]="participante.parEstadoaprovacion">
                                     </div>
                                 </div>
@@ -79,7 +110,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputNparcial"
-                                            placeholder="Ingrese la nota del 1er Parcial" name="notaParcial"
+                                            placeholder="Ingrese la nota del 1er parcial" name="notaParcial"
                                             [(ngModel)]="participante.parNotaparcial">
                                     </div>
                                 </div>
@@ -89,7 +120,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputNfinal"
-                                            placeholder="Ingrese la nota Final" name="notafinal"
+                                            placeholder="Ingrese la nota final" name="notafinal"
                                             [(ngModel)]="participante.parNotafinal">
                                     </div>
                                 </div>
@@ -99,11 +130,10 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="number" class="form-control" id="inputPromedio"
-                                            placeholder="Ingrese la nota del 1er Parcial" name="promedio"
+                                            placeholder="Ingrese el promedio" name="promedio"
                                             [(ngModel)]="participante.parPromedio">
                                     </div>
                                 </div>
-
                                 <div class="row mb-3">
                                     <div class="col-sm-3">
                                         <h6 class="mb-0">Observaciones</h6>
@@ -114,11 +144,10 @@
                                             [(ngModel)]="participante.parObservacion">
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
-                                        <Span></Span> <button (click)="savenotas(participante)">Guardar Cambios</button>
+                                        <Span></Span> <button type="button" class="btn btn-primary" (click)="savenotas(participante)">Guardar Cambios</button>
                                     </div>
                                 </div>
                             </form>
@@ -145,8 +174,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let participante of participantesList">
-                    <th>{{ participante.parId }}</th>
+                <tr *ngFor="let participante of participantesList; let i = index">
+                    <th>{{ i + 1 }}</th>
                     <td>{{ participante.parPersona.nombre +' '+ participante.parPersona.apellido }}</td>
                     <td>{{ participante.parNotaparcial}}</td>
                     <td>{{ participante.parNotafinal }}</td>

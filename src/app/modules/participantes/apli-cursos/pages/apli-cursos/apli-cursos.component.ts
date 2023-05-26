@@ -22,7 +22,6 @@ export class ApliCursosComponent {
     this.getAllfichasIncripcion(this.idPersona);
     console.log("esta es la id")
     console.log(this.idPersona)
-
   }
   
   fichasAcepList: any[] = [];

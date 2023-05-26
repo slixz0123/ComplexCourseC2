@@ -25,6 +25,10 @@ export class FichaIncripcionService {
     return this.http.get<any>(`${this.URL}/buscar/`+idFichaInscripcio);
   }
 
+  public getFichabycursopersona(idCurso: any,idPersona:any) {
+    return this.http.get<any>(`${this.URL}/buscarporcursopersona/`+idCurso+`/`+idPersona);
+  }
+
   public updateFichaIncripcion(idFichaInscripcio: any, fichaInscripcion: FichaInscripcion) {
     return this.http.put<FichaInscripcion>(`${this.URL}/actualizar/` + idFichaInscripcio, fichaInscripcion);
   }

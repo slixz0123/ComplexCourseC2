@@ -5,6 +5,6 @@ export class InformeFinal{
     ifiObservaciones?: string;
     ifiFecha?: Date;
     ifiEstado?: Boolean;
-    curso?: Curso;
+    ifiCurso?: Curso;
 
 }

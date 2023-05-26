@@ -33,6 +33,12 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.get<Participante[]>(url);
     }
 
+    
+    ParticipantesPorhorarioc(curId: number,idHorario:any): Observable<Participante[]> {
+      const url = `${this.URL}/participantesPorhorarioc/${curId}/${idHorario}`;
+      return this.http.get<Participante[]>(url);
+    }
+
     updateparticipante(idParticipante: any, participante: Participante) {
       return this.http.put<Participante>(`${this.URL}/actualizar/`+ idParticipante, participante);
     }

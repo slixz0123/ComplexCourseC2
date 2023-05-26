@@ -6,6 +6,7 @@ import { Persona } from 'src/app/Core/models/persona';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { FichaIncripcionService } from 'src/app/shared/Services/fichaInscripcion.service';
 import { ParticipanteService } from 'src/app/shared/Services/participante.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-participante',
@@ -39,27 +40,17 @@ export class RegisterParticipanteComponent implements OnInit {
       (data: any) => {
         // Filtrar los datos por estado diferente a finalizado
         this.cursosList = data.filter((curso: Curso) => curso.curProceso != 'Finalizado');
-        console.log("fichas acep");
-        console.log(this.cursosList);
       },
       (err) => {
         console.log(err);
       }
     );
   }
-  participantesList: any[] = [];
-  mostrarParticipante(idCurso: any) {
-    this.participanteService.ParticipantesPorCurso(idCurso).subscribe((data: any) => {
-      this.participantesList = data;
-    });
-  }
 
   fichaList: any[] = [];
   mostrarFichas(idCurso: any) {
     this.fichaInscripcionService.FichasPorCurso(idCurso).subscribe((data: any) => {
-      this.fichaList = data.filter((ficha: FichaInscripcion) => ficha.finAprobacion != 3 && ficha.finAprobacion != 1 );
-      console.log("fichas acep");
-      console.log(this.fichaList)
+      this.fichaList = data.filter((ficha: FichaInscripcion) => ficha.finAprobacion != 3 && ficha.finAprobacion != 1);
     });
   }
 
@@ -76,48 +67,59 @@ export class RegisterParticipanteComponent implements OnInit {
   editarAprobacion(ficha: any) {
     this.fichaInscripcion = ficha
   }
+  
   fichapa: FichaInscripcion = new FichaInscripcion();
-  actualizarficha(fichaactualizada: any){
-    console.log("esta mando")
-    console.log(fichaactualizada)
-    this.fichaInscripcionService.updateFichaIncripcion(fichaactualizada.finId,fichaactualizada).subscribe(
-      (data: any) => {
-        console.log("esta trae")
-        console.log(data);
-        this.fichapa=data
-        this.crearparticipante(this.fichapa);
-        this.mostrarFichas(this.fichapa.finCurso?.curId);
-
-        // this.mostrarFichas(fichaactualizada.finCurso.curId);
-        console.log("afirmativo pareja")
-      },
-      (err) => {
-        console.log(err);
+  actualizarficha(fichaactualizada: any) {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Está seguro?',
+      text: '¿Desea editar la ficha de inscripción?',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.fichaInscripcionService.updateFichaIncripcion(fichaactualizada.finId, fichaactualizada).subscribe(
+          (data: any) => {
+            this.fichapa = data
+            this.crearparticipante(this.fichapa);
+            this.mostrarFichas(this.fichapa.finCurso?.curId);
+            // this.mostrarFichas(fichaactualizada.finCurso.curId);
+            Swal.fire('¡Éxito!', 'La ficha de inscripción se ha actualizado exitosamente.', 'success');
+          },
+          (err) => {
+            console.log(err);
+            Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
       }
-    );
+    });
   }
 
-  crearparticipante(fichain: FichaInscripcion){
-    if(fichain.finAprobacion==1){
+  crearparticipante(fichain: FichaInscripcion) {
+    if (fichain.finAprobacion == 1) {
       console.log("entra")
-      this.participante.parId=0;
-      this.participante.parNotaparcial=0;
-      this.participante.parNotafinal=0;
-      this.participante.parPromedio=0;
-      this.participante.parObservacion="Sin Observaciones"
-      this.participante.parEstadoaprovacion="Cursando"
-      this.participante.parEstado=true
-      this.participante.parPersona=fichain.finPersona
-      this.participante.parCurso=fichain.finCurso
+      this.participante.parId = 0;
+      this.participante.parNotaparcial = 0;
+      this.participante.parNotafinal = 0;
+      this.participante.parPromedio = 0;
+      this.participante.parObservacion = "Sin Observaciones"
+      this.participante.parEstadoaprovacion = "Cursando"
+      this.participante.parEstado = true
+      this.participante.parPersona = fichain.finPersona
+      this.participante.parCurso = fichain.finCurso
       console.log("este mando")
       console.log(this.participante)
       this.participanteService.crearParticipante(this.participante).subscribe(
         (data: any) => {
           this.mostrarFichas(fichain.finCurso?.curId);
-          console.log("siuuuuuuuu")
+          Swal.fire('¡Éxito!', 'El participante se creo exitosamente.', 'success');
         },
         (err) => {
           console.log(err);
+          Swal.fire('¡Error!', 'Ha ocurrido un error al crear el participante. Por favor, inténtelo de nuevo más tarde.', 'error');
         }
       );
     }
