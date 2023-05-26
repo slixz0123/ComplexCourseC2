@@ -52,6 +52,9 @@ const routes: Routes = [
   {
     path: 'rep-cursos-cap',
     loadChildren: () => import("./reporte-cursos-capcacitacion/reporte-cursos-capcacitacion.module").then(m => m.ReporteCursosCapcacitacionModule)
+  },{
+    path: 'reg-institucion',
+    loadChildren: () => import("./register-institucion/register-institucion.module").then(m => m.RegisterInstitucionModule)
   },
 ];
 

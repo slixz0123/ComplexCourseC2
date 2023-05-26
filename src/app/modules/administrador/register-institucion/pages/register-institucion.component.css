@@ -1,0 +1,13 @@
+.small-image {
+    max-width: 50px; /* Ajusta el tamaño máximo de las imágenes */
+    max-height: 50px;
+    /* Agrega otros estilos según tus preferencias, como borde, margen, etc. */
+  }
+  
+  .small-image1 {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: contain;
+  }
+  
+  

@@ -77,6 +77,10 @@ export class SideBarAdminComponent {
     this.router.navigate(['/Admin/edit-doc'])
     console.log($event)
   }
+  goToRegInsti($event: any): void{
+    this.router.navigate(['/Admin/reg-institucion'])
+    console.log($event)
+  }
 
 
 
