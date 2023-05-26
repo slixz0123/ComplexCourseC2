@@ -12,12 +12,12 @@ export class EstrategiasmetservService {
   private URL1 = "http://localhost:8080/api/EstrategiaMetodologica/";
   private URL2 = "http://localhost:8080/api/EstrategiaMetodologica/crear";
   private URL3 = "http://localhost:8080/api/EstrategiaMetodologica/crear3";
- 
+
 
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 public postMany(data: any[]): Observable<any> {
   return this.http.post<any>(this.URL3, data);
 }
@@ -38,5 +38,8 @@ update(estrate: EstrategiasMetodologicas, idest: number) {
 }
 getPorId(idestrate: any) {
   return this.http.get<EstrategiasMetodologicas>(this.URL + idestrate);
+}
+getBySilaboId(dsiId: number) {
+  return this.http.get<EstrategiasMetodologicas>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

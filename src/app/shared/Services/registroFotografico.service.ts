@@ -9,6 +9,7 @@ import { RegistroFotografico } from 'src/app/Core/models/registrFotografico';
 export class RegistroFotograficoService {
 
   private apiUrl = 'http://localhost:8080/api/registrofotografico';
+  private URLReporte = "http://localhost:8080/api/reporteRegistroFotografico";
 
   constructor(private http: HttpClient) { }
 
@@ -30,5 +31,15 @@ export class RegistroFotograficoService {
 
   actualizar(id: number, registro: RegistroFotografico): Observable<RegistroFotografico> {
     return this.http.put<RegistroFotografico>(`${this.apiUrl}/actualizar/${id}`, registro);
+  }
+
+  listarPorCurso(curId: any) {
+    return this.http.get(`${this.apiUrl}/getByCurId/`, curId);
+  }
+
+  public printRegistroFotografico(registrFotografico: RegistroFotografico[]){
+    return this.http.post(`${this.URLReporte}/generarReporte`, registrFotografico, {
+      responseType: 'blob'
+    });
   }
 }

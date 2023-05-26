@@ -7,7 +7,6 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
   providedIn: 'root'
 })
 export class FichaIncripcionService {
-
   private URL = "http://localhost:8080/api/FichaInscripcion";
 
   private URLFicha="http://localhost:8080/api/reporteInscripcionParticipante"
@@ -30,7 +29,6 @@ export class FichaIncripcionService {
     return this.http.put<FichaInscripcion>(`${this.URL}/actualizar/` + idFichaInscripcio, fichaInscripcion);
   }
 
-
   public getfichasbypersona(idPersona: any){
     return this.http.get<any>(`${this.URL}/fichasbypersona/` + idPersona);
   }
@@ -40,16 +38,14 @@ export class FichaIncripcionService {
     return this.http.get<FichaInscripcion[]>(url);
   }
 
+  public getFichaIncripcionByCurId(curId: any): Observable<FichaInscripcion> {
+    return this.http.get<FichaInscripcion>(`${this.URL}/buscarPorCurso/` + curId);
+  }
 
   public printFichaInscripcion(ficha: FichaInscripcion): Observable<any> {
     return this.http.post(`${this.URLFicha}/generarReporte`, ficha, {
       responseType: 'blob'
     });
   }
-
-  public getFichaIncripcionByCurId(curId: any): Observable<FichaInscripcion> {
-    return this.http.get<FichaInscripcion>(`${this.URL}/buscarPorCurso/` + curId);
-  }
-
 
 }

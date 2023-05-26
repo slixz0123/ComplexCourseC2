@@ -10,12 +10,12 @@ export class HorasaprendizajeservService {
   private URL = "http://localhost:8080/api/horasaprendizaje/buscar/";
   private URL1 = "http://localhost:8080/api/horasaprendizaje/";
   private URL2 = "http://localhost:8080/api/horasaprendizaje/crear";
- 
+
 
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 post(HorasAprendizaje: HorasAprendizaje) {
   return this.http.post<HorasAprendizaje>(this.URL2 + '?', HorasAprendizaje);
 }
@@ -33,5 +33,8 @@ update(horasap: HorasAprendizaje, idepra: number) {
 }
 getPorId(horasepr: any) {
   return this.http.get<HorasAprendizaje>(this.URL + horasepr);
+}
+getBySilabo(dsiId: any) {
+  return this.http.get<HorasAprendizaje>(this.URL1 + `getBySilaboId/` +dsiId);
 }
 }

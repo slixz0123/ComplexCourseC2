@@ -12,12 +12,12 @@ export class ContenidocurservService {
   private URL1 = "http://localhost:8080/api/ContenidoCurso/";
   private URL2 = "http://localhost:8080/api/ContenidoCurso/crear";
   private URL3 = "http://localhost:8080/api/ContenidoCurso/crear3";
- 
+
 
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 public postMany(data: any[]): Observable<any> {
   return this.http.post<any>(this.URL3, data);
 }
@@ -38,5 +38,8 @@ update(conten: ContenidosCurso, idcont: number) {
 }
 getPorId(idcon: any) {
   return this.http.get<ContenidosCurso>(this.URL + idcon);
+}
+getBySilaboId(dsiId: number) {
+  return this.http.get<ContenidosCurso>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

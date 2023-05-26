@@ -4,6 +4,12 @@ import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultado
 import { Datossilabo } from 'src/app/Core/models/DatosSilabo/datosSilabo';
 import { Observable } from 'rxjs';
 import { Curso } from 'src/app/Core/models/curso';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
+import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
+import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
+import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
+import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
+import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +56,21 @@ update(dtssilab: Datossilabo, iddts: number) {
 getPorId(iddtssil: any) {
   return this.http.get<Datossilabo>(this.URL + iddtssil);
 }
-public printSilabo(curso: Curso): Observable<any> {
-  return this.http.post(`${this.URLReporte}/imprimirSilabo`, curso, {
+public printSilabo(curso: Curso, horarioCurso:HorarioCurso,
+  horasAprendizaje: HorasAprendizaje, resultadoAprendizaje: ResultadosAprendizaje[],
+  contenidoCurso: ContenidosCurso[], estrategiaMetodologica: EstrategiasMetodologicas[],
+  recursoDidactico: RecursosDidacticos, evaluacionEpra: EvaluacionEpra): Observable<any> {
+  const requestData = {
+    curso: curso,
+    horarioCurso: horarioCurso,
+    horasAprendizaje: horasAprendizaje,
+    resultadoAprendizaje: resultadoAprendizaje,
+    contenidoCurso: contenidoCurso,
+    estrategiaMetodologica: estrategiaMetodologica,
+    recursoDidactico: recursoDidactico,
+    evaluacionEpra: evaluacionEpra
+  };
+  return this.http.post(`${this.URLReporte}/imprimirSilabo`, requestData, {
     responseType: 'blob'
   });
 }

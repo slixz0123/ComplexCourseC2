@@ -11,12 +11,12 @@ export class EvaluaepraService {
   private URL1 = "http://localhost:8080/api/EvaluacionEpra/";
   private URL2 = "http://localhost:8080/api/EvaluacionEpra/crear";
   private URL3 = "http://localhost:8080/api/EvaluacionEpra/crear3";
- 
+
   private items: EvaluacionEpra[] = [];
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 public postMany(data: any[]): Observable<any> {
   return this.http.post<any>(this.URL3, data);
 }
@@ -40,5 +40,8 @@ getPorId(idevaepra: any) {
 }
 getItems(): EvaluacionEpra[] {
   return this.items;
+}
+getBySilaboId(dsiId: number) {
+  return this.http.get<EvaluacionEpra>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

@@ -227,10 +227,7 @@
                             (click)="editarInformefinal(informefinal)">Editar</button>
                     </td>
                     <td><button type="button" class="btn btn-primary"
-                            (click)="imprimirReporteFinal(informefinal)">Imprimir</button>
-                    </td>
-                    <td><button type="button" class="btn btn-primary"
-                      (click)="imprimirSilabo(curso)">Imprimir</button>
+                            (click)="imprimirReporteFinal(informefinal, curso.curId)">Imprimir</button>
                     </td>
                 </tr>
             </tbody>
@@ -354,6 +351,9 @@
                 <td>{{ asistencia.acuEstado }}</td>
                 <td><button type="button" class="btn btn-primary"
                         (click)="editarAsistenciasCurso(asistencia)">Editar</button></td>
+                        <td><button type="button" class="btn btn-primary"
+                          (click)="imprimirRegistroAsistenciaEvaluacion(asistencia.acuId)">Imprimir</button>
+                  </td>
             </tr>
         </tbody>
     </table>

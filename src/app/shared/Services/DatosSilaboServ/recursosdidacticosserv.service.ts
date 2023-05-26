@@ -10,12 +10,12 @@ export class RecursosdidacticosservService {
   private URL = "http://localhost:8080/api/recursodidactico/buscar/";
   private URL1 = "http://localhost:8080/api/recursodidactico/";
   private URL2 = "http://localhost:8080/api/recursodidactico/crear";
- 
+
 
   constructor(private http: HttpClient) { }
 
 
-// utilizados 
+// utilizados
 post(RecursosDidacticos: RecursosDidacticos) {
   return this.http.post<RecursosDidacticos>(this.URL2 + '?', RecursosDidacticos);
 }
@@ -33,5 +33,8 @@ update(recurdi: RecursosDidacticos, id: number) {
 }
 getPorId(recurdi: any) {
   return this.http.get<RecursosDidacticos>(this.URL + recurdi);
+}
+getBySilaboId(dsiId: any) {
+  return this.http.get<RecursosDidacticos>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

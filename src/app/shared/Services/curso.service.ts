@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { Asistencia } from 'src/app/Core/models/asistencia';
 import { Curso } from 'src/app/Core/models/curso';
+import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class CursoService {
   private URL = "http://localhost:8080/api/Curso/buscar/";
   private URL1 = "http://localhost:8080/api/Curso/";
   private URL2 = "http://localhost:8080/api/Curso/crear";
- 
+  private URLReporte = "http://localhost:8080/api/reporteMatrizReporteMensual";
+  private URLReporte2 = "http://localhost:8080/api/reporteRegistroGeneralCursosFinalizados";
+
 
   constructor(private http: HttpClient) { }
   post(cur: Curso) {
@@ -60,4 +64,21 @@ update(cur: Curso, id_cur: any) {
   public cursosporPrograma(idPrograma: any) {
     return this.http.get<any>(`${this.URLi}/findBycursosprograma/` + idPrograma);
   }
+
+  public printMatrizCursos(cursos: Curso[]){
+    return this.http.post(`${this.URLReporte}/generarReporte`, cursos, {
+      responseType: 'blob'
+    });
+  }
+
+  public printReporteGeneralCursosFinalizados(listaParticipantes: Participante[] ,curso: Curso[]){
+    const requestData = {
+      listaParticipantes: listaParticipantes,
+      curso: curso
+    };
+    return this.http.post(`${this.URLReporte2}/generarReporte`, requestData, {
+      responseType: 'blob'
+    });
+  }
+
 }

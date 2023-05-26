@@ -16,10 +16,6 @@ export class HorarioCursoService {
     return this.http.get<any>(`${this.URL}/listar`);
   }
 
-  public getHorarioCursoById(idHorarioCurso: any) {
-    return this.http.get<any>(`${this.URL}/buscar/`+idHorarioCurso);
-  }
-
   public horariobycurso(idCurso: any) {
     return this.http.get<any>(`${this.URL}/allhorariosbycurso/` + idCurso);
   }

@@ -20,8 +20,8 @@ export class ResultadosaprendizajeservService {
   public postMany(data: any[]): Observable<any> {
     return this.http.post<any>(this.URL3, data);
   }
-  
-// utilizados 
+
+// utilizados
 post(ResultadosAprendizaje: ResultadosAprendizaje) {
   return this.http.post<ResultadosAprendizaje>(this.URL2 + '?', ResultadosAprendizaje);
 }
@@ -41,5 +41,9 @@ update(result: ResultadosAprendizaje, id: number) {
 }
 getPorId(result: any) {
   return this.http.get<ResultadosAprendizaje>(this.URL + result);
+}
+
+getBySilabo(dsiId: any) {
+  return this.http.get<ResultadosAprendizaje>(this.URL1 + `getBySilaboId/`, dsiId);
 }
 }

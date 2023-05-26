@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Asistencia } from 'src/app/Core/models/asistencia';
+import { Curso } from 'src/app/Core/models/curso';
 import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
@@ -9,20 +10,22 @@ import { Participante } from 'src/app/Core/models/participante';
 })
 export class AsistenciaService {
 
-   private URL = "http://localhost:8080/api/asistencia";
+  private URL = "http://localhost:8080/api/asistencia";
+  private URLReporte = "http://localhost:8080/api/reporteRegistroAsistenciaEvaluacion";
+  private URLReporte2 = "http://localhost:8080/api/reporteRegistroAsistenciaEvaluacion";
 
    constructor(private http: HttpClient) { }
- 
+
    getAsistencias() {
      return this.http.get<Asistencia[]>(`${this.URL}/listar`);
    }
- 
+
    getAsistenciaPorId(asiId: number) {
      return this.http.get<Asistencia>(this.URL + asiId);
    }
- 
-   
- 
+
+
+
    updateAsistencia(Asistencia: Asistencia, asiId: any) {
      return this.http.put<Asistencia>(this.URL + `/actualizar/${asiId}`, Asistencia);
    }
@@ -40,7 +43,7 @@ export class AsistenciaService {
         })
       );
   }
- 
+
    saveAsistencia(Asistencia: Asistencia) {
      return this.http.post(`${this.URL}/crear`, Asistencia);
    }
@@ -54,6 +57,15 @@ export class AsistenciaService {
     const url = `${this.URL}/${parId}`;
     return this.http.get<Asistencia[]>(url);
   }
- 
+  public printRegistroAsistenciaEvaluacion(asistencias: Asistencia[], participantes: Participante[]){
+    const requestData = {
+      participantes: participantes,
+      asistencias: asistencias
+    };
+
+    return this.http.post(`${this.URLReporte2}/generarReporte`, requestData, {
+      responseType: 'blob'
+    });
+  }
 }
 

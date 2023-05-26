@@ -13,6 +13,7 @@ import { Persona } from "src/app/Core/models/persona";
   export class  ParticipanteService{
     private URL="http://localhost:8080/api/participante";
     private URLCre="http://localhost:8080/api/participante/crear"
+    private URLReporte = "http://localhost:8080/api/reporteInformeNecesidadCurso";
 
     constructor(private http: HttpClient) { }
 
@@ -50,5 +51,15 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.get<any>(`${this.URL}/listarAprobados`);
     }
 
-    
+    public printRegistroParticipantes(participantes: Participante[], curso: Curso){
+      const requestData = {
+        participantes: participantes,
+        curso: curso
+      };
+      return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
+        responseType: 'blob'
+      });
+    }
+
+
   }
