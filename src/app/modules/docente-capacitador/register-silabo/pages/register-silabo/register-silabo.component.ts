@@ -14,6 +14,7 @@ import { HorasaprendizajeservService } from 'src/app/shared/Services/DatosSilabo
 import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
 import { ResultadosaprendizajeservService } from 'src/app/shared/Services/DatosSilaboServ/resultadosaprendizajeserv.service';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
+import Swal from 'sweetalert2';
 
 
 interface ResultadosAprendizaje {
@@ -354,126 +355,161 @@ agregarVinetas2(rowIndex: number) {
 
 
 crearsilabo() {
-  // Establecer el estado del objeto datos silabo
   this.datossilabo.dsiEstado = true;
 
-  // Post de datos silabo
-  this.Datossilaserv.post(this.datossilabo).subscribe(silabdata => {
-    console.log(silabdata, "Data datos silabo");
+  // Verifica si el formulario es válido
+  if (this.silaboForm.valid) {
+    // Verifica si los campos de texto y áreas de texto están vacíos
+    const inputsVacios = Object.values(this.silaboForm.controls)
+      .filter(control => control instanceof FormControl)
+      .filter(control => control.value === '')
+      .map(control => (control as FormControl));
 
-    // Asignar el id del silabo a cada objeto de la tabla "resultados de aprendizaje"
-    this.resultadosAprendizajes.forEach(resultado => {
-      
-      resultado.rapSilabo = {
-        dsiId: silabdata.dsiId,
-        dsiIdentificador: silabdata.dsiIdentificador,
-        dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
-        dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
-        dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
-        dsiBibliografia: silabdata.dsiBibliografia,
-        dsiEstado: silabdata.dsiEstado
-      };
-    });
-// evaluacion epra 
-    this.evaluacioneprea.forEach(resultado => {
-      
-      resultado.eraSilabo = {
-        dsiId: silabdata.dsiId,
-        dsiIdentificador: silabdata.dsiIdentificador,
-        dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
-        dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
-        dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
-        dsiBibliografia: silabdata.dsiBibliografia,
-        dsiEstado: silabdata.dsiEstado
-      };
-    });
-// CONTENIDOS DEL CURSO
-this.contenidosCurso.forEach(resultado => {
-      
-  resultado.ccuSilabo = {
-    dsiId: silabdata.dsiId,
-    dsiIdentificador: silabdata.dsiIdentificador,
-    dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
-    dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
-    dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
-    dsiBibliografia: silabdata.dsiBibliografia,
-    dsiEstado: silabdata.dsiEstado
-  };
-});
-//estrategias metodologicas 
-this.estrategiasMetodologicas.forEach(resultado => {
-      
-  resultado.emeSilabo = {
-    dsiId: silabdata.dsiId,
-    dsiIdentificador: silabdata.dsiIdentificador,
-    dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
-    dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
-    dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
-    dsiBibliografia: silabdata.dsiBibliografia,
-    dsiEstado: silabdata.dsiEstado
-  };
-});
-    // Post de resultados de aprendizaje
+    if (inputsVacios.length > 0) {
+      // Muestra una notificación de Sweet Alert indicando los campos vacíos
+      Swal.fire('Error', `Los siguientes campos están vacíos: ${inputsVacios.join(', ')}`, 'error');
+    } else {
+      const inputsNumericosInvalidos = Object.values(this.silaboForm.controls)
+      .filter(control => control instanceof FormControl && typeof control.value === 'number' && (isNaN(control.value) || control.value === 0))
+      .map(control => (control as FormControl));
 
-    this.resultadosaprendiserv.postMany(this.resultadosAprendizajes).subscribe(
-      dataresultados => {
-        console.log(dataresultados)
-        console.log("resultadosAprendizaje creados exitosamente");
-      },
-      error => {
-        console.log("Error al crear resultadosAprendizaje:", error);
+      if (inputsNumericosInvalidos.length > 0) {
+        // Muestra una notificación de Sweet Alert indicando los campos numéricos con letras
+        Swal.fire('Error', `Los siguientes campos numéricos contienen letras: ${inputsNumericosInvalidos.join(', ')}`, 'error');
+      } else {
+    
+
+        // Post de datos silabo
+        this.Datossilaserv.post(this.datossilabo).subscribe(silabdata => {
+          console.log(silabdata, "Data datos silabo");
+
+          // Asignar el id del silabo a cada objeto de la tabla "resultados de aprendizaje"
+          this.resultadosAprendizajes.forEach(resultado => {
+            resultado.rapSilabo = {
+              dsiId: silabdata.dsiId,
+              dsiIdentificador: silabdata.dsiIdentificador,
+              dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
+              dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
+              dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
+              dsiBibliografia: silabdata.dsiBibliografia,
+              dsiEstado: silabdata.dsiEstado
+            };
+          });
+
+          // Evaluacion epra
+          this.evaluacioneprea.forEach(resultado => {
+            resultado.eraSilabo = {
+              dsiId: silabdata.dsiId,
+              dsiIdentificador: silabdata.dsiIdentificador,
+              dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
+              dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
+              dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
+              dsiBibliografia: silabdata.dsiBibliografia,
+              dsiEstado: silabdata.dsiEstado
+            };
+          });
+
+          // Contenidos del curso
+          this.contenidosCurso.forEach(resultado => {
+            resultado.ccuSilabo = {
+              dsiId: silabdata.dsiId,
+              dsiIdentificador: silabdata.dsiIdentificador,
+              dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
+              dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
+              dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
+              dsiBibliografia: silabdata.dsiBibliografia,
+              dsiEstado: silabdata.dsiEstado
+            };
+          });
+
+          // Estrategias metodologicas
+          this.estrategiasMetodologicas.forEach(resultado => {
+            resultado.emeSilabo = {
+              dsiId: silabdata.dsiId,
+              dsiIdentificador: silabdata.dsiIdentificador,
+              dsiPrerrequisitos: silabdata.dsiPrerrequisitos,
+              dsiDescripcioncurso: silabdata.dsiDescripcioncurso,
+              dsiObjetivogeneralc: silabdata.dsiObjetivogeneralc,
+              dsiBibliografia: silabdata.dsiBibliografia,
+              dsiEstado: silabdata.dsiEstado
+            };
+          });
+
+          // Post de resultados de aprendizaje
+          this.resultadosaprendiserv.postMany(this.resultadosAprendizajes).subscribe(
+            dataresultados => {
+              console.log(dataresultados);
+              console.log("resultadosAprendizaje creados exitosamente");
+            },
+            error => {
+              console.log("Error al crear resultadosAprendizaje:", error);
+            }
+          );
+
+          // POST DE EVALUACION EPRA
+          this.evaluacionEpraserv.postMany(this.evaluacioneprea).subscribe(
+            dataresultados => {
+              console.log("evaluacionepra creados exitosamente");
+            },
+            error => {
+              console.log("Error al crear evaluacionepra:", error);
+            }
+          );
+
+          // POST DE CONTENIDOS DEL CURSO
+          this.contenidoserv.postMany(this.contenidosCurso).subscribe(
+            dataresultados => {
+              console.log("contenidos creados exitosamente");
+            },
+            error => {
+              console.log("Error al crear contenidos:", error);
+            }
+          );
+
+          // Post de estrategias metodologicas
+          this.estartegiaser.postMany(this.estrategiasMetodologicas).subscribe(
+            dataresultados => {
+              console.log("estrategias creados exitosamente");
+            },
+            error => {
+              console.log("Error al crear estrategias:", error);
+            }
+          );
+
+          // Asignar el id del silabo a cada objeto de la tabla "recursos didacticos"
+          this.recurdidactico.rdiEstado = true
+          this.recurdidactico.rdiSilabo = silabdata;
+
+          // Post de recursos didacticos
+          this.recursosdidacticosserv.post(this.recurdidactico).subscribe(datarecurso => {
+            console.log(datarecurso, "Data recurso didactico");
+        
+            // Asignar el id del silabo a cada objeto de la tabla "horas aprendizaje"
+            this.horasapren.hapEstado = true;
+            this.horasapren.hapSilabo = silabdata;
+        
+            // Post de horas aprendizaje
+            this.horasaprenserv.post(this.horasapren).subscribe(datahora => {
+              console.log(datahora, "Data horas aprendizaje");
+            });
+          });
+        
+          Swal.fire('Éxito', 'El sílabo se creó correctamente', 'success');
+        }, error => {
+          console.log(error, "Error datos silabo");
+        
+          // Muestra una notificación de Sweet Alert indicando el error al crear el silabo
+          Swal.fire('Error', 'Ocurrió un error al crear el sílabo', 'error');
+        });
+        }
+        }
+
       }
-    );
-    //POST DE EVALUACION EPRA
-    this.evaluacionEpraserv.postMany(this.evaluacioneprea).subscribe(
-      dataresultados => {
-        console.log("evaluacionepra creados exitosamente");
-      },
-      error => {
-        console.log("Error al crear evaluacionepra:", error);
-      }
-    );
-    // POST DE CONTENIDOS DEL CURSO 
-    this.contenidoserv.postMany(this.contenidosCurso).subscribe(
-      dataresultados => {
-        console.log("contenidos creados exitosamente");
-      },
-      error => {
-        console.log("Error al crear contenidos:", error);
-      }
-    );
-    //Post de estrategias metodologicas 
-    this.estartegiaser.postMany(this.estrategiasMetodologicas).subscribe(
-      dataresultados => {
-        console.log("estrategias creados exitosamente");
-      },
-      error => {
-        console.log("Error al crear estrategias:", error);
-      }
-    );
-
-    // Asignar el id del silabo a cada objeto de la tabla "recursos didacticos"
-    this.recurdidactico.rdiEstado = true;
-    this.recurdidactico.rdiSilabo = silabdata;
-
-    // Post de recursos didacticos
-    this.recursosdidacticosserv.post(this.recurdidactico).subscribe(datarecurso => {
-      console.log(datarecurso, "Data recurso didactico");
-
-      // Asignar el id del silabo a cada objeto de la tabla "horas aprendizaje"
-      this.horasapren.hapEstado = true;
-      this.horasapren.hapSilabo = silabdata;
-
-      // Post de horas aprendizaje
-      this.horasaprenserv.post(this.horasapren).subscribe(datahora => {
-        console.log(datahora, "Data horas aprendizaje");
-      });
-    });
-  });
-}
+    }
+  }
 
 
 
 
 
-}
+

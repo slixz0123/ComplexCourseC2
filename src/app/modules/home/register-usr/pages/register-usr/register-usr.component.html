@@ -7,8 +7,12 @@
   <title>Responsive Example</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-      /* Estilos para pantallas grandes */
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.1/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.1/js/bootstrap.bundle.min.js"></script>
+  
+ <style>
+      
       @media (min-width: 992px) {
       .form-row {
         display: flex;
@@ -63,7 +67,6 @@
      
       <form>
         <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
-      
         <div class="conte formulario">
         <div class="form-row">
           <div class="form-group col-md-4">
@@ -129,16 +132,9 @@
               name="cedula" [(ngModel)]="persona.cedula"
               >
             </div>
+
             <div class="form-group col-md-4">
-              <label for="inputTelefono">Usuario</label>
-              <input type="tel" class="form-control" id="inputusernam" placeholder="Ingrese su teléfono" name="username" [(ngModel)]="usuario.username" >
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputCelular">Password</label>
-              <input type="password" class="form-control" id="inputpassword" placeholder="Ingrese su password" name="password" [(ngModel)]="usuario.password">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputSexo">Nivel de instruccion</label>
+              <label for="inputSexo">Nivelinstruccion</label>
               <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
                 <option selected>Seleccione una opción...</option>
                 <option>Primaria</option>
@@ -149,6 +145,45 @@
               </select>
             </div>
             
+            <div class="form-group col-md-4">
+              <label for="inputTelefono">Usuario</label>
+              <input type="tel" class="form-control" id="inputusernam" placeholder="Ingrese su teléfono" name="username" [(ngModel)]="usuario.username" >
+            </div>
+            <div class="form-group col-md-4 pass-field " >
+              <label for="inputCelular">Password</label>
+              <input type="password" class="form-control" id="inputpassword" placeholder="Ingrese su password" name="password" [(ngModel)]="usuario.password">
+             
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <div class="cont text-justify">
+              <p style="color: white;">   Parametros de  Contraseña Segura</p>
+              <ul class="requirement-list">
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Al menos 8 letras</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Al menos un número (0...9)</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Al menos una Minúscula (a...z)</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Al menos un carácter especial (!...$)</span>
+                </li>
+                <li>
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Al menos una Mayúscula (A...Z)</span>
+                </li>
+              </ul>
+            </div>
+            
+         
+            
+
           </div>
       
         <button  (click)="onSubmit()" >Registrar</button>

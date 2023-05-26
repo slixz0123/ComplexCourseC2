@@ -5,6 +5,7 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { PersonaService } from 'src/app/shared/Services/persona.service';
 import { RolService } from 'src/app/shared/Services/rol.service';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
+import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 
 @Component({
   selector: 'app-register-usr',
@@ -17,7 +18,9 @@ export class RegisterUsrComponent {
   rol: Rol = new Rol; // instancia de la clase rol 
 
   // en el constructor instanciamos los servicios
-  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService) { }
+  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService,_cargrasjs:CargarjsHomeService) {
+    _cargrasjs.carga_jquery(['pass'])
+   }
 
   ngOnInit() {
   }
