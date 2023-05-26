@@ -165,8 +165,7 @@
                                     <h6 class="mb-0">Hoja de vida</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.hojavida">
+                                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept=".pdf">
                                 </div>
                             </div>
                             <div class="row">

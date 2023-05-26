@@ -11,6 +11,7 @@ export class EditDtsDocentesComponent {
   persona: Persona = new Persona; // instancia de la clase persona 
   personai: Persona = new Persona; // instancia de la clase persona 
   id_persona: any;
+  selectedFile: any;
   constructor(
     private personaService: PersonaService
     
@@ -23,19 +24,50 @@ export class EditDtsDocentesComponent {
     console.log("Iniciado")
   }
 
-onSubmit() {
-  this.id_persona=(this.persona.id_persona);
-  console.log("esta es "+this.id_persona);
-  console.log(this.persona)
-  this.personaService.updatePersona(this.persona,this.id_persona).subscribe(
-    (data: any) => {
-      console.log('a verrr' + data);
-    },
-    (err) => {
-      console.log(err);
+  onSubmit() {
+    const fileInput = document.getElementById('hojavida') as HTMLInputElement;
+    const file = fileInput.files?.[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const base64String = reader.result?.toString().split(',')[1];
+  
+        if (base64String) {
+          this.persona.hojavida = base64String;
+  
+          setTimeout(() => {
+            // Restablecer el valor del campo de entrada de archivo a una cadena vacía
+            fileInput.value = '';
+  
+            // Eliminar el campo de entrada de archivo
+            fileInput.parentNode?.removeChild(fileInput);
+          }, 0);
+  
+          this.personaService.updatePersona(this.persona, this.id_persona).subscribe(
+            (data: any) => {
+              console.log('Datos guardados en la base de datos');
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        } else {
+          console.error('Error al convertir el archivo a cadena base64');
+        }
+      };
+  
+      reader.onerror = (error) => {
+        console.error('Error al leer el archivo:', error);
+      };
+  
+      reader.readAsDataURL(file);
+    } else {
+      console.error('No se ha seleccionado ningún archivo');
     }
-  );
-}
+  }
+  
 
 public mostrarDatos(){
   this.personaService.getPorId(this.id_persona).subscribe(
@@ -48,6 +80,10 @@ public mostrarDatos(){
       console.log(err);
     }
   );
+}
+
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
 }
 
 //  public updateSolicitudperId(id_solicitud: any, solicitudAc: any, x: number,animal: any) { 
