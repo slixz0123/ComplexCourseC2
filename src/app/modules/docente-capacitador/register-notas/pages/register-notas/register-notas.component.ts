@@ -16,6 +16,7 @@ export class RegisterNotasComponent {
   idPersona: any;
   estado: boolean = true;
   participante: Participante = new Participante;
+  
 
 
   showContainer1: boolean = true;
@@ -44,8 +45,8 @@ export class RegisterNotasComponent {
     });
   }
   participantesList: any[] = [];
-  mostrarParticipante(idCurso: any,idHorario:any) {
-    this.participanteService.ParticipantesPorhorarioc(idCurso,idHorario).subscribe((data: any) => {
+  mostrarParticipante(idCurso: any, idHorario: any) {
+    this.participanteService.ParticipantesPorhorarioc(idCurso, idHorario).subscribe((data: any) => {
       this.participantesList = data;
     });
     // this.mostrarDatoshc(idCurso)
@@ -55,7 +56,7 @@ export class RegisterNotasComponent {
   horariosTexto: string = '';
   horarioscursoList: any[] = [];
   numr: any;
-  public mostrarDatoshc(idCurso:any) {
+  public mostrarDatoshc(idCurso: any) {
     this.horarioCursoService.horariobycurso(idCurso).subscribe(
       (data: any) => {
         this.horarioscursoList = data;
@@ -70,9 +71,93 @@ export class RegisterNotasComponent {
         console.log(err);
       }
     );
-  }            
+  }
+  notaPrimer: boolean = true;
+  notafinal: boolean = true;
+  promedio: boolean = true;
+  observacion: boolean = true;
+  estadoa: boolean = true;
+
+
+  filtrarNumeros(event: any, num: any) {
+    const input = event.target.value;
+    const numericInput = input.replace(/[^0-9]/g, ''); // Filtrar caracteres no numéricos
+    const decimalSeparator = '.'; // Separador decimal deseado
+
+    // Verificar si la longitud del número después de filtrar es mayor a 6 (incluyendo coma y dos decimales)
+    if (numericInput.length > 5) {
+      // Obtener solo los primeros 6 dígitos del número (incluyendo coma y dos decimales)
+      const formattedInput = numericInput.substr(0, 5);
+      // Dividir la cadena en partes (parte entera y parte decimal)
+      const integerPart = formattedInput.substr(0, formattedInput.length - 2);
+      const decimalPart = formattedInput.substr(formattedInput.length - 2);
+      // Crear la cadena con el formato deseado (con coma y dos decimales)
+      const formattedNumber = `${integerPart}${decimalSeparator}${decimalPart}`;
+      event.target.value = formattedNumber;
+    } else {
+      // Aplicar el formato solo si hay algún número ingresado
+      if (numericInput.length > 0) {
+        // Dividir la cadena en partes (parte entera y parte decimal)
+        const integerPart = numericInput.substr(0, numericInput.length - 2);
+        const decimalPart = numericInput.substr(numericInput.length - 2);
+        // Crear la cadena con el formato deseado (con coma y dos decimales)
+        const formattedNumber = `${integerPart}${decimalSeparator}${decimalPart}`;
+        event.target.value = formattedNumber;
+      } else {
+        event.target.value = '';
+      }
+    }
+
+    // Actualizar el valor en la propiedad participante.parNotaparcial
+    if (num == 1) {
+      this.participante.parNotaparcial = event.target.value;
+      console.log(this.participante.parNotaparcial);
+    } else if (num == 2) {
+      this.participante.parNotafinal = event.target.value;
+      console.log(this.participante.parNotafinal);
+    } else {
+      this.participante.parPromedio = event.target.value;
+      console.log(this.participante.parPromedio);
+    }
+  }
 
   savenotas(participante: any) {
+    const notaRegex = /^100(?:\.0{1,2})?$|^([1-9]?\d(?:\.\d{1,2})?)?$/;
+    if (notaRegex.test(participante.parNotaparcial)) {
+      // El valor cumple con la validación
+      this.notaPrimer = true;
+      console.log("siuuuuu");
+    } else {
+      // El valor no cumple con la validación
+      this.notaPrimer = false;
+      console.log("nouuuu");
+    }
+    if (notaRegex.test(participante.parNotafinal)) {
+      // El valor cumple con la validación
+      this.notafinal = true;
+      console.log("siuuuuu");
+    } else {
+      // El valor no cumple con la validación
+      this.notafinal = false;
+      console.log("nouuuu");
+    }
+    if (notaRegex.test(participante.parPromedio)) {
+      // El valor cumple con la validación
+      this.promedio = true;
+      console.log("siuuuuu");
+    } else {
+      // El valor no cumple con la validación
+      this.promedio = false;
+      console.log("nouuuu");
+    }
+    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
+    this.observacion=campo2Regex.test(participante.parObservacion);
+    if(participante.parEstadoaprovacion!=" "){
+      this.estadoa=true;
+    }else{
+      this.estadoa=false;
+    }
+
     Swal.fire({
       icon: 'warning',
       title: '¿Está seguro?',
@@ -82,6 +167,9 @@ export class RegisterNotasComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log("si cd");
+        console.log(participante.parEstadoaprovacion)
+
         this.participanteService.updateparticipante(participante.parId, participante).subscribe(
           (data: any) => {
             Swal.fire('¡Éxito!', 'Las notas se actualizaron correctamente.', 'success');
@@ -98,6 +186,8 @@ export class RegisterNotasComponent {
   }
 
   editarNotas(participnated: any) {
+    console.log("muuuuu")
     this.participante = participnated
+
   }
 }

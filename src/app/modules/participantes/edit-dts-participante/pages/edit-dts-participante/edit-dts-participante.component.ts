@@ -26,8 +26,6 @@ export class EditDtsParticipanteComponent {
 
   onSubmit() {
     this.id_persona = (this.persona.id_persona);
-    console.log("esta es " + this.id_persona);
-    console.log(this.persona)
     Swal.fire({
       icon: 'warning',
       title: '¿Está seguro?',

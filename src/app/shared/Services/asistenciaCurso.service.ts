@@ -27,9 +27,11 @@ export class AsistenciaCursoService {
   }
 
   public updateCurso(idAsistenciaCurso: any, asistenciaCurso: AsistenciaCurso) {
-    return this.http.put<AsistenciaCurso>(`${this.URL}/Actualizar/` + idAsistenciaCurso, asistenciaCurso);
+    return this.http.put<AsistenciaCurso>(`${this.URL}/actualizar/` + idAsistenciaCurso, asistenciaCurso);
   }
-
+  public getasistenciacbycurso(idCurso: any) {
+    return this.http.get<AsistenciaCurso>(`${this.URL}/asistenciacursoporcurso/`+ idCurso);
+  }
 
 }
 

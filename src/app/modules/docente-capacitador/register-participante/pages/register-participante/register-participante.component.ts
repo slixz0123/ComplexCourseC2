@@ -50,7 +50,7 @@ export class RegisterParticipanteComponent implements OnInit {
   fichaList: any[] = [];
   mostrarFichas(idCurso: any) {
     this.fichaInscripcionService.FichasPorCurso(idCurso).subscribe((data: any) => {
-      this.fichaList = data.filter((ficha: FichaInscripcion) => ficha.finAprobacion != 3 && ficha.finAprobacion != 1);
+      this.fichaList = data.filter((fichas: FichaInscripcion) => fichas.finAprobacion != 3 && fichas.finAprobacion != 1);
     });
   }
 
@@ -64,12 +64,13 @@ export class RegisterParticipanteComponent implements OnInit {
 
   estadosAprobacion = ['Pendiente', 'Aceptado', 'Corregir', 'Rechazado'];
 
-  editarAprobacion(ficha: any) {
+  editarAprobacion(ficha: FichaInscripcion) {
     this.fichaInscripcion = ficha
+    this.mostrarFichas(ficha.finCurso.curId)
   }
   
   fichapa: FichaInscripcion = new FichaInscripcion();
-  actualizarficha(fichaactualizada: any) {
+  actualizarficha(fichaactualizada: FichaInscripcion) {
     Swal.fire({
       icon: 'warning',
       title: '¿Está seguro?',
@@ -86,6 +87,8 @@ export class RegisterParticipanteComponent implements OnInit {
             this.mostrarFichas(this.fichapa.finCurso?.curId);
             // this.mostrarFichas(fichaactualizada.finCurso.curId);
             Swal.fire('¡Éxito!', 'La ficha de inscripción se ha actualizado exitosamente.', 'success');
+            this.showContainer4=false;
+            this.mostrarFichas(this.fichapa.finCurso.curId)
           },
           (err) => {
             console.log(err);
@@ -94,6 +97,7 @@ export class RegisterParticipanteComponent implements OnInit {
         );
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
+        this.mostrarFichas(fichaactualizada.finCurso.curId)
       }
     });
   }

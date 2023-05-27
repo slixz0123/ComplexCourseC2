@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InformeFinal } from 'src/app/Core/models/informeFinal';
+import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class InformeFinalService {
   }
 
   public updateInformefinalCurso(idInformefinal: any, informefinal: InformeFinal) {
-    return this.http.put<InformeFinal>(`${this.URL}/Actualizar/` + idInformefinal, informefinal);
+    return this.http.put<InformeFinal>(`${this.URL}/actualizar/` + idInformefinal, informefinal);
   }
 
   public printInformeFinalCurso(informeFinal: InformeFinal, participantes: Participante[]): Observable<any> {
@@ -38,6 +38,10 @@ export class InformeFinalService {
     return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
       responseType: 'blob'
     });
+  }
+  
+  public getInformefinalBycurso(idCurso: any) {
+    return this.http.get<InformeFinal>(`${this.URL}/informeporcurso/`+ idCurso);
   }
 }
 

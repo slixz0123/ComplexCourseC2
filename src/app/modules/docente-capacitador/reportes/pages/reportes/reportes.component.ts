@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { InformeFinalService } from 'src/app/shared/Services/informeFinalcurso.service';
-import { InformeFinal } from 'src/app/Core/models/informeFinal';
+import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { Curso } from 'src/app/Core/models/curso';
 import { claseValidaciones } from 'src/app/modules/utils/claseValidaciones';
 
@@ -36,7 +36,7 @@ import { ContenidocurservService } from 'src/app/shared/Services/DatosSilaboServ
 import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboServ/estrategiasmetserv.service';
 import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
 import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evaluaepra.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-reportes',
   templateUrl: './reportes.component.html',
@@ -47,6 +47,7 @@ export class ReportesComponent {
   asistenciaCurso: AsistenciaCurso = new AsistenciaCurso(); // instancia de la clase asistencia curso
   curso: Curso = new Curso(); // instancia de la clase asistencia curso
   idPersona: any;
+  idCurso: any;
   idInformefinal: any;
   idAsistenciaCurso: any;
   estado: boolean = true;
@@ -75,74 +76,198 @@ export class ReportesComponent {
     private estrategiasMetodologicasServ: EstrategiasmetservService,
     private recursoDidacticoServ: RecursosdidacticosservService,
     private evaluacionEpraServ: EvaluaepraService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.AllInformesFinal();
-    this.listarAsistenciasCurso();
+    // this.listarAsistenciasCurso();
     this.idPersona = localStorage.getItem('id_persona');
     this.mostrarCursos(this.idPersona);
   }
-  saveInformefinal() {
-    this.informeFinal.ifiCurso = this.curso;
-    this.informeFinal.ifiEstado = this.estado;
-    console.log(this.informeFinal);
-    this.informeFinalServ.saveInformefinal(this.informeFinal).subscribe(
-      (data: any) => {
-        console.log('a verrr' + data);
-      },
-      (err) => {
-        console.log(err);
+  capturarcurso(Cursos: any) {
+    this.curso = Cursos;
+    this.idCurso = this.curso.curId
+    console.log("id del curso");
+
+    console.log(this.idCurso)
+  }
+  valinforme: any
+  informeFinaln: InformeFinal = new InformeFinal(); // instancia de la clase informe finla
+  idInforme: any;
+  obtenerinformefianal() {
+    this.informeFinalServ.getInformefinalBycurso(this.idCurso).subscribe((data: any) => {
+      if (null != data) {
+        this.informeFinal = data;
+        this.idInforme = this.informeFinal.ifiId;
+        this.valinforme = false;
+        Swal.fire('¡Alerta!', 'Ya existe un informe final del curso, puede solo editarlo', 'info'); // SweetAlert al editar el área
+      } else {
+        Swal.fire('¡Alerta!', 'No existe un informe final del curso, puede crarlo si lo desea', 'info'); // SweetAlert al editar el área
+        this.informeFinal = this.informeFinaln;
+        this.informeFinal.ifiCurso = this.curso;
+        this.informeFinal.ifiObservaciones = " ";
+        this.informeFinal.ifiId = 0;
+        this.valinforme = true;
       }
-    );
-  }
-
-  editarInformefinal(informefinal: any) {
-    console.log(this.informeFinal.ifiFecha);
-    const fechai = new Date(informefinal.ifiFecha);
-    const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
-    informefinal.ifiFecha = fechaFormateadai;
-    this.informeFinal = informefinal;
-  }
-
-  saveAsistenciaCurso() {
-    this.asistenciaCurso.curso = this.curso;
-    this.asistenciaCurso.acuEstado = this.estado;
-    console.log(this.asistenciaCurso);
-    this.asistenciaCursoServ
-      .saveAsistenciaCurso(this.asistenciaCurso)
-      .subscribe(
-        (data: any) => {
-          console.log('a verrr' + data);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-  }
-  asistenciasCursolList: any[] = [];
-  public listarAsistenciasCurso() {
-    this.asistenciaCursoServ.getAllAsisteciasCursos().subscribe((data: any) => {
-      this.asistenciasCursolList = data;
-      console.log('aquiiii');
-      console.log(data);
     });
   }
+  mostrardatosf() {
+    this.informeFinalServ.getInformefinalBycurso(this.idCurso).subscribe((data: any) => {
+      this.informeFinal = data;
+      this.idInforme = this.informeFinal.ifiId;
+    });
+  }
+  mostrardatosa() {
+    this.asistenciaCursoServ.getasistenciacbycurso(this.idCurso).subscribe((data: any) => {
+      this.asistenciaCurso = data;
+      this.idAsistencia = this.asistenciaCurso.acuId;
+    });
+  }
+  observacion: boolean = true;
+  saveInformefinal() {
+    const observacionRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.observacion = observacionRegex.test(this.informeFinal.ifiObservaciones);
+    if (this.observacion) {
+      if (this.valinforme != false) {
+        this.informeFinal.ifiCurso = this.curso;
+        this.informeFinal.ifiEstado = this.estado;
+        this.informeFinalServ.saveInformefinal(this.informeFinal).subscribe(
+          (data: any) => {
+            Swal.fire('¡Éxito!', 'El informe se guardo correctamente', 'success');
+            this.informeFinal=data;
+            this.mostrarimp(this.informeFinal.ifiId);
+            this.valinforme = false;
+          },
+          (err) => {
+            console.log(err);
+            Swal.fire('Error', 'Ocurrió un error al guardar el informe, por favor inténtelo más tarde', 'error');
+          }
+        );
+      } else {
+        this.informeFinal.ifiCurso = this.curso;
+        this.informeFinal.ifiEstado = this.estado;
+        Swal.fire({
+          icon: 'warning',
+          title: '¿Está seguro?',
+          text: '¿Desea editar el informe?',
+          showCancelButton: true,
+          confirmButtonText: 'Editar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.informeFinalServ.updateInformefinalCurso(this.idInforme, this.informeFinal,).subscribe(
+              (data: any) => {
+                Swal.fire('¡Éxito!', 'El informe se actualizo correctamente.', 'success');
+              },
+              (err) => {
+                Swal.fire('¡Error!', 'Ha ocurrido un error al editar el informe. Por favor, inténtelo de nuevo más tarde.', 'error');
+                this.mostrardatosf();
+              }
+            );
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.mostrardatosf();
+            Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
+          }
+        });
+      }
+    } else {
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+    }
 
-  editarAsistenciasCurso(asistencia: any) {
-    console.log(this.asistenciaCurso.acuFechaelaboracion);
-    const fechai = new Date(asistencia.acuFechaelaboracion);
-    const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
-    asistencia.acuFechaelaboracion = fechaFormateadai;
-    this.asistenciaCurso = asistencia;
   }
 
+  valasistencia: any
+  idAsistencia: any;
+  asistenciaCurson: AsistenciaCurso = new AsistenciaCurso(); // instancia de la clase asistencia curso
+  obtenerasistenciacurso() {
+    this.asistenciaCursoServ.getasistenciacbycurso(this.idCurso).subscribe((data: any) => {
+      if (null != data) {
+        this.asistenciaCurso = data;
+        this.idAsistencia = this.asistenciaCurso.acuId;
+        this.valasistencia = false;
+        Swal.fire('¡Alerta!', 'Ya existe un informe de asistencia del curso, puede solo editarlo', 'info'); // SweetAlert al editar el área
+      } else {
+        Swal.fire('¡Alerta!', 'No existe un informe de asistencia del curso, puede crarlo si lo desea', 'info'); // SweetAlert al editar el área
+        this.asistenciaCurso = this.asistenciaCurson;
+        this.asistenciaCurso.acuCurso = this.curso;
+        this.asistenciaCurso.acuObservacion = " ";
+        this.asistenciaCurso.acuId = 0;
+        this.mostrarimp(0);
+        this.valasistencia = true;
+      }
+    });
+  }
+  imp: boolean = true;
+  mostrarimp(idEntidad:any) {
+    if(idEntidad!=0){
+      this.imp = true;
+    }else{
+      this.imp = false;
+    }
+  }
+
+  observacion2: boolean = true;
+  saveAsistenciaCurso() {
+    const observacionRegex = /^(?=.*[a-zA-Z])[\p{L}\p{N}.,;:!"#$%&'()*+\-\/<=>?@[\\\]^_`{|}~\s]+$/u;
+    this.observacion2 = observacionRegex.test(this.asistenciaCurso.acuObservacion);
+    if (this.observacion2) {
+      if (this.valasistencia != false) {
+        this.asistenciaCurso.acuCurso = this.curso;
+        this.asistenciaCurso.acuEstado = this.estado;
+        this.asistenciaCursoServ.saveAsistenciaCurso(this.asistenciaCurso).subscribe(
+          (data: any) => {
+            Swal.fire('¡Éxito!', 'El informe de asistencia se guardo correctamente', 'success');
+            this.valasistencia = false;
+            this.asistenciaCurso=data;
+            this.mostrarimp(this.asistenciaCurso.acuId);
+          },
+          (err) => {
+            console.log(err);
+            Swal.fire('Error', 'Ocurrió un error al guardar el informe, por favor inténtelo más tarde', 'error');
+          }
+        );
+      } else {
+        this.asistenciaCurso.acuCurso = this.curso;
+        this.asistenciaCurso.acuEstado = this.estado;
+        Swal.fire({
+          icon: 'warning',
+          title: '¿Está seguro?',
+          text: '¿Desea editar el informe de asistencia de curso?',
+          showCancelButton: true,
+          confirmButtonText: 'Editar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.asistenciaCursoServ.updateCurso(this.idAsistencia, this.asistenciaCurso).subscribe(
+              (data: any) => {
+                Swal.fire('¡Éxito!', 'El informe de asistencia se actualizo correctamente.', 'success');
+              },
+              (err) => {
+                this.mostrardatosa();
+                Swal.fire('¡Error!', 'Ha ocurrido un error al editar el informe de asistencia. Por favor, inténtelo de nuevo más tarde.', 'error');
+              }
+            );
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.mostrardatosa();
+            Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
+          }
+        });
+      }
+    } else {
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+    }
+
+  }
+
+
+
   //Un curso
-  obtenerCurso (curId: any){
+  obtenerCurso(curId: any) {
     this.cursoService.getById(curId).subscribe((data: any) => {
       this.curso = data;
     })
   }
+
   //LISTA INFORMES
   informefinalList: any[] = [];
   public AllInformesFinal() {
@@ -164,8 +289,8 @@ export class ReportesComponent {
   }
 
   //Lista general de cursos
-  mostrarListaCursos(){
-    this,this.cursoService.getAll().subscribe((data: any) => {
+  mostrarListaCursos() {
+    this, this.cursoService.getAll().subscribe((data: any) => {
       this.cursosList = data;
     });
   }
@@ -202,7 +327,7 @@ export class ReportesComponent {
 
   //UN CERTIFICADO POR PARTICIPANTE
   certificado: EntregaCertificado = new EntregaCertificado();
-  public obtenerCertificado(parId:any){
+  public obtenerCertificado(parId: any) {
     this.entregaCertificadosServ.getCertificadosByIdParticipante(parId).subscribe((data: any) => {
       this.certificado = data;
     });
@@ -210,7 +335,7 @@ export class ReportesComponent {
 
   //LISTA DE CERTIFICADOS
   listCertificados: EntregaCertificado[] = [];
-  public obtenerListaCertificados(curId: any){
+  public obtenerListaCertificados(curId: any) {
     this.entregaCertificadosServ.getCertificadosByCurso(curId).subscribe((data: any) => {
       this.listCertificados = data;
     });
@@ -218,7 +343,7 @@ export class ReportesComponent {
 
   //ficha de inscripcion por participante
   ficha: FichaInscripcion = new FichaInscripcion();
-  public obtenerFichaInscripcion(idPersona: any){
+  public obtenerFichaInscripcion(idPersona: any) {
     this.fichaInscripcionServ.getfichasbypersona(idPersona).subscribe((data: any) => {
       this.ficha = data
     });
@@ -226,7 +351,7 @@ export class ReportesComponent {
 
   //Necesidad de curso
   necesidad: NecesidadCurso = new NecesidadCurso();
-  public obtenerNecesidadCurso(curId: any){
+  public obtenerNecesidadCurso(curId: any) {
     this.cursoService.getById(curId).subscribe((data: Curso) => {
       this.necesidad = data.necesidadCurso;
     })
@@ -234,7 +359,7 @@ export class ReportesComponent {
 
   //Lista de fotos
   listaFotos: RegistroFotografico[] = []
-  public obtenerListaFotos(curId: any){
+  public obtenerListaFotos(curId: any) {
     this.registroFotograficoServ.listarPorCurso(curId).subscribe((data: any) => {
       this.listaFotos = data;
     })
@@ -242,31 +367,31 @@ export class ReportesComponent {
 
   //Obtener HorarioCurso
   horarioCurso: HorarioCurso = new HorarioCurso();
-  public obtenerHorarioCurso(curId: any){
-    this.horarioCursoServ.horariobycurso(curId).subscribe((data: any) =>{
+  public obtenerHorarioCurso(curId: any) {
+    this.horarioCursoServ.horariobycurso(curId).subscribe((data: any) => {
       this.horarioCurso = data;
     });
   }
 
   //Obtener HorasAprendizaje
   horasAprendizaje: HorasAprendizaje = new HorasAprendizaje();
-  public obtenerHorasAprendizaje(curso: Curso){
-    this.horasAprendizajeServ.getBySilabo(curso.datosSilabo.dsiId).subscribe((data: any) =>{
+  public obtenerHorasAprendizaje(curso: Curso) {
+    this.horasAprendizajeServ.getBySilabo(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.horasAprendizaje = data;
     });
   }
 
   //Obtener Resultado de aprendizane
   resultadosAprendizaje: ResultadosAprendizaje[] = [];
-  public obtenerListaResultadosAprendizaje(curso: Curso){
+  public obtenerListaResultadosAprendizaje(curso: Curso) {
     this.resultadosAprendizajeServ.getBySilabo(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.resultadosAprendizaje = data;
     })
   }
 
   //Obtener contenidos Curso
-  contenidosCurso: ContenidosCurso[] =[];
-  public obtenerLIstaContenidosCurso(curso: Curso){
+  contenidosCurso: ContenidosCurso[] = [];
+  public obtenerLIstaContenidosCurso(curso: Curso) {
     this.contenidosCursoServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.contenidosCurso = data;
     })
@@ -274,7 +399,7 @@ export class ReportesComponent {
 
   //obtener Estrategias metodológicas
   estrategiasMetodologicas: EstrategiasMetodologicas[] = [];
-  public obtenerEstrategiasMetodologicas(curso: Curso){
+  public obtenerEstrategiasMetodologicas(curso: Curso) {
     this.estrategiasMetodologicasServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.estrategiasMetodologicas = data;
     })
@@ -282,7 +407,7 @@ export class ReportesComponent {
 
   //obtener Recursos Didacticos
   recursoDidactico: RecursosDidacticos = new RecursosDidacticos();
-  public obtenerRecursosDidacticos(curso: Curso){
+  public obtenerRecursosDidacticos(curso: Curso) {
     this.recursoDidacticoServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.recursoDidactico = data;
     })
@@ -290,13 +415,11 @@ export class ReportesComponent {
 
   //ObtenerEvaluacionEpra
   evaluacionEpra: EvaluacionEpra = new EvaluacionEpra();
-  public obtenerEvaluacionEpra(curso: Curso){
+  public obtenerEvaluacionEpra(curso: Curso) {
     this.evaluacionEpraServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.evaluacionEpra = data;
     })
   }
-
-  tipoReporte(num: number) {}
 
   //ACA COMIENZAN LOS CERTIFICADOS
 
@@ -343,8 +466,12 @@ export class ReportesComponent {
   }
 
   //Reporte final del curso --LISTO
-  public async imprimirReporteFinal(informefinal: InformeFinal, curId: any) {
-    this.listarParticipantesPorCurso(curId);
+  public async imprimirReporteFinal(informefinal: InformeFinal) {
+    console.log(this.idCurso)
+    this.listarParticipantesPorCurso(informefinal.ifiCurso?.curId);
+    console.log("la vacaaaaa");
+    console.log(informefinal);
+    
     while (this.listParticipantes.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -353,8 +480,10 @@ export class ReportesComponent {
       .printInformeFinalCurso(informefinal, this.listParticipantes)
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Reporte final');
-      });
+    });
   }
+
+
 
   //ficha de inscripcion -- NECESITO UN BOTON
   public async imprimirFichaInscripcion(idPersona: any) {
@@ -455,7 +584,7 @@ export class ReportesComponent {
   }
 
   //ReporteGeneralCursosFinalizados
-  private async imprimirReporteGeneralCursosFinalizados(curId: any){
+  private async imprimirReporteGeneralCursosFinalizados(curId: any) {
     this.listarParticipantesPorCurso(curId);
     this.mostrarListaCursos();
     while (this.listParticipantes.length === 0 || this.cursosList === null) {

@@ -31,7 +31,7 @@
         </ol>
     </nav>
     <!-- /Breadcrumb -->
-    <div class="main-body">
+    <div class="main-body" *ngIf="showContainer4!=false">
         <div class="row">
             <div class="col-lg-4">
 
@@ -70,7 +70,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
                                         placeholder="Ingrese el nombre del programa" name="cedula"
-                                        value="{{fichaInscripcion.finPersona.cedula}}">
+                                        value="{{fichaInscripcion.finPersona.cedula}}" disabled>
                                 </div>
                             </div>
 
@@ -81,7 +81,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputemail"
                                         placeholder="Ingrese la nota del 1er Parcial" name="email"
-                                        value="{{fichaInscripcion.finPersona.email}}">
+                                        value="{{fichaInscripcion.finPersona.email}}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -91,7 +91,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="direccion"
                                         placeholder="Ingrese la nota Final" name="direccion"
-                                        value="{{fichaInscripcion.finPersona.direccion}}">
+                                        value="{{fichaInscripcion.finPersona.direccion}}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -101,7 +101,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="number" class="form-control" id="inputPromedio"
                                         placeholder="Ingrese la nota del 1er Parcial" name="promedio"
-                                        value="{{fichaInscripcion.finPersona.telefono}}">
+                                        value="{{fichaInscripcion.finPersona.telefono}}" disabled>
                                 </div>
                             </div>
 
@@ -121,7 +121,7 @@
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button type="button" class="btn btn-primary" (click)="actualizarficha(fichaInscripcion)">Guardar Cambios</button>
+                                    <Span></Span> <button type="button" class="btn btn-primary" (click)="actualizarficha(fichaInscripcion); ">Guardar Cambios</button>
                                 </div>
                             </div>
                         </form>
@@ -132,7 +132,7 @@
         </div>
     </div>
 
-    <br><br>
+    <br>    
     <!-- Tablaaaaaa -->
     <table class="table">
         <thead class="thead-dark">
@@ -153,7 +153,7 @@
                 <td>{{ ficha.finPersona.nivelintruccion }}</td>
                 <td>{{ estadosAprobacion[ficha.finAprobacion] }}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="editarAprobacion(ficha)">
+                    <button type="button" class="btn btn-primary" (click)="editarAprobacion(ficha); showContainer4 = true;">
                         Editar</button>
                 </td>
             </tr>
