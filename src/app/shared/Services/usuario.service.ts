@@ -9,28 +9,44 @@ import { Usuario } from 'src/app/Core/models/usuario';
 import { Persona } from 'src/app/Core/models/persona';
 import { tap, map } from 'rxjs/operators';
 import { RolService } from './rol.service';
+import { SignupRequest } from 'src/app/Core/models/SingUpRequest';
+import { LoginRequest } from 'src/app/Core/models/LoginRequest';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   private URL = 'http://localhost:8080/usuarios';
+  private URLb = 'http://localhost:8080/usuarios/buscar/';
   private URLu = 'http://localhost:8080/usuarios/search/';
+
   private URLcre = 'http://localhost:8080/usuarios/signup';
+  
   private usuariosApiUrl = 'http://localhost:8080/usuarios/users/list';
   private personasApiUrl = 'http://localhost:8080/api/persona/buscar';
-  
+  private signupUrl = 'http://localhost:8080/api/auth/signup';
   private rolesApiUrl = 'http://localhost:8080/api/rol/buscar';
-  
+ 
+  private signinUrl = 'http://localhost:8080/api/auth/signin';
+  private generateTokenUrl = 'http://localhost:8080/api/auth/generate-token';
 
   constructor(private http: HttpClient, private rol:RolService) {}
+  registerUser(signupRequest: SignupRequest): Observable<any> {
+    return this.http.post<any>(this.signupUrl, signupRequest);
+  }
+  loginUser(loginRequest: LoginRequest): Observable<any> {
+    return this.http.post<any>(this.signinUrl, loginRequest);
+  }
 
+  generateToken(loginRequest: LoginRequest): Observable<any> {
+    return this.http.post<any>(this.generateTokenUrl, loginRequest);
+  }
 //Listar usuarios por rol---------------------------------------------------------
 listarUsuariosAdmin(): Observable<Usuario[]> {
   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
     switchMap((usuarios) => {
       const requests = usuarios
-        .filter((usuario) => usuario.rol?.rolNombre == 'Admin') // <-- Filtro por usuarios Admin
+        .filter((usuario) => usuario.rol?.rolNombre == 'ROLE_ADMIN') // <-- Filtro por usuarios Admin
         .map((usuario) =>
           forkJoin({
             usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
@@ -60,7 +76,7 @@ listarUsuariosDocente(): Observable<Usuario[]> {
   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(
     switchMap((usuarios) => {
       const requests = usuarios
-        .filter((usuario) => usuario.rol?.rolNombre == 'Docente') // <-- Filtro por usuarios Docente
+        .filter((usuario) => usuario.rol?.rolNombre == 'ROLE_DOCENTE') // <-- Filtro por usuarios Docente
         .map((usuario) =>
           forkJoin({
             usuario: of({ ...usuario, username: usuario.username || '', password: usuario.password || '' }),
@@ -142,9 +158,9 @@ obtenerRol(): string {
   postUsuario(usuario: Usuario) {
     return this.http.post<Usuario>(this.URLcre +'', usuario);
   }
-
+  
   getPorId(idUsuario: any) {
-    return this.http.get<Usuario>(this.URL + idUsuario);
+    return this.http.get<Usuario>(this.URLb + idUsuario);
   }
 
   //sin utilizar
