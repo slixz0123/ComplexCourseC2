@@ -2,7 +2,7 @@ import { Curso } from "./curso";
 
 export class InformeFinal{
     ifiId?: number;
-    ifiObservaciones: string="";
+    ifiObservaciones: string=" ";
     ifiFecha : Date = new Date();
     ifiEstado: Boolean =true;
     ifiCurso?: Curso;
