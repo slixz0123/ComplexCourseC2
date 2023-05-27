@@ -123,7 +123,7 @@ generateToken(): void {
         showConfirmButton: false
       }).then(() => {
         if (this.iRol == 'ROLE_PARTICIPANTE') {
-          this.goToParticipante();
+          this.router.navigate(['/Participante']).then(() => { window.location.reload(); });
         } else if (this.iRol == 'ROLE_ADMIN') {
           this.goToAdmin();
         } else if (this.iRol == 'ROLE_SUPADMIN') {
