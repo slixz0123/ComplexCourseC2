@@ -16,7 +16,7 @@ export class AuthComponent {
   tipoUser: any; //variable para asignarla despues
   user: any;//valiable para asignarla despues
   
-  iRol: String| undefined = ""; //valiable para asignarla despues
+  iRol: string= ""; //valiable para asignarla despues
   errorStatus:boolean = false; //valiable para asignarla despues 
   errorMsj:any = "";//valiable para asignarla despues
 
@@ -90,7 +90,8 @@ onLogin(form: any) {
           localStorage.setItem('id_usuario', String(data.id_usuario));
           this.iRol = data.roles; 
           console.log(this.iRol);
-          this.generateToken();  
+          this.generateToken();
+          this.usuarioService.setRol(this.iRol);  // Set the role after the token has been generated
         } else {
           Swal.fire({
             title: 'Usuario inhabilitado, no puede ingresar',
@@ -108,6 +109,7 @@ onLogin(form: any) {
     }
   );
 }
+
 
 
 generateToken(): void {
