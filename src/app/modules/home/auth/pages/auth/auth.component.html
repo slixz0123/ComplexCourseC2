@@ -51,8 +51,6 @@
 </head>
 <app-header></app-header>
 <body>
-
- 
   <div class="bgimage">
     <div class="menu">
       <!-- Add your menu items here -->
@@ -61,14 +59,15 @@
       <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
     
       <div class="login-container"></div>
-      <form [formGroup]="loginForm"    (ngSubmit)="login(loginForm.value)">
-        <h3 >  <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt=""></h3>
-        <label >Ingrese El usuario</label>
-        <input type="text" placeholder="Email or Phone" id="username" [(ngModel)]="usuario.username" formControlName="username" > 
-        <label >Ingrese La Contraseña</label>
-        <input type="password" placeholder="Password" id="password" [(ngModel)]="usuario.password" formControlName="password">
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+        <h3>  
+          <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
+        </h3>
+        <label>Ingrese El usuario</label>
+        <input type="text" placeholder="Email or Phone" [(ngModel)]="loginRequest.username" name="username">
+        <label>Ingrese La Contraseña</label>
+        <input type="password" placeholder="Password" [(ngModel)]="loginRequest.password" name="password">
         <button>Iniciar Sesion</button>
-       
       </form>
     </div>
   </div>

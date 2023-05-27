@@ -24,7 +24,7 @@ const routes: Routes = [
     component: WelcomeParticipantesComponent,
     canActivate: [AdminGuard],
     data: {
-      expectedRole: 'Participante'
+      expectedRole: 'ROLE_PARTICIPANTE'
     },
     loadChildren: () => import('./modules/participantes/participantes.module').then(m => m.ParticipantesModule)
   },
@@ -33,7 +33,7 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     component: WelcomeAdministradorComponent,
     data: {
-      expectedRole: 'Admin'
+      expectedRole: 'ROLE_ADMIN'
     },
     loadChildren: () => import('./modules/administrador/administrador.module').then(m => m.AdministradorModule)
   },
@@ -42,7 +42,7 @@ const routes: Routes = [
     canActivate: [AdminGuard],
     component: WelcomeSupAdminComponent,
     data: {
-      expectedRole: 'Supadmin'
+      expectedRole: 'ROLE_SUPADMIN'
     },
     loadChildren: () => import('./modules/super-admin/super-admin.module').then(m => m.SuperAdminModule)
   },
@@ -51,7 +51,7 @@ const routes: Routes = [
     component: WelcomeDocenteCapacitadorComponent,
     canActivate: [AdminGuard],
     data: {
-      expectedRole: 'Docente'
+      expectedRole: 'ROLE_DOCENTE'
     },
     loadChildren: () => import('./modules/docente-capacitador/docente-capacitador.module').then(m => m.DocenteCapacitadorModule)
   },

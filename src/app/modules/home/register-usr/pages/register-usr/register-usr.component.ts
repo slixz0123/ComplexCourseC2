@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SignupRequest } from 'src/app/Core/models/SingUpRequest';
 import { Persona } from 'src/app/Core/models/persona';
 import { Rol } from 'src/app/Core/models/rol';
 import { Usuario } from 'src/app/Core/models/usuario';
@@ -21,7 +22,19 @@ export class RegisterUsrComponent {
 
   ngOnInit() {
   }
-
+  signupRequest: SignupRequest = new SignupRequest();
+  onSignup(): void {
+    this.signupRequest.roles="ROLE_PARTICIPANTE"
+    this.signupRequest.enable=true
+    this.userServiceService.registerUser(this.signupRequest).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   onSubmit() {
 
 

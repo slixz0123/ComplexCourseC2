@@ -61,99 +61,28 @@
     <div class="text">
      
      
-      <form>
-        <img id="imagenlogo" src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
-      
-        <div class="conte formulario">
-        <div class="form-row">
-          <div class="form-group col-md-4">
-            <label for="inputNombre">Nombre</label>
-            <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese su nombre"  name="nombre" [(ngModel)]="persona.nombre">
-          </div>
-          <div class="form-group ccol-md-4">
-            <label for="inputApellido">Apellido</label>
-            <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese su apellido"  name="apellido" [(ngModel)]="persona.apellido">
-          </div>
-          <div class="form-group ccol-md-4">
-            <label for="inputApellido">Fecha de Nac</label>
-            <input type="date" class="form-control" id="inputApellido" placeholder="Ingrese su apellido" name="fecha_nacimiento" [(ngModel)]="persona.fecha_nacimiento">
-          </div>
-        </div>
-        <div class="form-row">
-          
-          <div class="form-group col-md-4">
-            <label for="inputEmail">Email</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Ingrese su correo electrónico" name="email" [(ngModel)]="persona.email">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputDireccion">Dirección</label>
-          <input type="text" class="form-control" id="inputDireccion" placeholder="Ingrese su dirección"  name="direccion" [(ngModel)]="persona.direccion">
-          </div>
+      <form (ngSubmit)="onSignup()">
+        <input type="text" placeholder="Username" [(ngModel)]="signupRequest.username" name="username" required>
+        <input type="password" placeholder="Password" [(ngModel)]="signupRequest.password" name="password" required>
 
-          <div class="form-group col-md-4">
-            <label for="inputSexo">Sexo</label>
-            <select  id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo">
-              <option selected>Seleccione una opción...</option>
-              <option>Masculino</option>
-              <option>Femenino</option>
-              <option>No binario</option>
-            </select>
-          </div>
 
-          
-        </div>
-       
-        <div class="form-row">
-         
-          <div class="form-group ccol-md-4">
-            <label for="inputEtnia">Etnia</label>
-            <input type="text" class="form-control" id="inputEtnia" placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.etnia">
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputTelefono">Teléfono</label>
-            <input type="tel" class="form-control" id="inputTelefono" placeholder="Ingrese su teléfono" name="telefono" [(ngModel)]="persona.telefono" >
-          </div>
-          <div class="form-group col-md-4">
-            <label for="inputCelular">Celular</label>
-            <input type="tel" class="form-control" id="inputCelular" placeholder="Ingrese su celular" name="celular" [(ngModel)]="persona.celular">
-          </div>
-        </div>
-        <div class="form-row">
-         
-            <div class="form-group ccol-md-4">
-              <label for="inputEtnia">Cedula</label>
-              <input type="text" 
-              class="form-control" 
-              id="inputCedula" 
-              placeholder="Ingrese su cedula" 
-              name="cedula" [(ngModel)]="persona.cedula"
-              >
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputTelefono">Usuario</label>
-              <input type="tel" class="form-control" id="inputusernam" placeholder="Ingrese su teléfono" name="username" [(ngModel)]="usuario.username" >
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputCelular">Password</label>
-              <input type="password" class="form-control" id="inputpassword" placeholder="Ingrese su password" name="password" [(ngModel)]="usuario.password">
-            </div>
-            <div class="form-group col-md-4">
-              <label for="inputSexo">Nivel de instruccion</label>
-              <select  id="inputSexo" class="form-control" name="nivelintruccion" [(ngModel)]="persona.nivelintruccion">
-                <option selected>Seleccione una opción...</option>
-                <option>Primaria</option>
-                <option>Secundaria</option>
-                <option>Bachiller</option>
-                <option>Tercer nivel</option>
-                <option>Cuarto Nivel</option>
-              </select>
-            </div>
-            
-          </div>
       
-        <button  (click)="onSubmit()" >Registrar</button>
-    </div>
-    </form>
+        <!-- Añade los demás campos de la clase Persona aquí -->
+        <input type="text" placeholder="Cedula" [(ngModel)]="signupRequest.cedula" name="cedula" required>
+        <input type="text" placeholder="Nombre" [(ngModel)]="signupRequest.nombre" name="nombre" required>
+        <input type="text" placeholder="Apellido" [(ngModel)]="signupRequest.apellido" name="apellido" required>
+        <input type="date" placeholder="Fecha de nacimiento" [(ngModel)]="signupRequest.fecha_nacimiento" name="fecha_nacimiento" required>
+        <input type="email" placeholder="Email" [(ngModel)]="signupRequest.email" name="email" required>
+        <input type="text" placeholder="Direccion" [(ngModel)]="signupRequest.direccion" name="direccion" required>
+        <input type="text" placeholder="Sexo" [(ngModel)]="signupRequest.sexo" name="sexo" required>
+        <input type="text" placeholder="Etnia" [(ngModel)]="signupRequest.etnia" name="etnia" required>
+        <input type="text" placeholder="Telefono" [(ngModel)]="signupRequest.telefono" name="telefono" required>
+        <input type="text" placeholder="Celular" [(ngModel)]="signupRequest.celular" name="celular" required>
+        <input type="text" placeholder="Nivel de instruccion" [(ngModel)]="signupRequest.nivelintruccion" name="nivelintruccion" required>
+      
+        <button type="submit">Register</button>
+      </form>
+      
     </div>
   </div>
 </body>

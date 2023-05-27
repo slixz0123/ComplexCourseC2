@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginRequest } from 'src/app/Core/models/LoginRequest';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 import Swal from 'sweetalert2';
@@ -75,32 +76,22 @@ export class AuthComponent {
 En este metodo llamado login recibe un parametro de tipo any en este caso form en la cual  nos ayudara ingresar 
 
 */
-login(form: any) {
-  this.usuarioService.login(this.usuario.username, this.usuario.password).subscribe(
+loginRequest: any = {};
+
+
+onLogin(form: any) {
+  this.usuarioService.loginUser(this.loginRequest).subscribe(
     (data: any) => {
+      console.log(data)
       if (data != null) {
         if (data.id_usuario) {
           this.usuario.id_usuario = data.id_usuario;
           localStorage.setItem('id_persona', String(data.persona?.id_persona));
           localStorage.setItem('id_usuario', String(data.id_usuario));
-          this.iRol = data.rol.rolNombre;
-
-          Swal.fire({
-            title: 'Inicio de sesión exitoso',
-            icon: 'success',
-            timer: 2000,
-            showConfirmButton: false
-          }).then(() => {
-            if (this.iRol == 'Participante') {
-              this.goToParticipante();
-            } else if (this.iRol == 'Admin') {
-              this.goToAdmin();
-            } else if (this.iRol == 'Supadmin') {
-              this.goTosupAdmin();
-            } else if (this.iRol == 'Docente') {
-              this.goToCapacitador();
-            }
-          });
+            this.iRol = data.rol?.roles; 
+          
+          // Ahora generamos y almacenamos el token
+          this.generateToken();  // Llamamos al método onLogin()
         } else {
           Swal.fire({
             title: 'Usuario inhabilitado, no puede ingresar',
@@ -118,5 +109,34 @@ login(form: any) {
     }
   );
 }
+
+generateToken(): void {
+  this.usuarioService.generateToken(this.loginRequest).subscribe(
+    (response: any) => {
+      console.log(response)
+      localStorage.setItem('token', response.token);
+
+      Swal.fire({
+        title: 'Inicio de sesión exitoso',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      }).then(() => {
+        if (this.iRol == 'ROLE_PARTICIPANTE') {
+          this.goToParticipante();
+        } else if (this.iRol == 'ROLE_ADMIN') {
+          this.goToAdmin();
+        } else if (this.iRol == 'ROLE_SUPADMIN') {
+          this.goTosupAdmin();
+        } else if (this.iRol == 'ROLE_DOCENTE') {
+          this.goToCapacitador();
+        }
+      });
+    },
+  
+    
+  );
+}
+
 
 }
