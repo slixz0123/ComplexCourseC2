@@ -13,7 +13,7 @@ import { Persona } from "src/app/Core/models/persona";
   export class  ParticipanteService{
     private URL="http://localhost:8080/api/participante";
     private URLCre="http://localhost:8080/api/participante/crear"
-    private URLReporte = "http://localhost:8080/api/reporteInformeNecesidadCurso";
+    private URLReporte = "http://localhost:8080/api/reporteRegistroParticipantesController"
 
     constructor(private http: HttpClient) { }
 
@@ -33,7 +33,7 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.get<Participante[]>(url);
     }
 
-    
+
     ParticipantesPorhorarioc(curId: number,idHorario:any): Observable<Participante[]> {
       const url = `${this.URL}/participantesPorhorarioc/${curId}/${idHorario}`;
       return this.http.get<Participante[]>(url);
@@ -57,10 +57,10 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.get<any>(`${this.URL}/listarAprobados`);
     }
 
-    public printRegistroParticipantes(participantes: Participante[], curso: Curso){
+    public printRegistroParticipantes(curso: Curso, participantes: Participante[]){
       const requestData = {
-        participantes: participantes,
-        curso: curso
+        curso: curso,
+        participantes: participantes
       };
       return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
         responseType: 'blob'

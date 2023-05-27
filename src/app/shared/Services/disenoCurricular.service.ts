@@ -1,6 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
+import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
+import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
+import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
+import { Curso } from 'src/app/Core/models/curso';
+import { DetalleMe } from 'src/app/Core/models/detalleme';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
 
@@ -10,10 +15,11 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
 export class DisenoCurricularService {
 
    private URL = "http://localhost:8080/api/DisenoCurricular";
+   private URLReporte = "http://localhost:8080/api/reporteDisenoCurricular";
 
 
    constructor(private http: HttpClient) { }
- 
+
    getAll(): Observable<DisenoCurricular[]> {
     return this.http.get<DisenoCurricular[]>(`${this.URL}/listar`);
   }
@@ -26,7 +32,7 @@ export class DisenoCurricularService {
   return this.http.post<DisenoCurricular>(`${this.URL}/crear`, data);
 }
 
- 
+
   delete(id: number): Observable<any> {
     const url = `${this.URL}/eliminar/${id}`;
     const httpOptions = {
@@ -53,6 +59,19 @@ export class DisenoCurricularService {
 
   getAllFalse(): Observable<DisenoCurricular[]> {
     return this.http.get<DisenoCurricular[]>(`${this.URL}/listarfalse`);
+  }
+  public printDisenoCurricular(curso: Curso, contenidos: ContenidosCurso[],
+    estrategias: EstrategiasMetodologicas[], detalles: DetalleMe[], horasAprendizaje: HorasAprendizaje[]): Observable<any> {
+    const requestData = {
+      curso: curso,
+      contenidosCursos: contenidos,
+      estrategiasMetodologicas: estrategias,
+      detallesMecanismo: detalles,
+      horasAprendizaje: horasAprendizaje
+    };
+    return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
+      responseType: 'blob'
+    });
   }
 
 }

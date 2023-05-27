@@ -29,7 +29,7 @@
                     <h4 style="text-align: center;">Registro Participante</h4>
                     <br>
                     <form >
-                        
+
 
                         <div class="row">
                             <div class="col-sm-3">
@@ -127,7 +127,7 @@
             <th scope="col">Nombre Curso</th>
             <th scope="col">Estado</th>
             <th scope="col">Ver</th>
-            <th scope="col">Imprimir</th>            
+            <th scope="col">Imprimir</th>
         </tr>
     </thead>
     <tbody>
@@ -138,12 +138,8 @@
             <td>{{ estadosAprobacion[ficha.finAprobacion] }}</td>
             <td><button type="button" class="btn btn-primary" (click)="editarAprobacion(ficha)">ver</button>
             </td>
-            <!-- <td><button type="button" class="btn btn-primary"
-                            (click)="imprimirReporteFinal(informefinal)">Imprimir</button>
-                    </td>
-                    <td><button type="button" class="btn btn-primary"
-                      (click)="imprimirSilabo(curso)">Imprimir</button>
-                    </td> -->
+            <td><button type="button" class="btn btn-primary"
+                            (click)="imprimirFichaInscripcion(ficha)">Imprimir</button>
         </tr>
     </tbody>
 </table>

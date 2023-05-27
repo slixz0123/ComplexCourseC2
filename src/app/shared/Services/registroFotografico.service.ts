@@ -34,7 +34,7 @@ export class RegistroFotograficoService {
   }
 
   listarPorCurso(curId: any) {
-    return this.http.get(`${this.apiUrl}/getByCurId/`, curId);
+    return this.http.get(`${this.apiUrl}/getByCurId/`+ curId);
   }
 
   public printRegistroFotografico(registrFotografico: RegistroFotografico[]){

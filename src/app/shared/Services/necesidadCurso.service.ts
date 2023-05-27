@@ -35,8 +35,8 @@ export class NecesidadCursoService {
     return this.http.get<NecesidadCurso>(`${this.URLReporte}/getByCursoId`, curId);
   }
 
-  public printNececidadCurso(necesidad: NecesidadCurso){
-    return this.http.post(`${this.URLReporte}/generarReporte`, necesidad, {
+  public printNececidadCurso(curso: Curso){
+    return this.http.post(`${this.URLReporte}/generarReporte`, curso, {
       responseType: 'blob'
     });
   }

@@ -56,17 +56,17 @@ update(dtssilab: Datossilabo, iddts: number) {
 getPorId(iddtssil: any) {
   return this.http.get<Datossilabo>(this.URL + iddtssil);
 }
-public printSilabo(curso: Curso, horarioCurso:HorarioCurso,
-  horasAprendizaje: HorasAprendizaje, resultadoAprendizaje: ResultadosAprendizaje[],
+public printSilabo(curso: Curso, horarioCurso:HorarioCurso[],
+  horasAprendizaje: HorasAprendizaje[], resultadoAprendizaje: ResultadosAprendizaje[],
   contenidoCurso: ContenidosCurso[], estrategiaMetodologica: EstrategiasMetodologicas[],
-  recursoDidactico: RecursosDidacticos, evaluacionEpra: EvaluacionEpra): Observable<any> {
+  recursoDidactico: RecursosDidacticos[], evaluacionEpra: EvaluacionEpra[]): Observable<any> {
   const requestData = {
     curso: curso,
-    horarioCurso: horarioCurso,
+    horarioCursos: horarioCurso,
     horasAprendizaje: horasAprendizaje,
-    resultadoAprendizaje: resultadoAprendizaje,
-    contenidoCurso: contenidoCurso,
-    estrategiaMetodologica: estrategiaMetodologica,
+    resultadosAprendizaje: resultadoAprendizaje,
+    contenidosCursos: contenidoCurso,
+    estrategiasMetodologicas: estrategiaMetodologica,
     recursoDidactico: recursoDidactico,
     evaluacionEpra: evaluacionEpra
   };

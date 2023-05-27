@@ -44,6 +44,6 @@ getPorId(result: any) {
 }
 
 getBySilabo(dsiId: any) {
-  return this.http.get<ResultadosAprendizaje>(this.URL1 + `getBySilaboId/`, dsiId);
+  return this.http.get<ResultadosAprendizaje>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

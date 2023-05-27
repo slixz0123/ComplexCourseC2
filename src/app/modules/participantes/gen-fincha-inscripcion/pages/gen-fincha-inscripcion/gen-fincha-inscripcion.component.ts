@@ -21,6 +21,7 @@ export class GenFinchaInscripcionComponent {
   idPersona: any;
   constructor(
     private fichaIncripcionService: FichaIncripcionService,
+    private fichaInscripcionServ: FichaIncripcionService,
     private enviarDatosService: EnvioDatosService,
     private router: Router
 
@@ -63,5 +64,30 @@ export class GenFinchaInscripcionComponent {
     this.enviarDatosService.setvalid(1);
     this.router.navigate(['/Participante/ficha-inscripcion']);
   }
-  
+
+  //ficha de inscripcion -- NECESITO UN BOTON
+  public async imprimirFichaInscripcion(ficha: FichaInscripcion) {
+    this.fichaInscripcionServ
+      .printFichaInscripcion(ficha)
+      .subscribe((data: Blob) => {
+        this.crearPdf(data, 'Ficha de inscripcion');
+      });
+  }
+
+  private crearPdf(data: Blob, nombre: String) {
+    const url = URL.createObjectURL(data);
+    // Crear un enlace de descarga
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = nombre + '.pdf';
+
+    // Agregar el enlace al DOM y hacer clic en él
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    // Limpiar y revocar el objeto URL creado
+    URL.revokeObjectURL(url);
+    document.body.removeChild(downloadLink);
+  }
+
 }

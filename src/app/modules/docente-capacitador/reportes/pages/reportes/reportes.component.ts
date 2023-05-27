@@ -37,6 +37,10 @@ import { EstrategiasmetservService } from 'src/app/shared/Services/DatosSilaboSe
 import { RecursosdidacticosservService } from 'src/app/shared/Services/DatosSilaboServ/recursosdidacticosserv.service';
 import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evaluaepra.service';
 import Swal from 'sweetalert2';
+import { DetalleMe } from 'src/app/Core/models/detalleme';
+import { DetalleMevaService } from 'src/app/shared/Services/detalleMeva.service';
+import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
+
 @Component({
   selector: 'app-reportes',
   templateUrl: './reportes.component.html',
@@ -67,7 +71,6 @@ export class ReportesComponent {
     private entregaCertificadosServ: EntregaCertificadoService,
     private asistenciasServ: AsistenciaService,
     private necesidadCursoServ: NecesidadCursoService,
-    private fichaInscripcionServ: FichaIncripcionService,
     private registroFotograficoServ: RegistroFotograficoService,
     private horarioCursoServ: HorarioCursoService,
     private horasAprendizajeServ: HorasaprendizajeservService,
@@ -75,9 +78,10 @@ export class ReportesComponent {
     private contenidosCursoServ: ContenidocurservService,
     private estrategiasMetodologicasServ: EstrategiasmetservService,
     private recursoDidacticoServ: RecursosdidacticosservService,
-    private evaluacionEpraServ: EvaluaepraService
+    private evaluacionEpraServ: EvaluaepraService,
+    private detallesMeServ: DetalleMevaService,
+    private disenoCurricularServ: DisenoCurricularService
   ) { }
-
   ngOnInit(): void {
     this.AllInformesFinal();
     // this.listarAsistenciasCurso();
@@ -109,6 +113,23 @@ export class ReportesComponent {
         this.informeFinal.ifiId = 0;
         this.valinforme = true;
       }
+    });
+  }
+
+  guardarIdCurso(curId: any){
+    this.idCurso = curId;
+  }
+  editarInformefinal(informefinal: any) {
+    console.log(this.informeFinal.ifiFecha);
+    const fechai = new Date(informefinal.ifiFecha);
+    const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
+    informefinal.ifiFecha = fechaFormateadai;
+    this.informeFinal = informefinal;
+  }
+  asistenciasCursolList: any[] = [];
+  public listarAsistenciasCurso() {
+    this.asistenciaCursoServ.getAllAsisteciasCursos().subscribe((data: any) => {
+      this.asistenciasCursolList = data;
     });
   }
   mostrardatosf() {
@@ -260,21 +281,11 @@ export class ReportesComponent {
   }
 
 
-
-  //Un curso
-  obtenerCurso(curId: any) {
-    this.cursoService.getById(curId).subscribe((data: any) => {
-      this.curso = data;
-    })
-  }
-
   //LISTA INFORMES
   informefinalList: any[] = [];
   public AllInformesFinal() {
     this.informeFinalServ.getAllInformefinal().subscribe((data: any) => {
       this.informefinalList = data;
-      console.log('aquiiii');
-      console.log(data);
     });
   }
 
@@ -283,8 +294,6 @@ export class ReportesComponent {
   mostrarCursos(idPersona: any) {
     this.cursoService.cursosporDocente(idPersona).subscribe((data: any) => {
       this.cursosList = data;
-      console.log('Siiuu Curso');
-      console.log(this.cursosList);
     });
   }
 
@@ -300,8 +309,6 @@ export class ReportesComponent {
   public listarAsistencias() {
     this.asistenciasServ.getAsistencias().subscribe((data: any) => {
       this.asistenciasList = data;
-      console.log('aquiiii');
-      console.log(data);
     });
   }
 
@@ -319,7 +326,6 @@ export class ReportesComponent {
     this.participanteServ
       .ParticipantesPorCurso(curId)
       .subscribe((data: any) => {
-        console.log(data);
         this.participantes = data;
         this.listParticipantes = data;
       });
@@ -341,83 +347,78 @@ export class ReportesComponent {
     });
   }
 
-  //ficha de inscripcion por participante
-  ficha: FichaInscripcion = new FichaInscripcion();
-  public obtenerFichaInscripcion(idPersona: any) {
-    this.fichaInscripcionServ.getfichasbypersona(idPersona).subscribe((data: any) => {
-      this.ficha = data
-    });
-  }
-
-  //Necesidad de curso
-  necesidad: NecesidadCurso = new NecesidadCurso();
-  public obtenerNecesidadCurso(curId: any) {
-    this.cursoService.getById(curId).subscribe((data: Curso) => {
-      this.necesidad = data.necesidadCurso;
-    })
-  }
-
   //Lista de fotos
   listaFotos: RegistroFotografico[] = []
-  public obtenerListaFotos(curId: any) {
-    this.registroFotograficoServ.listarPorCurso(curId).subscribe((data: any) => {
+  public obtenerListaFotos(){
+    this.registroFotograficoServ.listarPorCurso(this.idCurso).subscribe((data: any) => {
       this.listaFotos = data;
     })
   }
 
   //Obtener HorarioCurso
-  horarioCurso: HorarioCurso = new HorarioCurso();
-  public obtenerHorarioCurso(curId: any) {
-    this.horarioCursoServ.horariobycurso(curId).subscribe((data: any) => {
+  horarioCurso: HorarioCurso[] = [];
+  public obtenerHorarioCurso(){
+    this.horarioCursoServ.horariobycurso(this.curso.curId).subscribe((data: any) =>{
       this.horarioCurso = data;
     });
   }
 
   //Obtener HorasAprendizaje
-  horasAprendizaje: HorasAprendizaje = new HorasAprendizaje();
-  public obtenerHorasAprendizaje(curso: Curso) {
-    this.horasAprendizajeServ.getBySilabo(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  horasAprendizaje: HorasAprendizaje[] = [];
+  public async obtenerHorasAprendizaje(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this.horasAprendizajeServ.getBySilabo(this.curso.datosSilabo.dsiId).subscribe((data: any) =>{
       this.horasAprendizaje = data;
     });
   }
 
   //Obtener Resultado de aprendizane
   resultadosAprendizaje: ResultadosAprendizaje[] = [];
-  public obtenerListaResultadosAprendizaje(curso: Curso) {
-    this.resultadosAprendizajeServ.getBySilabo(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  public obtenerListaResultadosAprendizaje(){
+    this.resultadosAprendizajeServ.getBySilabo(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.resultadosAprendizaje = data;
     })
   }
 
   //Obtener contenidos Curso
-  contenidosCurso: ContenidosCurso[] = [];
-  public obtenerLIstaContenidosCurso(curso: Curso) {
-    this.contenidosCursoServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  contenidosCurso: ContenidosCurso[] =[];
+  public obtenerLIstaContenidosCurso(){
+    this.contenidosCursoServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.contenidosCurso = data;
     })
   }
 
   //obtener Estrategias metodológicas
   estrategiasMetodologicas: EstrategiasMetodologicas[] = [];
-  public obtenerEstrategiasMetodologicas(curso: Curso) {
-    this.estrategiasMetodologicasServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  public obtenerEstrategiasMetodologicas(){
+    this.estrategiasMetodologicasServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.estrategiasMetodologicas = data;
     })
   }
 
   //obtener Recursos Didacticos
-  recursoDidactico: RecursosDidacticos = new RecursosDidacticos();
-  public obtenerRecursosDidacticos(curso: Curso) {
-    this.recursoDidacticoServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  recursoDidactico: RecursosDidacticos[] = [];
+  public obtenerRecursosDidacticos(){
+    this.recursoDidacticoServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.recursoDidactico = data;
     })
   }
 
   //ObtenerEvaluacionEpra
-  evaluacionEpra: EvaluacionEpra = new EvaluacionEpra();
-  public obtenerEvaluacionEpra(curso: Curso) {
-    this.evaluacionEpraServ.getBySilaboId(curso.datosSilabo.dsiId).subscribe((data: any) => {
+  evaluacionEpra: EvaluacionEpra[] = [];
+  public obtenerEvaluacionEpra(){
+    this.evaluacionEpraServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.evaluacionEpra = data;
+    })
+  }
+  //Obtener DetallesMe
+  listDetallesMe: DetalleMe[] = [];
+  public obtenerDetallesMe(){
+    this.detallesMeServ.getAll().subscribe((data: any) => {
+      this.listDetallesMe = data;
     })
   }
 
@@ -438,8 +439,8 @@ export class ReportesComponent {
   }
 
   //Lista de Certificados --LLENADO SOLO PARA LLAMAR
-  public async imprimirListaCertificado(curId: any) {
-    this.obtenerListaCertificados(curId);
+  public async imprimirListaCertificado() {
+    this.obtenerListaCertificados(this.idCurso);
     while (this.listCertificados.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -447,31 +448,27 @@ export class ReportesComponent {
     this.entregaCertificadosServ
       .printListaCertificados(this.listCertificados)
       .subscribe((data: Blob) => {
-        this.crearPdf(data, 'ListaCertificados');
+        this.crearPdf(data, 'Lista de certificados');
       });
   }
 
   //Necesidad de curso -- NECESITO UN BOTON
-  public async imprimirNecesidadCurso(curId: any) {
-    this.obtenerNecesidadCurso(curId)
-    while (this.necesidad === null) {
+  public async imprimirNecesidadCurso() {
+    while (this.curso === null) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.necesidadCursoServ
-      .printNececidadCurso(this.necesidad)
+      .printNececidadCurso(this.curso)
       .subscribe((data: Blob) => {
-        this.crearPdf(data, 'NecesidadCurso');
+        this.crearPdf(data, 'Necesidad de curso');
       });
   }
 
   //Reporte final del curso --LISTO
   public async imprimirReporteFinal(informefinal: InformeFinal) {
     console.log(this.idCurso)
-    this.listarParticipantesPorCurso(informefinal.ifiCurso?.curId);
-    console.log("la vacaaaaa");
-    console.log(informefinal);
-    
+    this.listarParticipantesPorCurso(this.idCurso);
     while (this.listParticipantes.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -481,22 +478,6 @@ export class ReportesComponent {
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Reporte final');
     });
-  }
-
-
-
-  //ficha de inscripcion -- NECESITO UN BOTON
-  public async imprimirFichaInscripcion(idPersona: any) {
-    this.obtenerFichaInscripcion(idPersona);
-    while (this.ficha == null) {
-      // Realizar una pausa para evitar un ciclo infinito
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
-    this.fichaInscripcionServ
-      .printFichaInscripcion(this.ficha)
-      .subscribe((data: Blob) => {
-        this.crearPdf(data, 'Ficha de inscripcion');
-      });
   }
 
   //Matriz mensual de cursos --NECESITO UN BOTON
@@ -512,8 +493,8 @@ export class ReportesComponent {
   }
 
   //Registro de asistencias y evaluaciones --BOTON
-  public async imprimirRegistroAsistenciaEvaluacion(curId: any) {
-    this.listarParticipantesPorCurso(curId);
+  public async imprimirRegistroAsistenciaEvaluacion() {
+    this.listarParticipantesPorCurso(this.idCurso);
     this.listarAsistencias();
     while (this.listParticipantes.length === 0 || this.asistenciasList.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
@@ -529,9 +510,26 @@ export class ReportesComponent {
       });
   }
 
+  //Diseño Curricular --BOTON
+  public async imprimirDisenoCurricular() {
+    this.obtenerLIstaContenidosCurso();
+    this.obtenerEstrategiasMetodologicas()
+    this.obtenerDetallesMe();
+    this.obtenerHorasAprendizaje();
+    while (this.curso === null || this.contenidosCurso.length === 0 ||
+      this.estrategiasMetodologicas.length === 0 || this.listDetallesMe.length === 0 || this.horasAprendizaje === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this.disenoCurricularServ.printDisenoCurricular(this.curso, this.contenidosCurso,
+      this.estrategiasMetodologicas, this.listDetallesMe, this.horasAprendizaje).subscribe((data: Blob) => {
+        this.crearPdf(data, 'Diseño Curricular');
+      });
+  }
+
   //Registro Fotografico -- BOTON
-  public async imprimirRegistroFotografico(id_persona: any) {
-    this.obtenerListaFotos(id_persona);
+  public async imprimirRegistroFotografico() {
+    this.obtenerListaFotos();
     while (this.listaFotos.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -544,30 +542,28 @@ export class ReportesComponent {
   }
 
   //Registro Participantes -- BOTON
-  public async imprimirRegistroParticipantes(curId: any) {
-    this.listarParticipantesPorCurso(curId);
-    this.obtenerCurso(curId);
+  public async imprimirRegistroParticipantes() {
+    this.listarParticipantesPorCurso(this.idCurso);
     while (this.listParticipantes.length === 0 || this.curso === null) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.participanteServ
-      .printRegistroParticipantes(this.listParticipantes, this.curso)
+      .printRegistroParticipantes(this.curso, this.listParticipantes)
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Registro Participantes');
       });
   }
 
   //Silabo -- BOTONNNNNN
-  public async imprimirSilabo(curId: any) {
-    this.obtenerCurso(curId);
-    this.obtenerHorarioCurso(this.curso);
-    this.obtenerHorasAprendizaje(this.curso);
-    this.obtenerListaResultadosAprendizaje(this.curso);
-    this.obtenerLIstaContenidosCurso(this.curso);
-    this.obtenerEstrategiasMetodologicas(this.curso);
-    this.obtenerRecursosDidacticos(this.curso);
-    this.obtenerEvaluacionEpra(this.curso);
+  public async imprimirSilabo() {
+    this.obtenerHorarioCurso();
+    this.obtenerHorasAprendizaje();
+    this.obtenerListaResultadosAprendizaje();
+    this.obtenerLIstaContenidosCurso();
+    this.obtenerEstrategiasMetodologicas();
+    this.obtenerRecursosDidacticos();
+    this.obtenerEvaluacionEpra();
     while (this.curso === null || this.horarioCurso === null || this.horasAprendizaje === null ||
       this.resultadosAprendizaje.length === 0 || this.contenidosCurso.length === 0 ||
       this.estrategiasMetodologicas.length === 0 || this.recursoDidactico === null ||
@@ -584,10 +580,10 @@ export class ReportesComponent {
   }
 
   //ReporteGeneralCursosFinalizados
-  private async imprimirReporteGeneralCursosFinalizados(curId: any) {
-    this.listarParticipantesPorCurso(curId);
+  public async imprimirReporteGeneralCursosFinalizados(){
+    this.listarParticipantesPorCurso(this.idCurso);
     this.mostrarListaCursos();
-    while (this.listParticipantes.length === 0 || this.cursosList === null) {
+    while (this.listParticipantes.length === 0 || this.cursosList.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }

@@ -8,12 +8,11 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
   providedIn: 'root'
 })
 export class DetalleMevaService {
-
    private URL = "http://localhost:8080/api/DetalleMe";
 
 
    constructor(private http: HttpClient) { }
- 
+
    getAll(): Observable<DetalleMe[]> {
     return this.http.get<DetalleMe[]>(`${this.URL}/listar`);
   }
@@ -26,7 +25,7 @@ export class DetalleMevaService {
   return this.http.post<DetalleMe>(`${this.URL}/crear`, data);
 }
 
- 
+
   delete(id: number): Observable<any> {
     const url = `${this.URL}/eliminar/${id}`;
     const httpOptions = {

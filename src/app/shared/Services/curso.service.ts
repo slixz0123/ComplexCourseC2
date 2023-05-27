@@ -73,8 +73,8 @@ update(cur: Curso, id_cur: any) {
 
   public printReporteGeneralCursosFinalizados(listaParticipantes: Participante[] ,curso: Curso[]){
     const requestData = {
-      listaParticipantes: listaParticipantes,
-      curso: curso
+      curso: curso,
+      participantes: listaParticipantes
     };
     return this.http.post(`${this.URLReporte2}/generarReporte`, requestData, {
       responseType: 'blob'
