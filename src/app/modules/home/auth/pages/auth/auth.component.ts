@@ -48,25 +48,25 @@ export class AuthComponent {
   goToAdmin() :void{
 
     this.router.navigate(['/Admin'])
-
+    console.log("Navegando a Admin");
 
    }
    goTosupAdmin() :void{
 
     this.router.navigate(['/Sup-Admin'])
-
+    console.log("Navegando a Sup-Admin");
 
    }
 // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
    goToCapacitador() :void{
-
+    console.log("Navegando a Capacitador");
     this.router.navigate(['/Capacitador'])
 
 
    }
    // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
    goToParticipante() :void{
-
+    console.log("Navegando a Participante");
     this.router.navigate(['/Participante'])
 
 
@@ -81,17 +81,16 @@ loginRequest: any = {};
 
 onLogin(form: any) {
   this.usuarioService.loginUser(this.loginRequest).subscribe(
-    (data: any) => {
-      console.log(data)
+    (data: any) => {      
+      console.log(data);
       if (data != null) {
         if (data.id_usuario) {
           this.usuario.id_usuario = data.id_usuario;
           localStorage.setItem('id_persona', String(data.persona?.id_persona));
           localStorage.setItem('id_usuario', String(data.id_usuario));
-            this.iRol = data.rol?.roles; 
-          
-          // Ahora generamos y almacenamos el token
-          this.generateToken();  // Llamamos al método onLogin()
+          this.iRol = data.roles; 
+          console.log(this.iRol);
+          this.generateToken();  
         } else {
           Swal.fire({
             title: 'Usuario inhabilitado, no puede ingresar',
@@ -110,12 +109,13 @@ onLogin(form: any) {
   );
 }
 
+
 generateToken(): void {
   this.usuarioService.generateToken(this.loginRequest).subscribe(
     (response: any) => {
       console.log(response)
       localStorage.setItem('token', response.token);
-
+      console.log(this.iRol)
       Swal.fire({
         title: 'Inicio de sesión exitoso',
         icon: 'success',
@@ -123,7 +123,7 @@ generateToken(): void {
         showConfirmButton: false
       }).then(() => {
         if (this.iRol == 'ROLE_PARTICIPANTE') {
-          this.router.navigate(['/Participante']).then(() => { window.location.reload(); });
+          this.goToParticipante();
         } else if (this.iRol == 'ROLE_ADMIN') {
           this.goToAdmin();
         } else if (this.iRol == 'ROLE_SUPADMIN') {
