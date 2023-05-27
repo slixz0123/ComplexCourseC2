@@ -54,7 +54,7 @@ export class EditListAdminsComponent implements OnInit {
       apellidoInput.value = usuario.persona?.apellido || '';
       emailInput.value = usuario.persona?.email || '';
       usernameInput.value = usuario.username || '';
-      passwordInput.value = usuario.password || '';
+      //passwordInput.value = usuario.password || '';
     }
 
     const editModalElement = document.getElementById('editModal');
