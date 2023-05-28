@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Curso } from "src/app/Core/models/curso";
+import { FichaInscripcion } from "src/app/Core/models/fichaInscripcion";
+import { HorarioCurso } from "src/app/Core/models/horarioCurso";
 import { Participante } from "src/app/Core/models/participante";
 import { Persona } from "src/app/Core/models/persona";
 
@@ -41,10 +43,12 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.get<Participante[]>(url);
     }
 
-    public printRegistroParticipantes(curso: Curso, participantes: Participante[]){
+    public printRegistroParticipantes(curso: Curso, participantes: Participante[], horarios: HorarioCurso[], ficha: FichaInscripcion[]){
       const requestData = {
         curso: curso,
-        participantes: participantes
+        participantes: participantes,
+        horarios: horarios,
+        ficha: ficha
       };
       return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
         responseType: 'blob'

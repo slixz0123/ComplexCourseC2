@@ -2,7 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Asistencia } from 'src/app/Core/models/asistencia';
+import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
 import { Curso } from 'src/app/Core/models/curso';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
@@ -54,10 +56,13 @@ export class AsistenciaService {
     const url = `${this.URL}/${parId}`;
     return this.http.get<Asistencia[]>(url);
   }
-  public printRegistroAsistenciaEvaluacion(asistencias: Asistencia[], participantes: Participante[]){
+  public printRegistroAsistenciaEvaluacion(asistencias: Asistencia[], participantes: Participante[],
+    horarioCursos: HorarioCurso[], asistenciaCurso: AsistenciaCurso){
     const requestData = {
       participantes: participantes,
-      asistencias: asistencias
+      asistencias: asistencias,
+      horarioCursos: horarioCursos,
+      asistenciaCurso: asistenciaCurso
     };
 
     return this.http.post(`${this.URLReporte1}/generarReporte`, requestData, {

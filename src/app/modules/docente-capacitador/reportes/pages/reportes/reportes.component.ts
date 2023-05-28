@@ -80,7 +80,8 @@ export class ReportesComponent {
     private recursoDidacticoServ: RecursosdidacticosservService,
     private evaluacionEpraServ: EvaluaepraService,
     private detallesMeServ: DetalleMevaService,
-    private disenoCurricularServ: DisenoCurricularService
+    private disenoCurricularServ: DisenoCurricularService,
+    private fichaIncripcionService: FichaIncripcionService
   ) { }
   ngOnInit(): void {
     this.AllInformesFinal();
@@ -322,9 +323,13 @@ export class ReportesComponent {
 
   //LISTA DE PARTICIPANTES
   listParticipantes: Participante[] = [];
-  public listarParticipantesPorCurso(curId: any) {
+  public async listarParticipantesPorCurso() {
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.participanteServ
-      .ParticipantesPorCurso(curId)
+      .ParticipantesPorCurso(this.curso.curId)
       .subscribe((data: any) => {
         this.participantes = data;
         this.listParticipantes = data;
@@ -341,8 +346,12 @@ export class ReportesComponent {
 
   //LISTA DE CERTIFICADOS
   listCertificados: EntregaCertificado[] = [];
-  public obtenerListaCertificados(curId: any) {
-    this.entregaCertificadosServ.getCertificadosByCurso(curId).subscribe((data: any) => {
+  public async obtenerListaCertificados() {
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this.entregaCertificadosServ.getCertificadosByCurso(this.curso.curId).subscribe((data: any) => {
       this.listCertificados = data;
     });
   }
@@ -378,7 +387,11 @@ export class ReportesComponent {
 
   //Obtener Resultado de aprendizane
   resultadosAprendizaje: ResultadosAprendizaje[] = [];
-  public obtenerListaResultadosAprendizaje(){
+  public async obtenerListaResultadosAprendizaje(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.resultadosAprendizajeServ.getBySilabo(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.resultadosAprendizaje = data;
     })
@@ -386,7 +399,11 @@ export class ReportesComponent {
 
   //Obtener contenidos Curso
   contenidosCurso: ContenidosCurso[] =[];
-  public obtenerLIstaContenidosCurso(){
+  public async obtenerLIstaContenidosCurso(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.contenidosCursoServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.contenidosCurso = data;
     })
@@ -394,7 +411,11 @@ export class ReportesComponent {
 
   //obtener Estrategias metodológicas
   estrategiasMetodologicas: EstrategiasMetodologicas[] = [];
-  public obtenerEstrategiasMetodologicas(){
+  public async obtenerEstrategiasMetodologicas(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.estrategiasMetodologicasServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.estrategiasMetodologicas = data;
     })
@@ -402,7 +423,11 @@ export class ReportesComponent {
 
   //obtener Recursos Didacticos
   recursoDidactico: RecursosDidacticos[] = [];
-  public obtenerRecursosDidacticos(){
+  public async obtenerRecursosDidacticos(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.recursoDidacticoServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.recursoDidactico = data;
     })
@@ -410,18 +435,40 @@ export class ReportesComponent {
 
   //ObtenerEvaluacionEpra
   evaluacionEpra: EvaluacionEpra[] = [];
-  public obtenerEvaluacionEpra(){
+  public async obtenerEvaluacionEpra(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.evaluacionEpraServ.getBySilaboId(this.curso.datosSilabo.dsiId).subscribe((data: any) => {
       this.evaluacionEpra = data;
     })
   }
   //Obtener DetallesMe
   listDetallesMe: DetalleMe[] = [];
-  public obtenerDetallesMe(){
+  public async obtenerDetallesMe(){
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     this.detallesMeServ.getAll().subscribe((data: any) => {
       this.listDetallesMe = data;
     })
   }
+  //obtener fichas de inscripcion
+  fichasList: any[] = [];
+  public async getAllfichasIncripcion() {
+    while (this.curso === null) {
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this.fichaIncripcionService.FichasPorCurso(this.curso.curId).subscribe((data: any) => {
+      console.log("Siiuu");
+      console.log(data);
+      this.fichasList = data
+    });
+  }
+
 
   //ACA COMIENZAN LOS CERTIFICADOS
 
@@ -441,7 +488,7 @@ export class ReportesComponent {
 
   //Lista de Certificados --LLENADO SOLO PARA LLAMAR
   public async imprimirListaCertificado() {
-    this.obtenerListaCertificados(this.idCurso);
+    this.obtenerListaCertificados();
     while (this.listCertificados.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -455,12 +502,13 @@ export class ReportesComponent {
 
   //Necesidad de curso -- NECESITO UN BOTON
   public async imprimirNecesidadCurso() {
-    while (this.curso === null) {
+    this.obtenerHorarioCurso()
+    while (this.curso === null || this.horarioCurso.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.necesidadCursoServ
-      .printNececidadCurso(this.curso)
+      .printNececidadCurso(this.curso, this.horarioCurso)
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Necesidad de curso');
       });
@@ -468,7 +516,7 @@ export class ReportesComponent {
 
   //Reporte final del curso --LISTO
   public async imprimirReporteFinal(informefinal: InformeFinal) {
-    this.listarParticipantesPorCurso(this.idCurso);
+    this.listarParticipantesPorCurso();
     this.obtenerHorarioCurso();
     this.obtenerLIstaContenidosCurso();
     while (this.listParticipantes.length === 0 || this.horarioCurso.length === 0 ||
@@ -497,8 +545,9 @@ export class ReportesComponent {
 
   //Registro de asistencias y evaluaciones --BOTON
   public async imprimirRegistroAsistenciaEvaluacion() {
-    this.listarParticipantesPorCurso(this.idCurso);
+    this.listarParticipantesPorCurso();
     this.listarAsistencias();
+    this.obtenerHorarioCurso();
     while (this.listParticipantes.length === 0 || this.asistenciasList.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
@@ -506,7 +555,9 @@ export class ReportesComponent {
     this.asistenciasServ
       .printRegistroAsistenciaEvaluacion(
         this.asistenciasList,
-        this.listParticipantes
+        this.listParticipantes,
+        this.horarioCurso,
+        this.asistenciaCurso
       )
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Registro de asistencias y evaluacion');
@@ -516,7 +567,7 @@ export class ReportesComponent {
   //Diseño Curricular --BOTON
   public async imprimirDisenoCurricular() {
     this.obtenerLIstaContenidosCurso();
-    this.obtenerEstrategiasMetodologicas()
+    this.obtenerEstrategiasMetodologicas();
     this.obtenerDetallesMe();
     this.obtenerHorasAprendizaje();
     while (this.curso === null || this.contenidosCurso.length === 0 ||
@@ -547,13 +598,16 @@ export class ReportesComponent {
 
   //Registro Participantes -- BOTON
   public async imprimirRegistroParticipantes() {
-    this.listarParticipantesPorCurso(this.idCurso);
-    while (this.listParticipantes.length === 0 || this.curso === null) {
+    this.listarParticipantesPorCurso();
+    this.obtenerHorarioCurso();
+    this.getAllfichasIncripcion();
+    while (this.listParticipantes.length === 0 || this.curso === null ||
+      this.horarioCurso.length === 0 || this.fichasList.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.participanteServ
-      .printRegistroParticipantes(this.curso, this.listParticipantes)
+      .printRegistroParticipantes(this.curso, this.listParticipantes, this.horarioCurso, this.fichasList)
       .subscribe((data: Blob) => {
         this.crearPdf(data, 'Registro Participantes');
       });
@@ -585,7 +639,7 @@ export class ReportesComponent {
 
   //ReporteGeneralCursosFinalizados
   public async imprimirReporteGeneralCursosFinalizados(){
-    this.listarParticipantesPorCurso(this.idCurso);
+    this.listarParticipantesPorCurso();
     this.mostrarListaCursos();
     while (this.listParticipantes.length === 0 || this.cursosList.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito

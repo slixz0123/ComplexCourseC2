@@ -59,13 +59,14 @@ export class DisenoCurricularService {
   getAllFalse(): Observable<DisenoCurricular[]> {
     return this.http.get<DisenoCurricular[]>(`${this.URL}/listarfalse`);
   }
-  public printDisenoCurricular(curso: Curso, contenidos: ContenidosCurso[],
-    estrategias: EstrategiasMetodologicas[], detalles: DetalleMe[], horasAprendizaje: HorasAprendizaje[]): Observable<any> {
+  public printDisenoCurricular(curso: Curso, contenidosCursos: ContenidosCurso[],
+    estrategiasMetodologicas: EstrategiasMetodologicas[], detallesMecanismo: DetalleMe[],
+    horasAprendizaje: HorasAprendizaje[]): Observable<any> {
     const requestData = {
       curso: curso,
-      contenidosCursos: contenidos,
-      estrategiasMetodologicas: estrategias,
-      detallesMecanismo: detalles,
+      contenidosCursos: contenidosCursos,
+      estrategiasMetodologicas: estrategiasMetodologicas,
+      detallesMecanismo: detallesMecanismo,
       horasAprendizaje: horasAprendizaje
     };
     return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
