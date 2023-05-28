@@ -240,14 +240,12 @@ export class SideBarComponent {
       this.id = localStorage.getItem('id_persona');
       if (this.id != '' && this.id != undefined) {
         this.usuarioser.getPersona(this.id).subscribe((data) => {
-          console.log(data);
        
           if (data != null) {
             this.isLogin = true;
     
             this.nombreUsuario = data.nombre + ' ' + data.apellido;
             
-            console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
            
     
             // switch (data.rol?.rolNombre) {

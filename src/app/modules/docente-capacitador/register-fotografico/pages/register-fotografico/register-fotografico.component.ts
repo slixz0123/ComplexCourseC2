@@ -121,8 +121,6 @@ export class RegistroFotograficoComponent implements OnInit {
       const editModal = new bootstrap.Modal(editModalElement);
       editModal.show();
     }
-
-    console.log('Editar registro:', registro.rfoId);
   }
 
   onDelete(registro: RegistroFotografico): void {
@@ -140,7 +138,6 @@ export class RegistroFotograficoComponent implements OnInit {
           .eliminar(registro.rfoId, registro)
           .subscribe(
             (response) => {
-              console.log('Registro eliminado:', response);
               Swal.fire({
                 icon: 'success',
                 title: 'Eliminado exitoso',
@@ -166,7 +163,6 @@ export class RegistroFotograficoComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('id de curso es ' + this.selectedCursoId);
     if (!this.validateForm()) {
       return;
     }
@@ -185,10 +181,8 @@ export class RegistroFotograficoComponent implements OnInit {
 
       registro.rfoFoto = cleanedBase64String; // Ahora es un byte[]
 
-      console.log(registro.rfoFoto);
       this.registroFotograficoService.crear(registro).subscribe(
         (response) => {
-          console.log('Registro creado:', response);
           Swal.fire({
             icon: 'success',
             title: 'Guardado exitoso',
@@ -256,13 +250,11 @@ export class RegistroFotograficoComponent implements OnInit {
 
       if (this.editForm.value.photoModal) {
         registro.rfoFoto = this.editForm.value.photoModal;
-        console.log('entra en si ' + registro.rfoFoto);
       } 
       this.registroFotograficoService
         .actualizar(this.selectedFoto.rfoId, registro)
         .subscribe(
           (response) => {
-            console.log('Registro actualizado:', response);
             Swal.fire({
               icon: 'success',
               title: 'Actualización exitosa',

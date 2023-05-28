@@ -374,9 +374,28 @@
                 <i class="bi bi-circle"></i><span>Registrar Notas</span>
               </a>
             </li>
+          </ul>
+        </li>
+        <!-- End Notas Nav -->
+
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            data-bs-target="#cur-nav"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i class="bi bi-bar-chart"></i><span>Mis cursos</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="cur-nav"
+            class="nav-content collapse"
+            data-bs-parent="#sidebar-nav"
+          >
             <li>
               <a (click)="goTo_edit_list_notas($event)">
-                <i class="bi bi-circle"></i><span>Editar Notas</span>
+                <i class="bi bi-circle"></i><span>Ver cursos</span>
               </a>
             </li>
           </ul>
