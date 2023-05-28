@@ -60,20 +60,21 @@
     <div class="text">
      
      
-      <form (ngSubmit)="onSignup()" class="container-fluid" #signupForm="ngForm">
+      <form class="container" #signupForm="ngForm">
         <div class="row">
           <div class="col-3">
             <label for="cedula">Cédula</label>
             <input id="cedula" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Cedula" [(ngModel)]="signupRequest.persona.cedula" name="cedula" required (ngModelChange)="onCedulaChange($event)">
-
           </div>
           <div class="col-3">
             <label for="nombre">Nombre</label>
-            <input id="nombre" type="text" pattern="[a-zA-Z]*" placeholder="Nombre" [(ngModel)]="signupRequest.persona.nombre" name="nombre" required>
+            <input id="nombre" type="text" placeholder="Nombre" [(ngModel)]="signupRequest.persona.nombre" name="nombre" required>
+            <small style="font-size: 10px;" class="text-danger" *ngIf="!valnombre">Campo requerido.</small>
           </div>
           <div class="col-3">
             <label for="apellido">Apellido</label>
-            <input id="apellido" type="text" pattern="[a-zA-Z]*" placeholder="Apellido" [(ngModel)]="signupRequest.persona.apellido" name="apellido" required>
+            <input id="apellido" type="text" placeholder="Apellido" [(ngModel)]="signupRequest.persona.apellido" name="apellido" required>
+            <small   style="font-size: 10px;" class="text-danger" *ngIf="!valapellido">Campo requerido.</small>
           </div>
           <div class="col-3">
             <label for="fecha_nacimiento">Fecha de nacimiento</label>
@@ -84,53 +85,55 @@
           <div class="col-3">
             <label for="email">Email</label>
             <input id="email" type="email" placeholder="Email" [(ngModel)]="signupRequest.persona.email" name="email" required>
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valemail">Campo requerido en formato @gmail.com o @tecazuay.edu.ec</small>
           </div>
           <div class="col-3">
             <label for="direccion">Dirección</label>
             <input id="direccion" type="text" placeholder="Direccion" [(ngModel)]="signupRequest.persona.direccion" name="direccion" required>
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valdireccion">Campo requerido</small>
           </div>
           <div class="col-3">
             <label for="telefono">Telefono</label>
-            <input id="telefono" type="text"  (input)="filtrarNumeros($event)" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
+            <input id="telefono" type="text"  (input)="filtrarNumeros($event)"  placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valtelefono">Campo requerido en formato (xx)xxxxxxx</small>
           </div>
           <div class="col-3">
             <label for="nivelintruccion">Nivel de instrucción</label>
-            <select id="nivelintruccion" class="form-control" name="nivelintruccion"
-            [(ngModel)]="signupRequest.persona.nivelintruccion">
-            <option selected>Seleccione una opción...</option>
-            <option>Primaria</option>
-            <option>Secundaria</option>
-            <option>Bachiller</option>
-            <option>Tercer nivel</option>
-            <option>Cuarto Nivel</option>
-        </select>
-         
+            <select id="nivelintruccion" class="form-control" name="nivelintruccion" [(ngModel)]="signupRequest.persona.nivelintruccion">
+              <option>Primaria</option>
+              <option>Secundaria</option>
+              <option>Bachiller</option>
+              <option>Tercer Nivel</option>
+              <option>Cuarto Nivel</option>
+            </select>
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valnivel">Campo requerido.</small>
           </div>
         </div>
         <div class="row">
           <div class="col-4">
             <label for="sexo">Sexo</label>
             <select id="sexo" [(ngModel)]="signupRequest.persona.sexo" name="sexo" required>
-              <option selected>Seleccione una opción...</option>
-                                        <option>Masculino</option>
-                                        <option>Femenino</option>
-                                        <option>No binario</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+              <option>No especificar</option>
             </select>
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valsexo">Campo requerido.</small>
           </div>
           <div class="col-4">
             <label for="etnia">Etnia</label>
-              <input id="etnia" type="text" placeholder="etnia"    [(ngModel)]="signupRequest.persona.etnia"name="etnia" required>
-              <!-- Agrega más opciones según las etnias que quieras manejar -->
-   
+            <select id="etnia" class="form-control" name="etnia" [(ngModel)]="signupRequest.persona.etnia">
+              <option>Mestizo</option>
+              <option>Indígena</option>
+              <option>Blanco</option>
+              <option>Afroecuatoriano</option>
+              <option>Otros</option>
+            </select>
+            <small   style="font-size: 10px;" class="text-danger" *ngIf="!valetnia">Campo requerido.</small>
           </div>
           <div class="col-4">
             <label for="celular">Celular</label>
-
-            <input type="tel" class="form-control" id="inputCelular"
-                                        placeholder="Ingrese su celular" name="celular"[(ngModel)]="signupRequest.persona.celular"
-                                        (input)="filtrarNumerosc($event)">
-                                    <small class="text-danger" *ngIf="!valcelular">Campo requerido en formato (código de país y numero)
-                                        (xx)xxxxxxxxx</small>
+            <input type="tel" class="form-control" id="celular" placeholder="Ingrese su celular" name="celular" [(ngModel)]="signupRequest.persona.celular" (input)="filtrarNumerosc($event)">
+            <small  style="font-size: 10px;" class="text-danger" *ngIf="!valcelular">Campo requerido en formato (código de país y número) (xx)xxxxxxxxx</small>
           </div>
         </div>
         <div class="row">
@@ -143,7 +146,11 @@
             <input id="password" type="password" placeholder="Password" [(ngModel)]="signupRequest.password" name="password" required>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Register</button>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" (click)="validarcampos()" class="btn btn-primary">Register</button>
+          </div>
+        </div>
       </form>
       
       

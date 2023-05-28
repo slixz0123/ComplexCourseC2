@@ -87,7 +87,7 @@ export class RegisterUsrComponent {
       }
     }
     // Actualizar el valor en la propiedad fichaInscripcion.finTelefonoinst
-    this.persona.telefono = event.target.value;
+    this.signupRequest.persona.telefono = event.target.value;
   }
   //filtra los numeros para dar formato de celular
   filtrarNumerosc(event: any) {
@@ -115,7 +115,7 @@ export class RegisterUsrComponent {
     event.target.value = formattedNumber;
 
     // Actualizar el valor en la propiedad persona.celular
-    this.persona.celular = event.target.value;
+    this.signupRequest.persona.celular = event.target.value;
 
   }
 
@@ -130,10 +130,10 @@ export class RegisterUsrComponent {
   maxDate: string='';
   validardatos: any;
   onSignup(): void {
-    if (!this.validateForm()) {
-      Swal.fire('Formulario no válido', 'Por favor revise el formulario e intente nuevamente', 'error');
-      return;
-    }
+    // if (!this.validateForm()) {
+    //   Swal.fire('Formulario no válido', 'Por favor revise el formulario e intente nuevamente', 'error');
+    //   return;
+    // }
   
     this.signupRequest.roles = "ROLE_PARTICIPANTE";
     this.signupRequest.enable = true;
@@ -261,10 +261,10 @@ export class RegisterUsrComponent {
   
   
   
-  validateForm(): boolean {
-    // Aquí puedes agregar más validaciones si es necesario
-    return true;
-  }
+  // validateForm(): boolean {
+  //   // Aquí puedes agregar más validaciones si es necesario
+  //   return true;
+  // }
 
   rellenarFormulario() {
     this.signupRequest.persona.nombre = this.persona.nombre as string;
@@ -338,19 +338,52 @@ onCedulaChange(value: string): void {
   valhoja: boolean = true;
   validarcampos() {
     //Validar nombre, apellido y etnia
-   
+    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s]+$/;
+    this.valnombre = this.persona && typeof this.signupRequest.persona.nombre === 'string' && campo1Regex.test(this.signupRequest.persona.nombre);
+    this.valapellido = this.persona && typeof this.signupRequest.persona.apellido === 'string' && campo1Regex.test(this.signupRequest.persona.apellido);
+ //Validar etnia
+    if (this.signupRequest.persona.etnia === "Mestizo" || this.signupRequest.persona.etnia === "Indígena" ||
+      this.signupRequest.persona.etnia === "Blanco" || this.signupRequest.persona.etnia === "Afroecuatoriano"
+      || this.signupRequest.persona.etnia === "Otro") {
+      this.valetnia = true
+    } else {
+      this.valetnia = false
+    }
+    //validar direccion
+    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
+    this.valdireccion = this.signupRequest.persona && typeof this.signupRequest.persona.direccion === 'string' && campo2Regex.test(this.signupRequest.persona.direccion);
+    //Validar Correo
+    const correoRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com|tecazuay\.edu\.ec)$/;
+    this.valemail = this.signupRequest.persona && typeof this.signupRequest.persona.email === 'string' && correoRegex.test(this.signupRequest.persona.email);
+    //validar telefono
     const telefonoRegex = /^\((?!00)\d{2}\)(?!0{3}-0{4}$)\d{3}-\d{4}$/;
-    this.valtelefono = this.persona && typeof this.persona.telefono === 'string' && telefonoRegex.test(this.persona.telefono);
+    this.valtelefono = this.signupRequest.persona && typeof this.signupRequest.persona.telefono === 'string' && telefonoRegex.test(this.signupRequest.persona.telefono);
     //validar celular
     const celularRegex = /^\((?!0{2,})[1-9]\d{0,3}\)(?!0{9})[0-9]{9}$/;
-    this.valcelular = this.persona && typeof this.persona.celular === 'string' && celularRegex.test(this.persona.celular);
-   
-   
-    //validar que todas las validaciones se cumplan
-    if (this.valtelefono && this.valcelular ) {
-      this.registerUser();
+    this.valcelular = this.signupRequest.persona && typeof this.signupRequest.persona.celular === 'string' && celularRegex.test(this.signupRequest.persona.celular);
+    //validar sexo
+    if (this.signupRequest.persona.sexo === "Masculino" || this.signupRequest.persona.sexo === "Femenino" || this.signupRequest.persona.sexo === "No especificar") {
+      this.valsexo = true
     } else {
-      Swal.fire('¡Error!', 'Ingrese los campos correctos.', 'error');
+      this.valsexo = false
+    }
+    //validar nivel de instruccion
+    if (this.signupRequest.persona.nivelintruccion === "Primaria" || this.signupRequest.persona.nivelintruccion === "Secundaria" ||
+      this.signupRequest.persona.nivelintruccion === "Bachiller" || this.signupRequest.persona.nivelintruccion === "Tercer Nivel"
+      || this.signupRequest.persona.nivelintruccion === "Cuarto Nivel") {
+      this.valnivel = true
+    } else {
+      this.valnivel = false
+    }
+    //validar que todas las validaciones se cumplan
+    if (this.valnombre && this.valapellido && this.valetnia && this.valdireccion && this.valemail
+      && this.valtelefono && this.valcelular && this.valnivel && this.valsexo ) {
+     console.log("estamos bien")
+     console.log(this.signupRequest)
+        this.onSignup();
+    } else {
+      console.log(this.signupRequest)
+      Swal.fire('¡Error!', 'Ingrese los campos correctossss.', 'error');
     }
   }
   ValidarRole(idPersona: any) {
