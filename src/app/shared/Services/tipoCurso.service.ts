@@ -8,30 +8,27 @@ import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 })
 export class TipoCursoService {
 
-  private URL = "http://localhost:8080/api/tipocurso/buscar/";
-  private URL1 = "http://localhost:8080/api/tipocurso/";
- 
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/tipocurso/";
 
   constructor(private http: HttpClient) { }
   
   post(tipo: TiposCurso) {
-    return this.http.post(`${this.URL1}crear`, tipo);
+    return this.http.post(`${this.URL}crear`, tipo);
   }
   getById(idtpc: any) {
-    return this.http.get<TiposCurso>(this.URL + idtpc);
+    return this.http.get<TiposCurso>(`${this.URL}buscar/`+ idtpc);
   }
-  getPorId(tipocur: any) {
-    return this.http.get<TiposCurso>(this.URL + tipocur);
-  }
+
   getAll() {
-    return this.http.get<TiposCurso[]>(this.URL1 + 'listar')
+    return this.http.get<TiposCurso[]>(this.URL + 'listar')
   }
   update(horario: TiposCurso, horId: any) {
-    return this.http.put<TiposCurso>(this.URL1 + `actualizar/${horId}`, horario);
+    return this.http.put<TiposCurso>(this.URL + `actualizar/${horId}`, horario);
   }
 
   delete(id: number): Observable<any> {
-   const url = `${this.URL1}eliminar/${id}`;
+   const url = `${this.URL}eliminar/${id}`;
    const httpOptions = {
      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
    };
@@ -45,11 +42,11 @@ export class TipoCursoService {
  }
 
  getTiposCursosTrue(): Observable<TiposCurso[]> {
-  return this.http.get<TiposCurso[]>(`${this.URL1}listartrue`);
+  return this.http.get<TiposCurso[]>(`${this.URL}listartrue`);
 }
 
 getTiposCursosFalse(): Observable<TiposCurso[]> {
-  return this.http.get<TiposCurso[]>(`${this.URL1}listarfalse`);
+  return this.http.get<TiposCurso[]>(`${this.URL}listarfalse`);
 }
  
 }

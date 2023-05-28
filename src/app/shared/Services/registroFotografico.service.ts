@@ -8,33 +8,34 @@ import { RegistroFotografico } from 'src/app/Core/models/registrFotografico';
 })
 export class RegistroFotograficoService {
 
-  private apiUrl = 'http://localhost:8080/api/registrofotografico';
-  private URLReporte = "http://localhost:8080/api/reporteRegistroFotografico";
+  private host = "localhost"
+  private Url = "http://"+ this.host +":8080/api/registrofotografico";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroFotografico";
 
   constructor(private http: HttpClient) { }
 
   listar(): Observable<RegistroFotografico[]> {
-    return this.http.get<RegistroFotografico[]>(`${this.apiUrl}/listar`);
+    return this.http.get<RegistroFotografico[]>(`${this.Url}/listar`);
   }
 
   buscar(id: number): Observable<RegistroFotografico> {
-    return this.http.get<RegistroFotografico>(`${this.apiUrl}/buscar/${id}`);
+    return this.http.get<RegistroFotografico>(`${this.Url}/buscar/${id}`);
   }
 
   crear(registro: RegistroFotografico): Observable<RegistroFotografico> {
-    return this.http.post<RegistroFotografico>(`${this.apiUrl}/crear`, registro);
+    return this.http.post<RegistroFotografico>(`${this.Url}/crear`, registro);
   }
 
   eliminar(id: number, registro: RegistroFotografico): Observable<any> {
-    return this.http.put(`${this.apiUrl}/eliminar/${id}`, registro);
+    return this.http.put(`${this.Url}/eliminar/${id}`, registro);
   }
 
   actualizar(id: number, registro: RegistroFotografico): Observable<RegistroFotografico> {
-    return this.http.put<RegistroFotografico>(`${this.apiUrl}/actualizar/${id}`, registro);
+    return this.http.put<RegistroFotografico>(`${this.Url}/actualizar/${id}`, registro);
   }
 
   listarPorCurso(curId: any) {
-    return this.http.get(`${this.apiUrl}/getByCurId/`+ curId);
+    return this.http.get(`${this.Url}/getByCurId/`+ curId);
   }
 
   public printRegistroFotografico(registrFotografico: RegistroFotografico[]){

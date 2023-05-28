@@ -8,14 +8,15 @@ import { EntregaCertificado } from 'src/app/Core/models/entregaCertificados';
   providedIn: 'root'
 })
 
-export class EntregaCertificadoService{
-  private URL = "http://localhost:8080/api/EntregaCertificado"
-  private URLReporte = "http://localhost:8080/api/reporteCertificado";
-  private URLReporte2 = "http://localhost:8080/api/reporteEntregaCertificado";
+export class EntregaCertificadoService {
+  private host = "localhost"
+  private URL = "http://" + this.host + ":8080/api/EntregaCertificado"
+  private URLReporte = "http://" + this.host + ":8080/api/reporteCertificado";
+  private URLReporte2 = "http://" + this.host + ":8080/api/reporteEntregaCertificado";
 
   constructor(private http: HttpClient) { }
 
-  public getAllCertificados(){
+  public getAllCertificados() {
     return this.http.get<any>(`${this.URL}/listar`);
   }
 
@@ -23,13 +24,13 @@ export class EntregaCertificadoService{
     return this.http.get<EntregaCertificado>(`${this.URL}/buscar/`, idCertificado);
   }
 
-  public printCertificado(certicado: EntregaCertificado){
+  public printCertificado(certicado: EntregaCertificado) {
     return this.http.post(`${this.URLReporte}/generarReporte`, certicado, {
       responseType: 'blob'
     });
   }
 
-  public printListaCertificados(listCerticados: EntregaCertificado[]){
+  public printListaCertificados(listCerticados: EntregaCertificado[]) {
     return this.http.post(`${this.URLReporte2}/getByParticipanteId/`, listCerticados, {
       responseType: 'blob'
     });

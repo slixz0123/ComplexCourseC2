@@ -7,20 +7,11 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
   providedIn: 'root'
 })
 export class MecanismoEvaluacionService {
-
-   private URL = "http://localhost:8080/api/mecanismoevaluacion";
+  
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/mecanismoevaluacion";
 
    constructor(private http: HttpClient) { }
- 
-   getMecanismos() {
-     return this.http.get<MecanismoEvaluacion[]>(`${this.URL}/listar`);
-   }
- 
-   getmecanismoPorId(mevId: number) {
-     return this.http.get<MecanismoEvaluacion>(this.URL + mevId);
-   }
- 
-   
  
    updateMecanismo(mecanismo: MecanismoEvaluacion, mevId: any) {
      return this.http.put<MecanismoEvaluacion>(this.URL + `/actualizar/${mevId}`, mecanismo);
@@ -46,10 +37,6 @@ export class MecanismoEvaluacionService {
 
    getMecanismosTrue(): Observable<MecanismoEvaluacion[]> {
     return this.http.get<MecanismoEvaluacion[]>(`${this.URL}/listartrue`);
-  }
-
-  getMecanismosFalse(): Observable<MecanismoEvaluacion[]> {
-    return this.http.get<MecanismoEvaluacion[]>(`${this.URL}/listarfalse`);
   }
  
 }

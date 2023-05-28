@@ -8,9 +8,9 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class InformeFinalService {
-
-  private URL = "http://localhost:8080/api/informefinal";
-  private URLReporte = "http://localhost:8080/api/reporteInformefinal";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/informefinal";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteInformefinal";
 
   constructor(private http: HttpClient) { }
 

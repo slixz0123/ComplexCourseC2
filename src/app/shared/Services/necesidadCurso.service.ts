@@ -7,34 +7,28 @@ import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
   providedIn: 'root'
 })
 export class NecesidadCursoService {
-
-  private URL = "http://localhost:8080/api/necesidadcurso/buscar/";
-  private URL1 = "http://localhost:8080/api/necesidadcurso/";
-  private URL2 = "http://localhost:8080/api/necesidadcurso/crear";
-  private URLReporte = "http://localhost:8080/api/reporteInformeNecesidadCurso";
+  
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/necesidadcurso";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteInformeNecesidadCurso";
 
 
   constructor(private http: HttpClient) { }
   post(nece: NecesidadCurso) {
-    return this.http.post<NecesidadCurso>(this.URL2 + '?', nece);
+    return this.http.post<NecesidadCurso>(this.URL + '/crear?', nece);
   }
   getById(idnc: number) {
-    return this.http.get<NecesidadCurso>(this.URL + idnc);
+    return this.http.get<NecesidadCurso>(this.URL + `/buscar/${idnc}`);
   }
   getAll() {
-    return this.http.get<NecesidadCurso[]>(this.URL1 + 'listar')
+    return this.http.get<NecesidadCurso[]>(this.URL + '/listar')
   }
   delete(nece: NecesidadCurso, id_dia: number) {
-    return this.http.put<NecesidadCurso>(this.URL1+ `eliminar/${id_dia}`, nece);
+    return this.http.put<NecesidadCurso>(this.URL+ `/eliminar/${id_dia}`, nece);
   }
   update(nece: NecesidadCurso, id_dia: number) {
-    return this.http.put<NecesidadCurso>(this.URL1+ `actualizar/${id_dia}`, nece);
+    return this.http.put<NecesidadCurso>(this.URL+ `/actualizar/${id_dia}`, nece);
   }
-
-  getByCursoId(curId: any) {
-    return this.http.get<NecesidadCurso>(`${this.URLReporte}/getByCursoId`, curId);
-  }
-
   public printNececidadCurso(curso: Curso){
     return this.http.post(`${this.URLReporte}/generarReporte`, curso, {
       responseType: 'blob'

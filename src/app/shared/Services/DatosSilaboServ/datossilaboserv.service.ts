@@ -15,10 +15,11 @@ import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
   providedIn: 'root'
 })
 export class DatossilaboservService {
-  private URL = "http://localhost:8080/api/DatosSilabo/buscar/";
-  private URL1 = "http://localhost:8080/api/DatosSilabo/";
-  private URL2 = "http://localhost:8080/api/DatosSilabo/crear";
-  private URLReporte = "http://localhost:8080/api/reporteSilabo";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/DatosSilabo/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/DatosSilabo/";
+  private URL2 = "http://"+ this.host +":8080/api/DatosSilabo/crear";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteSilabo";
   private items: ResultadosAprendizaje[] = [];
 
   constructor(private http: HttpClient) { }

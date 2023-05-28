@@ -13,14 +13,13 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
   providedIn: 'root'
 })
 export class DisenoCurricularService {
+  private host = "localhost"
+  private URL = "http://" + this.host + ":8080/api/DisenoCurricular";
+  private URLReporte = "http://" + this.host + ":8080/api/reporteDisenoCurricular";
 
-   private URL = "http://localhost:8080/api/DisenoCurricular";
-   private URLReporte = "http://localhost:8080/api/reporteDisenoCurricular";
+  constructor(private http: HttpClient) { }
 
-
-   constructor(private http: HttpClient) { }
-
-   getAll(): Observable<DisenoCurricular[]> {
+  getAll(): Observable<DisenoCurricular[]> {
     return this.http.get<DisenoCurricular[]>(`${this.URL}/listar`);
   }
 
@@ -29,8 +28,8 @@ export class DisenoCurricularService {
   }
 
   create(data: any): Observable<DisenoCurricular> {
-  return this.http.post<DisenoCurricular>(`${this.URL}/crear`, data);
-}
+    return this.http.post<DisenoCurricular>(`${this.URL}/crear`, data);
+  }
 
 
   delete(id: number): Observable<any> {

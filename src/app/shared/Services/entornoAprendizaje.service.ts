@@ -7,13 +7,13 @@ import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
   providedIn: 'root'
 })
 export class EntornoAprendizajeService {
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/EntornoAprendizaje";
 
-   private URL = "http://localhost:8080/api/EntornoAprendizaje";
 
+  constructor(private http: HttpClient) { }
 
-   constructor(private http: HttpClient) { }
- 
-   getAll(): Observable<EntornoAprendizaje[]> {
+  getAll(): Observable<EntornoAprendizaje[]> {
     return this.http.get<EntornoAprendizaje[]>(`${this.URL}/listar`);
   }
 
@@ -22,10 +22,10 @@ export class EntornoAprendizajeService {
   }
 
   create(data: any): Observable<EntornoAprendizaje> {
-  return this.http.post<EntornoAprendizaje>(`${this.URL}/crear`, data);
-}
+    return this.http.post<EntornoAprendizaje>(`${this.URL}/crear`, data);
+  }
 
- 
+
   delete(id: number): Observable<any> {
     const url = `${this.URL}/eliminar/${id}`;
     const httpOptions = {

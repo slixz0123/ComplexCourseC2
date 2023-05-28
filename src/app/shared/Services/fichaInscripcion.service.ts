@@ -7,9 +7,9 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
   providedIn: 'root'
 })
 export class FichaIncripcionService {
-  private URL = "http://localhost:8080/api/FichaInscripcion";
-
-  private URLFicha="http://localhost:8080/api/reporteInscripcionParticipante"
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/FichaInscripcion";
+  private URLReporte="http://"+ this.host +":8080/api/reporteInscripcionParticipante"
 
   constructor(private http: HttpClient) { }
 
@@ -47,7 +47,7 @@ export class FichaIncripcionService {
   }
 
   public printFichaInscripcion(ficha: FichaInscripcion): Observable<any> {
-    return this.http.post(`${this.URLFicha}/generarReporte`, ficha, {
+    return this.http.post(`${this.URLReporte}/generarReporte`, ficha, {
       responseType: 'blob'
     });
   }

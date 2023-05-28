@@ -8,11 +8,11 @@ import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultado
   providedIn: 'root'
 })
 export class ResultadosaprendizajeservService {
-
-  private URL = "http://localhost:8080/api/resultadoaprendizaje/buscar/";
-  private URL1 = "http://localhost:8080/api/resultadoaprendizaje/";
-  private URL2 = "http://localhost:8080/api/resultadoaprendizaje/crear";
-  private URL3 = "http://localhost:8080/api/resultadoaprendizaje/crear3";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/resultadoaprendizaje/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/resultadoaprendizaje/";
+  private URL2 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear";
+  private URL3 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear3";
 
 
   constructor(private http: HttpClient) { }

@@ -8,10 +8,11 @@ import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrat
   providedIn: 'root'
 })
 export class EstrategiasmetservService {
-  private URL = "http://localhost:8080/api/EstrategiaMetodologica/buscar/";
-  private URL1 = "http://localhost:8080/api/EstrategiaMetodologica/";
-  private URL2 = "http://localhost:8080/api/EstrategiaMetodologica/crear";
-  private URL3 = "http://localhost:8080/api/EstrategiaMetodologica/crear3";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/EstrategiaMetodologica/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/";
+  private URL2 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/crear";
+  private URL3 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/crear3";
 
 
   constructor(private http: HttpClient) { }

@@ -58,10 +58,10 @@ export class AceptarCursoComponent implements OnInit{
         
       };
       
-      this.usuarioService.crearUsuario(usuario).subscribe((data: any) => {
-        console.log(data);
-        console.log("Entra")
-      });
+      // this.usuarioService.crearUsuario(usuario).subscribe((data: any) => {
+      //   console.log(data);
+      //   console.log("Entra")
+      // });
     }else{
       console.log("no hay data")
     }
@@ -101,21 +101,21 @@ export class AceptarCursoComponent implements OnInit{
   //       }
   //     }
   //   }
-    this.listarPersona(this.cedula);
+    // this.listarPersona(this.cedula);
   }
 
-  listarPersona(cedula: string){
-    this.personService.buscarPorCedula(cedula).subscribe((data : any)=>{
-      if(null !== data){
-        this.persona=data;
-        console.log(this.persona);
-        this.listarRol();
-      }else{
-        console.log("no hay data")
-      }
-    });
+  // listarPersona(cedula: string){
+  //   this.personService.buscarPorCedula(cedula).subscribe((data : any)=>{
+  //     if(null !== data){
+  //       this.persona=data;
+  //       console.log(this.persona);
+  //       this.listarRol();
+  //     }else{
+  //       console.log("no hay data")
+  //     }
+  //   });
     
-  };
+  // };
 
   // crearParti(){
   //   console.log("almenos entra");
@@ -141,23 +141,23 @@ export class AceptarCursoComponent implements OnInit{
  
 
 
-  listarRol() : void{
-    this.rolService.buscarNombre("Participante").subscribe((data: any)=>{
-      if(null != data){
-        this.rol=data;
-        console.log(this.rol);
+  // listarRol() : void{
+  //   this.rolService.buscarNombre("Participante").subscribe((data: any)=>{
+  //     if(null != data){
+  //       this.rol=data;
+  //       console.log(this.rol);
 
-        this.usuario.persona=this.persona;
-        this.usuario.rol=this.rol;
+  //       this.usuario.persona=this.persona;
+  //       this.usuario.rol=this.rol;
 
-        // this.usuarioService.postUsuario(this.usuario).subscribe((Response)=>{
-        //   console.log(Response);
-        // })
-      }else{
-        console.log("no hay data");
-      }
-    });
-  }
+  //       // this.usuarioService.postUsuario(this.usuario).subscribe((Response)=>{
+  //       //   console.log(Response);
+  //       // })
+  //     }else{
+  //       console.log("no hay data");
+  //     }
+  //   });
+  // }
 
   listarCurso(){
     this.cursoService.getAll().subscribe((Response: Curso[])=>{

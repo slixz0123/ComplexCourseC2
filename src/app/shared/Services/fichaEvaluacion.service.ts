@@ -7,27 +7,28 @@ import { FichaEvaluacion } from 'src/app/Core/models/fichaEvaluacion';
   providedIn: 'root'
 })
 export class FichaEvaluacionService {
-  private apiUrl = 'http://localhost:8080/api/FichaEvaluacion';
+  private host = "localhost"
+  private URL = "http://" + this.host + ":8080/api/FichaEvaluacion";
 
   constructor(private http: HttpClient) { }
 
   obtenerLista(): Observable<FichaEvaluacion[]> {
-    return this.http.get<FichaEvaluacion[]>(`${this.apiUrl}/listar`);
+    return this.http.get<FichaEvaluacion[]>(`${this.URL}/listar`);
   }
 
   getById(id: number): Observable<FichaEvaluacion> {
-    return this.http.get<FichaEvaluacion>(`${this.apiUrl}/buscar/${id}`);
+    return this.http.get<FichaEvaluacion>(`${this.URL}/buscar/${id}`);
   }
 
   crear(fichaEvaluacion: FichaEvaluacion): Observable<FichaEvaluacion> {
-    return this.http.post<FichaEvaluacion>(`${this.apiUrl}/crear`, fichaEvaluacion);
+    return this.http.post<FichaEvaluacion>(`${this.URL}/crear`, fichaEvaluacion);
   }
 
   eliminar(id: number, fichaEvaluacion: FichaEvaluacion): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/eliminar/${id}`, fichaEvaluacion);
+    return this.http.put<any>(`${this.URL}/eliminar/${id}`, fichaEvaluacion);
   }
 
   actualizar(id: number, fichaEvaluacion: FichaEvaluacion): Observable<FichaEvaluacion> {
-    return this.http.put<FichaEvaluacion>(`${this.apiUrl}/actualizar/${id}`, fichaEvaluacion);
+    return this.http.put<FichaEvaluacion>(`${this.URL}/actualizar/${id}`, fichaEvaluacion);
   }
 }

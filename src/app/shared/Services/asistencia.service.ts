@@ -9,10 +9,9 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class AsistenciaService {
-
-  private URL = "http://localhost:8080/api/asistencia";
-  private URLReporte = "http://localhost:8080/api/reporteRegistroAsistenciaEvaluacion";
-  private URLReporte2 = "http://localhost:8080/api/reporteRegistroAsistenciaEvaluacion";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/asistencia";
+  private URLReporte1 = "http://"+ this.host +":8080/api/reporteRegistroAsistenciaEvaluacion";
 
    constructor(private http: HttpClient) { }
 
@@ -23,8 +22,6 @@ export class AsistenciaService {
    getAsistenciaPorId(asiId: number) {
      return this.http.get<Asistencia>(this.URL + asiId);
    }
-
-
 
    updateAsistencia(Asistencia: Asistencia, asiId: any) {
      return this.http.put<Asistencia>(this.URL + `/actualizar/${asiId}`, Asistencia);
@@ -63,7 +60,7 @@ export class AsistenciaService {
       asistencias: asistencias
     };
 
-    return this.http.post(`${this.URLReporte2}/generarReporte`, requestData, {
+    return this.http.post(`${this.URLReporte1}/generarReporte`, requestData, {
       responseType: 'blob'
     });
   }

@@ -9,12 +9,13 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class CursoService {
-  private URLi = "http://localhost:8080/api/Curso";
-  private URL = "http://localhost:8080/api/Curso/buscar/";
-  private URL1 = "http://localhost:8080/api/Curso/";
-  private URL2 = "http://localhost:8080/api/Curso/crear";
-  private URLReporte = "http://localhost:8080/api/reporteMatrizReporteMensual";
-  private URLReporte2 = "http://localhost:8080/api/reporteRegistroGeneralCursosFinalizados";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/Curso/buscar/";
+  private URLi = "http://"+ this.host +":8080/api/Curso";
+  private URL1 = "http://"+ this.host +":8080/api/Curso/";
+  private URL2 = "http://"+ this.host +":8080/api/Curso/crear";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteMatrizReporteMensual";
+  private URLReporte2 = "http://"+ this.host +":8080/api/reporteRegistroGeneralCursosFinalizados";
 
 
   constructor(private http: HttpClient) { }

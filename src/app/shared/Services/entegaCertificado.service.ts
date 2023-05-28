@@ -7,26 +7,28 @@ import { EntregaCertificado } from 'src/app/Core/models/entregaCertificado';
   providedIn: 'root'
 })
 export class EntregaCertificadoService {
-  private baseUrl: string;
+
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/EntregaCertificado";
 
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8080/api/EntregaCertificado';
+   
   }
 
   obtenerLista(): Observable<EntregaCertificado[]> {
-    return this.http.get<EntregaCertificado[]>(`${this.baseUrl}/listar`);
+    return this.http.get<EntregaCertificado[]>(`${this.URL}/listar`);
   }
 
   getById(id: number): Observable<EntregaCertificado> {
-    return this.http.get<EntregaCertificado>(`${this.baseUrl}/buscar/${id}`);
+    return this.http.get<EntregaCertificado>(`${this.URL}/buscar/${id}`);
   }
 
   crear(entregaCertificado: EntregaCertificado): Observable<EntregaCertificado> {
-    return this.http.post<EntregaCertificado>(`${this.baseUrl}/crear`, entregaCertificado);
+    return this.http.post<EntregaCertificado>(`${this.URL}/crear`, entregaCertificado);
   }
 
   eliminar(id: number): Observable<any> {
-    const url = `${this.baseUrl}/eliminar/${id}`;
+    const url = `${this.URL}/eliminar/${id}`;
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
@@ -40,11 +42,11 @@ export class EntregaCertificadoService {
   }
 
   actualizarEntregaCertificado(entregaCertificado: EntregaCertificado, eceId: any){
-    return this.http.put<EntregaCertificado>(`${this.baseUrl}/actualizar/${eceId}`, entregaCertificado);
+    return this.http.put<EntregaCertificado>(`${this.URL}/actualizar/${eceId}`, entregaCertificado);
   }
 
   obtenerCertificadosPorParticipante(parId: number): Observable<EntregaCertificado[]> {
-    const url = `${this.baseUrl}/listarcertificados/${parId}`;
+    const url = `${this.URL}/listarcertificados/${parId}`;
     return this.http.get<EntregaCertificado[]>(url);
   }
 }

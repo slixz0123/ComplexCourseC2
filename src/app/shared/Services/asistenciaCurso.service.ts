@@ -7,10 +7,8 @@ import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
   providedIn: 'root'
 })
 export class AsistenciaCursoService {
-
-  // private apiUrl = 'http://localhost:8080/api/persona/crear'; // Reemplaza con la URL de tu API
-  private URL = "http://localhost:8080/api/asistenciacurso";
-//   private URLcre = "http://localhost:8080/persona/signup";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/asistenciacurso";
 
   constructor(private http: HttpClient) { }
 

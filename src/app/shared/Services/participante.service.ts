@@ -11,28 +11,21 @@ import { Persona } from "src/app/Core/models/persona";
   })
 
   export class  ParticipanteService{
-    private URL="http://localhost:8080/api/participante";
-    private URLCre="http://localhost:8080/api/participante/crear"
-    private URLReporte = "http://localhost:8080/api/reporteRegistroParticipantesController"
 
-    constructor(private http: HttpClient) { }
+    private host = "localhost"
+    private URL = "http://"+ this.host +":8080/api/participante";
+    private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroParticipantesController"
+
+    constructor(private http: HttpClient) {}
 
     public crearParticipante(participante: Participante){
-        return this.http.post<Participante>(this.URLCre, participante);
-    }
-    public saveparticipante(participante: Participante) {
-      return this.http.post<Participante>(`${this.URL}/crear`, participante);
-    }
-    obtenerParticipantesPorCurso(curId: number): Observable<Participante[]> {
-      const url = `${this.URL}/listarparticipantes/${curId}`;
-      return this.http.get<Participante[]>(url);
+        return this.http.post<Participante>(`${this.URL}/crear`, participante);
     }
 
     ParticipantesPorCurso(curId: number): Observable<Participante[]> {
       const url = `${this.URL}/participantesPorCurso/${curId}`;
       return this.http.get<Participante[]>(url);
     }
-
 
     ParticipantesPorhorarioc(curId: number,idHorario:any): Observable<Participante[]> {
       const url = `${this.URL}/participantesPorhorarioc/${curId}/${idHorario}`;
@@ -43,18 +36,9 @@ import { Persona } from "src/app/Core/models/persona";
       return this.http.put<Participante>(`${this.URL}/actualizar/`+ idParticipante, participante);
     }
 
-    obtenerParticipantes(idpersona: number): Observable<Participante[]> {
-      const url = `${this.URL}/listar/${idpersona}`;
-      return this.http.get<Participante[]>(url);
-    }
-
     cursosPersonaparticipante(idpersona: number): Observable<Participante[]> {
       const url = `${this.URL}/participantesPersonaCurso/${idpersona}`;
       return this.http.get<Participante[]>(url);
-    }
-
-    obtenerAprobados(){
-      return this.http.get<any>(`${this.URL}/listarAprobados`);
     }
 
     public printRegistroParticipantes(curso: Curso, participantes: Participante[]){
@@ -66,6 +50,5 @@ import { Persona } from "src/app/Core/models/persona";
         responseType: 'blob'
       });
     }
-
 
   }

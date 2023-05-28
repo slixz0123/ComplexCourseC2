@@ -7,27 +7,26 @@ import { Area } from 'src/app/Core/models/area';
   providedIn: 'root'
 })
 export class AreaService {
+  private host = "localhost"
+  private URL = "http://" + this.host + ":8080/api/Area";
 
-   // private apiUrl = 'http://localhost:8080/api/persona/crear'; // Reemplaza con la URL de tu API
-   private URL = "http://localhost:8080/api/Area";
+  constructor(private http: HttpClient) { }
 
-   constructor(private http: HttpClient) { }
- 
-   getAreas() {
-     return this.http.get<Area[]>(`${this.URL}/listar`);
-   }
- 
-   getAreaPorId(areId: number) {
-     return this.http.get<Area>(this.URL + areId);
-   }
- 
-   
- 
-   updateArea(area: Area, areId: any) {
-     return this.http.put<Area>(this.URL + `/actualizar/${areId}`, area);
-   }
+  getAreas() {
+    return this.http.get<Area[]>(`${this.URL}/listar`);
+  }
 
-   deleteArea(id: number): Observable<any> {
+  getAreaPorId(areId: number) {
+    return this.http.get<Area>(this.URL + areId);
+  }
+
+
+
+  updateArea(area: Area, areId: any) {
+    return this.http.put<Area>(this.URL + `/actualizar/${areId}`, area);
+  }
+
+  deleteArea(id: number): Observable<any> {
     const url = `${this.URL}/eliminar/${id}`;
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -40,18 +39,18 @@ export class AreaService {
         })
       );
   }
- 
-   saveArea(area: Area) {
-     return this.http.post(`${this.URL}/crear`, area);
-   }
 
-   getAreasTrue(): Observable<Area[]> {
+  saveArea(area: Area) {
+    return this.http.post(`${this.URL}/crear`, area);
+  }
+
+  getAreasTrue(): Observable<Area[]> {
     return this.http.get<Area[]>(`${this.URL}/listartrue`);
   }
 
   getAreasFalse(): Observable<Area[]> {
     return this.http.get<Area[]>(`${this.URL}/listarfalse`);
   }
- 
+
 }
 

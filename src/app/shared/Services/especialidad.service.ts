@@ -8,8 +8,8 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
   providedIn: 'root'
 })
 export class EspecialidadService {
-
-  private URL = "http://localhost:8080/api/Especialidad";
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/Especialidad";
 
 
   constructor(private http: HttpClient) { }

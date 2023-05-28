@@ -7,30 +7,31 @@ import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
   providedIn: 'root',
 })
 export class ProgramaCapacitacionService {
-  private apiUrl = 'http://localhost:8080/api/programacapacitacion';
+  
+  private host = "localhost"
+  private URL = "http://"+ this.host +":8080/api/programacapacitacion";
 
   constructor(private http: HttpClient) {}
 
-
   getProgramasCapacitacion() {
-    return this.http.get<ProgramaCapacitacion[]>(this.apiUrl + '/listar')
+    return this.http.get<ProgramaCapacitacion[]>(this.URL + '/listar')
   }
   getProgramaCapacitacionById(id: number): Observable<ProgramaCapacitacion> {
-    return this.http.get<ProgramaCapacitacion>(`${this.apiUrl}/buscar/${id}`);
+    return this.http.get<ProgramaCapacitacion>(`${this.URL}/buscar/${id}`);
   }
   getPorId(id: any) {
-    return this.http.get<ProgramaCapacitacion>(`${this.apiUrl}/buscar/${id}`);
+    return this.http.get<ProgramaCapacitacion>(`${this.URL}/buscar/${id}`);
   }
 
   createProgramaCapacitacion(programa: ProgramaCapacitacion): Observable<ProgramaCapacitacion> {
-    return this.http.post<ProgramaCapacitacion>(`${this.apiUrl}/crear`, programa);
+    return this.http.post<ProgramaCapacitacion>(`${this.URL}/crear`, programa);
   }
 
   deleteProgramaCapacitacion(id: number, programa: ProgramaCapacitacion): Observable<any> {
-    return this.http.put(`${this.apiUrl}/eliminar/${id}`, programa);
+    return this.http.put(`${this.URL}/eliminar/${id}`, programa);
   }
 
   updateProgramaCapacitacion(id: number, programa: ProgramaCapacitacion): Observable<ProgramaCapacitacion> {
-    return this.http.put<ProgramaCapacitacion>(`${this.apiUrl}/actualizar/${id}`, programa);
+    return this.http.put<ProgramaCapacitacion>(`${this.URL}/actualizar/${id}`, programa);
   }
 }
