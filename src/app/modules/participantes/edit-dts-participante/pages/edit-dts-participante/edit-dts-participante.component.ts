@@ -141,10 +141,9 @@ export class EditDtsParticipanteComponent {
       const diferenciaTiempo = fechaActual.getTime() - fechaSeleccionada.getTime();
       // Calcular la edad en años
       const edadEnAnios = Math.floor(diferenciaTiempo / (1000 * 60 * 60 * 24 * 365.25));
-      this.valfechan = edadEnAnios >= 18;
+      this.valfechan = edadEnAnios >= 15;
     }
   }
-
 
   onSubmit() {
     //cambia a formato normal telefono

@@ -109,11 +109,12 @@ export class RegisterParticipanteComponent implements OnInit {
       this.participante.parNotaparcial = 0;
       this.participante.parNotafinal = 0;
       this.participante.parPromedio = 0;
-      this.participante.parObservacion = "Sin Observaciones"
-      this.participante.parEstadoaprovacion = "Cursando"
-      this.participante.parEstado = true
-      this.participante.parPersona = fichain.finPersona
-      this.participante.parCurso = fichain.finCurso
+      this.participante.parObservacion = "Sin Observaciones";
+      this.participante.parEstadoaprovacion = "Cursando";
+      this.participante.parEstado = true;
+      this.participante.parPersona = fichain.finPersona;
+      this.participante.parCurso = fichain.finCurso;
+      this.participante.parHorario=fichain.finHorario;
       console.log("este mando")
       console.log(this.participante)
       this.participanteService.crearParticipante(this.participante).subscribe(
