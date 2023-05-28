@@ -31,16 +31,16 @@ export class EntregaCertificadoService {
   }
 
   public printListaCertificados(listCerticados: EntregaCertificado[]) {
-    return this.http.post(`${this.URLReporte2}/getByParticipanteId/`, listCerticados, {
+    return this.http.post(`${this.URLReporte2}/generarReporte/`, listCerticados, {
       responseType: 'blob'
     });
   }
 
   public getCertificadosByIdParticipante(parId: any) {
-    return this.http.get<EntregaCertificado>(`${this.URL}/getByParticipanteId/`, parId);
+    return this.http.get<EntregaCertificado>(`${this.URL}/getByParticipanteId/`+ parId);
   }
   public getCertificadosByCurso(curId: any) {
-    return this.http.get<EntregaCertificado>(`${this.URL}/getByCursoId/`, curId);
+    return this.http.get<EntregaCertificado>(`${this.URL}/getByCursoId/`+ curId);
   }
 
 }

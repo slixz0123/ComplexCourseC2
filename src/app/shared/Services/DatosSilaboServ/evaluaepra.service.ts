@@ -43,6 +43,6 @@ getItems(): EvaluacionEpra[] {
   return this.items;
 }
 getBySilaboId(dsiId: number) {
-  return this.http.get<EvaluacionEpra>(this.URL1 + `getBySilaboId/` + dsiId);
+  return this.http.get<EvaluacionEpra[]>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

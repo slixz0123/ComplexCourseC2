@@ -40,6 +40,6 @@ getPorId(idcon: any) {
   return this.http.get<ContenidosCurso>(this.URL + idcon);
 }
 getBySilaboId(dsiId: number) {
-  return this.http.get<ContenidosCurso>(this.URL1 + `getBySilaboId/` + dsiId);
+  return this.http.get<ContenidosCurso[]>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

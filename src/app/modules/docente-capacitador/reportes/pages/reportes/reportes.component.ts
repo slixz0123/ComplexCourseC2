@@ -370,6 +370,7 @@ export class ReportesComponent {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
+    console.log(this.curso.datosSilabo.dsiId)
     this.horasAprendizajeServ.getBySilabo(this.curso.datosSilabo.dsiId).subscribe((data: any) =>{
       this.horasAprendizaje = data;
     });
@@ -467,16 +468,18 @@ export class ReportesComponent {
 
   //Reporte final del curso --LISTO
   public async imprimirReporteFinal(informefinal: InformeFinal) {
-    console.log(this.idCurso)
     this.listarParticipantesPorCurso(this.idCurso);
-    while (this.listParticipantes.length === 0) {
+    this.obtenerHorarioCurso();
+    this.obtenerLIstaContenidosCurso();
+    while (this.listParticipantes.length === 0 || this.horarioCurso.length === 0 ||
+      this.contenidosCurso.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.informeFinalServ
-      .printInformeFinalCurso(informefinal, this.listParticipantes)
+      .printInformeFinalCurso(informefinal, this.listParticipantes, this.horarioCurso, this.contenidosCurso)
       .subscribe((data: Blob) => {
-        this.crearPdf(data, 'Reporte final');
+        this.crearPdf(data, 'Informe final del curso');
     });
   }
 
@@ -517,7 +520,8 @@ export class ReportesComponent {
     this.obtenerDetallesMe();
     this.obtenerHorasAprendizaje();
     while (this.curso === null || this.contenidosCurso.length === 0 ||
-      this.estrategiasMetodologicas.length === 0 || this.listDetallesMe.length === 0 || this.horasAprendizaje === null) {
+      this.estrategiasMetodologicas.length === 0 || this.listDetallesMe.length === 0 ||
+      this.horasAprendizaje.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -564,10 +568,10 @@ export class ReportesComponent {
     this.obtenerEstrategiasMetodologicas();
     this.obtenerRecursosDidacticos();
     this.obtenerEvaluacionEpra();
-    while (this.curso === null || this.horarioCurso === null || this.horasAprendizaje === null ||
+    while (this.curso === null || this.horarioCurso.length === 0 || this.horasAprendizaje.length === 0 ||
       this.resultadosAprendizaje.length === 0 || this.contenidosCurso.length === 0 ||
-      this.estrategiasMetodologicas.length === 0 || this.recursoDidactico === null ||
-      this.evaluacionEpra === null) {
+      this.estrategiasMetodologicas.length === 0 || this.recursoDidactico.length === 0 ||
+      this.evaluacionEpra.length === 0) {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }

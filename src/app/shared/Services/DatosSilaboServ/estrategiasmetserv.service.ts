@@ -41,6 +41,6 @@ getPorId(idestrate: any) {
   return this.http.get<EstrategiasMetodologicas>(this.URL + idestrate);
 }
 getBySilaboId(dsiId: number) {
-  return this.http.get<EstrategiasMetodologicas>(this.URL1 + `getBySilaboId/` + dsiId);
+  return this.http.get<EstrategiasMetodologicas[]>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

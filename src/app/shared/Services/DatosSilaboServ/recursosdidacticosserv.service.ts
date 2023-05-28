@@ -35,6 +35,6 @@ getPorId(recurdi: any) {
   return this.http.get<RecursosDidacticos>(this.URL + recurdi);
 }
 getBySilaboId(dsiId: any) {
-  return this.http.get<RecursosDidacticos>(this.URL1 + `getBySilaboId/` + dsiId);
+  return this.http.get<RecursosDidacticos[]>(this.URL1 + `getBySilaboId/` + dsiId);
 }
 }

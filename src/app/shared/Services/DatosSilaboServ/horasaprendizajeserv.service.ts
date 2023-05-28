@@ -35,6 +35,6 @@ getPorId(horasepr: any) {
   return this.http.get<HorasAprendizaje>(this.URL + horasepr);
 }
 getBySilabo(dsiId: any) {
-  return this.http.get<HorasAprendizaje>(this.URL1 + `getBySilaboId/` +dsiId);
+  return this.http.get<HorasAprendizaje[]>(this.URL1 + `getBySilaboId/` +dsiId);
 }
 }

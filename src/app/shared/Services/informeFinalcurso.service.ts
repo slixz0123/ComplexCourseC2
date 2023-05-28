@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
+import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
 import { InformeFinal } from 'src/app/Core/models/InformeFinal';
+import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Participante } from 'src/app/Core/models/participante';
 
 @Injectable({
@@ -30,16 +33,19 @@ export class InformeFinalService {
     return this.http.put<InformeFinal>(`${this.URL}/actualizar/` + idInformefinal, informefinal);
   }
 
-  public printInformeFinalCurso(informeFinal: InformeFinal, participantes: Participante[]): Observable<any> {
+  public printInformeFinalCurso(informeFinal: InformeFinal, participantes: Participante[],
+    horarioCursos: HorarioCurso[], contenidoCursos: ContenidosCurso[]): Observable<any> {
     const requestData = {
       informeFinal: informeFinal,
-      participantes: participantes
+      participantes: participantes,
+      horarioCursos: horarioCursos,
+      contenidoCursos: contenidoCursos
     };
     return this.http.post(`${this.URLReporte}/generarReporte`, requestData, {
       responseType: 'blob'
     });
   }
-  
+
   public getInformefinalBycurso(idCurso: any) {
     return this.http.get<InformeFinal>(`${this.URL}/informeporcurso/`+ idCurso);
   }
