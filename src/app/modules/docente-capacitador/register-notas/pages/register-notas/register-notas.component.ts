@@ -16,7 +16,7 @@ export class RegisterNotasComponent {
   idPersona: any;
   estado: boolean = true;
   participante: Participante = new Participante;
-  
+
 
 
   showContainer1: boolean = true;
@@ -65,7 +65,6 @@ export class RegisterNotasComponent {
           this.numr = +1;
           this.horariosTexto += `${hc.horario.horInicio} - ${hc.horario.horFin}\n`;
         }
-        console.log(this.horarioscursoList);
       },
       (err) => {
         console.log(err);
@@ -111,13 +110,10 @@ export class RegisterNotasComponent {
     // Actualizar el valor en la propiedad participante.parNotaparcial
     if (num == 1) {
       this.participante.parNotaparcial = event.target.value;
-      console.log(this.participante.parNotaparcial);
     } else if (num == 2) {
       this.participante.parNotafinal = event.target.value;
-      console.log(this.participante.parNotafinal);
     } else {
       this.participante.parPromedio = event.target.value;
-      console.log(this.participante.parPromedio);
     }
   }
 
@@ -126,29 +122,23 @@ export class RegisterNotasComponent {
     if (notaRegex.test(participante.parNotaparcial)) {
       // El valor cumple con la validación
       this.notaPrimer = true;
-      console.log("siuuuuu");
     } else {
       // El valor no cumple con la validación
       this.notaPrimer = false;
-      console.log("nouuuu");
     }
     if (notaRegex.test(participante.parNotafinal)) {
       // El valor cumple con la validación
       this.notafinal = true;
-      console.log("siuuuuu");
     } else {
       // El valor no cumple con la validación
       this.notafinal = false;
-      console.log("nouuuu");
     }
     if (notaRegex.test(participante.parPromedio)) {
       // El valor cumple con la validación
       this.promedio = true;
-      console.log("siuuuuu");
     } else {
       // El valor no cumple con la validación
       this.promedio = false;
-      console.log("nouuuu");
     }
     const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
     this.observacion=campo2Regex.test(participante.parObservacion);
@@ -157,6 +147,8 @@ export class RegisterNotasComponent {
     }else{
       this.estadoa=false;
     }
+    
+    if(this.notaPrimer && this.notafinal && this.promedio && this.observacion && this.estadoa){
 
     Swal.fire({
       icon: 'warning',
@@ -167,12 +159,11 @@ export class RegisterNotasComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("si cd");
-        console.log(participante.parEstadoaprovacion)
-
         this.participanteService.updateparticipante(participante.parId, participante).subscribe(
           (data: any) => {
             Swal.fire('¡Éxito!', 'Las notas se actualizaron correctamente.', 'success');
+            const participantev: Participante = new Participante();
+            this.participante=participantev;
           },
           (err) => {
             console.log(err);
@@ -181,12 +172,16 @@ export class RegisterNotasComponent {
         );
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
+        const participantev: Participante = new Participante();
+        this.participante=participantev;
       }
-    });
+    });}else{
+      Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
+      
+    }
   }
 
   editarNotas(participnated: any) {
-    console.log("muuuuu")
     this.participante = participnated
 
   }
