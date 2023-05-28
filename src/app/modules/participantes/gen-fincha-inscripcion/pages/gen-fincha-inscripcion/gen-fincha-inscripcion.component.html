@@ -120,9 +120,8 @@
 <br>
 <!-- Tablaaaaaa -->
 <table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
+    <thead>
+        <tr class="bg-primary text-light">
             <th scope="col">Código Curso</th>
             <th scope="col">Nombre Curso</th>
             <th scope="col">Estado</th>
@@ -132,7 +131,6 @@
     </thead>
     <tbody>
         <tr *ngFor="let ficha of fichasList">
-            <th>{{ ficha.finId }}</th>
             <td>{{ ficha.finCurso.curCodigo }}</td>
             <td>{{ ficha.finCurso.curNombre }}</td>
             <td>{{ estadosAprobacion[ficha.finAprobacion] }}</td>

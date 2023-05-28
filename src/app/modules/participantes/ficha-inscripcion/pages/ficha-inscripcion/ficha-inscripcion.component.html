@@ -193,36 +193,15 @@
           <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto
             <span style="color: red; font-size: 20px;" *ngIf="camp7==false">*</span>
           </label>
-          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
+          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese el nombre" name="finNombreauspicia"
             [(ngModel)]="fichaInscripcion.finNombreauspicia">
         </div>
-      </div>  
-
-      <!-- <div class="mb-3">
-        <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?
-          <span style="color: red; font-size: 20px;" *ngIf="camp6==false">*</span>
-        </label>
-        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="opcionSeleccionada" (change)="mostrarSeleccion()">
-          <option>Sí</option>
-          <option>No</option>
-        </select>
       </div>
-      
-      <div *ngIf="fichaInscripcion.finAuspiciadoinst === true">
-        <div class="mb-3">
-          <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto
-            <span style="color: red; font-size: 20px;" *ngIf="camp7==false">*</span>
-          </label>
-          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese su cedula" name="finNombreauspicia"
-            [(ngModel)]="fichaInscripcion.finNombreauspicia">
-        </div>
-      </div>   -->
-
       <div class="mb-3">
         <label for="enteradoCurso" class="form-label">¿Cómo se enteró del curso?
           <span style="color: red; font-size: 20px;" *ngIf="camp8==false">*</span>
         </label>
-        <input type="text" class="form-control" id="inputfinComoentero" placeholder="Ingrese su cedula"
+        <input type="text" class="form-control" id="inputfinComoentero" placeholder="Descripción"
           name="finComoentero" [(ngModel)]="fichaInscripcion.finComoentero">
       </div>
       <div class="mb-3">
@@ -235,7 +214,7 @@
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9 text-secondary">
-          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)">Guardar Ficha</button>
+          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)" class="btn btn-primary">Guardar Ficha</button>
           <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
         </div>
       </div>

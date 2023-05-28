@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CargarjsTemplatesService } from '../../Services/cargarjsTemplates.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../Services/usuario.service';
 
 @Component({
   selector: 'app-side-bar-participante',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SideBarParticipanteComponent {
   constructor(
-    private _CargarSc: CargarjsTemplatesService, private router : Router)
+    private _CargarSc: CargarjsTemplatesService, private router : Router, private usuarioser: UsuarioService)
   {
       _CargarSc.carga_apexcharts(["apexcharts.min"])
       _CargarSc.carga_boostrap(["bootstrap.bundle.min"])
@@ -80,4 +81,39 @@ goToRegisterInscripcion($event: any) :void{
   ngOnInit(): void {
 
   }
+
+  id: any;
+     nombreUsuario: any;
+     nombreRol: any;
+   
+
+   
+     isSuperAdmin: boolean = false;
+     isClientAdmin: boolean = false;
+     isparticipante: boolean = false;
+     isadmin: boolean = false;
+     isdocente: boolean = false;
+   
+     displayMaximizable: any;
+     isLogin: boolean = false;
+     obtenerUsuario() {
+      this.id = localStorage.getItem('id_persona');
+      if (this.id != '' && this.id != undefined) {
+        this.usuarioser.getPersona(this.id).subscribe((data) => {
+          console.log(data);
+       
+          if (data != null) {
+            this.isLogin = true;
+    
+            this.nombreUsuario = data.nombre + ' ' + data.apellido;
+            
+            console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
+    
+          } else {
+            this.isLogin = false;
+            this.nombreUsuario = 'NULL';
+          }
+        });
+      }
+    }
 }
