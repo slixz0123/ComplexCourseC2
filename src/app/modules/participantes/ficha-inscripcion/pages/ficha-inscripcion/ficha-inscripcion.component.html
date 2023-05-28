@@ -17,19 +17,19 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="codigoCurso" class="form-label">Código de Curso</label>
-            <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.curCodigo}}" />
+            <input type="text" class="form-control" id="codigoCurso" value=" {{this.curso.curCodigo}}" disabled />
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="nombreCurso" class="form-label">Nombre del Curso</label>
-            <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" />
+            <input type="text" class="form-control" id="nombreCurso" value=" {{this.curso.curNombre}}" disabled />
           </div>
         </div>
       </div>
       <div class="mb-3">
         <label for="modalidad" class="form-label">Modalidad</label>
-        <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" />
+        <input type="text" class="form-control" id="modalidad" value=" {{this.curso.mcursos.mcuNombre}}" disabled />
       </div>
       <!-- los horarios -->
       <div class="mb-3">
@@ -51,14 +51,14 @@
           <div class="mb-3">
             <label for="cedula" class="form-label">Apellidos</label>
             <input type="text" class="form-control" id="inputApellido" placeholder="Ingrese sus Apellidos"
-              name="apellido" [(ngModel)]="persona.apellido">
+              name="apellido" [(ngModel)]="persona.apellido" disabled>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="cedula" class="form-label">Nombres</label>
             <input type="text" class="form-control" id="inputNombre" placeholder="Ingrese sus Nombres" name="nombre"
-              [(ngModel)]="persona.nombre">
+              [(ngModel)]="persona.nombre" disabled>
           </div>
         </div>
       </div>
@@ -69,7 +69,7 @@
           <div class="mb-3">
             <label for="cedula" class="form-label">Cédula de Ciudadanía</label>
             <input type="text" class="form-control" id="inputCedula" placeholder="Ingrese su cedula" name="cedula"
-              [(ngModel)]="persona.cedula">
+              [(ngModel)]="persona.cedula" disabled>
           </div>
         </div>
         <div class="col-md-6">
@@ -77,68 +77,55 @@
             <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
             <input type="date" class="form-control" id="inputFechanacimiento"
               placeholder="Ingrese su Fecha de Nacimiento" name="fecha_nacimiento"
-              [(ngModel)]="persona.fecha_nacimiento">
+              [(ngModel)]="persona.fecha_nacimiento" disabled>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
+      
           <div class="mb-3">
             <label for="sexo" class="form-label">Sexo</label>
-            <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo">
+            <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo" disabled>
               <option selected>Seleccione una opción...</option>
               <option>Masculino</option>
               <option>Femenino</option>
               <option>No especificar</option>
             </select>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="etnia" class="form-label">Etnia</label>
-            <select id="inputEtnia" class="form-control" name="etnia" [(ngModel)]="persona.etnia">
-              <option selected>Seleccione una opción...</option>
-              <option>Mestizo</option>
-              <option>Indígena</option>
-              <option>Blanco</option>
-              <option>Afroecuatoriano</option>
-              <option>Otros</option>
-            </select>
-          </div>
-        </div>
-      </div>
+
       <div class="row">
         <div class="col-md-6">
           <div class="mb-3">
             <label for="telefonoConvencional" class="form-label">Nro. de Teléfono Convencional</label>
             <input type="text" class="form-control" id="inputTelefono" placeholder="Ingrese su numero Telefono"
-              name="telefono" [(ngModel)]="persona.telefono">
+              name="telefono" [(ngModel)]="persona.telefono" disabled>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="telefonoCelular" class="form-label">Nro. de Teléfono Celular</label>
             <input type="text" class="form-control" id="inputCelular" placeholder="Ingrese su numero Celular"
-              name="celular" [(ngModel)]="persona.celular">
+              name="celular" [(ngModel)]="persona.celular" disabled>
           </div>
         </div>
       </div>
       <div class="mb-3">
         <label for="correo" class="form-label">Correo Electrónico</label>
         <input type="text" class="form-control" id="inputEmail" placeholder="Ingrese su  Email" name="email"
-          [(ngModel)]="persona.email">
+          [(ngModel)]="persona.email" disabled>
       </div>
       <div class="mb-3">
         <label for="nivelInstruccion" class="form-label">Nivel de Instrucción</label>
-        <select id="inputNivelInstruccion" class="form-control" name="nivelInstruccion"
-          [(ngModel)]="persona.nivelintruccion">
-          <option selected>Seleccione una opción...</option>
-          <option>Primaria</option>
-          <option>Secundaria</option>
-          <option>Superior</option>
-        </select>
+        <input type="text" class="form-control" id="nivelInstruccion" name="nivelInstruccion"
+          [(ngModel)]="persona.nivelintruccion" disabled>
       </div>
+      <div class="mb-3">
+        <div class="mb-3">
+          <label for="etina" class="form-label">Etnia</label>
+          <input type="text" class="form-control" id="etina" name="etina" [(ngModel)]="persona.etnia" disabled>
+        </div>
+      </div>
+
       <!-- DATOS DEL INFORME -->
       <h4 class="mt-4">3. Información Laboral / Estudios</h4>
       <div class="mb-3">
@@ -177,32 +164,33 @@
         <input type="text" class="form-control" id="inputfinActividadinst" placeholder="Ingrese la actividad"
           name="finActividadinst" [(ngModel)]="fichaInscripcion.finActividadinst">
       </div>
- 
+
       <div class="mb-3">
         <label for="auspicio" class="form-label">¿El curso es auspiciado por la Institución?
           <span style="color: red; font-size: 20px;" *ngIf="camp6==false">*</span>
         </label>
-        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="opcionSeleccionada" (change)="mostrarSeleccion()">
+        <select class="form-select" id="auspicio" name="finAuspiciadoinst" [(ngModel)]="opcionSeleccionada"
+          (change)="mostrarSeleccion()">
           <option>Sí</option>
           <option>No</option>
         </select>
       </div>
-      
+
       <div *ngIf="fichaInscripcion.finAuspiciadoinst === true">
         <div class="mb-3">
           <label for="nombreContacto" class="form-label">Si está auspiciado, indique el nombre del contacto
             <span style="color: red; font-size: 20px;" *ngIf="camp7==false">*</span>
           </label>
-          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese el nombre" name="finNombreauspicia"
-            [(ngModel)]="fichaInscripcion.finNombreauspicia">
+          <input type="text" class="form-control" id="inputfinNombreauspicia" placeholder="Ingrese el nombre"
+            name="finNombreauspicia" [(ngModel)]="fichaInscripcion.finNombreauspicia">
         </div>
       </div>
       <div class="mb-3">
         <label for="enteradoCurso" class="form-label">¿Cómo se enteró del curso?
           <span style="color: red; font-size: 20px;" *ngIf="camp8==false">*</span>
         </label>
-        <input type="text" class="form-control" id="inputfinComoentero" placeholder="Descripción"
-          name="finComoentero" [(ngModel)]="fichaInscripcion.finComoentero">
+        <input type="text" class="form-control" id="inputfinComoentero" placeholder="Descripción" name="finComoentero"
+          [(ngModel)]="fichaInscripcion.finComoentero">
       </div>
       <div class="mb-3">
         <label for="finOtroscursosdesea" class="form-label">¿Qué otros cursos le gustaría seguir?
@@ -214,8 +202,8 @@
       <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-9 text-secondary">
-          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)" class="btn btn-primary">Guardar Ficha</button>
-          <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
+          <Span></Span> <button (click)="guardarFichaIncripcion(fichaInscripcion)" class="btn btn-primary">Guardar
+            Ficha</button>
         </div>
       </div>
     </form>

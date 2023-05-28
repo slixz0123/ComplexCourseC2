@@ -1,4 +1,6 @@
-<h2>Agregar Institución</h2>
+<br>
+<div class="container" style="background-color: #ffffff;">
+  <h2 style="text-align: center;">Agregar Institución</h2>
 <form (ngSubmit)="agregarInstitucion()" enctype="multipart/form-data">
   <div class="form-group">
     <label for="insNombre">Nombre</label>
@@ -6,7 +8,7 @@
       (input)="convertirPrimeraLetraNombre()" (keydown)="validarInputNombre()">
   </div>
   <div>
-    <label for="insLogo">Logo:</label>
+    <label for="insLogo">Logo ISTA:</label>
     <input type="file" id="insLogo" class="form-control" (change)="onFileSelected($event)" name="insLogo"
       accept="image/*" required (blur)="verificarCamposVacios()">
     <img class="small-image1" *ngIf="selectedImage1" [src]="selectedImage1" alt="Logo">
@@ -18,25 +20,25 @@
     <img class="small-image1" *ngIf="selectedImage2" [src]="selectedImage2" alt="Logo Grande">
   </div>
   <div>
-    <label for="insLogosec">Logo Sec:</label>
+    <label for="insLogosec">Logo Secretaría:</label>
     <input class="form-control" type="file" id="insLogosec" (change)="onFileSelected3($event)" name="insLogosec"
       accept="image/*" required (blur)="verificarCamposVacios()">
     <img class="small-image1" *ngIf="selectedImage3" [src]="selectedImage3" alt="Logo Sec">
   </div>
   <div>
-    <label for="insLogogob">Logo Gob:</label>
+    <label for="insLogogob">Logo Gobierno:</label>
     <input class="form-control" type="file" id="insLogogob" (change)="onFileSelected4($event)" name="insLogogob"
       accept="image/*" required (blur)="verificarCamposVacios()">
     <img class="small-image1" *ngIf="selectedImage4" [src]="selectedImage4" alt="Logo Sec">
   </div>
   <div>
-    <label for="insLogosecretariaedu">Logo Secretaria Edu:</label>
+    <label for="insLogosecretariaedu">Logo Secretaria Educación:</label>
     <input class="form-control" type="file" id="insLogosecretariaedu" (change)="onFileSelected5($event)"
       name="insLogosecretariaedu" accept="image/*" required (blur)="verificarCamposVacios()">
     <img class="small-image1" *ngIf="selectedImage5" [src]="selectedImage5" alt="Logo Sec">
   </div>
   <div>
-    <label for="insLogocert">Logo Cert:</label>
+    <label for="insLogocert">Logo Certificados:</label>
     <input class="form-control" type="file" id="insLogocert" (change)="onFileSelected6($event)" name="insLogocert"
       accept="image/*" required (blur)="verificarCamposVacios()">
     <img class="small-image1" *ngIf="selectedImage6" [src]="selectedImage6" alt="Logo Sec">
@@ -46,24 +48,26 @@
     <input type="text" id="insDireccion" class="form-control" [(ngModel)]="registro.insDireccion" name="insDireccion"
       required (input)="validarDireccion()">
   </div>
-  <button type="submit" [disabled]="todosCamposVacios">{{ editingMode ? 'Editar Institución' : 'Agregar Institución' }}</button>
+  <br>
+  <button type="submit" [disabled]="todosCamposVacios" class="btn btn-primary">{{ editingMode ? 'Editar Institución' : 'Agregar Institución' }}</button>
 </form>
+<br>
 <form>
   <h2>Lista de Instituciones</h2>
   <div class="table-hover">
     <table class="table">
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Dirección</th>
-          <th>Logo</th>
-          <th>Logo Grande</th>
-          <th>Logo Sec</th>
-          <th>Logo Gob</th>
-          <th>Logo Secretaria Edu</th>
-          <th>Logo Cert</th>
-          <th>Acciones</th>
+        <tr class="bg-primary text-light">
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Dirección</th>
+          <th scope="col">Logo ISTA</th>
+          <th scope="col">Logo Grande ISTA</th>
+          <th scope="col">Logo Secretaría</th>
+          <th scope="col">Logo Gobierno</th>
+          <th scope="col">Logo Secretaria Educación</th>
+          <th scope="col">Logo Certificados</th>
+          <th scope="col">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -103,3 +107,4 @@
     </table>
   </div>
 </form>
+</div>

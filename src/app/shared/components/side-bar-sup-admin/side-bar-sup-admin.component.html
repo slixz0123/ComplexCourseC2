@@ -14,24 +14,27 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
- 
+
   <!-- Template Main CSS File -->
   <style>
     #sidebarToggle {
-        display: none;
+      display: none;
+    }
+
+    @media only screen and (max-width: 1080px) {
+      #sidebarToggle {
+        display: block;
       }
-  
-      @media only screen and (max-width: 1080px) {
-        #sidebarToggle {
-          display: block;
-        }
-      }
+    }
   </style>
 
 
@@ -43,17 +46,19 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a  class="logo d-flex align-items-center">
-        <img src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png" alt="">
+      <a class="logo d-flex align-items-center">
+        <img
+          src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
+          alt="">
         <span class="d-none d-lg-block">TecAzuay</span>
       </a>
-      <button  id="sidebarToggle" class="btn btn-primary">
+      <button id="sidebarToggle" class="btn btn-primary">
         <i class="bi bi-list"></i>
       </button>
     </div><!-- End Logo -->
 
     <div class="search-bar">
-      
+
     </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -75,7 +80,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               Tienes 4 notificaciones
-              
+
               <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
             </li>
             <li>
@@ -148,7 +153,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-person " ></i>
+            <i class="bi bi-person "></i>
             <span class="d-none d-md-block dropdown-toggle ps-2">USUARIO INGRESADO</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -162,9 +167,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" (click)="goTo_edit_list_admin($event)">
                 <i class="bi bi-person"></i>
-                <span>Mi Perfil</span>
+                <span>Lista Administradores</span>
               </a>
             </li>
             <li>
@@ -172,29 +177,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Configuraciones</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Necesitas Ayuda?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="index.html">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Cerrar Sesion</span>
+                <span>Cerrar Sesión</span>
               </a>
             </li>
 
@@ -220,45 +205,31 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Creacion Administrador</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Creación Administrador</span><i
+            class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a  (click)="goToRegisteradmin($event)">
+            <a (click)="goToRegisteradmin($event)">
               <i class="bi bi-circle"></i><span>Registrar Administradores</span>
             </a>
           </li>
           <li>
-            <a  (click)="goTo_edit_list_admin($event)">
+            <a (click)="goTo_edit_list_admin($event)">
               <i class="bi bi-circle"></i><span>Listar Administradores</span>
             </a>
           </li>
 
         </ul>
-
-
       <li class="nav-heading">Pages</li>
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="index.html">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>Cerrar sesión</span>
         </a>
       </li><!-- End Login Page Nav -->
-
-     
-
-      
-
     </ul>
-
   </aside><!-- End Sidebar-->
-
-
-
- 
-
-
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 

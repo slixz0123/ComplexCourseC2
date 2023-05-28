@@ -162,7 +162,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" (click)="goTo_visperfil($event)">
                 <i class="bi bi-person"></i>
                 <span>Mi Perfil</span>
               </a>
@@ -172,29 +172,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Configuraciones</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Necesitas Ayuda?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="index.html">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Cerrar Sesion</span>
+                <span>Cerrar Sesión</span>
               </a>
             </li>
 
@@ -244,51 +224,17 @@
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a  (click)="goToRegistercurso($event)">
-              <i class="bi bi-circle"></i><span>Registrar Programa</span>
+              <i class="bi bi-circle"></i><span>Registro Programa</span>
             </a>
           </li>
-          <!-- <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Editar Cursos</span>
-            </a>
-          </li> -->
-          <!-- <li>
-            <a  (click)="goTo_edit_list_curs($event)">
-              <i class="bi bi-circle"></i><span>Listar Cursos</span>
-            </a>
-          </li> -->
           <li>
             <a  (click)="goTo_catalogocurso($event)">
-              <i class="bi bi-circle"></i><span>Catalogo</span>
+              <i class="bi bi-circle"></i><span>Catálogo</span>
             </a>
           </li>
-         
-           
-         
-         
         </ul>
-      </li><!-- termino necesidad Nav -->
-
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Aprobacion Documentos</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a (click)="goTovalidvida($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Hoja de vida</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="goTo_validcap($event)">
-              <i class="bi bi-circle"></i><span>Aprobar Cursos Capacitacion</span>
-            </a>
-          </li>
-         
-        </ul>
-      </li> -->
-      
-      <!-- End Forms Nav -->
+      </li>
+      <!-- termino necesidad Nav -->
 
 
       <li class="nav-item">
@@ -303,7 +249,7 @@
           </li>
           <li>
             <a  (click)="goTo_edit_docente($event)">
-              <i class="bi bi-circle"></i><span>Listado/Edicion Docentes</span>
+              <i class="bi bi-circle"></i><span>Listado/Edición Docentes</span>
             </a>
           </li>
          
@@ -355,24 +301,12 @@
 
       <li class="nav-heading">Pages</li>
 
-      
-
-  
-
- 
-
-     
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="index.html">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>Cerrar Sesión</span>
         </a>
       </li><!-- End Login Page Nav -->
-
-     
-
-      
 
     </ul>
 

@@ -26,7 +26,7 @@
         <div class="col-lg-8" >
             <div class="card">
                 <div class="card-body">
-                    <h4 style="text-align: center;">Registro Participante</h4>
+                    <h4 style="text-align: center;">Datos de la ficha de inscripción</h4>
                     <br>
                     <form >
 
@@ -134,7 +134,7 @@
             <td>{{ ficha.finCurso.curCodigo }}</td>
             <td>{{ ficha.finCurso.curNombre }}</td>
             <td>{{ estadosAprobacion[ficha.finAprobacion] }}</td>
-            <td><button type="button" class="btn btn-primary" (click)="editarAprobacion(ficha)">ver</button>
+            <td><button type="button" class="btn btn-primary" (click)="editarAprobacion(ficha)">Ver</button>
             </td>
             <td><button type="button" class="btn btn-primary"
                             (click)="imprimirFichaInscripcion(ficha)">Imprimir</button>
