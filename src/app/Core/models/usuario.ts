@@ -9,6 +9,7 @@ export class Usuario {
     enabled?: boolean;
     persona?: Persona;
     rol?: Rol;
+    //roles: Rol[] = [];
 
     constructor(init?: Partial<Usuario>) {
       Object.assign(this, init);

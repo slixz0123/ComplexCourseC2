@@ -26,9 +26,7 @@ export class PersonaService {
     constructor(private http: HttpClient) { }
   
     //utiliizados
-    getPersonaCedula(cedPersona: any) :Observable<Persona>{
-      return this.http.get<Persona>(`${this.URL}/personacedula/` + cedPersona);
-    }
+    
 
   //   createUser(usuario: Usuario): Observable<Usuario> {
   //     return this.http.post<Usuario>(`${this.URLusuario}/signup`, usuario);
@@ -38,6 +36,12 @@ export class PersonaService {
       return this.http.post<Persona>(`${this.URL}/crear`,persona);
     }
 
+    getPersonaCedula(cedula: string): Observable<Persona> {
+      return this.http.get<Persona>(`${this.URL}/personacedula/${cedula}`);
+    }
+  
+    
+    
 
     public buscarPorCedula(cedula: string): Observable<Persona> {
       return this.http.get<Persona>(this.URLced + cedula);

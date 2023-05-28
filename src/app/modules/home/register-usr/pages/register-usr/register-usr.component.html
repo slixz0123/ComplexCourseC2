@@ -60,27 +60,87 @@
     <div class="text">
      
      
-      <form (ngSubmit)="onSignup()">
-        <input type="text" placeholder="Username" [(ngModel)]="signupRequest.username" name="username" required>
-        <input type="password" placeholder="Password" [(ngModel)]="signupRequest.password" name="password" required>
+      <form (ngSubmit)="onSignup()" class="container-fluid" #signupForm="ngForm">
+        <div class="row">
+          <div class="col-3">
+            <label for="cedula">Cédula</label>
+            <input id="cedula" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Cedula" [(ngModel)]="signupRequest.persona.cedula" name="cedula" required (ngModelChange)="onCedulaChange($event)">
 
-
-      
-        <!-- Añade los demás campos de la clase Persona aquí -->
-        <input type="text" placeholder="Cedula" [(ngModel)]="signupRequest.cedula" name="cedula" required>
-        <input type="text" placeholder="Nombre" [(ngModel)]="signupRequest.nombre" name="nombre" required>
-        <input type="text" placeholder="Apellido" [(ngModel)]="signupRequest.apellido" name="apellido" required>
-        <input type="date" placeholder="Fecha de nacimiento" [(ngModel)]="signupRequest.fecha_nacimiento" name="fecha_nacimiento" required>
-        <input type="email" placeholder="Email" [(ngModel)]="signupRequest.email" name="email" required>
-        <input type="text" placeholder="Direccion" [(ngModel)]="signupRequest.direccion" name="direccion" required>
-        <input type="text" placeholder="Sexo" [(ngModel)]="signupRequest.sexo" name="sexo" required>
-        <input type="text" placeholder="Etnia" [(ngModel)]="signupRequest.etnia" name="etnia" required>
-        <input type="text" placeholder="Telefono" [(ngModel)]="signupRequest.telefono" name="telefono" required>
-        <input type="text" placeholder="Celular" [(ngModel)]="signupRequest.celular" name="celular" required>
-        <input type="text" placeholder="Nivel de instruccion" [(ngModel)]="signupRequest.nivelintruccion" name="nivelintruccion" required>
-      
-        <button type="submit">Register</button>
+          </div>
+          <div class="col-3">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" pattern="[a-zA-Z]*" placeholder="Nombre" [(ngModel)]="signupRequest.persona.nombre" name="nombre" required>
+          </div>
+          <div class="col-3">
+            <label for="apellido">Apellido</label>
+            <input id="apellido" type="text" pattern="[a-zA-Z]*" placeholder="Apellido" [(ngModel)]="signupRequest.persona.apellido" name="apellido" required>
+          </div>
+          <div class="col-3">
+            <label for="fecha_nacimiento">Fecha de nacimiento</label>
+            <input id="fecha_nacimiento" type="date" [max]="maxDate" placeholder="Fecha de nacimiento" [(ngModel)]="signupRequest.persona.fecha_nacimiento" name="fecha_nacimiento" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Email" [(ngModel)]="signupRequest.persona.email" name="email" required>
+          </div>
+          <div class="col-3">
+            <label for="direccion">Dirección</label>
+            <input id="direccion" type="text" placeholder="Direccion" [(ngModel)]="signupRequest.persona.direccion" name="direccion" required>
+          </div>
+          <div class="col-3">
+            <label for="telefono">Telefono</label>
+            <input id="telefono" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
+          </div>
+          <div class="col-3">
+            <label for="nivelintruccion">Nivel de instrucción</label>
+            <select id="nivelintruccion" class="form-control" name="nivelintruccion"
+            [(ngModel)]="signupRequest.persona.nivelintruccion">
+            <option selected>Seleccione una opción...</option>
+            <option>Primaria</option>
+            <option>Secundaria</option>
+            <option>Bachiller</option>
+            <option>Tercer nivel</option>
+            <option>Cuarto Nivel</option>
+        </select>
+         
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="sexo">Sexo</label>
+            <select id="sexo" [(ngModel)]="signupRequest.persona.sexo" name="sexo" required>
+              <option selected>Seleccione una opción...</option>
+                                        <option>Masculino</option>
+                                        <option>Femenino</option>
+                                        <option>No binario</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="etnia">Etnia</label>
+              <input id="etnia" type="text" placeholder="etnia"  [(ngModel)]="signupRequest.persona.etnia"name="etnia" required>
+              <!-- Agrega más opciones según las etnias que quieras manejar -->
+   
+          </div>
+          <div class="col-4">
+            <label for="celular">Celular</label>
+            <input id="celular" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Celular" [(ngModel)]="signupRequest.persona.celular" name="celular" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label for="username">Username</label>
+            <input id="username" type="text" placeholder="Username" [(ngModel)]="signupRequest.username" name="username" required>
+          </div>
+          <div class="col-12">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Password" [(ngModel)]="signupRequest.password" name="password" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Register</button>
       </form>
+      
       
     </div>
   </div>

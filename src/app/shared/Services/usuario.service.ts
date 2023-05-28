@@ -17,10 +17,12 @@ import { LoginRequest } from 'src/app/Core/models/LoginRequest';
 })
 export class UsuarioService {
   private URL = 'http://localhost:8080/usuarios';
+  private URLcheck = 'http://localhost:8080';
   private URLb = 'http://localhost:8080/usuarios/buscar/';
-  private URLu = 'http://localhost:8080/usuarios/search/';
+  private URLu = 'http://localhost:8080/usuarios/buscarusr/username/';
+  // /buscarusr/username/{username}"
 
-  private URLcre = 'http://localhost:8080/usuarios/signup';
+  private URLcre = 'http://calhost:8080/usuarios/signup';
   
   private usuariosApiUrl = 'http://localhost:8080/usuarios/users/list';
   private personasApiUrl = 'http://localhost:8080/api/persona/buscar';
@@ -34,6 +36,12 @@ export class UsuarioService {
   registerUser(signupRequest: SignupRequest): Observable<any> {
     return this.http.post<any>(this.signupUrl, signupRequest);
   }
+  getUserByUsername(username: string): Observable<Usuario> {
+    const url = this.URLu + username;
+    return this.http.get<Usuario>(url);
+  }
+
+  
   loginUser(loginRequest: LoginRequest): Observable<any> {
     return this.http.post<any>(this.signinUrl, loginRequest);
   }
@@ -41,6 +49,13 @@ export class UsuarioService {
   generateToken(loginRequest: LoginRequest): Observable<any> {
     return this.http.post<any>(this.generateTokenUrl, loginRequest);
   }
+ 
+  checkPersonaHasUser(personaId: number): Observable<Usuario> {
+    const url = `${this.URLcheck}/usuarios/checkPersonaHasUser/${personaId}`;
+    return this.http.get<Usuario>(url);
+  }
+
+
 //Listar usuarios por rol---------------------------------------------------------
 listarUsuariosAdmin(): Observable<Usuario[]> {
   return this.http.get<Usuario[]>(this.usuariosApiUrl).pipe(

@@ -1,7 +1,7 @@
 export class Persona {
  
-    id_persona?: number;
-    cedula?: string;
+    id_persona: number=0;
+    cedula: string="";
     nombre?: string;
     apellido?: string;
     fecha_nacimiento?: Date;

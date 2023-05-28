@@ -87,7 +87,7 @@ a.b-home:hover {
     color: white;
 }
 .text h4{
-    font-size: 14px;
+    font-size: 10px;
     font-family: 'open sans', sans-serif;
 }
 .text h1{
@@ -119,6 +119,14 @@ a.b-home:hover {
 .btn:hover{
     background-color: #156bff;
     color: white;
+    text-transform: uppercase;
+    line-height: 40px;
+    width: 150px;
+    margin-top: 25px;
+    border: 3px solid white;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 10px;
 }
 /*Cards*/
 .container-card{
@@ -167,7 +175,7 @@ a.b-home:hover {
 .card .contenido-card p{
 	line-height: 1.8;
 	color: #6a6a6a;
-	font-size: 14px;
+	font-size: 10px;
 	margin-bottom: 5px;
 }
 .card .contenido-card a{
@@ -395,7 +403,7 @@ ul{
   label{
       display: block;
       margin-top: 30px;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 500;
   }
   input{
@@ -635,6 +643,39 @@ backdrop-filter: blur( 14px );
   text-align: justify;
 }
 
+select {
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-color: rgba(87, 87, 88, 0.866);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000000;
+  border-radius: 18px;
+}
+
+/* Para el focus */
+select:focus {
+  outline: none;
+  border-color: #156bff;
+}
+
+/* Para el hover */
+select:hover {
+color: #000000;
+}
+
+/* Para cambiar el color del arrow en los combobox */
+select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(15, 99, 255, 0.07);
+  background-position: 95% center;
+}
 
 
 

@@ -1,18 +1,12 @@
+import { Persona } from './persona';
 export class SignupRequest {
-    username: string='';
-    password: string='';
-    enable: boolean=true;
-    roles: string='';
-    // Añade los campos de la clase Persona aquí
-    cedula: string='';
-    nombre: string='';
-    apellido: string='';
-    fecha_nacimiento?: Date;
-    email: string='';
-    direccion: string='';
-    sexo: string='';
-    etnia: string='';
-    telefono: string='';
-    celular: string='';
-    nivelintruccion: string='';
-  }
+  username: string = '';
+  persona_id?: number;
+  password: string = '';
+  enable: boolean = true;
+  roles: string = '';
+  persona: Persona = new Persona(); // Agregar la propiedad persona de tipo Persona
+
+  // Resto de propiedades de SignupRequest
+}
+
