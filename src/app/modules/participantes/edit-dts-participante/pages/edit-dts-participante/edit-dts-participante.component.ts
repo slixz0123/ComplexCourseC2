@@ -118,13 +118,6 @@ export class EditDtsParticipanteComponent {
     } else {
       this.valnivel = false
     }
-    //validar que todas las validaciones se cumplan
-    if (this.valnombre && this.valapellido && this.valetnia && this.valdireccion && this.valemail
-      && this.valtelefono && this.valcelular && this.valnivel && this.valsexo && this.valfechan) {
-      this.onSubmit();
-    } else {
-      Swal.fire('¡Error!', 'Ingrese los campos correctos.', 'error');
-    }
     //Validar etnia
     if (this.persona.etnia === "Mestizo" || this.persona.etnia === "Indígena" ||
       this.persona.etnia === "Blanco" || this.persona.etnia === "Afroecuatoriano"
@@ -133,6 +126,14 @@ export class EditDtsParticipanteComponent {
     } else {
       this.valetnia = false
     }
+    //validar que todas las validaciones se cumplan
+    if (this.valnombre && this.valapellido && this.valetnia && this.valdireccion && this.valemail
+      && this.valtelefono && this.valcelular && this.valnivel && this.valsexo && this.valfechan) {
+      this.onSubmit();
+    } else {
+      Swal.fire('¡Error!', 'Ingrese los campos correctos.', 'error');
+    }
+
   }
 
   compararEdad(): void {

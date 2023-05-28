@@ -27,6 +27,7 @@ export class BienvenidaHomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProgramasCapacitacion();
+    localStorage.clear();
   }
 
   getProgramasCapacitacion(): void {
