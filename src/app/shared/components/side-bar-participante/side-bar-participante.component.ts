@@ -79,7 +79,7 @@ goToRegisterInscripcion($event: any) :void{
  }
 
   ngOnInit(): void {
-
+    this.obtenerUsuario()
   }
 
   id: any;
