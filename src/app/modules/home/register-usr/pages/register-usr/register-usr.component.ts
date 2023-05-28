@@ -56,6 +56,7 @@ export class RegisterUsrComponent {
     // this.ValidarRole();
     this.idPersona = localStorage.getItem('id_persona')
     console.log(this.idPersona)
+   
   }
 
   obtenerRol() {
@@ -66,6 +67,65 @@ export class RegisterUsrComponent {
       this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
     });
   }
+  filtrarNumeros(event: any) {
+    const input = event.target.value;
+    const numericInput = input.replace(/[^0-9]/g, ''); // Filtrar caracteres no numéricos
+    // Verificar si la longitud del número después de filtrar es mayor a 9
+    if (numericInput.length > 9) {
+      // Obtener solo los primeros 9 dígitos del número
+      const formattedInput = numericInput.substr(0, 9);
+      // Aplicar el formato deseado al número telefónico
+      const formattedNumber = `(${formattedInput.substr(0, 2)})${formattedInput.substr(2, 3)}-${formattedInput.substr(5, 4)}`;
+      event.target.value = formattedNumber;
+    } else {
+      // Aplicar el formato solo si hay algún número ingresado
+      if (numericInput.length > 0) {
+        const formattedNumber = `(${numericInput.substr(0, 2)})${numericInput.substr(2, 3)}-${numericInput.substr(5, 4)}`;
+        event.target.value = formattedNumber;
+      } else {
+        event.target.value = '';
+      }
+    }
+    // Actualizar el valor en la propiedad fichaInscripcion.finTelefonoinst
+    this.persona.telefono = event.target.value;
+  }
+  //filtra los numeros para dar formato de celular
+  filtrarNumerosc(event: any) {
+    const input = event.target.value;
+    const numericInput = input.replace(/[^0-9()]/g, ''); // Filtrar caracteres no numéricos ni paréntesis
+
+    let areaCode = '';
+    let phoneNumber = '';
+
+    if (numericInput.length > 0) {
+      // Obtener el área de código
+      const areaCodeMatches = numericInput.match(/\(([0-9]{1,3})\)/);
+      if (areaCodeMatches && areaCodeMatches.length > 1) {
+        areaCode = areaCodeMatches[1].substr(0, 3);
+      }
+
+      // Obtener el número de teléfono
+      const phoneNumberMatches = numericInput.match(/\)([0-9]{0,9})/);
+      if (phoneNumberMatches && phoneNumberMatches.length > 1) {
+        phoneNumber = phoneNumberMatches[1];
+      }
+    }
+
+    let formattedNumber = `(${areaCode})${phoneNumber}`;
+    event.target.value = formattedNumber;
+
+    // Actualizar el valor en la propiedad persona.celular
+    this.persona.celular = event.target.value;
+
+  }
+
+
+
+
+
+
+
+
 
   maxDate: string='';
   validardatos: any;
@@ -88,6 +148,18 @@ export class RegisterUsrComponent {
               if (existingPersona) {
                 this.checkPersonaHasUser(existingPersona.id_persona);
               } else {
+
+                
+                if (this.signupRequest.persona.telefono) {
+                  const telefonoSinParentesis = this.signupRequest.persona.telefono.replace(/\(|\)|-/g, "");
+                  this.signupRequest.persona.telefono = telefonoSinParentesis;
+                } 
+                //cambia a formato normal celular
+                if (this.signupRequest.persona.celular) {
+                  const celularSinParentesis = this.signupRequest.persona.celular.replace(/\(|\)/g, "");
+                  this.signupRequest.persona.celular = celularSinParentesis;
+                }
+               
                 this.persoUsrService.crearPersona(this.signupRequest.persona).subscribe(
                   (createdPersona: Persona) => {
                     this.signupRequest.persona = createdPersona;
@@ -253,8 +325,34 @@ onCedulaChange(value: string): void {
       }
     });
   }
-
-
+  valnombre: boolean = true;
+  valapellido: boolean = true;
+  valfechan: boolean | undefined;
+  valemail: boolean = true;
+  valdireccion: boolean = true;
+  valtelefono: boolean = true;
+  valcelular: boolean = true;
+  valetnia: boolean = true;
+  valsexo: boolean = true;
+  valnivel: boolean = true;
+  valhoja: boolean = true;
+  validarcampos() {
+    //Validar nombre, apellido y etnia
+   
+    const telefonoRegex = /^\((?!00)\d{2}\)(?!0{3}-0{4}$)\d{3}-\d{4}$/;
+    this.valtelefono = this.persona && typeof this.persona.telefono === 'string' && telefonoRegex.test(this.persona.telefono);
+    //validar celular
+    const celularRegex = /^\((?!0{2,})[1-9]\d{0,3}\)(?!0{9})[0-9]{9}$/;
+    this.valcelular = this.persona && typeof this.persona.celular === 'string' && celularRegex.test(this.persona.celular);
+   
+   
+    //validar que todas las validaciones se cumplan
+    if (this.valtelefono && this.valcelular ) {
+      this.registerUser();
+    } else {
+      Swal.fire('¡Error!', 'Ingrese los campos correctos.', 'error');
+    }
+  }
   ValidarRole(idPersona: any) {
     // Verifica primero el rol de docente
     this.userServiceService.getpersonarol(idPersona, 2).subscribe((response: any) => {

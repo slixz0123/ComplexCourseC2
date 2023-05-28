@@ -91,7 +91,7 @@
           </div>
           <div class="col-3">
             <label for="telefono">Telefono</label>
-            <input id="telefono" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
+            <input id="telefono" type="text"  (input)="filtrarNumeros($event)" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
           </div>
           <div class="col-3">
             <label for="nivelintruccion">Nivel de instrucción</label>
@@ -125,7 +125,12 @@
           </div>
           <div class="col-4">
             <label for="celular">Celular</label>
-            <input id="celular" type="text" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Celular" [(ngModel)]="signupRequest.persona.celular" name="celular" required>
+
+            <input type="tel" class="form-control" id="inputCelular"
+                                        placeholder="Ingrese su celular" name="celular"[(ngModel)]="signupRequest.persona.celular"
+                                        (input)="filtrarNumerosc($event)">
+                                    <small class="text-danger" *ngIf="!valcelular">Campo requerido en formato (código de país y numero)
+                                        (xx)xxxxxxxxx</small>
           </div>
         </div>
         <div class="row">
