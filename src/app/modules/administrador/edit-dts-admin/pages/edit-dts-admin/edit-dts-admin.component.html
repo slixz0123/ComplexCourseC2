@@ -16,10 +16,8 @@
                                         d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
                                 </svg>
-                                <h4>Administrador</h4>
+                                <h4>Administrador </h4>
                                 <p class="text-secondary mb-1"></p>
-                                <!-- <p class="text-muted font-size-sm">Celular: {{persona.celular}}</p> -->
-                                <!-- <button class="btn btn-primary" (click)="mostrarDatos()">Ver</button> -->
                             </div>
                         </div>
                     </div>
@@ -29,7 +27,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 style="text-align: center;">Actualizacion de Datos </h4>
+                        <h4 style="text-align: center;">Actualización de Datos </h4>
                         <br>
                         <form>
                             <!-- <div class="row mb-3">
@@ -44,11 +42,12 @@
 
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Cedula</h6>
+                                    <h6 class="mb-0">Cédula</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
-                                        placeholder="Ingrese su cedula" name="cedula" [(ngModel)]="persona.cedula">
+                                        placeholder="Ingrese su cedula" name="cedula" [(ngModel)]="persona.cedula"
+                                        disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -58,6 +57,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputNombre"
                                         placeholder="Ingrese su nombre" name="nombre" [(ngModel)]="persona.nombre">
+                                    <small class="text-danger" *ngIf="!valnombre">Campo requerido.</small>
+
                                 </div>
                             </div>
 
@@ -69,17 +70,22 @@
                                     <input type="text" class="form-control" id="inputApellido"
                                         placeholder="Ingrese su apellido" name="apellido"
                                         [(ngModel)]="persona.apellido">
+                                    <small class="text-danger" *ngIf="!valapellido">Campo requerido.</small>
+
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Fechas de Nacimiento</h6>
+                                    <h6 class="mb-0">Fecha de Nacimiento</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="date" class="form-control" id="inputApellido"
-                                        placeholder="Ingrese su apellido" name="fecha_nacimiento"
-                                        [(ngModel)]="persona.fecha_nacimiento">
+                                        placeholder="Ingrese su fecha de nacimiento" name="fecha_nacimiento"
+                                        [(ngModel)]="persona.fecha_nacimiento" (ngModelChange)="compararEdad()">
+                                    <small class="text-danger" *ngIf="!valfechan">Fecha Invalida.</small>
                                 </div>
+                                
+
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
@@ -89,26 +95,31 @@
                                     <input type="email" class="form-control" id="inputEmail"
                                         placeholder="Ingrese su correo electrónico" name="email"
                                         [(ngModel)]="persona.email">
+                                    <small class="text-danger" *ngIf="!valemail">Campo requerido en formato @gmail.com o
+                                        @tecazuay.edu.ec</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Direccion</h6>
+                                    <h6 class="mb-0">Dirección</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputDireccion"
                                         placeholder="Ingrese su dirección" name="direccion"
                                         [(ngModel)]="persona.direccion">
+                                    <small class="text-danger" *ngIf="!valdireccion">Campo requerido</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Telefono</h6>
+                                    <h6 class="mb-0">Teléfono</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="tel" class="form-control" id="inputTelefono"
-                                        placeholder="Ingrese su teléfono" name="telefono"
-                                        [(ngModel)]="persona.telefono">
+                                        placeholder="Ingrese su teléfono" name="telefono" [(ngModel)]="persona.telefono"
+                                        (input)="filtrarNumeros($event)">
+                                    <small class="text-danger" *ngIf="!valtelefono">Campo requerido en formato
+                                        (xx)xxxxxxx</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -117,7 +128,10 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="tel" class="form-control" id="inputCelular"
-                                        placeholder="Ingrese su celular" name="celular" [(ngModel)]="persona.celular">
+                                        placeholder="Ingrese su celular" name="celular" [(ngModel)]="persona.celular"
+                                        (input)="filtrarNumerosc($event)">
+                                    <small class="text-danger" *ngIf="!valcelular">Campo requerido en formato (código de país y numero)
+                                        (xx)xxxxxxxxx</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -127,6 +141,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputEtnia"
                                         placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.etnia">
+                                    <small class="text-danger" *ngIf="!valetnia">Campo requerido.</small>
                                 </div>
                             </div>
 
@@ -136,44 +151,46 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputSexo" class="form-control" name="sexo" [(ngModel)]="persona.sexo">
-                                        <option selected>Seleccione una opción...</option>
-                                        <option>Masculino</option>
-                                        <option>Femenino</option>
-                                        <option>No binario</option>
+                                        <option value='Masculino'>Masculino</option>
+                                        <option value='Femenino'>Femenino</option>
+                                        <option value='No especificar'>No especificar</option>
                                     </select>
+                                    <small class="text-danger" *ngIf="!valsexo">Campo requerido.</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Nivel Instruccion</h6>
+                                    <h6 class="mb-0">Nivel de Instrucción</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputSexo" class="form-control" name="nivelintruccion"
                                         [(ngModel)]="persona.nivelintruccion">
-                                        <option selected>Seleccione una opción...</option>
-                                        <option>Primaria</option>
-                                        <option>Secundaria</option>
-                                        <option>Bachiller</option>
-                                        <option>Tercer nivel</option>
-                                        <option>Cuarto Nivel</option>
+                                        <option value="Primaria">Primaria</option>
+                                        <option value="Secundaria">Secundaria</option>
+                                        <option value="Bachiller">Bachiller</option>
+                                        <option value="Tercer Nivel">Tercer Nivel</option>
+                                        <option value="Cuarto Nivel">Cuarto Nivel</option>
                                     </select>
+
+                                    <small class="text-danger" *ngIf="!valnivel">Campo requerido.</small>
                                 </div>
                             </div>
-
+                            <!-- 
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Hoja de vida</h6>
+                                    <h6 class="mb-0">Hoja de Vida</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.hojavida">
+                                    <input type="text" class="form-control" id="inputhojav"
+                                        placeholder="Ingrese su hoja de vida" name="hojav"
+                                        [(ngModel)]="persona.hojavida">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button (click)="onSubmit()">Guardar Cambios</button>
-                                    <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
+                                    <Span></Span> <button type="button" class="btn btn-primary"
+                                        (click)="validarcampos()">Guardar Cambios</button>
                                 </div>
                             </div>
                         </form>
