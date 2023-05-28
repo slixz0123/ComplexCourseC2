@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CargarjsTemplatesService } from '../../Services/cargarjsTemplates.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../Services/usuario.service';
+import Swal from 'sweetalert2';
+import { EnvioDatosService } from '../../Services/envioDatos.service';
 
 @Component({
   selector: 'app-side-bar-participante',
@@ -10,7 +12,7 @@ import { UsuarioService } from '../../Services/usuario.service';
 })
 export class SideBarParticipanteComponent {
   constructor(
-    private _CargarSc: CargarjsTemplatesService, private router : Router, private usuarioser: UsuarioService)
+    private _CargarSc: CargarjsTemplatesService, private router : Router, private enviodatosService: EnvioDatosService, private usuarioser: UsuarioService)
   {
       _CargarSc.carga_apexcharts(["apexcharts.min"])
       _CargarSc.carga_boostrap(["bootstrap.bundle.min"])
@@ -115,5 +117,23 @@ goToRegisterInscripcion($event: any) :void{
           }
         });
       }
+    }
+
+    Cerrarsesion() {
+      //pregunta de verificacion
+      Swal.fire({
+        icon: 'warning',
+        title: '¿Está seguro?',
+        text: '¿Desea cerrar sesión?',
+        showCancelButton: true,
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire('¡Éxito!', 'Gracias por visitarnos', 'success');
+          this.enviodatosService.setCerrarsesion(true)
+          this.router.navigate([''])
+        }
+      });
     }
 }

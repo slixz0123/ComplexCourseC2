@@ -8,7 +8,7 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
     idCurso: any=0;
     fichaIncripcion: FichaInscripcion=new FichaInscripcion();
     valid:any;
-
+    Cerrar:boolean=false;
     setIdCurso(id: any) {
       this.idCurso = id;
     }
@@ -19,5 +19,9 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
 
     setvalid(vali:any){
       this.valid=vali;
+    }
+
+    setCerrarsesion(opcion:any){
+      this.Cerrar=opcion;
     }
   }

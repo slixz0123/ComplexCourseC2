@@ -160,7 +160,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>USARIO INGRESADO</h6>
-              <span>rol del usuario</span>
+              <span>Rol Administrador</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -177,7 +177,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="index.html">
+              <a class="dropdown-item d-flex align-items-center" (click)="Cerrarsesion()">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Cerrar Sesión</span>
               </a>
@@ -223,7 +223,7 @@
         </ul>
       <li class="nav-heading">Pages</li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" (click)="Cerrarsesion()">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Cerrar sesión</span>
         </a>

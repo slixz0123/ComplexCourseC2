@@ -5,6 +5,7 @@ import {Curso} from 'src/app/Core/models/curso'
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
+import { EnvioDatosService } from 'src/app/shared/Services/envioDatos.service';
 
 @Component({
   selector: 'app-bienvenida-home',
@@ -18,7 +19,9 @@ export class BienvenidaHomeComponent implements OnInit{
   constructor(
     private _CargarSc: CargarjsHomeService, private router : Router, 
     private programaCapacitacionService: ProgramaCapacitacionService, 
-    private cursoService: CursoService)
+    private enviardatosService: EnvioDatosService,
+    private cursoService: CursoService
+    )
   {
       
       _CargarSc.carga_boost(["bootstrap"])
@@ -27,8 +30,12 @@ export class BienvenidaHomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.getProgramasCapacitacion();
-    localStorage.clear();
+    if(this.enviardatosService.Cerrar!=false){
+      localStorage.clear();
+    }
   }
+
+
 
   getProgramasCapacitacion(): void {
     this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => {

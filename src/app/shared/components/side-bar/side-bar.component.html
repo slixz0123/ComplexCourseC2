@@ -1,783 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <!-- Favicons -->
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
+  <!-- Favicons -->
 
-    <!-- Vendor CSS Files -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
 
-    <!-- Template Main CSS File -->
-    <link href="side-bar.component.css" rel="stylesheet" />
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-    <style>
+  <!-- Template Main CSS File -->
+  <link href="side-bar.component.css" rel="stylesheet" />
+
+  <style>
+    #sidebarToggle {
+      display: none;
+    }
+
+    @media only screen and (max-width: 1080px) {
       #sidebarToggle {
-        display: none;
+        display: block;
       }
+    }
+  </style>
+</head>
 
-      @media only screen and (max-width: 1080px) {
-        #sidebarToggle {
-          display: block;
-        }
-      }
-    </style>
-  </head>
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a class="logo d-flex align-items-center">
+        <img
+          src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
+          alt="" />
+        <span class="d-none d-lg-block">TecAzuay</span>
+      </a>
+      <button id="sidebarToggle" class="btn btn-primary">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+    <!-- End Logo -->
 
-  <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center">
-      <div class="d-flex align-items-center justify-content-between">
-        <a class="logo d-flex align-items-center">
-          <img
-            src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
-            alt=""
-          />
-          <span class="d-none d-lg-block">TecAzuay</span>
+    <div class="search-bar"></div>
+    <!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <!-- End Search Icon-->
+
+
+        <!-- End Notification Nav -->
+
+        <li class="nav-item dropdown"></li>
+        <!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-person"></i>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{nombreUsuario}}</span>
+            <span class="user-desc">{{nombreRol}}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>USARIO INGRESADO</h6>
+              <span>Rol de Docente</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="goToeditprofile($event)">
+                <i class="bi bi-person"></i>
+                <span>Mi Perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="Cerrarsesion()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Cerrar Sesión</span>
+              </a>
+            </li>
+          </ul>
+          <!-- End Profile Dropdown Items -->
+        </li>
+        <!-- End Profile Nav -->
+      </ul>
+    </nav>
+    <!-- End Icons Navigation -->
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-item">
+        <a class="nav-link">
+          <i class="bi bi-house"></i>
+          <span> Docente Capacitador</span>
         </a>
-        <button id="sidebarToggle" class="btn btn-primary">
-          <i class="bi bi-list"></i>
-        </button>
-      </div>
-      <!-- End Logo -->
+      </li>
+      <!-- End Dashboard Nav -->
 
-      <div class="search-bar"></div>
-      <!-- End Search Bar -->
-
-      <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-          <li class="nav-item d-block d-lg-none">
-            <a class="nav-link nav-icon search-bar-toggle" href="#">
-              <i class="bi bi-search"></i>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#DocentePerfil-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Perfil Docente</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="DocentePerfil-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToeditprofile($event)">
+              <i class="bi bi-circle"></i><span>Edición Perfil</span>
             </a>
           </li>
-          <!-- End Search Icon-->
-
-          <li class="nav-item dropdown">
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-              <i class="bi bi-bell"></i>
-              <span class="badge bg-primary badge-number">4</span> </a
-            ><!-- End Notification Icon -->
-
-            <ul
-              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
-            >
-              <li class="dropdown-header">
-                Tienes 4 notificaciones
-
-                <a href="#"
-                  ><span class="badge rounded-pill bg-primary p-2 ms-2"
-                    >View all</span
-                  ></a
-                >
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li class="notification-item">
-                <i class="bi bi-exclamation-circle text-warning"></i>
-                <div>
-                  <h4>Lorem Ipsum</h4>
-                  <p>Quae dolorem earum veritatis oditseno</p>
-                  <p>30 min. ago</p>
-                </div>
-              </li>
-
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li class="notification-item">
-                <i class="bi bi-x-circle text-danger"></i>
-                <div>
-                  <h4>Atque rerum nesciunt</h4>
-                  <p>Quae dolorem earum veritatis oditseno</p>
-                  <p>1 hr. ago</p>
-                </div>
-              </li>
-
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li class="notification-item">
-                <i class="bi bi-check-circle text-success"></i>
-                <div>
-                  <h4>Sit rerum fuga</h4>
-                  <p>Quae dolorem earum veritatis oditseno</p>
-                  <p>2 hrs. ago</p>
-                </div>
-              </li>
-
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li class="notification-item">
-                <i class="bi bi-info-circle text-primary"></i>
-                <div>
-                  <h4>Dicta reprehenderit</h4>
-                  <p>Quae dolorem earum veritatis oditseno</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </li>
-
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li class="dropdown-footer">
-                <a href="#">Show all notifications</a>
-              </li>
-            </ul>
-            <!-- End Notification Dropdown Items -->
+          <li>
+            <a (click)="goToprofile($event)">
+              <i class="bi bi-circle"></i><span>Vista Perfil</span>
+            </a>
           </li>
-          <!-- End Notification Nav -->
-
-          <li class="nav-item dropdown"></li>
-          <!-- End Messages Nav -->
-
-          <li class="nav-item dropdown pe-3">
-            <a
-              class="nav-link nav-profile d-flex align-items-center pe-0"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <i class="bi bi-person"></i>
-              <span class="d-none d-md-block dropdown-toggle ps-2">{{nombreUsuario}}</span>
-                <span class="user-desc">{{nombreRol}}</span>
-               </a
-            ><!-- End Profile Iamge Icon -->
-
-            <ul
-              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
-            >
-              <li class="dropdown-header">
-                <h6>USARIO INGRESADO</h6>
-                <span>rol del usuario</span>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a
-                  class="dropdown-item d-flex align-items-center"
-                  (click)="goToeditprofile($event)"
-                >
-                  <i class="bi bi-person"></i>
-                  <span>Mi Perfil</span>
-                </a>
-              </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-
-              <li>
-                <a class="dropdown-item d-flex align-items-center" href="index.html">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Cerrar Sesión</span>
-                </a>
-              </li>
-            </ul>
-            <!-- End Profile Dropdown Items -->
-          </li>
-          <!-- End Profile Nav -->
         </ul>
-      </nav>
-      <!-- End Icons Navigation -->
-    </header>
-    <!-- End Header -->
+      </li>
+      <!-- end perfil -->
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-      <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
-          <a class="nav-link">
-            <i class="bi bi-house"></i>
-            <span> Docente Capacitador</span>
-          </a>
-        </li>
-        <!-- End Dashboard Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#components-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-menu-button-wide"></i><span>Necesidad Curso</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="components-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegisterNed($event)">
-                <i class="bi bi-circle"></i
-                ><span>Registrar Necesidad Curso</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goTo_edit_list_Ned($event)">
-                <i class="bi bi-circle"></i><span>Editar/Listar Necesidad Curso</span>
-              </a>
-            </li>
-            
-          </ul>
-        </li>
-        <!-- termino necesidad Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#forms-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-journal-text"></i><span>Sílabo Del Curso</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="forms-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegistersilab($event)">
-                <i class="bi bi-circle"></i><span>Registrar Sílabo Curso</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goTo_edit_list_silab($event)">
-                <i class="bi bi-circle"></i><span>Editar/Listar Sílabo Curso</span>
-              </a>
-            </li>
-           
-          </ul>
-        </li>
-        <!-- End Forms Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#tables-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-card-list"></i><span>Diseño Curricular</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="tables-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegisterdesing($event)">
-                <i class="bi bi-circle"></i
-                ><span>Registrar Diseño Curricular</span>
-              </a>
-            </li>
-            <li></li>
-          </ul>
-        </li>
-        <!-- termino Diseñso Curricular Nav -->
- <!-- Registro Fotografico Nav -->
- <li class="nav-item">
-  <a
-    class="nav-link collapsed"
-    data-bs-target="#participantes-nav"
-    data-bs-toggle="collapse"
-    href="#"
-  >
-    <i class="bi bi-card-list"></i><span>Participantes</span
-    ><i class="bi bi-chevron-down ms-auto"></i>
-  </a>
-  <ul
-    id="participantes-nav"
-    class="nav-content collapse"
-    data-bs-parent="#sidebar-nav"
-  >
-    <li>
-      <a (click)="goToRegisterparticipante($event)">
-        <i class="bi bi-circle"></i
-        ><span>Registro Participantes</span>
-      </a>
-    </li>
-    <li></li>
-  </ul>
-</li>
-<!-- Termino Registro Fotografico Nav -->
-        <!-- Registro Fotografico Nav -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#photo-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-card-list"></i><span>Registro Fotográfico</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="photo-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegisterPhoto($event)">
-                <i class="bi bi-circle"></i
-                ><span>Evidencia fotográfica del curso impartido</span>
-              </a>
-            </li>
-            <li></li>
-          </ul>
-        </li>
-        <!-- Termino Registro Fotografico Nav -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#icons-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-bar-chart"></i><span>Notas</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="icons-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegisternotas($event)">
-                <i class="bi bi-circle"></i><span>Registrar Notas</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Notas Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#cur-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-bar-chart"></i><span>Mis cursos</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="cur-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goTo_edit_list_notas($event)">
-                <i class="bi bi-circle"></i><span>Ver cursos</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Notas Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#charts-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Asistencia</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="charts-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToRegisterasis($event)">
-                <i class="bi bi-circle"></i><span>Registrar Asistencia</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goTo_edit_list_sis($event)">
-                <i class="bi bi-circle"></i><span>Justificar Asistencia</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#esp-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Áreas y Especialidades</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="esp-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisterarea($event)">
-                <i class="bi bi-circle"></i><span>Registrar Área</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goToregisespecialidad($event)">
-                <i class="bi bi-circle"></i><span>Registrar Especialidad</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#ent-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Entorno de Aprendizaje</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="ent-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisentorno($event)">
-                <i class="bi bi-circle"></i
-                ><span>Registrar Entorno de Aprendizaje</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#days-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Días</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="days-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisdays($event)">
-                <i class="bi bi-circle"></i><span>Registrar días</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goTo_edit_list_days($event)">
-                <i class="bi bi-circle"></i><span>Listar/Editar días</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#mecanismo-eva-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Mecanismos de evaluación</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="mecanismo-eva-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregistermecanismos($event)">
-                <i class="bi bi-circle"></i><span>Registrar Mecanismos</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goToeditDetalleME($event)">
-                <i class="bi bi-circle"></i><span>Detalle del Mecanismo</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#cap-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Curso Capacitación</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="cap-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregiscursoCap($event)">
-                <i class="bi bi-circle"></i><span>Registrar Capacitación</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goToeditcursoCap($event)">
-                <i class="bi bi-circle"></i
-                ><span>Lista Cursos/Capacitación</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#DocentePerfil-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Perfil Docente</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="DocentePerfil-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToeditprofile($event)">
-                <i class="bi bi-circle"></i><span>Edición Perfil</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goToprofile($event)">
-                <i class="bi bi-circle"></i><span>Vista Perfil</span>
-              </a>
-            </li>
-          </ul>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#cur-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Mis cursos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="cur-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goTo_edit_list_notas($event)">
+              <i class="bi bi-circle"></i><span>Ver cursos</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End mis Curso Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Notas</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisternotas($event)">
+              <i class="bi bi-circle"></i><span>Registrar Notas</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Notas Nav -->
 
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#modalidad-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Modalidad Curso</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="modalidad-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisModalidadCur($event)">
-                <i class="bi bi-circle"></i><span>Registro Nueva Modalidad</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Asistencia</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisterasis($event)">
+              <i class="bi bi-circle"></i><span>Registrar Asistencia</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_sis($event)">
+              <i class="bi bi-circle"></i><span>Justificar Asistencia</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+      <!-- Registro Fotografico Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#participantes-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Participantes</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="participantes-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisterparticipante($event)">
+              <i class="bi bi-circle"></i><span>Registro Participantes</span>
+            </a>
+          </li>
+          <li></li>
+        </ul>
+      </li>
+      <!-- Termino Registro Fotografico Nav -->
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#tipoCur-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Tipo de Curso</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="tipoCur-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisTipoCur($event)">
-                <i class="bi bi-circle"></i><span>Registro Nuevo Tipo</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Necesidad Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisterNed($event)">
+              <i class="bi bi-circle"></i><span>Registrar Necesidad Curso</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_Ned($event)">
+              <i class="bi bi-circle"></i><span>Editar/Listar Necesidad Curso</span>
+            </a>
+          </li>
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#horario-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Horarios Curso</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="horario-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisHorario($event)">
-                <i class="bi bi-circle"></i><span>Registrar Horario</span>
-              </a>
-            </li>
-            <li>
-              <a (click)="goToregisHorarioCur($event)">
-                <i class="bi bi-circle"></i><span>Asignar Horario a Curso</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+        </ul>
+      </li>
+      <!-- termino necesidad Nav -->
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#fichaEva-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Fichas de Evaluación</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="fichaEva-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToregisFichaEva($event)">
-                <i class="bi bi-circle"></i><span>Registrar Ficha Evaluación</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Sílabo Del Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegistersilab($event)">
+              <i class="bi bi-circle"></i><span>Registrar Sílabo Curso</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_silab($event)">
+              <i class="bi bi-circle"></i><span>Editar/Listar Sílabo Curso</span>
+            </a>
+          </li>
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#reglamento-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Reglamento Capacitaciones</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="reglamento-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToverReglamento($event)">
-                <i class="bi bi-circle"></i><span>Ver Reglamento</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+        </ul>
+      </li>
+      <!-- End Forms Nav -->
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#certifi-nav"
-            data-bs-toggle="collapse"
-            href="#"
-          >
-            <i class="bi bi-gem"></i><span>Certificados</span
-            ><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul
-            id="certifi-nav"
-            class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
-            <li>
-              <a (click)="goToverCertificado($event)">
-                <i class="bi bi-circle"></i><span>Registro Certificados</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Diseño Curricular</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisterdesing($event)">
+              <i class="bi bi-circle"></i><span>Registrar Diseño Curricular</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToregisentorno($event)">
+              <i class="bi bi-circle"></i><span>Registrar Entorno de Aprendizaje</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToregistermecanismos($event)">
+              <i class="bi bi-circle"></i><span>Registrar Mecanismos</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToeditDetalleME($event)">
+              <i class="bi bi-circle"></i><span>Detalle del Mecanismo</span>
+            </a>
+          </li>
+        </ul>
 
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            data-bs-target="#chacrts-nav"
-            data-bs-toggle="collapse"
-            href="#"
-            (click)="goToReportes($event)"
-          >
-            <i class="bi bi-award"></i><span>Reportes</span>
-          </a>
-        </li>
+      </li>
+      <!-- termino Diseñso Curricular Nav -->
 
-        <!-- End Charts Nav -->
 
-        <li class="nav-heading">Pages</li>
+<!-- 
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#ent-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Entorno de Aprendizaje</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+   
+      </li> -->
+      <!-- End Charts Nav -->
 
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="index.html">
-            <i class="bi bi-box-arrow-in-right"></i>
-            <span>Cerrar Sesión</span>
-          </a>
-        </li>
-        <!-- End Login Page Nav -->
-      </ul>
-    </aside>
-    <!-- End Sidebar-->
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-  </body>
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#mecanismo-eva-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Mecanismos de evaluación</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="mecanismo-eva-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+ 
+        </ul>
+      </li> -->
+      <!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#cap-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Curso Capacitación</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="cap-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregiscursoCap($event)">
+              <i class="bi bi-circle"></i><span>Registrar Capacitación</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToeditcursoCap($event)">
+              <i class="bi bi-circle"></i><span>Lista Cursos/Capacitación</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+      
+      <!-- Registro Fotografico Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#photo-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-card-list"></i><span>Registro Fotográfico</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="photo-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToRegisterPhoto($event)">
+              <i class="bi bi-circle"></i><span>Evidencia fotográfica del curso impartido</span>
+            </a>
+          </li>
+          <li></li>
+        </ul>
+      </li>
+      <!-- Termino Registro Fotografico Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#horario-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Horarios Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="horario-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisHorario($event)">
+              <i class="bi bi-circle"></i><span>Registrar Horario</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToregisHorarioCur($event)">
+              <i class="bi bi-circle"></i><span>Asignar Horario a Curso</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#days-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Días</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="days-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisdays($event)">
+              <i class="bi bi-circle"></i><span>Registrar días</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goTo_edit_list_days($event)">
+              <i class="bi bi-circle"></i><span>Listar/Editar días</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#esp-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Áreas y Especialidades</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="esp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisterarea($event)">
+              <i class="bi bi-circle"></i><span>Registrar Área</span>
+            </a>
+          </li>
+          <li>
+            <a (click)="goToregisespecialidad($event)">
+              <i class="bi bi-circle"></i><span>Registrar Especialidad</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#modalidad-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Modalidad Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="modalidad-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisModalidadCur($event)">
+              <i class="bi bi-circle"></i><span>Registro Nueva Modalidad</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tipoCur-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Tipo de Curso</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tipoCur-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisTipoCur($event)">
+              <i class="bi bi-circle"></i><span>Registro Nuevo Tipo</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#fichaEva-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Fichas de Evaluación</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="fichaEva-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToregisFichaEva($event)">
+              <i class="bi bi-circle"></i><span>Registrar Ficha Evaluación</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#reglamento-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Reglamento Capacitaciones</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="reglamento-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToverReglamento($event)">
+              <i class="bi bi-circle"></i><span>Ver Reglamento</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#certifi-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Certificados</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="certifi-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a (click)="goToverCertificado($event)">
+              <i class="bi bi-circle"></i><span>Registro Certificados</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#chacrts-nav" data-bs-toggle="collapse" href="#"
+          (click)="goToReportes($event)">
+          <i class="bi bi-award"></i><span>Reportes</span>
+        </a>
+      </li>
+
+      <!-- End Charts Nav -->
+
+      <li class="nav-heading">Pages</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" (click)="Cerrarsesion()">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Cerrar Sesión</span>
+        </a>
+      </li>
+      <!-- End Login Page Nav -->
+    </ul>
+  </aside>
+  <!-- End Sidebar-->
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+</body>
+
 </html>

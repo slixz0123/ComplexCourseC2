@@ -25,8 +25,8 @@
     </div>
 </div>
 <div>
-<div class="container" style="background-color: #ffffff;">
-    <div class="container2" *ngIf="showContainer2">
+<div class="container" style="background-color: #ffffff;"  *ngIf="showContainer2">
+    <div class="container2">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
@@ -61,10 +61,10 @@
 
     </div>
 </div>
-<div class="containerj" style="background-color: #ffffff;">
+<div class="containerj" style="background-color: #ffffff;" *ngIf="showContainer3">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <div class="container" *ngIf="showContainer3">
+    <div class="container" >
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
@@ -100,8 +100,8 @@
         </table>
     </div>
 </div>
-<div class="containerj" style="background-color: #ffffff;">
-    <div class="container2" *ngIf="showContainer4">
+<div class="containerj" style="background-color: #ffffff;" *ngIf="showContainer4">
+    <div class="container2" >
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
@@ -153,8 +153,8 @@
         </div>
     </div>
 </div>
-<div class="containeru" style="background-color: #ffffff;">
-    <div class="container3" *ngIf="showContainer5">
+<div class="containeru" style="background-color: #ffffff;" *ngIf="showContainer5">
+    <div class="container3" >
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb my-nav">
             <ol class="breadcrumb">
@@ -194,9 +194,6 @@
                     <input type="number" class="form-control" id="horasFalta"
                         [(ngModel)]="asistenciaSeleccionada.asiNumfaltas" [max]="valorMaximo"
                         (change)="validarHorasFalta()">
-
-
-
                     <button class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
                 </div>
             </div>
