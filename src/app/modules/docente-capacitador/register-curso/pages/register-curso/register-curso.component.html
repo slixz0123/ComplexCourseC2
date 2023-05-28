@@ -1,3 +1,4 @@
+<br>
 <div class="container" style="background-color: #ffffff;">
   <div class="mt-4">
     <h3 style="text-align: center;">{{ isNew ? 'Nuevo Curso' : 'Editar Curso' }}</h3>
@@ -45,14 +46,12 @@
             <div class="col-md-4">
               <label>Número de horas del curso</label>
               <input type="number" class="form-control" formControlName="curNumHoras"
-                [(ngModel)]="cursoSeleccionado.curNumhoras" required>
-              <small class="text-danger" *ngIf="!curFechaIValido">Campo requerido. El número de horas debe ser mayor a
-                0.</small>
-              <small class="text-danger"
-                *ngIf="cursoForm.controls['curNumHoras'].errors && cursoForm.controls['curNumHoras'].touched">
+                [(ngModel)]="cursoSeleccionado.curNumhoras" required min="0">
+              <small class="text-danger" *ngIf="!curFechaIValido">Campo requerido. El número de horas debe ser mayor a 0.</small>
+              <small class="text-danger" *ngIf="cursoForm.controls['curNumHoras'].errors && cursoForm.controls['curNumHoras'].touched">
                 Número de horas inválido. Ingrese un número entero mayor a 0.
               </small>
-            </div>
+            </div>            
           </div>
 
           <br>

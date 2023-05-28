@@ -1,10 +1,11 @@
-<div class="container">
+<br>
+<div class="container1">
     <div class="main-body">
         <div class="row">
             <div class="col-lg-4">
 
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="https://e7.pngegg.com/pngimages/575/29/png-clipart-computer-icons-instructor-led-training-course-education-toolbox-miscellaneous-blue.png"
                                 alt="Admin" class="rounded-circle" width="150">
@@ -16,7 +17,7 @@
                                         d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
                                     <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
                                 </svg>
-                                <h4>Programa de Capacitacion</h4>
+                                <h4>Programa de Capacitación</h4>
                                 <p class="text-secondary mb-1"></p>
                             </div>
                         </div>
@@ -26,7 +27,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);">
                         <h4 style="text-align: center;">Registro</h4>
                         <br>
                         <form>
@@ -36,49 +37,62 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <input type="text" class="form-control" id="inputCedula"
-                                        placeholder="Ingrese el nombre del programa" name="cedula"
+                                        placeholder="Ingrese el nombre del programa" name="nombre"
                                         [(ngModel)]="programaCapacitacion.pcaNombre">
+                                        <small class="text-danger" *ngIf="!curNombreValido">Nombre inválido. Debe ingresar el
+                                            nombre del programa.</small>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Fechas de Inicio</h6>
+                                    <h6 class="mb-0">Fecha de Inicio</h6>
                                 </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="date" class="form-control" id="inputApellido"
-                                        placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
-                                        [(ngModel)]="programaCapacitacion.pcaFechainicio">
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" id="inputApellido"
+                                            placeholder="Ingrese la fecha de inicio" name="fecha_inicio"
+                                            [(ngModel)]="programaCapacitacion.pcaFechainicio">
+                                        <small class="text-danger" *ngIf="!curFechaIValido">Fecha de inicio inválida. La
+                                            fecha debe ser mayor a la fecha actual.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Fecha de Finalización</h6>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" id="inputApellido"
+                                            placeholder="Ingrese la fecha de finalización" name="fecha_fin"
+                                            [(ngModel)]="programaCapacitacion.pcaFechafin">
+                                        <small class="text-danger" *ngIf="!curFechaFValido">Fecha de finalización
+                                            inválida. La fecha debe ser mayor a la fecha inicial.</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Fechas de Finalización</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="date" class="form-control" id="inputApellido"
-                                        placeholder="Ingrese la fecha de finalización" name="fecha_fin"
-                                        [(ngModel)]="programaCapacitacion.pcaFechafin">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Proceso del Curso</h6>
+                                    <h6 class="mb-0">Proceso del Programa</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select id="inputProceso" class="form-control" name="sexo"
                                         [(ngModel)]="programaCapacitacion.pcaProceso">
-                                        <option selected>Seleccione una opción...</option>
-                                        <option>Proximamente</option>
+                                        <option disabled selected>Seleccione una opción...</option>
+                                        <option>Próximamente</option>
                                         <option>En proceso</option>
                                         <option>Finalizado</option>
                                     </select>
+                                    <small class="text-danger" *ngIf="!procesoValido">Campo requerido. Debes seleccionar
+                                        un proceso.</small>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <Span></Span> <button (click)="onSubmit()">Guardar Programa</button>
+                                    <Span></Span> <button class="btn btn-primary" (click)="onSubmit()">Guardar
+                                        Programa</button>
                                     <!-- <Span></Span> <button (click)="mostrarDatos()">Ver datos</button> -->
                                 </div>
                             </div>
@@ -94,27 +108,26 @@
 
 <br><br>
 <!-- Tablaaaaaa -->
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Fecha Inicio</th>
-            <th scope="col">Fecha Fin</th>
-            <th scope="col">Proceso</th>
-            <th scope="col">Estado</th>
-            <th scope="col">editar</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let programa of programasList">
-            <th>{{ programa.pcaId }}</th>
-            <td>{{ programa.pcaNombre }}</td>
-            <td>{{ programa.pcaFechainicio | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ programa.pcaFechafin | date: 'dd/MM/yyyy' }}</td>
-            <td>{{ programa.pcaProceso }}</td>
-            <td>{{ programa.pcaEstado }}</td>
-            <td><button type="button" class="btn btn-primary" (click)="editarPrograma(programa)">Editar</button></td>
-        </tr>
-    </tbody>
-</table>
+<div class="container" style="background-color: #ffffff;">
+    <table class="table">
+        <thead>
+            <tr class="bg-primary text-light">
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha Inicio</th>
+                <th scope="col">Fecha Fin</th>
+                <th scope="col">Proceso</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let programa of programasList">
+                <td>{{ programa.pcaNombre }}</td>
+                <td>{{ programa.pcaFechainicio | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ programa.pcaFechafin | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ programa.pcaProceso }}</td>
+                <td><button type="button" class="btn btn-primary" (click)="editarPrograma(programa)">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
