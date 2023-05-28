@@ -14,7 +14,7 @@ export class EditDtsParticipanteComponent {
   id_persona: any;
   constructor(
     private personaService: PersonaService
-  ) {  }
+  ) { }
   ngOnInit(): void {
     //id de persona inicializada
     this.id_persona = localStorage.getItem('id_persona');
@@ -88,10 +88,10 @@ export class EditDtsParticipanteComponent {
 
   validarcampos() {
     //Validar nombre, apellido y etnia
-    const campo1Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s]+$/;
+    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s]+$/;
     this.valnombre = this.persona && typeof this.persona.nombre === 'string' && campo1Regex.test(this.persona.nombre);
     this.valapellido = this.persona && typeof this.persona.apellido === 'string' && campo1Regex.test(this.persona.apellido);
-    this.valetnia = this.persona && typeof this.persona.etnia === 'string' && campo1Regex.test(this.persona.etnia);
+    // this.valetnia = this.persona && typeof this.persona.etnia === 'string' && campo1Regex.test(this.persona.etnia);
     //validar direccion
     const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
     this.valdireccion = this.persona && typeof this.persona.direccion === 'string' && campo2Regex.test(this.persona.direccion);
@@ -124,6 +124,14 @@ export class EditDtsParticipanteComponent {
       this.onSubmit();
     } else {
       Swal.fire('¡Error!', 'Ingrese los campos correctos.', 'error');
+    }
+    //Validar etnia
+    if (this.persona.etnia === "Mestizo" || this.persona.etnia === "Indígena" ||
+      this.persona.etnia === "Blanco" || this.persona.etnia === "Afroecuatoriano"
+      || this.persona.etnia === "Otro") {
+      this.valetnia = true
+    } else {
+      this.valetnia = false
     }
   }
 
@@ -174,7 +182,7 @@ export class EditDtsParticipanteComponent {
         if (this.persona.fecha_nacimiento) {
           const fechaInicio = new Date(this.persona.fecha_nacimiento);
           const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
-          this.persona.fecha_nacimiento=fechaInicioUTC;
+          this.persona.fecha_nacimiento = fechaInicioUTC;
         } else { }
         //Actualiza la persona
         this.personaService.updatePersona(this.persona, this.id_persona).subscribe(
@@ -236,7 +244,5 @@ export class EditDtsParticipanteComponent {
     //carga
     this.persona.telefono = telefonoFormateado;
   }
-
-
 
 }

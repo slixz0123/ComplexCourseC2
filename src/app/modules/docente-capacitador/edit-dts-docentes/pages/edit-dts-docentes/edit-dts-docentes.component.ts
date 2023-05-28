@@ -88,7 +88,7 @@ export class EditDtsDocentesComponent {
 
   validarcampos() {
     //Validar nombre, apellido y etnia
-    const campo1Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s]+$/;
+    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s]+$/;
     this.valnombre = this.persona && typeof this.persona.nombre === 'string' && campo1Regex.test(this.persona.nombre);
     this.valapellido = this.persona && typeof this.persona.apellido === 'string' && campo1Regex.test(this.persona.apellido);
     this.valetnia = this.persona && typeof this.persona.etnia === 'string' && campo1Regex.test(this.persona.etnia);

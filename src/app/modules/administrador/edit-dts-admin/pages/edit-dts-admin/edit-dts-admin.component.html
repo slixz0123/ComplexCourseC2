@@ -1,3 +1,4 @@
+<br>
 <div class="container">
     <div class="main-body">
         <div class="row">
@@ -6,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
+                            <img src="https://cdn-icons-png.flaticon.com/512/4400/4400471.png" alt="Admin"
                                 class="rounded-circle" width="150">
                             <div class="mt-3">
 
@@ -139,8 +140,13 @@
                                     <h6 class="mb-0">Etnia</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.etnia">
+                                    <select id="inputEtnia" class="form-control" name="etnia" [(ngModel)]="persona.etnia">
+                                        <option>Mestizo</option>
+                                        <option>Indígena</option>
+                                        <option>Blanco</option>
+                                        <option>Afroecuatoriano</option>
+                                        <option>Otro</option>
+                                    </select>
                                     <small class="text-danger" *ngIf="!valetnia">Campo requerido.</small>
                                 </div>
                             </div>

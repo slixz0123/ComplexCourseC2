@@ -139,8 +139,13 @@
                                     <h6 class="mb-0">Etnia</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" id="inputEtnia"
-                                        placeholder="Ingrese su etnia" name="etnia" [(ngModel)]="persona.etnia">
+                                    <select id="inputEtnia" class="form-control" name="etnia" [(ngModel)]="persona.etnia">
+                                        <option>Mestizo</option>
+                                        <option>Indígena</option>
+                                        <option>Blanco</option>
+                                        <option>Afroecuatoriano</option>
+                                        <option>Otro</option>
+                                    </select>
                                     <small class="text-danger" *ngIf="!valetnia">Campo requerido.</small>
                                 </div>
                             </div>
