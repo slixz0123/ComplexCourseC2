@@ -91,7 +91,7 @@
           </div>
           <div class="col-3">
             <label for="telefono">Telefono</label>
-            <input id="telefono" type="text"  (input)="filtrarNumeros($event)" minlength="10" maxlength="10" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
+            <input id="telefono" type="text"  (input)="filtrarNumeros($event)" pattern="[0-9]*" placeholder="Telefono" [(ngModel)]="signupRequest.persona.telefono" name="telefono" required>
           </div>
           <div class="col-3">
             <label for="nivelintruccion">Nivel de instrucción</label>
