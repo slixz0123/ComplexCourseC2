@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Curso } from 'src/app/Core/models/curso';
 import { Dias } from 'src/app/Core/models/dias';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import Swal from'sweetalert2';
@@ -18,6 +20,7 @@ export class EditListNecesidadComponent {
   selectedId: Dias = new Dias();
 
   necesidadcurs?: NecesidadCurso[];
+  curs: Curso[] = []; 
   necesidad: NecesidadCurso = new NecesidadCurso(); 
   selectedIdcur: NecesidadCurso = new NecesidadCurso();
 
@@ -54,7 +57,7 @@ export class EditListNecesidadComponent {
     this.selectedIdcur.ncuId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
   }
 
-  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder){
+  constructor( private diaserv: DiasService ,private necesidadserv:NecesidadCursoService,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder,private cursoserv:CursoService){
     _CargarSc.carga3(["modal"])
   }
   sendData3(selectedValue2: number) {
@@ -114,12 +117,25 @@ selecnece(nece: NecesidadCurso,id:number) {
 }
 
 ngOnInit(): void {
- 
-  this.necesidadserv.getAll().subscribe(NecesidadCurso => {
+  const id = Number(localStorage.getItem('id_persona'));
+
+this.cursoserv.getAll().subscribe(NecesidadCurso => {
+  console.log(NecesidadCurso)
+  this.curs = NecesidadCurso.filter(
+    NecesidadCurso => NecesidadCurso.curEstado !== false && NecesidadCurso.pcursos.id_persona !== null && Number(NecesidadCurso.pcursos.id_persona) === id
+  );
+
+  this.necesidadserv.getAll().subscribe(nece => {
+    console.log(nece)
+    this.necesidadcurs = nece.filter(
      
-    this.necesidadcurs = NecesidadCurso.filter(NecesidadCurso => NecesidadCurso.ncuEstado !== false);
-   
+      nece => nece.ncuEstado !== false && this.curs.some(curso => curso.curId === nece.ncuId)
+      
+    );
   });
+});
+
+  
  
   this.neceForm = this.formBuilder.group({
     ncuLugardicta: ['', Validators.required],

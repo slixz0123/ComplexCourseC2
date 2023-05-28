@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Dias } from 'src/app/Core/models/dias';
 import { CargarjsTemplatesService } from 'src/app/shared/Services/cargarjsTemplates.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
-
+import Swal from 'sweetalert2';
 export interface PeriodicElement {
 
 }
@@ -50,18 +50,31 @@ export class RegisterDiasComponent {
   }
 
   registradia() {
-    this.dias.diaEstado=true 
-    this.diasservice.post(this.dias).subscribe(
-      data => {
-        console.log( data);
-      
-         this.diasForm.reset();   
-      },
-      error => {
-        console.error(error);
-      }
-
-    )
+    if (this.diasForm.valid) {
+      this.dias.diaEstado = true;
+      this.diasservice.post(this.dias).subscribe(
+        data => {
+          console.log(data);
+          this.diasForm.reset();
+  
+          Swal.fire({
+            title: 'Día guardado',
+            text: 'El día se ha guardado correctamente',
+            icon: 'success'
+          });
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    } else {
+      Swal.fire({
+        title: 'Error de validación',
+        text: 'Por favor, corrija los errores del formulario no puede ingresar numeros ',
+        icon: 'error'
+      });
+    }
+  }
 
 }
 
@@ -69,6 +82,3 @@ export class RegisterDiasComponent {
 
 
 
-
-
-}

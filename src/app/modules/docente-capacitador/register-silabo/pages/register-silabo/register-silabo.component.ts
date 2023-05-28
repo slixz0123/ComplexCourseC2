@@ -138,7 +138,6 @@ agregarVinetas2(rowIndex: number) {
 }
 
 
-  
 
 
 
@@ -162,77 +161,124 @@ agregarVinetas2(rowIndex: number) {
 
 
   ngOnInit(): void {
+      
+        this.datossilabo.dsiDescripcioncurso= '';
+        this.datossilabo.dsiPrerrequisitos = '';
+        this.datossilabo.dsiObjetivogeneralc = '';
+        this.datossilabo.dsiBibliografia = '';
+        this.datossilabo.dsiIdentificador = '';
+        this.datossilabo.dsiEstado = true;     
+//recurso didactico
+        this.recurdidactico.rdiMateaudiovisula = '';    
+        this.recurdidactico.rdiMateconvencional = '';     
+        this.recurdidactico.rdiEstado = true;      
+// horas aprendizaje
+        this.horasapren.hapPracticas=0;
+        this.horasapren.hapDocencia=0;
+        this.horasapren.hapTrabajoAutonomo=0;
+        this.horasapren.hapEstado=true;
+        //
+       
+     
 
-    this.datossilabo.dsiDescripcioncurso= '';
-    this.datossilabo.dsiPrerrequisitos = '';
-    this.datossilabo.dsiObjetivogeneralc = '';
-    this.datossilabo.dsiBibliografia = '';
-    this.datossilabo.dsiIdentificador = '';
-    this.datossilabo.dsiEstado = true;     
-    // recurso didactico
-    this.recurdidactico.rdiMateaudiovisula = '';    
-    this.recurdidactico.rdiMateconvencional = '';     
-    this.recurdidactico.rdiEstado = true;      
-    // horas aprendizaje
-    this.horasapren.hapPracticas=0;
-    this.horasapren.hapDocencia=0;
-    this.horasapren.hapTrabajoAutonomo=0;
-    this.horasapren.hapEstado=true;
+        this.silaboForm = this.formbuilder.group({
+       
+          dsiDescripcioncurso: ['', Validators.required],
+          dsiPrerrequisitos: ['', Validators.required],
+          dsiObjetivogeneralc: ['', Validators.required],
+          dsiIdentificador: ['', Validators.required],
+          dsiBibliografia: ['', Validators.required],
+          dsiEstado: ['', Validators.required],
+          //recurdida
+          rdiMateaudiovisula: ['', Validators.required],
+          rdiMateconvencional: ['', Validators.required],
+          rdiEstado: ['', Validators.required],
+          //horas aprendi
+          hapPracticas: ['', Validators.required],
+          hapDocencia: ['', Validators.required],
+          hapTrabajoAutonomo: ['', Validators.required],
+          // evaluacio epra
+          eraTipoactividades: ['', Validators.required],
+          eraCantactvidades: ['', Validators.required],
+          eraPorcentcalificacion: ['', Validators.required],
+          eraTotal: [{value: '', disabled: true}],
+          //contenidos del curso 
+          ccuId: ['', Validators.required],
+          ccuDia: ['', Validators.required],
+          ccuContenidos :['', Validators.required],
+          ccuHorasclase: ['', Validators.required],
+          ccuActividaddocencia: ['', Validators.required],
+          ccuHoraspractica: ['', Validators.required],
+          ccuActividadpractica: ['', Validators.required],
+          ccuHorastrabajoauto: ['', Validators.required],
+          ccuActividadtrabajoauto: ['', Validators.required],
+          ccuObservaciones: ['', Validators.required],
+          ccuEstado: ['', Validators.required],
+          //estrategia metodologica
+          emeId: ['', Validators.required],
+          emeEstrategia: ['', Validators.required],
+          emeFinalidad: ['', Validators.required],
+          emeEstado: ['', Validators.required]
+        
+         
+         
 
-    this.silaboForm = this.formbuilder.group({
-      dsiDescripcioncurso: ['', Validators.required],
-      dsiPrerrequisitos: ['', Validators.required],
-      dsiObjetivogeneralc: ['', Validators.required],
-      dsiIdentificador: ['', Validators.required],
-      dsiBibliografia: ['', Validators.required],
-      dsiEstado: ['', Validators.required],
-      //recurdida
-      rdiMateaudiovisula: ['', Validators.required],
-      rdiMateconvencional: ['', Validators.required],
-      rdiEstado: ['', Validators.required],
-      //horas aprendi
-      hapPracticas: ['', Validators.required],
-      hapDocencia: ['', Validators.required],
-      hapTrabajoAutonomo: ['', Validators.required],
-      // evaluacio epra
-      eraTipoactividades: ['', Validators.required],
-      eraCantactvidades: ['', Validators.required],
-      eraPorcentcalificacion: ['', Validators.required],
-      eraTotal: [{value: '', disabled: true}],
-      //contenidos del curso 
-      ccuId: ['', Validators.required],
-      ccuDia: ['', Validators.required],
-      ccuContenidos :['', Validators.required],
-      ccuHorasclase: ['', Validators.required],
-      ccuActividaddocencia: ['', Validators.required],
-      ccuHoraspractica: ['', Validators.required],
-      ccuActividadpractica: ['', Validators.required],
-      ccuHorastrabajoauto: ['', Validators.required],
-      ccuActividadtrabajoauto: ['', Validators.required],
-      ccuObservaciones: ['', Validators.required],
-      ccuEstado: ['', Validators.required],
-      //estrategia metodologica
-      emeId: ['', Validators.required],
-      emeEstrategia: ['', Validators.required],
-      emeFinalidad: ['', Validators.required],
-      emeEstado: ['', Validators.required]
-    });
+        });
+        this.silaboForm = new FormGroup({
+         
+          dsiDescripcioncurso: new FormControl(),
+          dsiPrerrequisitos: new FormControl(),
+          dsiObjetivogeneralc: new FormControl(),
+          dsiIdentificador: new FormControl(),
+          dsiBibliografia: new FormControl(),
+          dsiEstado: new FormControl(),
+          //recurdida
+          rdiMateaudiovisula: new FormControl(),
+          rdiMateconvencional: new FormControl(),
+          rdiEstado: new FormControl(),
+          //horas aprendi
+          hapPracticas: new FormControl(),
+          hapDocencia: new FormControl(),
+          hapTrabajoAutonomo: new FormControl(),
 
-    const eraCantactvidadesControl = this.silaboForm.get('eraCantactvidades');
-    const eraPorcentcalificacionControl = this.silaboForm.get('eraPorcentcalificacion');
-    const eraTotalControl = this.silaboForm.get('eraTotal');
+        //RESULTYADOS DE APRENDIZAJE 
+        rapUnidadcompe: new FormControl(),
+        rapElementoscomp: new FormControl(),
+        rapResultadosaprenactiv: new FormControl(),
+        rapFormaevidenciar: new FormControl(),
+        //evaluacion epra 
+        eraTipoactividades: new FormControl(),
+          eraCantactvidades: new FormControl(),
+          eraPorcentcalificacion: new FormControl(),
+          eraTotal: new FormControl(),
+      // contenidos del curso 
 
-    if (eraCantactvidadesControl && eraPorcentcalificacionControl && eraTotalControl) {
-      combineLatest([
-        eraCantactvidadesControl.valueChanges.pipe(startWith(0)),
-        eraPorcentcalificacionControl.valueChanges.pipe(startWith(0))
-      ]).subscribe(([eraCantactvidades, eraPorcentcalificacion]) => {
-        const total = (+eraCantactvidades || 0) + (+eraPorcentcalificacion || 0);
-        eraTotalControl.setValue(total);
-      });
-    }
-}
+     
+          ccuDia: new FormControl(),
+          ccuContenidos : new FormControl(),
+          ccuHorasclase: new FormControl(),
+          ccuActividaddocencia: new FormControl(),
+          ccuHoraspractica: new FormControl(),
+          ccuActividadpractica: new FormControl(),
+          ccuHorastrabajoauto: new FormControl(),
+          ccuActividadtrabajoauto: new FormControl(),
+          ccuObservaciones: new FormControl(),
+          ccuEstado: new FormControl(),
 
+          //estrategia metodologica 
+
+          emeId: new FormControl(),
+          emeEstrategia: new FormControl(),
+          emeFinalidad: new FormControl(),
+          emeEstado: new FormControl(),
+
+          
+        });
+
+        
+        
+      
+      }
 
       
 
@@ -271,7 +317,22 @@ agregarVinetas2(rowIndex: number) {
         };
         this.evaluacioneprea.push(nuevaFilaepra);
       }
+      eraTotales: number[] = [];
+
+      calcularTotal(i: number) {
+        const actividades = this.evaluacioneprea[i].eraCantactvidades ?? 0;
+        const calificacion = this.evaluacioneprea[i].eraPorcentcalificacion ?? 0;
+        const total = actividades + calificacion;
+        this.evaluacioneprea[i].eraTotal = total;
+        this.eraTotales[i] = total;
+      }
       
+      
+      
+      
+      
+      
+
       // contenidos del curso 
 
       eliminarFilacontenidocurso(index: number) {
@@ -466,6 +527,29 @@ crearsilabo() {
 
       }
     }
+
+//valid
+checkNegative(event: any) {
+  const inputValue = event.target.value;
+
+  if (parseInt(inputValue) < 0) {
+    event.preventDefault();
+    event.target.value = '0';
+    // Opcional: Mostrar una notificación o mensaje de error
+    Swal.fire({
+      title: 'Número inválido',
+      text: 'No se permiten números negativos',
+      icon: 'error'
+    });
+  }
+}
+  
+
+
+
+
+
+
   }
 
 

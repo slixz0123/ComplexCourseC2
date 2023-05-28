@@ -16,7 +16,7 @@
     
       
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -524,12 +524,12 @@
         
             </div>
             <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" (click)="editadia(neceseleccionada,neceseleccionada.ncuId)">Actualizar</button> -->
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary" (click)="editadia(neceseleccionada,neceseleccionada.ncuId)">Actualizar</button> 
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
     <div  style="" class="container mt-2">
         
@@ -581,7 +581,7 @@
             <th class="table-secondary">Cantidade Activididades</th>
             <th class="table-secondary">Porcentaje calificacion</th>
             <th class="table-secondary">Total </th>
-            <th class="table-warning">Editar </th>
+           
             <th class="table-warning">Eliminar </th>
           </tr>
         </thead>
@@ -657,12 +657,9 @@
               <table>
                 <tbody>
                   <tr>
+                  
                     <td>
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selecdatosilab(silabo, silabo.dsiId)">Editar</button>
-                    </td>
-                    <td>
-                      <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" data-target="#Employee">Eliminar</button>
+                      <button id="btnnes" style="padding-left: 25px;padding-right: 25px;" type="button" class="btn btn-primary" (click)="eliminar(silabo.dsiId)" data-target="#Employee">Eliminar</button>
                     </td>
                   </tr>
                 </tbody>

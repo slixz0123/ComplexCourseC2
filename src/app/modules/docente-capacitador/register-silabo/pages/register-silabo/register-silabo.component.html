@@ -1,4 +1,4 @@
-
+<p>register-silabo works!</p>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -35,6 +35,7 @@
                 name="docencia"
                 class="form-control"
                 formControlName="hapDocencia"
+                (input)="checkNegative($event)"
                 [(ngModel)]="horasapren.hapDocencia"
                 
               />
@@ -45,6 +46,7 @@
                 name="practicas"
                 class="form-control"
                 formControlName="hapPracticas"
+                (input)="checkNegative($event)"
                 [(ngModel)]="horasapren.hapPracticas"
               />
               <label for="autonomo" class="form-label">Trabajo Autónomo</label>
@@ -54,6 +56,7 @@
                 name="autonomo"
                 class="form-control"
                 formControlName="hapTrabajoAutonomo"
+                (input)="checkNegative($event)"
                 [(ngModel)]="horasapren.hapTrabajoAutonomo"
               />
             </div>
@@ -217,7 +220,7 @@
               <tr *ngFor="let resultado of contenidosCurso; let i = index" [class.selected]="resultado.ccuId ">
 
                 <td>
-                  <input  style="width: 60px;" type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"
+                  <input  style="width: 60px;" type="number" id="dia" name="dia" class="form-control"  formControlName="ccuDia"   (input)="checkNegative($event)"
                   [(ngModel)]="contenidosCurso[i].ccuDia" />
                 </td>
                 <td>
@@ -237,7 +240,7 @@
                     id="ccuHorasclase"
                     name="ccuHorasclase"
                     class="form-control"
-                    
+                    (input)="checkNegative($event)"
                     formControlName="ccuHorasclase"
                     style="width: 60px;"
                     row="8"
@@ -266,6 +269,7 @@
                     name="ccuHoraspractica"
                     class="form-control"
                     formControlName="ccuHoraspractica"
+                    (input)="checkNegative($event)"
                     [(ngModel)]="contenidosCurso[i].ccuHoraspractica"
                   />
                 </td>
@@ -292,6 +296,7 @@
                     name="ccuHorastrabajoauto"
                     class="form-control"
                     formControlName="ccuHorastrabajoauto"
+                    (input)="checkNegative($event)"
                     [(ngModel)]="contenidosCurso[i].ccuHorastrabajoauto"
                   />
                 </td>
@@ -434,51 +439,35 @@
                 <th scope="col">Cantidad Actividades</th>
                 <th scope="col">Porcentaje calificacion</th>
                 <th scope="col">Total</th>
-              
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let resultado of evaluacioneprea; let i = index" [class.selected]="resultado.eraId ">
-
+              <tr *ngFor="let resultado of evaluacioneprea; let i = index" [class.selected]="resultado.eraId">
                 <td>
-                  <input formControlName="eraTipoactividades" type="text" id="dia" name="dia" class="form-control"  [(ngModel)]="evaluacioneprea[i].eraTipoactividades" />
+                  <input formControlName="eraTipoactividades" type="text" id="dia" name="dia" class="form-control" [(ngModel)]="evaluacioneprea[i].eraTipoactividades" />
+                </td>
+                <td>
+                  <input type="number" id="eraCantactvidades" name="eraCantactvidades" rows="3" class="form-control" formControlName="eraCantactvidades"
+                    (input)="checkNegative($event); calcularTotal(i)" [(ngModel)]="evaluacioneprea[i].eraCantactvidades" />
+                </td>
+                <td>
+                  <input type="number" id="eraPorcentcalificacion" name="eraPorcentcalificacion" class="form-control" formControlName="eraPorcentcalificacion"
+                    (input)="checkNegative($event); calcularTotal(i)" [(ngModel)]="evaluacioneprea[i].eraPorcentcalificacion" />
                 </td>
                 <td>
                   <input
+                  id="eraTotal"
+                  name="eraTotal"
                   type="number"
-                    id="eraCantactvidades"
-                    name="eraCantactvidades"
-                    rows="3"
-                    type="number"
-                    class="form-control"
-                    formControlName="eraCantactvidades"
-                    [(ngModel)]="evaluacioneprea[i].eraCantactvidades"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    id="eraPorcentcalificacion"
-                    name="eraPorcentcalificacion"
-                    class="form-control"
-                    formControlName="eraPorcentcalificacion"
-                    [(ngModel)]="evaluacioneprea[i].eraPorcentcalificacion"
-                  />
-                </td>
-                <td>
-                  <input
-                    id="eraTotal"
-                    name="eraTotal"
-                    type="number"
-                    rows="3"
-                    class="form-control"
-                    formControlName="eraTotal"
-                    [(ngModel)]="evaluacioneprea[i].eraTotal"
-                  />
-                  
-                </td>
-
+                  rows="3"
+                  class="form-control"
+                  formControlName="eraTotal"
+                  (input)="checkNegative($event)"
+                  [value]="eraTotales[i]"
+                  readonly
+                />
                 
+                </td>
                 <td>
                   <button type="button" class="btn btn-danger btn-sm deleteRow" (click)="eliminarFilaepra(i)">
                     Eliminar
@@ -487,9 +476,10 @@
               </tr>
             </tbody>
           </table>
-          <button type="button"  class="btn btn-success mt-2" (click)="agregarFilaevaluaepra()">
+          <button type="button" class="btn btn-success mt-2" (click)="agregarFilaevaluaepra()">
             Agregar fila
           </button>
+          
           
         </div>
 
@@ -515,9 +505,9 @@
            
         </div>
 
-        <!-- <pre>
+        <pre>
           {{datossilabo |  json}}
-       </pre> -->
+       </pre>
       
         <div class="mb-3">
           <button (click)="crearsilabo()" type="submit" class="btn btn-primary">Enviar</button>

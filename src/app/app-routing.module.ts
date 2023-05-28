@@ -64,8 +64,9 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
   constructor(private usuarioService: UsuarioService) {
-    const userRole = this.usuarioService.obtenerRol(); // Obtener el rol actual del usuario
-    this.usuarioService.setRol(userRole); // Configurar el rol en el servicio UsuarioService
+    const userRole = this.usuarioService.obtenerRol();
+    console.log('User Role:', userRole);
+    this.usuarioService.setRol(userRole);
   }
 }
 

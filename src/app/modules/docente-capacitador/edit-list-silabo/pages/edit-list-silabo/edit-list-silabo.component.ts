@@ -21,7 +21,7 @@ import { EvaluaepraService } from 'src/app/shared/Services/DatosSilaboServ/evalu
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
 import { Curso } from 'src/app/Core/models/curso';
-
+import Swal from 'sweetalert2';
 
 interface ResultadosAprendizajes {
   rapId: Number;
@@ -458,31 +458,22 @@ editarsilabo(sialboedit:Datossilabo,id_silabo:number){
          this.resultaprendiserv.update(this.dtresultselec,this.dtresultselec.rapId).subscribe(
           data=>{
             console.log(data,"resultado de apendizaje")
-            this.dtresultselec = data
-         
-         
-         
+            this.dtresultselec = data 
           })
           
          this.contencursoserv.update(this.dtcontenidoselec,this.dtcontenidoselec.ccuId).subscribe(
           data=>{
             console.log(data,"contenido curso")
             this.dtresultselec = data
-         
-         
-         
+
           })
-
-
         },
        error => {
         console.error(error);})
       },error => {
       console.error(error);
     }
-
   )
-
 }
 
 
@@ -492,34 +483,44 @@ editarsilabo(sialboedit:Datossilabo,id_silabo:number){
 
 
 
-eliminar(ncuId: number){
- 
- 
-   this.datosilabserv.delete(this.datos,ncuId).subscribe(
-     data=>{
-       console.log(data);
- 
- 
-       this.datos = data;
-       window.location.reload();
-
-       this.contencursoserv.delete(this.contencur,this.contencur.ccuSilabo.dsiId).subscribe(
-        data=>{
+eliminar(ncuId: number) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará el registro del silabo',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.datosilabserv.delete(this.datos, ncuId).subscribe(
+        (data) => {
           console.log(data);
-    
-    
-          this.contencur = data;
+          this.datos = data;
+
+          this.contencursoserv.delete(this.contencur, this.contencur.ccuSilabo.dsiId).subscribe(
+            (data) => {
+              console.log(data);
+              this.contencur = data;
+
+              this.resultaprendiserv.delete(this.resultaprendi, this.resultaprendi.rapSilabo.dsiId).subscribe(
+                (data) => {
+                  console.log(data);
+                  this.resultaprendi = data;
+                }
+              );
+            }
+          );
           window.location.reload();
-
-          
+          Swal.fire('Eliminado', 'El registro del silabo ha sido eliminado correctamente', 'success');
+        },
+        (error) => {
+          Swal.fire('Error', 'Ha ocurrido un error al eliminar el registro del silabo', 'error');
         }
-      )
-
-       
-     }
-   )
- 
- }
+      );
+    }
+  });
+}
 
 
 

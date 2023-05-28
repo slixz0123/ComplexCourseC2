@@ -127,31 +127,48 @@ eliminar(id_dia: number){
    )
  
    }
-
-   editadia(diasedit:Dias,id_dia:number){
-
-    this.diaserv.getById(id_dia).subscribe(
-      data =>{
-        console.log(data ,"encontrado")
-         
-       this.diaserv.update(diasedit,diasedit.diaId).subscribe(
-         data=>{
-          diasedit.diaNombre=this.diaSeleccionada.diaNombre
-         diasedit.diaId=this.diaSeleccionada.diaId
-           console.log(data,"actualixado");
+   editadia(diasedit: Dias, id_dia: number) {
+    if (this.editdiasForm.valid) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'Esta acción modificará el formulario',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, modificar',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.diaserv.getById(id_dia).subscribe(
+            (data) => {
+              console.log(data, 'encontrado');
   
-          
-         
-           this.di = data;
-          },
-         error => {
-          console.error(error);})
-        },error => {
-        console.error(error);
-      }
+              this.diaserv.update(diasedit, diasedit.diaId).subscribe(
+                (data) => {
+                  diasedit.diaNombre = this.diaSeleccionada.diaNombre;
+                  diasedit.diaId = this.diaSeleccionada.diaId;
+                  console.log(data, 'actualizado');
   
-    )
-  
+                  this.di = data;
+                
+                  Swal.fire('Actualizado', 'El formulario se ha actualizado correctamente', 'success');
+                },
+                (error) => {
+                  console.error(error);
+                  Swal.fire('Error', 'Ha ocurrido un error al actualizar el formulario', 'error');
+                }
+              );
+            },
+            (error) => {
+              console.error(error);
+              Swal.fire('Error', 'Ha ocurrido un error al encontrar el formulario', 'error');
+            }
+          );
+          window.location.reload
+        }
+      });
+    } else {
+      Swal.fire('Error', 'Por favor, completa correctamente el formulario', 'error');
+    }
   }
 
 
