@@ -105,7 +105,7 @@ export class EditDtsAdminComponent {
     const celularRegex = /^\((?!0{2,})[1-9]\d{0,3}\)(?!0{9})[0-9]{9}$/;
     this.valcelular = this.persona && typeof this.persona.celular === 'string' && celularRegex.test(this.persona.celular);
     //validar sexo
-    if (this.persona.sexo === "Masculino" || this.persona.sexo === "Femenino" || this.persona.sexo === "No especificar") {
+    if (this.persona.sexo === "Masculino" || this.persona.sexo === "Femenino" || this.persona.sexo === "Otro") {
       this.valsexo = true
     } else {
       this.valsexo = false

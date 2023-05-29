@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import { Router } from '@angular/router';
-import {Curso} from 'src/app/Core/models/curso'
+import { Curso } from 'src/app/Core/models/curso'
 import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { ProgramaCapacitacionService } from 'src/app/shared/Services/programaCapacitacion.service';
@@ -12,25 +12,25 @@ import { EnvioDatosService } from 'src/app/shared/Services/envioDatos.service';
   templateUrl: './bienvenida-home.component.html',
   styleUrls: ['./bienvenida-home.component.css']
 })
-export class BienvenidaHomeComponent implements OnInit{
+export class BienvenidaHomeComponent implements OnInit {
   programas: ProgramaCapacitacion[] = [];
   cursos: { [key: number]: Curso[] } = {};
-  
+  valpro: boolean = false;
+
   constructor(
-    private _CargarSc: CargarjsHomeService, private router : Router, 
-    private programaCapacitacionService: ProgramaCapacitacionService, 
+    private _CargarSc: CargarjsHomeService, private router: Router,
+    private programaCapacitacionService: ProgramaCapacitacionService,
     private enviardatosService: EnvioDatosService,
     private cursoService: CursoService
-    )
-  {
-      
-      _CargarSc.carga_boost(["bootstrap"])
-    
+  ) {
+
+    _CargarSc.carga_boost(["bootstrap"])
+
   }
 
   ngOnInit(): void {
     this.getProgramasCapacitacion();
-    if(this.enviardatosService.Cerrar!=false){
+    if (this.enviardatosService.Cerrar != false) {
       localStorage.clear();
     }
   }
@@ -39,26 +39,31 @@ export class BienvenidaHomeComponent implements OnInit{
 
   getProgramasCapacitacion(): void {
     this.programaCapacitacionService.getProgramasCapacitacion().subscribe((programas) => {
-      this.programas = programas;
-      this.programas.forEach(programa => {
-        this.cursoService.cursosporPrograma(programa.pcaId).subscribe((cursos: Curso[]) => {
-          this.cursos[programa.pcaId] = cursos;
+      if (programas) {
+        this.valpro = true;
+        this.programas = programas;
+        this.programas.forEach(programa => {
+          this.cursoService.cursosporPrograma(programa.pcaId).subscribe((cursos: Curso[]) => {
+            this.cursos[programa.pcaId] = cursos;
+          });
         });
-      });
+      } else {
+        this.valpro = false;
+      }
     });
   }
-//////////////////////////////////////////////////////
-goToRegister($event: any) :void{
+  //////////////////////////////////////////////////////
+  goToRegister($event: any): void {
 
     this.router.navigate(['/register-usr'])
     console.log($event)
-   }
+  }
 
-   goTologin($event: any) :void{
+  goTologin($event: any): void {
 
     this.router.navigate(['/Auth'])
     console.log($event)
-   }
+  }
 
 
 }

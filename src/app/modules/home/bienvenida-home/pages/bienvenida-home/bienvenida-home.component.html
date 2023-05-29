@@ -1,140 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <app-header></app-header>
-    <div class="bgimage">
-      <div class="menu"></div>
-      <div class="text">
-        <img
-          id="imagenlogo"
-          src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
-          alt=""
-        />
-        <h4>     </h4>
-        <h1>TECNOLÓGICO DEL AZUAY</h1>
-        <h3>Innovación de hoy para el éxito del mañana</h3>
-        <button (click)="goTologin($event)" class="btn">Iniciar Sesión</button>
-        <button (click)="goToRegister($event)" class="btn">Regístrate</button>
-      </div>
-    </div>
 
-    <!--   Tarjetas-->
-    <div
-      class="container"
-      *ngFor="let programa of programas; let i = index"
-      [attr.data-programa-id]="programa.pcaId"
-    >
-      <nav class="navbar bg-dark" data-bs-theme="dark">
-        <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">
-            Programa de Capacitacion {{ programa.pcaNombre }}
-          </span>
-        </div>
-      </nav>
-      <div class="row">
-        <ng-container
-          *ngFor="let curso of cursos[programa.pcaId]; let j = index"
-        >
-          <ng-container
-            *ngTemplateOutlet="
-              cardComponent;
-              context: {
-                $implicit: curso,
-                index: j,
-                length: cursos[programa.pcaId].length
-              }
-            "
-          >
-          </ng-container>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <app-header></app-header>
+  <div class="bgimage">
+    <div class="menu"></div>
+    <div class="text">
+      <img id="imagenlogo"
+        src="https://eduv.tecazuay.edu.ec/pluginfile.php/1/theme_academi/logo/1671035251/LOGO%20CUADRADO_SIN%20FONDO.png"
+        alt="" />
+      <h4> </h4>
+      <h1>TECNOLÓGICO DEL AZUAY</h1>
+      <h3>Innovación de hoy para el éxito del mañana</h3>
+      <button (click)="goTologin($event)" class="btn">Iniciar Sesión</button>
+      <button (click)="goToRegister($event)" class="btn">Regístrate</button>
+    </div>
+  </div>
+
+  <!--   Tarjetas-->
+  <br>
+  <div class="container" *ngFor="let programa of programas; let i = index" [attr.data-programa-id]="programa.pcaId">
+    <nav class="navbar bg-primary shadow-lg rounded">
+
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 font-weight-bold text-white">
+          Programa de Capacitación: {{ programa.pcaNombre }}
+        </span>
+      </div>
+    </nav>
+    <div class="row">
+      <ng-container *ngFor="let curso of cursos[programa.pcaId]; let j = index">
+        <ng-container *ngTemplateOutlet="
+           cardComponent;
+           context: {
+             $implicit: curso,
+             index: j,
+             length: cursos[programa.pcaId].length
+           }
+         ">
         </ng-container>
-      </div>
+      </ng-container>
     </div>
 
-    <ng-template #cardComponent let-curso let-index="index" let-length="length">
-      <div
-        [class]="length === 1 ? 'col-md-4 offset-md-4' : 'col-md-4'"
-        class="container-card"
-      >
-        <div class="card">
-          <figure>
-            <img
-              src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png"
-            />
-          </figure>
-          <div class="contenido-card">
-            <h3>{{ curso.curNombre }}</h3>
-            <p>{{ curso.datosSilabo.dsiDescripcioncurso }} <a>Ingresar</a></p>
-          </div>
+  </div>
+  <br>
+  <ng-template #cardComponent let-curso let-index="index" let-length="length">
+    <div [class]="length === 1 ? 'col-md-4 offset-md-4' : 'col-md-4'" class="container-card">
+      <div class="card">
+        <figure>
+          <img src="https://frontdeskhelpers.com/wp-content/uploads/2020/04/app-dev.png" />
+        </figure>
+        <div class="contenido-card">
+          <h3>{{ curso.curNombre }}</h3>
+          <p>{{ curso.datosSilabo.dsiDescripcioncurso }} <a>Ingresar</a></p>
         </div>
       </div>
-    </ng-template>
-    <!--Fin   Tarjetas-->
-
-    <!--Parte de Quienes somos-->
-    <div class="about-me">
-      <div class="about-me-text">
-        <h2>TecAzuay Capacitando</h2>
-        <p>
-          El Instituto Superior Universitario Tecnológico del Azuay se consolida 
-          como una institución de educación superior que sustenta sus procesos
-          de enseñanza-aprendizaje en el ámbito técnico y tecnológico de grado y
-          posgrado, con la más alta calidad académica y humana, sobre la base de 
-          fundamentos científicos. Su propósito es proveer soluciones a los 
-          problemas y necesidades de la sociedad a través de la docencia, la 
-          investigación científica y la vinculación.
-        </p>
-      </div>
-      <img
-        src="https://tecazuay.edu.ec/assets/img/home/1.png"
-        alt="me"
-      />
     </div>
+  </ng-template>
 
-    <!--Parte de Mision-->
-    <div class="about-me">
-      <img
-        src="https://scontent.fcue2-1.fna.fbcdn.net/v/t39.30808-6/350039725_208950438164827_1339405126031521081_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=OmS_OGPz75QAX_yU673&_nc_ht=scontent.fcue2-1.fna&oh=00_AfDdivqZLWjEBdh4WAhCsjFEFQq_oNQokGJYJU5vAD87Nw&oe=6478F180"
-        alt="me"
-      />
+  <!--Fin   Tarjetas-->
 
-      <div class="about-me-text">
-        <h2>Misión</h2>
-        <p>
-          Ser una institución de calidad, solidaria, inclusiva, intercultural y
-          diversa, reconocida por su excelencia académica y sus aportes a la
-          sociedad en el área de la investigación, innovación tecnológica y
-          vinculación, a nivel nacional e internacional, promoviendo el
-          desarrollo integral de la persona y el entorno, en busca de una
-          sociedad justa y equitativa.
-        </p>
-      </div>
+  <!--Parte de Quienes somos-->
+  <div class="about-me">
+    <div class="about-me-text">
+      <h2>TecAzuay Capacitando</h2>
+      <p>
+        El Instituto Superior Universitario Tecnológico del Azuay se consolida
+        como una institución de educación superior que sustenta sus procesos
+        de enseñanza-aprendizaje en el ámbito técnico y tecnológico de grado y
+        posgrado, con la más alta calidad académica y humana, sobre la base de
+        fundamentos científicos. Su propósito es proveer soluciones a los
+        problemas y necesidades de la sociedad a través de la docencia, la
+        investigación científica y la vinculación.
+      </p>
     </div>
+    <img src="https://tecazuay.edu.ec/assets/img/home/1.png" alt="me" />
+  </div>
 
-    <!--Parte de Vision-->
-    <div class="about-me">
-      <div class="about-me-text">
-        <h2>Visión</h2>
-        <p>
-          Ser una institución de calidad, solidaria, inclusiva, intercultural y
-          diversa, reconocida por su excelencia académica y sus aportes a la
-          sociedad en el área de la investigación, innovación tecnológica y
-          vinculación, a nivel nacional e internacional, promoviendo el
-          desarrollo integral de la persona y el entorno, en busca de una
-          sociedad justa y equitativa.
-        </p>
-      </div>
-      <img
-        src="https://dev2020.tecazuay.edu.ec/wp-content/uploads/2020/05/EBF_2802-1024x684.jpg"
-        alt="me"
-      />
+  <!--Parte de Mision-->
+  <div class="about-me">
+    <img
+      src="https://scontent.fcue2-1.fna.fbcdn.net/v/t39.30808-6/350039725_208950438164827_1339405126031521081_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=OmS_OGPz75QAX_yU673&_nc_ht=scontent.fcue2-1.fna&oh=00_AfDdivqZLWjEBdh4WAhCsjFEFQq_oNQokGJYJU5vAD87Nw&oe=6478F180"
+      alt="me" />
+
+    <div class="about-me-text">
+      <h2>Misión</h2>
+      <p>
+        Ser una institución de calidad, solidaria, inclusiva, intercultural y
+        diversa, reconocida por su excelencia académica y sus aportes a la
+        sociedad en el área de la investigación, innovación tecnológica y
+        vinculación, a nivel nacional e internacional, promoviendo el
+        desarrollo integral de la persona y el entorno, en busca de una
+        sociedad justa y equitativa.
+      </p>
     </div>
+  </div>
 
-    <app-footer></app-footer>
-  </body>
+  <!--Parte de Vision-->
+  <div class="about-me">
+    <div class="about-me-text">
+      <h2>Visión</h2>
+      <p>
+        Ser una institución de calidad, solidaria, inclusiva, intercultural y
+        diversa, reconocida por su excelencia académica y sus aportes a la
+        sociedad en el área de la investigación, innovación tecnológica y
+        vinculación, a nivel nacional e internacional, promoviendo el
+        desarrollo integral de la persona y el entorno, en busca de una
+        sociedad justa y equitativa.
+      </p>
+    </div>
+    <img src="https://dev2020.tecazuay.edu.ec/wp-content/uploads/2020/05/EBF_2802-1024x684.jpg" alt="me" />
+  </div>
+
+  <app-footer></app-footer>
+</body>
+
 </html>

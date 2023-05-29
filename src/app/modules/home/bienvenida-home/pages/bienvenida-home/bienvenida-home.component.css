@@ -46,7 +46,16 @@ a.b-home:hover {
     letter-spacing: 1px;
 }
 
+.navbar-custom {
+    border: 2px solid black;
+  }
 
+.container {
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Agrega una sombra a los contornos */
+    border-radius: 8px; /* Redondea las esquinas */
+    padding: 20px; /* Opcional: Añade un relleno interno */
+  }
 
 
 #imagenlogo{

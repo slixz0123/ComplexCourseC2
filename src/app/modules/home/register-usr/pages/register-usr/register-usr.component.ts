@@ -8,6 +8,8 @@ import { RolService } from 'src/app/shared/Services/rol.service';
 import { UsuarioService } from 'src/app/shared/Services/usuario.service';
 import { CargarjsHomeService } from '../../../services/cargarjs-home.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register-usr',
   templateUrl: './register-usr.component.html',
@@ -19,7 +21,7 @@ export class RegisterUsrComponent {
   rol: Rol = new Rol; // instancia de la clase rol 
   idPersona: any;
   // en el constructor instanciamos los servicios
-  constructor(private persoUsrService: PersonaService, private userServiceService: UsuarioService, private rolservices:RolService,_cargrasjs:CargarjsHomeService) {
+  constructor(private persoUsrService: PersonaService, private router : Router, private userServiceService: UsuarioService, private rolservices:RolService,_cargrasjs:CargarjsHomeService) {
     _cargrasjs.carga_jquery(['pass'])
 
     const currentDate = new Date();
@@ -224,6 +226,7 @@ export class RegisterUsrComponent {
             data => {
               // console.log(data);
               Swal.fire('Registro exitoso', 'El usuario se registró correctamente', 'success');
+              this.goToLogin();
             },
             error => {
               // console.log(error);
@@ -247,6 +250,7 @@ export class RegisterUsrComponent {
               this.userServiceService.registerUser(this.signupRequest).subscribe(
                 data => {
                   Swal.fire('Registro exitoso', 'El usuario se registró correctamente', 'success');
+                  this.goToLogin();
                 },
                 error => {
                   // console.log(error);
@@ -373,7 +377,7 @@ onCedulaChange(value: string): void {
     const celularRegex = /^\((?!0{2,})[1-9]\d{0,3}\)(?!0{9})[0-9]{9}$/;
     this.valcelular = this.signupRequest.persona && typeof this.signupRequest.persona.celular === 'string' && celularRegex.test(this.signupRequest.persona.celular);
     //validar sexo
-    if (this.signupRequest.persona.sexo === "Masculino" || this.signupRequest.persona.sexo === "Femenino" || this.signupRequest.persona.sexo === "No especificar") {
+    if (this.signupRequest.persona.sexo === "Masculino" || this.signupRequest.persona.sexo === "Femenino" || this.signupRequest.persona.sexo === "Otro") {
       this.valsexo = true
     } else {
       this.valsexo = false
@@ -426,7 +430,12 @@ onCedulaChange(value: string): void {
     );
   }
 
+  goToLogin() :void{
 
+    this.router.navigate(['/Auth'])
+    // console.log($event)
+  
+   }
 
 
 
