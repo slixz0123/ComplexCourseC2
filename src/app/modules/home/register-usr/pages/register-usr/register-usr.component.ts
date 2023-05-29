@@ -55,15 +55,12 @@ export class RegisterUsrComponent {
     this.obtenerRol();
     // this.ValidarRole();
     this.idPersona = localStorage.getItem('id_persona')
-    console.log(this.idPersona)
    
   }
 
   obtenerRol() {
     //id del rol 1=participante
     this.rolservices.getById(1).subscribe((response: any) => {
-      console.log("mi rol")
-      console.log(response); // Imprime la respuesta de la API en la consola
       this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
     });
   }
@@ -166,21 +163,21 @@ export class RegisterUsrComponent {
                     this.registerUser();
                   },
                   err => {
-                    console.log(err);
+                    // console.log(err);
                     Swal.fire('Error de registro', 'Hubo un problema al crear la persona', 'error');
                   }
                 );
               }
             },
             err => {
-              console.log(err);
+              // console.log(err);
               Swal.fire('Error de registro', 'Hubo un problema al obtener la información de la persona', 'error');
             }
           );
         }
       },
       err => {
-        console.log(err);
+        // console.log(err);
         Swal.fire('Error de registro', 'Hubo un problema al verificar el nombre de usuario', 'error');
       }
     );
@@ -200,58 +197,72 @@ export class RegisterUsrComponent {
         }
       },
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         Swal.fire('Error de registro', 'Esta persona ya tiene un usuario registrado como participante y docente', 'error');
       }
     );
   }
-  
-  
-  
-  
-  
-  
-  
+
   
   registerUser(): void {
     this.persoUsrService.getPersonaCedula(this.signupRequest.persona.cedula).subscribe(
       (existingPersona: Persona) => {
         if (existingPersona) {
+              
+          if (this.signupRequest.persona.telefono) {
+            const telefonoSinParentesis = this.signupRequest.persona.telefono.replace(/\(|\)|-/g, "");
+            this.signupRequest.persona.telefono = telefonoSinParentesis;
+          } 
+          //cambia a formato normal celular
+          if (this.signupRequest.persona.celular) {
+            const celularSinParentesis = this.signupRequest.persona.celular.replace(/\(|\)/g, "");
+            this.signupRequest.persona.celular = celularSinParentesis;
+          }
+
           this.signupRequest.persona.id_persona = existingPersona.id_persona;
           this.userServiceService.registerUser(this.signupRequest).subscribe(
             data => {
-              console.log(data);
+              // console.log(data);
               Swal.fire('Registro exitoso', 'El usuario se registró correctamente', 'success');
             },
             error => {
-              console.log(error);
+              // console.log(error);
               Swal.fire('Error de registro', 'Hubo un problema al registrar el usuario', 'error');
             }
           );
         } else {
+              
+          if (this.signupRequest.persona.telefono) {
+            const telefonoSinParentesis = this.signupRequest.persona.telefono.replace(/\(|\)|-/g, "");
+            this.signupRequest.persona.telefono = telefonoSinParentesis;
+          } 
+          //cambia a formato normal celular
+          if (this.signupRequest.persona.celular) {
+            const celularSinParentesis = this.signupRequest.persona.celular.replace(/\(|\)/g, "");
+            this.signupRequest.persona.celular = celularSinParentesis;
+          }
           this.persoUsrService.crearPersona(this.signupRequest.persona).subscribe(
             (createdPersona: Persona) => {
               this.signupRequest.persona = createdPersona;
               this.userServiceService.registerUser(this.signupRequest).subscribe(
                 data => {
-                  console.log(data);
                   Swal.fire('Registro exitoso', 'El usuario se registró correctamente', 'success');
                 },
                 error => {
-                  console.log(error);
+                  // console.log(error);
                   Swal.fire('Error de registro', 'Hubo un problema al registrar el usuario', 'error');
                 }
               );
             },
             err => {
-              console.log(err);
+              // console.log(err);
               Swal.fire('Error de registro', 'Hubo un problema al crear la persona', 'error');
             }
           );
         }
       },
       err => {
-        console.log(err);
+        // console.log(err);
         Swal.fire('Error de registro', 'Hubo un problema al obtener la información de la persona', 'error');
       }
     );
@@ -378,22 +389,17 @@ onCedulaChange(value: string): void {
     //validar que todas las validaciones se cumplan
     if (this.valnombre && this.valapellido && this.valetnia && this.valdireccion && this.valemail
       && this.valtelefono && this.valcelular && this.valnivel && this.valsexo ) {
-     console.log("estamos bien")
-     console.log(this.signupRequest)
         this.onSignup();
     } else {
-      console.log(this.signupRequest)
       Swal.fire('¡Error!', 'Ingrese los campos correctossss.', 'error');
     }
   }
   ValidarRole(idPersona: any) {
     // Verifica primero el rol de docente
     this.userServiceService.getpersonarol(idPersona, 2).subscribe((response: any) => {
-      console.log(response);
       if (response != null) {
         // Si la persona tiene el rol de docente, verifica el rol de participante
         this.userServiceService.getpersonarol(idPersona, 1).subscribe((participanteResponse: any) => {
-          console.log(participanteResponse);
           if (participanteResponse != null) {
             Swal.fire('¡Alerta!', 'La persona ya tiene una cuenta de Participante', 'info');
           } else {
@@ -410,15 +416,12 @@ onCedulaChange(value: string): void {
   
 
   ActualizarEstadouser(usuario: Usuario, idUsuario: any) {
-    console.log("datos actualizados")
     this.userServiceService.updateUsuariorol(usuario, idUsuario, true).subscribe(
       (data: any) => {
-        console.log('a verrr' + data);
-        console.log
         Swal.fire('¡Éxito!', 'El usuario fue activado correctamente', 'success'); // SweetAlert al editar el área
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
