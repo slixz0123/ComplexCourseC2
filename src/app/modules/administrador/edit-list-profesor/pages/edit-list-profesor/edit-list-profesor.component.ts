@@ -63,7 +63,7 @@ export class EditListProfesorComponent implements OnInit{
   async saveChanges() {
     if (!this.selectedUsuario || !this.selectedUsuario.persona) {
       console.error(
-        'selectedUsuario o selectedUsuario.persona no están definidos'
+       // 'selectedUsuario o selectedUsuario.persona no están definidos'
       );
       return;
     }
@@ -99,7 +99,7 @@ export class EditListProfesorComponent implements OnInit{
             .toPromise();
         } else {
           console.error(
-            'updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos'
+          //  'updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos'
           );
           return;
         }
@@ -166,7 +166,7 @@ export class EditListProfesorComponent implements OnInit{
 
         this.changeDetectorRef.detectChanges();
       } catch (error) {
-        console.error('Error al activar el usuario:', error);
+       // console.error('Error al activar el usuario:', error);
       }
     };
 
@@ -207,7 +207,7 @@ export class EditListProfesorComponent implements OnInit{
 
         this.changeDetectorRef.detectChanges();
       } catch (error) {
-        console.error('Error al desactivar el usuario:', error);
+       // console.error('Error al desactivar el usuario:', error);
       }
     };
 

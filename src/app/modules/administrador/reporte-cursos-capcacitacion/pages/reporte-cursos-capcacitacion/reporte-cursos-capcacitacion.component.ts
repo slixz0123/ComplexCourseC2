@@ -34,10 +34,10 @@ export class ReporteCursosCapcacitacionComponent {
       (data: any) => {
         this.persona = data;
 
-        console.log(this.persona);
+        // console.log(this.persona);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -45,7 +45,7 @@ export class ReporteCursosCapcacitacionComponent {
   goToeditprofile($event: any): void {
 
     this.router.navigate(['/Admin/edit-list-programs'])
-    console.log($event)
+    // console.log($event)
   }
 
 }

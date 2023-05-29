@@ -33,7 +33,7 @@ export class RegisterAdminsComponent {
     this.obtenerRol();
     // this.ValidarRole();
     this.idPersona = localStorage.getItem('id_persona')
-    console.log(this.idPersona)
+    // console.log(this.idPersona)
   }
 
   personaVacio() { }
@@ -41,7 +41,7 @@ export class RegisterAdminsComponent {
     this.personaService.getPersonaCedula(cedula).subscribe((data: any) => {
       if (null != data) {
         this.persona = data;
-        console.log(this.persona)
+        // console.log(this.persona)
         this.ValidarRole(this.persona.id_persona);
       } else {
         Swal.fire('¡Alerta!', 'Persona no encontrada, se guardara solo su cedula, podra actualizar sus datos despues', 'info'); // SweetAlert al editar el área
@@ -67,7 +67,7 @@ export class RegisterAdminsComponent {
   ValidarRole(idPersona: any) {
     //id del rol 3=admin
     this.usuarioService.getpersonarol(idPersona, 3).subscribe((response: any) => {
-      console.log(response);
+      // console.log(response);
       if (response != null) {
         if (response.enabled == true) {
           Swal.fire('¡Alerta!', 'Esta Persona ya tiene una cuenta de ADMINISTRADOR Activa', 'info'); // SweetAlert al editar el área
@@ -97,21 +97,21 @@ export class RegisterAdminsComponent {
   obtenerRol() {
     //id del rol 2=docente
     this.rolservices.getById(3).subscribe((response: any) => {
-      console.log("mi rol")
-      console.log(response); // Imprime la respuesta de la API en la consola
+      // console.log("mi rol")
+      // console.log(response); // Imprime la respuesta de la API en la consola
       this.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
     });
   }
   ActualizarEstadouser(usuario: Usuario, idUsuario: any) {
-    console.log("datos actualizados")
+    // console.log("datos actualizados")
     this.usuarioService.updateUsuariorol(usuario, idUsuario, true).subscribe(
       (data: any) => {
-        console.log('a verrr' + data);
-        console.log
+        // console.log('a verrr' + data);
+        // console.log
         Swal.fire('¡Éxito!', 'El usuario fue activado correctamente', 'success'); // SweetAlert al editar el área
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -125,20 +125,20 @@ export class RegisterAdminsComponent {
         this.usuario.enabled = true;
         this.usuario.id_usuario = 0;
         this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
-          console.log("Afirmativo pareja")
+          // console.log("Afirmativo pareja")
           Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
         }, error => {
         });
       } else {
         this.personaService.crearPersona(this.persona).subscribe((response: any) => {
-          console.log(response); // Imprime la respuesta de la API en la consola
+          // console.log(response); // Imprime la respuesta de la API en la consola
           this.usuario.persona = response;// a  this.usuario.persona el resultado de nuestro metodo post se  asigna el  this.persona es decir el objeto 
           this.usuario.rol = this.rol;
           this.usuario.enabled = true;
           this.usuario.id_usuario = 0;
-          console.log(this.usuario)
+          // console.log(this.usuario)
           this.usuarioService.saveUsuario(this.usuario).subscribe(() => {
-            console.log("Afirmativo pareja")
+            // console.log("Afirmativo pareja")
             Swal.fire('¡Éxito!', 'Registro del usuario existoso', 'success');
           }, error => {
           });

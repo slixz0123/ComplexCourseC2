@@ -67,7 +67,7 @@ export class EditListAdminsComponent implements OnInit {
   async saveChanges() {
     if (!this.selectedUsuario || !this.selectedUsuario.persona) {
       console.error(
-        'selectedUsuario o selectedUsuario.persona no están definidos'
+       // 'selectedUsuario o selectedUsuario.persona no están definidos'
       );
       return;
     }
@@ -107,7 +107,7 @@ export class EditListAdminsComponent implements OnInit {
             .toPromise();
         } else {
           console.error(
-            'updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos'
+        //    'updatedUsuario.persona o updatedUsuario.persona.id_persona no están definidos'
           );
           return;
         }
@@ -133,7 +133,7 @@ export class EditListAdminsComponent implements OnInit {
           }
         }
       } catch (error) {
-        console.error('Error al actualizar el usuario y persona:', error);
+        //console.error('Error al actualizar el usuario y persona:', error);
       }
     };
 
@@ -174,7 +174,7 @@ export class EditListAdminsComponent implements OnInit {
 
         this.changeDetectorRef.detectChanges();
       } catch (error) {
-        console.error('Error al activar el usuario:', error);
+       // console.error('Error al activar el usuario:', error);
       }
     };
 
@@ -215,7 +215,7 @@ export class EditListAdminsComponent implements OnInit {
 
         this.changeDetectorRef.detectChanges();
       } catch (error) {
-        console.error('Error al desactivar el usuario:', error);
+      //  console.error('Error al desactivar el usuario:', error);
       }
     };
 

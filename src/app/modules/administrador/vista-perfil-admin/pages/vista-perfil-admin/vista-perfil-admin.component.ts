@@ -32,10 +32,10 @@ export class VistaPerfilAdminComponent {
       (data: any) => {
         this.persona = data;
 
-        console.log(this.persona);
+        // console.log(this.persona);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -43,7 +43,7 @@ export class VistaPerfilAdminComponent {
   goToeditprofile($event: any): void {
 
     this.router.navigate(['/Admin/edit-dts-admin'])
-    console.log($event)
+    // console.log($event)
   }
 
 }

@@ -20,19 +20,19 @@ export class EditListCursoComponent {
   ngOnInit(): void {
     this.id_persona = localStorage.getItem('id_persona');
     this.mostrarDatos();
-    console.log("Iniciado")
+    //console.log("Iniciado")
   }
 
 onSubmit() {
   this.id_persona=(this.persona.id_persona);
-  console.log("esta es "+this.id_persona);
-  console.log(this.persona)
+  // //.log("esta es "+this.id_persona);
+  // //.log(this.persona)
   this.personaService.updatePersona(this.persona,this.id_persona).subscribe(
     (data: any) => {
-      console.log('a verrr' + data);
+      // //.log('a verrr' + data);
     },
     (err) => {
-      console.log(err);
+      // //.log(err);
     }
   );
 }
@@ -42,10 +42,10 @@ public mostrarDatos(){
       (datai: any) => {
         this. persona = datai;
       
-        console.log(this.persona);
+        // //.log(this.persona);
       },
     (err) => {
-      console.log(err);
+      // //.log(err);
     }
   );
 }

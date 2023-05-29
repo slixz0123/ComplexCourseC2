@@ -46,16 +46,15 @@ export class CatalogCursoComponent {
 
       // Filtrar los datos por estado diferente a falso
       this.programasList = data.filter((programaCapacitacion: ProgramaCapacitacion) => programaCapacitacion.pcaEstado!=false);
-      console.log("fichas acep");
-      console.log(this.programasList);
+   
     });
   }
   cursosList: any[] = [];
   mostrarCursos(miPrograma: ProgramaCapacitacion) {
     this.cursoService.cursosporPrograma(miPrograma.pcaId).subscribe((data: any) => {
       this.cursosList = data;
-      console.log("Siiuu Curso")
-      console.log(this.cursosList)
+     
+     
     });
   }
 
@@ -77,10 +76,10 @@ export class CatalogCursoComponent {
           this.numr = +1;
           this.horariosTexto += `${hc.horario.horInicio} - ${hc.horario.horFin}\n`;
         }
-        console.log(this.horarioscursoList);
+
       },
       (err) => {
-        console.log(err);
+       // console.log(err);
       }
     );
   }

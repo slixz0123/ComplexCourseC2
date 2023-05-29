@@ -192,7 +192,7 @@ export class EditDtsAdminComponent {
             this.mostrarDatos();
           },
           (err) => {
-            console.log(err);
+            // console.log(err);
             Swal.fire('¡Error!', 'Ha ocurrido un error al editar su perfil. Por favor, inténtelo de nuevo más tarde.', 'error');
           }
         );
@@ -211,7 +211,7 @@ export class EditDtsAdminComponent {
         this.darFormatoTelefono(datai.celular, datai.telefono)
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
         Swal.fire('¡Error!', 'Ha ocurrido un error al mostrar los datos de su perfil. Por favor, inténtelo de nuevo más tarde.', 'error');
       }
     );

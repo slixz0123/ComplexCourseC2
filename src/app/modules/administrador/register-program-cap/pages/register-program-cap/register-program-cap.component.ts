@@ -63,7 +63,7 @@ export class RegisterProgramCapComponent {
           this.programaCapacitacion.pcaProceso = '';
         },
         (err) => {
-          console.log(err);
+        //  console.log(err);
         }
       );
     } else {
