@@ -15,7 +15,7 @@ import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
   providedIn: 'root'
 })
 export class DatossilaboservService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/DatosSilabo/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/DatosSilabo/";
   private URL2 = "http://"+ this.host +":8080/api/DatosSilabo/crear";

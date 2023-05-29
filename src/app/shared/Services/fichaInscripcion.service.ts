@@ -7,7 +7,7 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
   providedIn: 'root'
 })
 export class FichaIncripcionService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/FichaInscripcion";
   private URLReporte="http://"+ this.host +":8080/api/reporteInscripcionParticipante"
 

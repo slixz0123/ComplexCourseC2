@@ -7,7 +7,7 @@ import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso
   providedIn: 'root'
 })
 export class ContenidocurservService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/ContenidoCurso/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/ContenidoCurso/";
   private URL2 = "http://"+ this.host +":8080/api/ContenidoCurso/crear";

@@ -6,7 +6,7 @@ import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDida
   providedIn: 'root'
 })
 export class RecursosdidacticosservService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/recursodidactico/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/recursodidactico/";
   private URL2 = "http://"+ this.host +":8080/api/recursodidactico/crear";

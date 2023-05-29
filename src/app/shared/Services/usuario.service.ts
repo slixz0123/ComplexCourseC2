@@ -16,7 +16,7 @@ import { LoginRequest } from 'src/app/Core/models/LoginRequest';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = 'http://' + this.host + ':8080/usuarios';
   private URLcheck = 'http://' + this.host + ':8080';
   private URLb = 'http://' + this.host + ':8080/usuarios/buscar/';

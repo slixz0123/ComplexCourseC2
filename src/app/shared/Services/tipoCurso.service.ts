@@ -8,7 +8,7 @@ import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 })
 export class TipoCursoService {
 
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/tipocurso/";
 
   constructor(private http: HttpClient) { }

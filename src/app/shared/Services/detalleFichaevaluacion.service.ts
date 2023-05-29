@@ -7,7 +7,7 @@ import { DetalleFichaevaluacion } from 'src/app/Core/models/detalleFichaevaluaci
   providedIn: 'root',
 })
 export class DetalleFichaevaluacionService {
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/DetalleFichaevaluacion";
 
   constructor(private http: HttpClient) {}

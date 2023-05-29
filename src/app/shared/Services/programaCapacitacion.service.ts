@@ -8,7 +8,7 @@ import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
 })
 export class ProgramaCapacitacionService {
   
-  private host = "localhost"
+  private host = "165.22.182.237"
   private URL = "http://"+ this.host +":8080/api/programacapacitacion";
 
   constructor(private http: HttpClient) {}
