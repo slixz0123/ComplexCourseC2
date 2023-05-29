@@ -48,7 +48,7 @@ export class AceptarCursoComponent implements OnInit{
 
   crearUsuario(){
     if(this.persona.nombre !== undefined){
-      console.log("hola")
+      // console.log("hola")
       const usuario: Usuario = {
         username: this.persona?.nombre + this.persona?.apellido,
         password: "123456",
@@ -59,24 +59,24 @@ export class AceptarCursoComponent implements OnInit{
       };
       
       // this.usuarioService.crearUsuario(usuario).subscribe((data: any) => {
-      //   console.log(data);
-      //   console.log("Entra")
+      // //   console.log(data);
+      // //   console.log("Entra")
       // });
     }else{
-      console.log("no hay data")
+      // console.log("no hay data")
     }
     
   }
   onSubmitGuardar() {
   //     this.rolService.getById(1).subscribe((response) => {
-  //       console.log(response); // Imprime la respuesta de la API en la consola
+  // //       console.log(response); // Imprime la respuesta de la API en la consola
   //       this.rol.id_rol = response.id_rol; // se asigna   a this.rol.rolId  la data arrojada por el metodo del servicio get asignandole  response.rolId;
   //       this.usuario.rol = response; // se accede a la relacion del rol en la clase usuario y se asigna la data encontrada del rol
 
   //       this.usuarioService
   //         .crearUsuario(this.usuario)
   //         .subscribe((response) => {
-  //           console.log(response); // Imprime la respuesta de la API en la consola
+  // //           console.log(response); // Imprime la respuesta de la API en la consola
   //           // Llama a la función resetForm() para vaciar los campos del formulario
   //         });
   //     });
@@ -108,17 +108,17 @@ export class AceptarCursoComponent implements OnInit{
   //   this.personService.buscarPorCedula(cedula).subscribe((data : any)=>{
   //     if(null !== data){
   //       this.persona=data;
-  //       console.log(this.persona);
+  // //       console.log(this.persona);
   //       this.listarRol();
   //     }else{
-  //       console.log("no hay data")
+  // //       console.log("no hay data")
   //     }
   //   });
     
   // };
 
   // crearParti(){
-  //   console.log("almenos entra");
+  // //   console.log("almenos entra");
   //   console.warn(this.ficha.finPersona);
   //   console.warn(this.ficha.finCurso)
   //   const participante: Participante = {
@@ -134,7 +134,7 @@ export class AceptarCursoComponent implements OnInit{
   //     parPersona: this.ficha.finPersona // Opcionalmente, puedes agregar una persona si la tienes disponible
   //    };
   //   this.participanteService.saveFichaIncripcion(participante).subscribe((response: Participante) => {
-  //     console.log('Participante creado: ', response);
+  // //     console.log('Participante creado: ', response);
   //   });
 
   // }
@@ -145,16 +145,16 @@ export class AceptarCursoComponent implements OnInit{
   //   this.rolService.buscarNombre("Participante").subscribe((data: any)=>{
   //     if(null != data){
   //       this.rol=data;
-  //       console.log(this.rol);
+  // //       console.log(this.rol);
 
   //       this.usuario.persona=this.persona;
   //       this.usuario.rol=this.rol;
 
   //       // this.usuarioService.postUsuario(this.usuario).subscribe((Response)=>{
-  //       //   console.log(Response);
+  // //       //   console.log(Response);
   //       // })
   //     }else{
-  //       console.log("no hay data");
+  // //       console.log("no hay data");
   //     }
   //   });
   // }
@@ -162,14 +162,14 @@ export class AceptarCursoComponent implements OnInit{
   listarCurso(){
     this.cursoService.getAll().subscribe((Response: Curso[])=>{
       this.cursos = Response;
-      console.log(Response);
+      // console.log(Response);
     })
   }
 
   listarFichas(){
     this.fichaService.getAllFichaIncripcion().subscribe((Response: FichaInscripcion[])=>{
       this.fichas=Response;
-      console.log(Response);
+      // console.log(Response);
     })
   }
   seleccionarPesona(persona: any) {
@@ -184,6 +184,6 @@ export class AceptarCursoComponent implements OnInit{
   seleccionarFicha(ficha:any){
     this.ficha=Object.assign({}, ficha);
     this.formularioValido=true;
-    console.log(ficha)
+    // console.log(ficha)
   }
 }

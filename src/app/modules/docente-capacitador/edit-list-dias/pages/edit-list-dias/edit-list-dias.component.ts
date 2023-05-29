@@ -26,7 +26,7 @@ export class EditListDiasComponent {
     }
 
     const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
+    //console.log(selectedValue); // muestra el valor seleccionado en la consola
     this.selectedId.diaId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
   }
   constructor( private diaserv: DiasService ,private router : Router,private _CargarSc: CargarjsTemplatesService,private formBuilder:FormBuilder){
@@ -42,7 +42,7 @@ selecdia(dia: Dias,id:number) {
   this.di.diaId = dia.diaId
   this.diaserv.getById(id).subscribe(
     data =>{
-      console.log(data)
+      //console.log(data)
     }
   )
 }
@@ -85,7 +85,7 @@ eliminar(id_dia: number){
     if (result.isConfirmed) {
      this.diaserv.delete(this.di,id_dia).subscribe(
        data=>{
-         console.log(data);
+         //console.log(data);
          this.di = data;
          window.location.reload();})
  
@@ -122,7 +122,7 @@ eliminar(id_dia: number){
    this.di.diaId = this.di.diaId
    this.diaserv.getById(id_dia).subscribe(
      data =>{
-       console.log(data)
+       //console.log(data)
      }
    )
  
@@ -140,26 +140,26 @@ eliminar(id_dia: number){
         if (result.isConfirmed) {
           this.diaserv.getById(id_dia).subscribe(
             (data) => {
-              console.log(data, 'encontrado');
+              //console.log(data, 'encontrado');
   
               this.diaserv.update(diasedit, diasedit.diaId).subscribe(
                 (data) => {
                   diasedit.diaNombre = this.diaSeleccionada.diaNombre;
                   diasedit.diaId = this.diaSeleccionada.diaId;
-                  console.log(data, 'actualizado');
+                  //console.log(data, 'actualizado');
   
                   this.di = data;
                 
                   Swal.fire('Actualizado', 'El formulario se ha actualizado correctamente', 'success');
                 },
                 (error) => {
-                  console.error(error);
+                  //console.error(error);
                   Swal.fire('Error', 'Ha ocurrido un error al actualizar el formulario', 'error');
                 }
               );
             },
             (error) => {
-              console.error(error);
+              //console.error(error);
               Swal.fire('Error', 'Ha ocurrido un error al encontrar el formulario', 'error');
             }
           );

@@ -54,7 +54,7 @@ export class RegisterDiasComponent {
       this.dias.diaEstado = true;
       this.diasservice.post(this.dias).subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.diasForm.reset();
   
           Swal.fire({

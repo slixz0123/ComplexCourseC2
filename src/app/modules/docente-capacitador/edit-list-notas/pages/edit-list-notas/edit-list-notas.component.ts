@@ -61,16 +61,16 @@ export class EditListNotasComponent {
           this.numr = +1;
           this.horariosTexto += `${hc.horario.horInicio} - ${hc.horario.horFin}\n`;
         }
-        console.log(this.horarioscursoList);
+        //console.log(this.horarioscursoList);
       },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
 
   verdatos(participnated: any) {
-    console.log("muuuuu")
+    //console.log("muuuuu")
     this.participante = participnated
     this.cursosParticipantepersona(participnated.parPersona.id_persona);
   }
@@ -80,11 +80,11 @@ export class EditListNotasComponent {
     this.participanteService.cursosPersonaparticipante(idPersona).subscribe(
       (data: any) => {
         this.cursoPartcipanteList = data;
-        console.log("estos son")
-        console.log(this.cursoPartcipanteList);
+        //console.log("estos son")
+        //console.log(this.cursoPartcipanteList);
       },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }

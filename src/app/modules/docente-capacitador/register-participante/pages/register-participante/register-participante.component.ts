@@ -42,7 +42,7 @@ export class RegisterParticipanteComponent implements OnInit {
         this.cursosList = data.filter((curso: Curso) => curso.curProceso != 'Finalizado');
       },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -91,7 +91,7 @@ export class RegisterParticipanteComponent implements OnInit {
             this.mostrarFichas(this.fichapa.finCurso.curId)
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
           }
         );
@@ -104,7 +104,7 @@ export class RegisterParticipanteComponent implements OnInit {
 
   crearparticipante(fichain: FichaInscripcion) {
     if (fichain.finAprobacion == 1) {
-      console.log("entra")
+      //console.log("entra")
       this.participante.parId = 0;
       this.participante.parNotaparcial = 0;
       this.participante.parNotafinal = 0;
@@ -115,15 +115,15 @@ export class RegisterParticipanteComponent implements OnInit {
       this.participante.parPersona = fichain.finPersona;
       this.participante.parCurso = fichain.finCurso;
       this.participante.parHorario=fichain.finHorario;
-      console.log("este mando")
-      console.log(this.participante)
+      //console.log("este mando")
+      //console.log(this.participante)
       this.participanteService.crearParticipante(this.participante).subscribe(
         (data: any) => {
           this.mostrarFichas(fichain.finCurso?.curId);
           Swal.fire('¡Éxito!', 'El participante se creo exitosamente.', 'success');
         },
         (err) => {
-          console.log(err);
+          //console.log(err);
           Swal.fire('¡Error!', 'Ha ocurrido un error al crear el participante. Por favor, inténtelo de nuevo más tarde.', 'error');
         }
       );

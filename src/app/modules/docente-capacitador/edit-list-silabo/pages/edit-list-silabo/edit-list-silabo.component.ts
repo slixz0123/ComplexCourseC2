@@ -170,19 +170,19 @@ ngOnInit(): void {
     this.datossilan = Datosilab.filter(Datosilab => Datosilab.dsiEstado !== false);
     //contenido del curso 
      this.contencursoserv.getAll().subscribe(dataconten => {
-      console.log(dataconten)
+      //console.log(dataconten)
       this.contencurso = dataconten.filter(dataconten => dataconten.ccuEstado !== false &&   dataconten.ccuSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataconten.ccuSilabo.dsiId) );
       // resultado de parendizaje 
        this.resultaprendiserv.getAll().subscribe(dataresult => {
-        console.log(dataresult)
+        //console.log(dataresult)
          this.resultadosAprendizajes = dataresult.filter(dataresult => dataresult.rapEstado !== false );    
           // estategias metodologicas 
           this.estrateserv.getAll().subscribe(dataestrate => {
-           console.log(dataestrate)
+           //console.log(dataestrate)
             this.estrategiasmetodo = dataestrate.filter(dataestrate => dataestrate.emeEstado !== false &&   dataestrate.emeSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === dataestrate.emeSilabo.dsiId) );
           // RESULTADOS DE APRENDIZAJE 
             this.resultaprendiserv.getAll().subscribe(datare => {
-              console.log(datare,"data resultado aprend")
+              //console.log(datare,"data resultado aprend")
             })
 
          });
@@ -191,13 +191,13 @@ ngOnInit(): void {
     });
      // Recursos didacticos
      this.recurdidacticoserv.getAll().subscribe(datarecursodida => {
-      console.log(datarecursodida,"didacticos")
+      //console.log(datarecursodida,"didacticos")
       this.recursosDidacticos = datarecursodida.filter(datarecursodida => datarecursodida.rdiEstado !== false &&   datarecursodida.rdiSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === datarecursodida.rdiSilabo.dsiId) );
 
        });
        // evaluacion eprea 
        this.evapraserv.getAll().subscribe(datareva => {
-        console.log(datareva,"eva")
+        //console.log(datareva,"eva")
         this.evaluacionEpra = datareva.filter(datareva => datareva.eraEstado !== false &&   datareva.eraSilabo.dsiEstado !== false &&   Datosilab.filter(Datosilab=>Datosilab.dsiId === datareva.eraSilabo.dsiId) );
 
         
@@ -421,7 +421,7 @@ selecdatosilab(datossila: any, id: number) {
 
   // Obtener los datos de datresult utilizando la función correspondiente
   this.resultaprendiserv.getById(idresult).subscribe(datresult => {
-    console.log(datresult);
+    //console.log(datresult);
   });
 
   // Obtener los datos de dataconte utilizando las funciones correspondientes
@@ -432,7 +432,7 @@ selecdatosilab(datossila: any, id: number) {
 
   // Obtener los datos de dataconte utilizando la función correspondiente
   this.contencursoserv.getById(iddata).subscribe(dataconte => {
-    console.log(dataconte);
+    //console.log(dataconte);
   });
 }
 
@@ -441,7 +441,7 @@ editarsilabo(sialboedit:Datossilabo,id_silabo:number){
   
   this.datosilabserv.getById(id_silabo).subscribe(
     data =>{
-      console.log(data ,"encontrado")
+      //console.log(data ,"encontrado")
        
      this.datosilabserv.update(sialboedit,sialboedit.dsiId).subscribe(
        data=>{
@@ -452,18 +452,18 @@ editarsilabo(sialboedit:Datossilabo,id_silabo:number){
         sialboedit.dsiDescripcioncurso=this.dtsilabselec.dsiDescripcioncurso
         sialboedit.dsiId=this.dtsilabselec.dsiId
 
-         console.log(data,"actualizado");
+         //console.log(data,"actualizado");
 
          this.dtsilabselec = data;
          this.resultaprendiserv.update(this.dtresultselec,this.dtresultselec.rapId).subscribe(
           data=>{
-            console.log(data,"resultado de apendizaje")
+            //console.log(data,"resultado de apendizaje")
             this.dtresultselec = data 
           })
           
          this.contencursoserv.update(this.dtcontenidoselec,this.dtcontenidoselec.ccuId).subscribe(
           data=>{
-            console.log(data,"contenido curso")
+            //console.log(data,"contenido curso")
             this.dtresultselec = data
 
           })
@@ -495,17 +495,17 @@ eliminar(ncuId: number) {
     if (result.isConfirmed) {
       this.datosilabserv.delete(this.datos, ncuId).subscribe(
         (data) => {
-          console.log(data);
+          //console.log(data);
           this.datos = data;
 
           this.contencursoserv.delete(this.contencur, this.contencur.ccuSilabo.dsiId).subscribe(
             (data) => {
-              console.log(data);
+              //console.log(data);
               this.contencur = data;
 
               this.resultaprendiserv.delete(this.resultaprendi, this.resultaprendi.rapSilabo.dsiId).subscribe(
                 (data) => {
-                  console.log(data);
+                  //console.log(data);
                   this.resultaprendi = data;
                 }
               );
@@ -530,7 +530,7 @@ eliminar(ncuId: number) {
   
   //   this.necesidadserv.getById(id_dia).subscribe(
   //     data =>{
-  //       console.log(data ,"encontrado")
+  //       //console.log(data ,"encontrado")
          
   //      this.necesidadserv.update(neceedit,neceedit.ncuId).subscribe(
   //        data=>{
@@ -541,7 +541,7 @@ eliminar(ncuId: number) {
   //         neceedit.ncuResumenyproyecto=this.neceseleccionada.ncuResumenyproyecto
   //         neceedit.ncuPoblaciondirigida=this.neceseleccionada.ncuPoblaciondirigida
   //         neceedit.ncuId=this.neceseleccionada.ncuId
-  //          console.log(data,"actualixado");
+  //          //console.log(data,"actualixado");
   
           
          

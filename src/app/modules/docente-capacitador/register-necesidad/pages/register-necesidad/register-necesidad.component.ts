@@ -61,10 +61,10 @@ export class RegisterNecesidadComponent {
 
   vertdia() {
     this.diaserv.getAll().subscribe((result) => {
-      console.log(result);
+      //console.log(result);
     });
     this.diaserv.getPorId(this.necesidad.dia.diaId).subscribe((result) => {
-      console.log(result);
+      //console.log(result);
     });
   }
   
@@ -76,7 +76,7 @@ export class RegisterNecesidadComponent {
     }
 
     const selectedValue = selectElement.value;
-    console.log(selectedValue);
+    //console.log(selectedValue);
     this.selectedId3.diaId = Number(selectedValue);
   }
 
@@ -128,13 +128,13 @@ export class RegisterNecesidadComponent {
         this.necesidad.dia = this.selectedId3;
   
         this.diaserv.getById(this.necesidad.dia.diaId).subscribe((diadata) => {
-          console.log(diadata);
+          //console.log(diadata);
   
           this.necesidad.dia = diadata;
           this.necesidad.ncuEstado = true;
   
           this.necesidadserv.post(this.necesidad).subscribe((dataprod) => {
-            console.log(dataprod);
+            //console.log(dataprod);
           });
           this.limpiarCampos();
           //window.location.reload();

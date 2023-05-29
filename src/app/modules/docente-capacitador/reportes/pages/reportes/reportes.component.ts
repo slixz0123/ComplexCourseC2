@@ -92,9 +92,9 @@ export class ReportesComponent {
   capturarcurso(Cursos: any) {
     this.curso = Cursos;
     this.idCurso = this.curso.curId
-    console.log("id del curso");
+    //console.log("id del curso");
 
-    console.log(this.idCurso)
+    //console.log(this.idCurso)
   }
   valinforme: any
   informeFinaln: InformeFinal = new InformeFinal(); // instancia de la clase informe finla
@@ -121,7 +121,7 @@ export class ReportesComponent {
     this.idCurso = curId;
   }
   editarInformefinal(informefinal: any) {
-    console.log(this.informeFinal.ifiFecha);
+    //console.log(this.informeFinal.ifiFecha);
     const fechai = new Date(informefinal.ifiFecha);
     const fechaFormateadai = fechai.toISOString().slice(0, 10); // "2023-05-10"
     informefinal.ifiFecha = fechaFormateadai;
@@ -161,7 +161,7 @@ export class ReportesComponent {
             this.valinforme = false;
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             Swal.fire('Error', 'Ocurrió un error al guardar el informe, por favor inténtelo más tarde', 'error');
           }
         );
@@ -244,7 +244,7 @@ export class ReportesComponent {
             this.mostrarimp(this.asistenciaCurso.acuId);
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             Swal.fire('Error', 'Ocurrió un error al guardar el informe, por favor inténtelo más tarde', 'error');
           }
         );
@@ -379,7 +379,7 @@ export class ReportesComponent {
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
-    console.log(this.curso.datosSilabo.dsiId)
+    //console.log(this.curso.datosSilabo.dsiId)
     this.horasAprendizajeServ.getBySilabo(this.curso.datosSilabo.dsiId).subscribe((data: any) =>{
       this.horasAprendizaje = data;
     });
@@ -463,8 +463,8 @@ export class ReportesComponent {
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
     this.fichaIncripcionService.FichasPorCurso(this.curso.curId).subscribe((data: any) => {
-      console.log("Siiuu");
-      console.log(data);
+      //console.log("Siiuu");
+      //console.log(data);
       this.fichasList = data
     });
   }

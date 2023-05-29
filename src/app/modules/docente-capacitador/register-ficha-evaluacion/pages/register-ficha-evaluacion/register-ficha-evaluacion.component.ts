@@ -80,7 +80,7 @@ export class RegisterFichaEvaluacionComponent {
   
         this.serviceFichaEvaluacion.crear(fichaEvaluacion).subscribe(
           (response) => {
-            console.log('Categoría guardada:', response);
+            //console.log('Categoría guardada:', response);
   
             for (const pregunta of category.questions) {
               const detalleFichaevaluacion = new DetalleFichaevaluacion();
@@ -93,7 +93,7 @@ export class RegisterFichaEvaluacionComponent {
                 .crear(detalleFichaevaluacion)
                 .subscribe(
                   (response) => {
-                    console.log('Pregunta guardada:', response);
+                    //console.log('Pregunta guardada:', response);
                   },
                   (error) => {
                     console.error('Error al guardar la pregunta:', error);

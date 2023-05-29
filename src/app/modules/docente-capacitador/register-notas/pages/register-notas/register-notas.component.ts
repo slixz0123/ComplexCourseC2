@@ -67,7 +67,7 @@ export class RegisterNotasComponent {
         }
       },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -166,7 +166,7 @@ export class RegisterNotasComponent {
             this.participante=participantev;
           },
           (err) => {
-            console.log(err);
+            //console.log(err);
             Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar las notas del estudiante. Por favor, inténtelo de nuevo más tarde.', 'error');
           }
         );

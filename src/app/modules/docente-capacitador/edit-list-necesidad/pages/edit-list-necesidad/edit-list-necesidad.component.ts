@@ -41,7 +41,7 @@ export class EditListNecesidadComponent {
     }
 
     const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
+    //console.log(selectedValue); // muestra el valor seleccionado en la consola
     this.selectedId.diaId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
   }
 
@@ -53,7 +53,7 @@ export class EditListNecesidadComponent {
     }
 
     const selectedValue = selectElement.value;
-    console.log(selectedValue); // muestra el valor seleccionado en la consola
+    //console.log(selectedValue); // muestra el valor seleccionado en la consola
     this.selectedIdcur.ncuId = Number(selectedValue);// this.automovil.claseautomovil.id_clase = Number(selectedValue);  // llama al método sendData y pasa el valor seleccionado
   }
 
@@ -65,10 +65,10 @@ export class EditListNecesidadComponent {
     const payload = { id: selectedValue2 };
     this.diaserv.getPorId( payload).subscribe(
       (response) => {
-        console.log('Solicitud POST enviada con éxito:', response);
+        //console.log('Solicitud POST enviada con éxito:', response);
       },
       (error) => {
-        console.log('Error al enviar la solicitud POST:', error);
+        //console.log('Error al enviar la solicitud POST:', error);
       }
     );
   }
@@ -91,7 +91,7 @@ selecdia(dia: Dias,id:number) {
   this.di.diaId = dia.diaId
   this.diaserv.getById(id).subscribe(
     data =>{
-      console.log(data)
+      //console.log(data)
     }
   )
 }
@@ -106,7 +106,7 @@ selecnece(nece: NecesidadCurso,id:number) {
 
   this.necesidadserv.getById(id).subscribe(
     data =>{
-      console.log(data)
+      //console.log(data)
       
       
     }
@@ -120,13 +120,13 @@ ngOnInit(): void {
   const id = Number(localStorage.getItem('id_persona'));
 
 this.cursoserv.getAll().subscribe(NecesidadCurso => {
-  console.log(NecesidadCurso)
+  //console.log(NecesidadCurso)
   this.curs = NecesidadCurso.filter(
     NecesidadCurso => NecesidadCurso.curEstado !== false && NecesidadCurso.pcursos.id_persona !== null && Number(NecesidadCurso.pcursos.id_persona) === id
   );
 
   this.necesidadserv.getAll().subscribe(nece => {
-    console.log(nece)
+    //console.log(nece)
     this.necesidadcurs = nece.filter(
      
       nece => nece.ncuEstado !== false && this.curs.some(curso => curso.curId === nece.ncuId)
@@ -159,7 +159,7 @@ getdia() {
   this.diaserv.getAll().subscribe(clasedia => {
     // Filtra los días deseados y asigna los resultados a `arraydias`
     this.arraydias = clasedia.filter(clasedia => clasedia.diaEstado !== false);
-    console.log(this.arraydias)
+    //console.log(this.arraydias)
   });
 }
 
@@ -188,7 +188,7 @@ eliminar(ncuId: number){
     if (result.isConfirmed) {
       this.necesidadserv.delete(this.necesidad,ncuId).subscribe(
         data=>{
-          console.log(data);
+          //console.log(data);
 
           this.necesidad = data;
           window.location.reload();
@@ -237,7 +237,7 @@ eliminar(ncuId: number){
     if (result.isConfirmed) {
       this.necesidadserv.getById(id_dia).subscribe(
         data => {
-          console.log(data, "encontrado");
+          //console.log(data, "encontrado");
 
           this.necesidadserv.update(neceedit, neceedit.ncuId).subscribe(
             data => {
@@ -249,7 +249,7 @@ eliminar(ncuId: number){
               neceedit.ncuResumenyproyecto = this.neceseleccionada.ncuResumenyproyecto;
               neceedit.ncuPoblaciondirigida = this.neceseleccionada.ncuPoblaciondirigida;
               neceedit.ncuId = this.neceseleccionada.ncuId;
-              console.log(data, "actualizado");
+              //console.log(data, "actualizado");
               this.necesidad = data;
               window.location.reload();
               Swal.fire({

@@ -65,25 +65,25 @@ export class AuthComponent {
   goToAdmin(): void {
 
     this.router.navigate(['/Admin'])
-    console.log("Navegando a Admin");
+//console.log("Navegando a Admin");
 
   }
   goTosupAdmin(): void {
 
     this.router.navigate(['/Sup-Admin'])
-    console.log("Navegando a Sup-Admin");
+//console.log("Navegando a Sup-Admin");
 
   }
   // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
   goToCapacitador(): void {
-    console.log("Navegando a Capacitador");
+//console.log("Navegando a Capacitador");
     this.router.navigate(['/Capacitador'])
 
 
   }
   // metodo para redireccionar a las rutas verificando el rol del usuario que ingrese, recibe un parametro de un  evento
   goToParticipante(): void {
-    console.log("Navegando a Participante");
+//console.log("Navegando a Participante");
     this.router.navigate(['/Participante'])
 
 
@@ -100,7 +100,7 @@ export class AuthComponent {
     if (form.valid) {
       this.usuarioService.loginUser(this.loginRequest).subscribe(
         (data: any) => {
-          console.log(data);
+      //console.log(data);
           if (data != null) {
             if (data.id_usuario) {
               this.usuario.id_usuario = data.id_usuario;
@@ -108,7 +108,7 @@ export class AuthComponent {
               this.generateToken();
               this.usuarioService.setRol(this.iRol);  // Set the role after the token has been generated
               this.traerdatos(data.id_usuario);
-              console.log(this.traerdatos(data.id_usuario));
+          //console.log(this.traerdatos(data.id_usuario));
   
               // Código para el caso de inicio de sesión exitoso
               // Puedes redireccionar a una página específica o realizar otras acciones necesarias
@@ -186,11 +186,11 @@ export class AuthComponent {
   generateToken(): void {
     this.usuarioService.generateToken(this.loginRequest).subscribe(
       (response: any) => {
-        console.log(response);
+    //console.log(response);
         this.cookieservice.set('token', response.token); 
-        console.log(response)
+    //console.log(response)
         localStorage.setItem('token', response.token);
-        console.log(this.iRol)
+    //console.log(this.iRol)
         Swal.fire({
           title: 'Inicio de sesión exitoso',
           icon: 'success',

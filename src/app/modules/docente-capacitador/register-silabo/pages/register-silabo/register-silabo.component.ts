@@ -402,7 +402,7 @@ crearsilabo() {
 
         // Post de datos silabo
         this.Datossilaserv.post(this.datossilabo).subscribe(silabdata => {
-          console.log(silabdata, "Data datos silabo");
+          //console.log(silabdata, "Data datos silabo");
 
           // Asignar el id del silabo a cada objeto de la tabla "resultados de aprendizaje"
           this.resultadosAprendizajes.forEach(resultado => {
@@ -459,41 +459,41 @@ crearsilabo() {
           // Post de resultados de aprendizaje
           this.resultadosaprendiserv.postMany(this.resultadosAprendizajes).subscribe(
             dataresultados => {
-              console.log(dataresultados);
-              console.log("resultadosAprendizaje creados exitosamente");
+              //console.log(dataresultados);
+              //console.log("resultadosAprendizaje creados exitosamente");
             },
             error => {
-              console.log("Error al crear resultadosAprendizaje:", error);
+              //console.log("Error al crear resultadosAprendizaje:", error);
             }
           );
 
           // POST DE EVALUACION EPRA
           this.evaluacionEpraserv.postMany(this.evaluacioneprea).subscribe(
             dataresultados => {
-              console.log("evaluacionepra creados exitosamente");
+              //console.log("evaluacionepra creados exitosamente");
             },
             error => {
-              console.log("Error al crear evaluacionepra:", error);
+              //console.log("Error al crear evaluacionepra:", error);
             }
           );
 
           // POST DE CONTENIDOS DEL CURSO
           this.contenidoserv.postMany(this.contenidosCurso).subscribe(
             dataresultados => {
-              console.log("contenidos creados exitosamente");
+              //console.log("contenidos creados exitosamente");
             },
             error => {
-              console.log("Error al crear contenidos:", error);
+              //console.log("Error al crear contenidos:", error);
             }
           );
 
           // Post de estrategias metodologicas
           this.estartegiaser.postMany(this.estrategiasMetodologicas).subscribe(
             dataresultados => {
-              console.log("estrategias creados exitosamente");
+              //console.log("estrategias creados exitosamente");
             },
             error => {
-              console.log("Error al crear estrategias:", error);
+              //console.log("Error al crear estrategias:", error);
             }
           );
 
@@ -503,7 +503,7 @@ crearsilabo() {
 
           // Post de recursos didacticos
           this.recursosdidacticosserv.post(this.recurdidactico).subscribe(datarecurso => {
-            console.log(datarecurso, "Data recurso didactico");
+            //console.log(datarecurso, "Data recurso didactico");
         
             // Asignar el id del silabo a cada objeto de la tabla "horas aprendizaje"
             this.horasapren.hapEstado = true;
@@ -511,13 +511,13 @@ crearsilabo() {
         
             // Post de horas aprendizaje
             this.horasaprenserv.post(this.horasapren).subscribe(datahora => {
-              console.log(datahora, "Data horas aprendizaje");
+              //console.log(datahora, "Data horas aprendizaje");
             });
           });
         this.silaboForm.reset();
           Swal.fire('Éxito', 'El sílabo se creó correctamente', 'success');
         }, error => {
-          console.log(error, "Error datos silabo");
+          //console.log(error, "Error datos silabo");
         
           // Muestra una notificación de Sweet Alert indicando el error al crear el silabo
           Swal.fire('Error', 'Ocurrió un error al crear el sílabo', 'error');
