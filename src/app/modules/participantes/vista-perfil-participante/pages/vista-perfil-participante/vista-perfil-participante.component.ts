@@ -36,10 +36,10 @@ export class VistaPerfilParticipanteComponent {
       (data: any) => {
         this.persona = data;
 
-        console.log(this.persona);
+        // console.log(this.persona);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -48,17 +48,16 @@ export class VistaPerfilParticipanteComponent {
     this.participanteService.cursosPersonaparticipante(this.id_persona).subscribe(
       (data: any) => {
         this.cursoPartcipanteList = data;
-        console.log("estos son")
-        console.log(this.cursoPartcipanteList);
+     //   console.log(this.cursoPartcipanteList);
       },
       (err) => {
-        console.log(err);
+   //     console.log(err);
       }
     );
   }
   goToeditprofile($event: any) :void{
 
     this.router.navigate(['Participante/edit-dts-participante'])
-    console.log($event)
+ //   console.log($event)
    }
 }

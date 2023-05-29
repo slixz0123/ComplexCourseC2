@@ -28,39 +28,39 @@ export class SideBarAdminComponent {
   goToRegistercurso($event: any): void {
 
     this.router.navigate(['/Admin/register-programs'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_edit_list_curs($event: any): void {
 
     this.router.navigate(['/Admin/edit-list-programs'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_catalogocurso($event: any): void {
 
     this.router.navigate(['/Admin/catalog-programs'])
-    console.log($event)
+    // console.log($event)
   }
   ////////////////////////////////////////////////////////
   goTo_ediperfil($event: any): void {
 
     this.router.navigate(['/Admin/edit-dts-admin'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_visperfil($event: any): void {
 
     this.router.navigate(['/Admin/vista-perfil-admin'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goTovalidvida($event: any): void {
 
     this.router.navigate(['/Admin/valid-hojasvida-doc'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_validcap($event: any): void {
 
     this.router.navigate(['/Admin/valid-cursos-cap'])
-    console.log($event)
+    // console.log($event)
   }
 
 
@@ -68,27 +68,27 @@ export class SideBarAdminComponent {
   goToReportes($event: any): void {
 
     this.router.navigate(['/Admin/rep-cursos-cap'])
-    console.log($event)
+    // console.log($event)
   }
 
   goToRegDocent($event: any): void {
 
     this.router.navigate(['/Admin/register-doc'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_edit_docente($event: any): void {
 
     this.router.navigate(['/Admin/edit-doc'])
-    console.log($event)
+    // console.log($event)
   }
   goToRegInsti($event: any): void{
     this.router.navigate(['/Admin/reg-institucion'])
-    console.log($event)
+    // console.log($event)
   }
   goToverReglamento($event: any) :void{
   
       this.router.navigate(['Admin/ver-reglamento'])
-      console.log($event)
+      // console.log($event)
   }
 
 
@@ -114,14 +114,14 @@ export class SideBarAdminComponent {
       this.id = localStorage.getItem('id_persona');
       if (this.id != '' && this.id != undefined) {
         this.usuarioser.getPersona(this.id).subscribe((data) => {
-          console.log(data);
+          // console.log(data);
        
           if (data != null) {
             this.isLogin = true;
     
             this.nombreUsuario = data.nombre + ' ' + data.apellido;
             
-            console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
+            // console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
     
           } else {
             this.isLogin = false;

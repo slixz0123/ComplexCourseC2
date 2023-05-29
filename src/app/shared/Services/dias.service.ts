@@ -18,7 +18,7 @@ export class DiasService {
   post(dias: Dias) {
     return this.http.post<Dias>(this.URL2 + '?', dias);
   }
-  getById(dias: number) {
+  getById(dias: any) {
     return this.http.get<Dias>(this.URL + dias);
   }
   getAll() {

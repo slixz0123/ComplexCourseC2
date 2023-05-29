@@ -87,7 +87,7 @@ export class VisualizarProgramasCapacitacionComponent {
         }
       },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -119,7 +119,7 @@ export class VisualizarProgramasCapacitacionComponent {
         }
       })
       .catch((error: any) => {
-        console.error(error);
+        //console.error(error);
       });
   }
   public mostrarDatosdocete(idDocente:any){
@@ -129,7 +129,7 @@ export class VisualizarProgramasCapacitacionComponent {
           this.mostrarCursosDocente(idDocente)
         },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -139,10 +139,10 @@ export class VisualizarProgramasCapacitacionComponent {
         (data: any) => {
           this.cursoList = data;
         
-          console.log(this.cursoList);
+          //console.log(this.cursoList);
         },
       (err) => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -150,7 +150,7 @@ export class VisualizarProgramasCapacitacionComponent {
 
   // fichaIncripcion: FichaInscripcion = new FichaInscripcion();
   // public ValidarInscripcion(idCurso: any): number {
-  //   console.log(idCurso, this.id_persona);
+  //   //console.log(idCurso, this.id_persona);
   //   this.fichainscripcionService.getFichabycursopersona(idCurso, this.id_persona).subscribe((data: any) => {
   //     if (null != data) {
   //       this.fichaIncripcion = data;
@@ -166,7 +166,7 @@ export class VisualizarProgramasCapacitacionComponent {
   //   if (this.ValidarInscripcion(idCurso) == 0) {
   //     this.enviarDatosService.setIdCurso(idCurso);
   //     this.router.navigate(['/Participante/ficha-inscripcion'])
-  //     console.log($event)
+  //     //console.log($event)
   //   } else{
   //     Swal.fire('¡Alerta!', 'Usted ya lleno la ficha de incripción, La cual ya fue aceptada', 'info'); // 
   //   }

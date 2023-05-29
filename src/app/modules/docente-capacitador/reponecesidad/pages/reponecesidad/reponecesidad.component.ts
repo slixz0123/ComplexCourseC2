@@ -64,7 +64,7 @@ export class ReponecesidadComponent {
 
 
        this.cursoob.curNombre='';
-       this.cursoob.curNumHoras=0;
+       this.cursoob.curNumhoras=0;
        this.cursoob.tipoCurso.tcuNombre='';
        this.cursoob.mcursos.mcuNombre='';
 
@@ -143,7 +143,7 @@ export class ReponecesidadComponent {
   sendData(selectedValue: number) {
 
     const payload = { id: selectedValue };
-    this.tipocursoserv.getPorId( payload).subscribe(
+    this.tipocursoserv.getById( payload).subscribe(
       (response) => {
         console.log('Solicitud POST enviada con éxito:', response);
       },
@@ -155,7 +155,7 @@ export class ReponecesidadComponent {
   sendData2(selectedValue2: number) {
 
     const payload = { id: selectedValue2 };
-    this.modalidadcursoserv.getPorId( payload).subscribe(
+    this.modalidadcursoserv.getById( payload).subscribe(
       (response) => {
         console.log('Solicitud POST enviada con éxito:', response);
       },
@@ -167,7 +167,7 @@ export class ReponecesidadComponent {
   sendData3(selectedValue2: number) {
 
     const payload = { id: selectedValue2 };
-    this.diaserv.getPorId( payload).subscribe(
+    this.diaserv.getById( payload).subscribe(
       (response) => {
         console.log('Solicitud POST enviada con éxito:', response);
       },
@@ -197,7 +197,7 @@ export class ReponecesidadComponent {
      result => {
     console.log(result)
     })
-   this.tipocursoserv.getPorId(this.tipocur.tcuId).subscribe(
+   this.tipocursoserv.getById(this.tipocur.tcuId).subscribe(
     result => {
     console.log(result)
     })
@@ -208,7 +208,7 @@ export class ReponecesidadComponent {
        result => {
       console.log(result)
       })
-     this.modalidadcursoserv.getPorId(this.tipocur.tcuId).subscribe(
+     this.modalidadcursoserv.getById(this.tipocur.tcuId).subscribe(
       result => {
       console.log(result)
       })
@@ -219,7 +219,7 @@ export class ReponecesidadComponent {
          result => {
         console.log(result)
         })
-       this.diaserv.getPorId(this.newdias.diaId).subscribe(
+       this.diaserv.getById(this.newdias.diaId).subscribe(
         result => {
         console.log(result)
         })
@@ -289,7 +289,7 @@ crearcurso(){
 
 
   //   }
-  //   this.persoservice.getPorId(this.id_persona).subscribe(dataprod => {
+  //   this.persoservice.getById(this.id_persona).subscribe(dataprod => {
   //     console.log(dataprod);
   //     const per = dataprod;
   //     this.carrito.fecha_carrito =  new Date(),

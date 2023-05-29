@@ -35,7 +35,7 @@ export class TipoCursoService {
    return this.http.put(url, {}, httpOptions)
      .pipe(
        catchError((error: any) => {
-         console.error(error);
+        //  console.error(error);
          return throwError('Error eliminando el tipo de curso');
        })
      );

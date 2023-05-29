@@ -27,57 +27,57 @@ export class SideBarParticipanteComponent {
 goToRegisterInscripcion($event: any) :void{
 
     this.router.navigate(['/Participante/ficha-inscripcion'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_gen_ficha($event: any) :void{
 
     this.router.navigate(['/Participante/gen-ficha-inscripcion'])
-    console.log($event)
+    // console.log($event)
    }
    
    //////////////////////////////////////////////////////
   goTocatprogram($event: any) :void{
 
     this.router.navigate(['/Participante/programas-capacitacion'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_validaplicacion($event: any) :void{
 
     this.router.navigate(['/Participante/apli-program-capacitacion'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_estadpcurso($event: any) :void{
 
     this.router.navigate(['/Participante/cursos-aplicados'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_evacurso($event: any) :void{
 
     this.router.navigate(['/Participante/Eva-Curso'])
-    console.log($event)
+    // console.log($event)
    }
    ////////////////////////////////////////////////////////
    goTo_ediperfil($event: any) :void{
 
     this.router.navigate(['/Participante/edit-dts-participante'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_visperfil($event: any) :void{
 
     this.router.navigate(['/Participante/vista-perfil-participante'])
-    console.log($event)
+    // console.log($event)
    }
  
  //////////////////////////////////////////////////////
  goToReportes($event: any) :void{
 
   this.router.navigate(['Participante/certif-curso-aprovee'])
-  console.log($event)
+  // console.log($event)
  }
  goToverReglamento($event: any) :void{
 
   this.router.navigate(['Participante/ver-reglamento'])
-  console.log($event)
+  // console.log($event)
  }
 
   ngOnInit(): void {
@@ -102,14 +102,14 @@ goToRegisterInscripcion($event: any) :void{
       this.id = localStorage.getItem('id_persona');
       if (this.id != '' && this.id != undefined) {
         this.usuarioser.getPersona(this.id).subscribe((data) => {
-          console.log(data);
+          // console.log(data);
        
           if (data != null) {
             this.isLogin = true;
     
             this.nombreUsuario = data.nombre + ' ' + data.apellido;
             
-            console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
+            // console.log(data.persona?.nombre + ' ' + data.persona?.apellido)
     
           } else {
             this.isLogin = false;

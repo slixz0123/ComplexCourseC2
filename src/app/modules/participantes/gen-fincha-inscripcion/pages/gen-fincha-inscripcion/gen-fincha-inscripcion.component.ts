@@ -48,14 +48,14 @@ export class GenFinchaInscripcionComponent {
   fichasList: any[] = [];
   getAllfichasIncripcion(idPersona: any) {
     this.fichaIncripcionService.getfichasbypersona(idPersona).subscribe((data: any) => {
-      console.log("Siiuu");
-      console.log(data);
+      // console.log("Siiuu");
+      // console.log(data);
 
       // Filtrar los datos por estado diferente a 1
       this.fichasList = data
       // .filter((fichaIncripcion: FichaInscripcion) => fichaIncripcion.finAprobacion !== 1);
-      console.log("fichas acep");
-      console.log(this.fichasList);
+      // console.log("fichas acep");
+      // console.log(this.fichasList);
     });
   }
   goTogenfichains($event: any, ficha:FichaInscripcion): void {

@@ -43,7 +43,7 @@ export class CursosAplicadosComponent {
 
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -52,11 +52,11 @@ export class CursosAplicadosComponent {
     this.cursoService.getById(idcurso).subscribe(
       (data: any) => {
         this.curso = data;
-        console.log(this.curso);
+        // console.log(this.curso);
         this.mostrarDatoshc();
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
 
@@ -76,7 +76,7 @@ export class CursosAplicadosComponent {
         }
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -87,7 +87,7 @@ export class CursosAplicadosComponent {
         this.mostrarCursosDocente(idDocente)
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -97,10 +97,10 @@ export class CursosAplicadosComponent {
       (data: any) => {
         this.cursoList = data;
 
-        console.log(this.cursoList);
+        // console.log(this.cursoList);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }

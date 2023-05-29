@@ -27,12 +27,12 @@ export class SideBarSupAdminComponent {
   goToRegisteradmin($event: any) :void{
 
     this.router.navigate(['/Sup-Admin/Register-Admin'])
-    console.log($event)
+    // console.log($event)
    }
    goTo_edit_list_admin($event: any) :void{
 
     this.router.navigate(['/Sup-Admin/edit-list-Admin'])
-    console.log($event)
+    // console.log($event)
    }
 
    //////////////////////////////////////////////////////

@@ -87,7 +87,7 @@ export class FichaInscripcionComponent {
         this.persona = data;
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -98,7 +98,7 @@ export class FichaInscripcionComponent {
         this.horarioscursoList = data;
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -110,7 +110,7 @@ export class FichaInscripcionComponent {
         this.mostrarDatoshc(this.curso.curId)
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -140,7 +140,7 @@ export class FichaInscripcionComponent {
   opcionSeleccionada: any;
   mostrarSeleccion() {
     // this.opcionSeleccionada = this.fichaInscripcion.finAuspiciadoinst;
-    console.log(this.opcionSeleccionada)
+    // console.log(this.opcionSeleccionada)
     if (this.opcionSeleccionada != 'No') {
       this.fichaInscripcion.finAuspiciadoinst = true;
     } else {
@@ -149,7 +149,7 @@ export class FichaInscripcionComponent {
   }
 
   guardarFichaIncripcion(mfichaInscripcion: FichaInscripcion) {
-    console.log(this.fichaInscripcion.finAuspiciadoinst)
+    // console.log(this.fichaInscripcion.finAuspiciadoinst)
     // Validación de datos
     const campo1Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.]+$/;
     this.camp1 = campo1Regex.test(this.fichaInscripcion.finInstituciontraest);
@@ -174,7 +174,7 @@ export class FichaInscripcionComponent {
       this.camp10 = false;
     }
     if (this.camp1 && this.camp2 && this.camp3 && this.camp4 && this.camp5 && this.camp6 && this.camp7 && this.camp8 && this.camp9 && this.camp10) {
-      console.log("bien pero maso")
+      // console.log("bien pero maso")
       if (this.valicreedit != 0) {
         Swal.fire({
           icon: 'warning',
@@ -204,7 +204,7 @@ export class FichaInscripcionComponent {
         mfichaInscripcion.finId = 0;
         mfichaInscripcion.finHorario = this.horarioCurso;
         this.fichaincripcionService.saveFichaIncripcion(mfichaInscripcion).subscribe(() => {
-          console.log("Afirmativo pareja")
+          // console.log("Afirmativo pareja")
           Swal.fire('¡Éxito!', 'La ficha de inscripción se ha guardado exitosamente, uedes imprimir la ficha en el modulo "Generar ficha incripción"', 'success');
           this.goTo_gen_ficha();
         }, error => {

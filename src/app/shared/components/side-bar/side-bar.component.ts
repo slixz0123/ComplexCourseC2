@@ -31,72 +31,72 @@ export class SideBarComponent {
   goToRegisterNed($event: any): void {
 
     this.router.navigate(['/Capacitador/register-necesidad'])
-    console.log($event)
+    // console.log($event)
   }
   goTo_edit_list_Ned($event: any): void {
 
     this.router.navigate(['/Capacitador/edit-list-necesidad'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goToRegistersilab($event: any): void {
 
     this.router.navigate(['/Capacitador/register-silabo'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////////////////
   goToeditcursoCap($event: any): void {
 
     this.router.navigate(['Capacitador/edit-list-curso'])
-    console.log($event)
+    // console.log($event)
   }
 
   goTo_edit_list_silab($event: any): void {
 
     this.router.navigate(['/Capacitador/edit-list-silabo'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goToRegisterdesing($event: any): void {
 
     this.router.navigate(['/Capacitador/register-diseno-curricular'])
-    console.log($event)
+    // console.log($event)
   }
 
   goToRegisterPhoto($event: any): void {
 
     this.router.navigate(['/Capacitador/register-fotografico'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goToRegisternotas($event: any): void {
 
     this.router.navigate(['/Capacitador/register-notas'])
-    console.log($event)
+    // console.log($event)
   }
 
   goTo_edit_list_notas($event: any): void {
 
     this.router.navigate(['/Capacitador/edit-list-notas'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goToRegisterasis($event: any): void {
 
     this.router.navigate(['/Capacitador/register-asistencia'])
-    console.log($event)
+    // console.log($event)
   }
 
   goTo_edit_list_sis($event: any): void {
 
     this.router.navigate(['/Capacitador/edit-list-asistencia'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////
   goToReportes($event: any): void {
 
     this.router.navigate(['Capacitador/reportes-capacitador'])
-    console.log($event)
+    // console.log($event)
   }
 
 
@@ -104,14 +104,14 @@ export class SideBarComponent {
   goToeditprofile($event: any): void {
 
     this.router.navigate(['Capacitador/edit-dts'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goToprofile($event: any): void {
 
     this.router.navigate(['Capacitador/profile'])
-    console.log($event)
+    // console.log($event)
   }
 
   ngOnInit(): void {
@@ -123,14 +123,14 @@ export class SideBarComponent {
   goToregisterarea($event: any): void {
 
     this.router.navigate(['Capacitador/register-area'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goToregisespecialidad($event: any): void {
 
     this.router.navigate(['Capacitador/register-esp'])
-    console.log($event)
+    // console.log($event)
   }
 
 
@@ -138,94 +138,94 @@ export class SideBarComponent {
   goToregisdays($event: any): void {
 
     this.router.navigate(['Capacitador/register-dias'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goTo_edit_list_days($event: any): void {
 
     this.router.navigate(['Capacitador/edit-list-dias'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goToregistermecanismos($event: any): void {
 
     this.router.navigate(['Capacitador/register-mecanismo-eva'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goToeditDetalleME($event: any): void {
 
     this.router.navigate(['Capacitador/register-detalle-meva'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////////////////
   goToregisentorno($event: any): void {
 
     this.router.navigate(['Capacitador/register-entorno-aprendizaje'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////////////////
   goToregiscursoCap($event: any): void {
 
     this.router.navigate(['Capacitador/register-cur'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////////////////
   goToregisHorario($event: any): void {
 
     this.router.navigate(['Capacitador/horarios'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////////////////
   goToregisTipoCur($event: any): void {
 
     this.router.navigate(['Capacitador/tipo-cursos'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////////////////
   goToregisModalidadCur($event: any): void {
 
     this.router.navigate(['Capacitador/modalidad'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////
   goToRegisterparticipante($event: any): void {
 
     this.router.navigate(['/Capacitador/register-participante'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////////////////
   goToregisHorarioCur($event: any): void {
 
     this.router.navigate(['Capacitador/horario-cursos'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////////////////
   goToregisFichaEva($event: any): void {
 
     this.router.navigate(['Capacitador/register-fichaEvaluacion'])
-    console.log($event)
+    // console.log($event)
   }
   //////////////////////////////////////////////////////////////////
   goToverReglamento($event: any): void {
 
     this.router.navigate(['Capacitador/ver-reglamento'])
-    console.log($event)
+    // console.log($event)
   }
 
   //////////////////////////////////////////////////////////////////
   goToverCertificado($event: any): void {
 
     this.router.navigate(['Capacitador/entrega'])
-    console.log($event)
+    // console.log($event)
   }
   id: any;
   nombreUsuario: any;

@@ -35,7 +35,7 @@ export class DetalleMevaService {
     return this.http.put(url, {}, httpOptions)
       .pipe(
         catchError((error: any) => {
-          console.error(error);
+          // console.error(error);
           return throwError('Error eliminando el detalle');
         })
       );

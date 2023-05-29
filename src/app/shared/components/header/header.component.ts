@@ -27,45 +27,45 @@ export class HeaderComponent {
 goToLogin($event: any) :void{
 
   this.router.navigate(['/Auth'])
-  console.log($event)
+  // console.log($event)
 
  }
  goTohome($event: any) :void{
 
   this.router.navigate(['/'])
-  console.log($event)
+  // console.log($event)
 
  }
  goToRegister($event: any) :void{
 
   this.router.navigate(['/register-usr'])
-  console.log($event)
+  // console.log($event)
 
  }
 
 goToCatalogo($event: any) :void{
 
  this.router.navigate(['/catalogo-home'])
- console.log($event)
+//  console.log($event)
 
  }
  goToServicos($event: any) :void{
 
   this.router.navigate(['/servicios'])
-  console.log($event)
+  // console.log($event)
 
   }
 
   goToNosotros($event: any) :void{
 
     this.router.navigate(['/nosotros'])
-    console.log($event)
+    // console.log($event)
 
     }
     goToHome($event: any) :void{
 
       this.router.navigate([''])
-      console.log($event)
+      // console.log($event)
 
       }
 
