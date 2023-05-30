@@ -7,10 +7,18 @@ import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
   providedIn: 'root'
 })
 export class EvaluaepraService {
+<<<<<<< Updated upstream
   private URL = "http://localhost:8080/api/EvaluacionEpra/buscar/";
   private URL1 = "http://localhost:8080/api/EvaluacionEpra/";
   private URL2 = "http://localhost:8080/api/EvaluacionEpra/crear";
   private URL3 = "http://localhost:8080/api/EvaluacionEpra/crear3";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/EvaluacionEpra/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/EvaluacionEpra/";
+  private URL2 = "http://"+ this.host +":8080/api/EvaluacionEpra/crear";
+  private URL3 = "http://"+ this.host +":8080/api/EvaluacionEpra/crear3";
+>>>>>>> Stashed changes
 
   private items: EvaluacionEpra[] = [];
   constructor(private http: HttpClient) { }

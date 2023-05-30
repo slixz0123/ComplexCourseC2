@@ -14,6 +14,11 @@ export class PersonaService {
     //   throw new Error('Method not implemented.');
     // }
 
+<<<<<<< Updated upstream
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/persona";
+>>>>>>> Stashed changes
 
     private URL = "http://localhost:8080/api/persona";
     private URLcre = "http://localhost:8080/api/persona/crear";

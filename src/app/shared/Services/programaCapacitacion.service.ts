@@ -7,7 +7,13 @@ import { ProgramaCapacitacion } from 'src/app/Core/models/programaCapacitacion';
   providedIn: 'root',
 })
 export class ProgramaCapacitacionService {
+<<<<<<< Updated upstream
   private apiUrl = 'http://localhost:8080/api/programacapacitacion';
+=======
+  
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/programacapacitacion";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) {}
 

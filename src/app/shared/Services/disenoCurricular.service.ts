@@ -13,6 +13,12 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
   providedIn: 'root'
 })
 export class DisenoCurricularService {
+<<<<<<< Updated upstream
+=======
+  private host = "165.22.182.237"
+  private URL = "http://" + this.host + ":8080/api/DisenoCurricular";
+  private URLReporte = "http://" + this.host + ":8080/api/reporteDisenoCurricular";
+>>>>>>> Stashed changes
 
    private URL = "http://localhost:8080/api/DisenoCurricular";
    private URLReporte = "http://localhost:8080/api/reporteDisenoCurricular";

@@ -7,8 +7,13 @@ import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
   providedIn: 'root'
 })
 export class HorarioCursoService {
+<<<<<<< Updated upstream
 
   private URL = "http://localhost:8080/api/HorarioCurso";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/HorarioCurso";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

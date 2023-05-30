@@ -7,7 +7,13 @@ import { EntregaCertificado } from 'src/app/Core/models/entregaCertificado';
   providedIn: 'root'
 })
 export class EntregaCertificadoService {
+<<<<<<< Updated upstream
   private baseUrl: string;
+=======
+
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/EntregaCertificado";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) {
     this.baseUrl = 'http://localhost:8080/api/EntregaCertificado';

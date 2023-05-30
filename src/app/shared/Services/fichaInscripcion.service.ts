@@ -7,9 +7,15 @@ import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
   providedIn: 'root'
 })
 export class FichaIncripcionService {
+<<<<<<< Updated upstream
   private URL = "http://localhost:8080/api/FichaInscripcion";
 
   private URLFicha="http://localhost:8080/api/reporteInscripcionParticipante"
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/FichaInscripcion";
+  private URLReporte="http://"+ this.host +":8080/api/reporteInscripcionParticipante"
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

@@ -8,9 +8,14 @@ import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 })
 export class TipoCursoService {
 
+<<<<<<< Updated upstream
   private URL = "http://localhost:8080/api/tipocurso/buscar/";
   private URL1 = "http://localhost:8080/api/tipocurso/";
  
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/tipocurso/";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
   

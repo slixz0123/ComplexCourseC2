@@ -7,7 +7,12 @@ import { Institucion } from "src/app/Core/models/institucion";
     providedIn: 'root'
   })
 export class institucion{
+<<<<<<< Updated upstream
   private apiUrl = 'http://localhost:8080/api/institucion'
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/institucion"
+>>>>>>> Stashed changes
   
   constructor(private http: HttpClient) { }
 

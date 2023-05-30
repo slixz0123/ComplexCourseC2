@@ -8,7 +8,12 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
   providedIn: 'root'
 })
 export class DetalleMevaService {
+<<<<<<< Updated upstream
    private URL = "http://localhost:8080/api/DetalleMe";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/DetalleMe";
+>>>>>>> Stashed changes
 
 
    constructor(private http: HttpClient) { }

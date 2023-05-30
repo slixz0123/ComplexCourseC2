@@ -15,7 +15,15 @@ import { Persona } from "src/app/Core/models/persona";
     private URLCre="http://localhost:8080/api/participante/crear"
     private URLReporte = "http://localhost:8080/api/reporteRegistroParticipantesController"
 
+<<<<<<< Updated upstream
     constructor(private http: HttpClient) { }
+=======
+    private host = "165.22.182.237"
+    private URL = "http://"+ this.host +":8080/api/participante";
+    private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroParticipantesController"
+
+    constructor(private http: HttpClient) {}
+>>>>>>> Stashed changes
 
     public crearParticipante(participante: Participante){
         return this.http.post<Participante>(this.URLCre, participante);

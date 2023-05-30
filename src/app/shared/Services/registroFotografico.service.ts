@@ -8,8 +8,14 @@ import { RegistroFotografico } from 'src/app/Core/models/registrFotografico';
 })
 export class RegistroFotograficoService {
 
+<<<<<<< Updated upstream
   private apiUrl = 'http://localhost:8080/api/registrofotografico';
   private URLReporte = "http://localhost:8080/api/reporteRegistroFotografico";
+=======
+  private host = "165.22.182.237"
+  private Url = "http://"+ this.host +":8080/api/registrofotografico";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroFotografico";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

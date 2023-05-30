@@ -8,10 +8,16 @@ import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 })
 export class NecesidadCursoService {
 
+<<<<<<< Updated upstream
   private URL = "http://localhost:8080/api/necesidadcurso/buscar/";
   private URL1 = "http://localhost:8080/api/necesidadcurso/";
   private URL2 = "http://localhost:8080/api/necesidadcurso/crear";
   private URLReporte = "http://localhost:8080/api/reporteInformeNecesidadCurso";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/necesidadcurso";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteInformeNecesidadCurso";
+>>>>>>> Stashed changes
 
 
   constructor(private http: HttpClient) { }

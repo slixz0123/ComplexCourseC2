@@ -8,10 +8,18 @@ import { EntregaCertificado } from 'src/app/Core/models/entregaCertificados';
   providedIn: 'root'
 })
 
+<<<<<<< Updated upstream
 export class EntregaCertificadoService{
   private URL = "http://localhost:8080/api/EntregaCertificado"
   private URLReporte = "http://localhost:8080/api/reporteCertificado";
   private URLReporte2 = "http://localhost:8080/api/reporteEntregaCertificado";
+=======
+export class EntregaCertificadoService {
+  private host = "165.22.182.237"
+  private URL = "http://" + this.host + ":8080/api/EntregaCertificado"
+  private URLReporte = "http://" + this.host + ":8080/api/reporteCertificado";
+  private URLReporte2 = "http://" + this.host + ":8080/api/reporteEntregaCertificado";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

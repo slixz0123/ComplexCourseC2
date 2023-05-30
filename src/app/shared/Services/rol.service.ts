@@ -8,12 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class RolService {
 
+<<<<<<< Updated upstream
   
   private URL = "http://localhost:8080/api/rol/buscar/";
   private URL1 = "http://localhost:8080/api/rol/";
   private URL2 = "http://localhost:8080/api/rol/crear";
   private URL3= "http://localhost:8080/api/rol/buscarNombre/{nombre}";
  
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/rol/buscar/";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

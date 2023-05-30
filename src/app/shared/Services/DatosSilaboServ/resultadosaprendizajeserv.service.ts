@@ -8,11 +8,19 @@ import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultado
   providedIn: 'root'
 })
 export class ResultadosaprendizajeservService {
+<<<<<<< Updated upstream
 
   private URL = "http://localhost:8080/api/resultadoaprendizaje/buscar/";
   private URL1 = "http://localhost:8080/api/resultadoaprendizaje/";
   private URL2 = "http://localhost:8080/api/resultadoaprendizaje/crear";
   private URL3 = "http://localhost:8080/api/resultadoaprendizaje/crear3";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/resultadoaprendizaje/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/resultadoaprendizaje/";
+  private URL2 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear";
+  private URL3 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear3";
+>>>>>>> Stashed changes
 
 
   constructor(private http: HttpClient) { }

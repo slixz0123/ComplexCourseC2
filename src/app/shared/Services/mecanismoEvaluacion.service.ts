@@ -7,8 +7,14 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
   providedIn: 'root'
 })
 export class MecanismoEvaluacionService {
+<<<<<<< Updated upstream
 
    private URL = "http://localhost:8080/api/mecanismoevaluacion";
+=======
+  
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/mecanismoevaluacion";
+>>>>>>> Stashed changes
 
    constructor(private http: HttpClient) { }
  

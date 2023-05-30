@@ -8,9 +8,15 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class InformeFinalService {
+<<<<<<< Updated upstream
 
   private URL = "http://localhost:8080/api/informefinal";
   private URLReporte = "http://localhost:8080/api/reporteInformefinal";
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/informefinal";
+  private URLReporte = "http://"+ this.host +":8080/api/reporteInformefinal";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 

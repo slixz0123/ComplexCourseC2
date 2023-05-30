@@ -7,7 +7,12 @@ import { DetalleFichaevaluacion } from 'src/app/Core/models/detalleFichaevaluaci
   providedIn: 'root',
 })
 export class DetalleFichaevaluacionService {
+<<<<<<< Updated upstream
   private apiUrl = 'http://localhost:8080/api/DetalleFichaevaluacion';
+=======
+  private host = "165.22.182.237"
+  private URL = "http://"+ this.host +":8080/api/DetalleFichaevaluacion";
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) {}
 

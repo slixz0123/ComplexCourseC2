@@ -7,6 +7,12 @@ import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
   providedIn: 'root'
 })
 export class ModalidadService {
+<<<<<<< Updated upstream
+=======
+  private host = "1localhost"
+  private URL = "http://"+ this.host +":8080/api/modalidadcurso/buscar/";
+  private URL1 = "http://"+ this.host +":8080/api/modalidadcurso/";
+>>>>>>> Stashed changes
 
   private URL = "http://localhost:8080/api/modalidadcurso/buscar/";
   private URL1 = "http://localhost:8080/api/modalidadcurso/";
