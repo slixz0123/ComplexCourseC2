@@ -205,7 +205,7 @@ export class FichaInscripcionComponent {
         mfichaInscripcion.finHorario = this.horarioCurso;
         this.fichaincripcionService.saveFichaIncripcion(mfichaInscripcion).subscribe(() => {
           // console.log("Afirmativo pareja")
-          Swal.fire('¡Éxito!', 'La ficha de inscripción se ha guardado exitosamente, uedes imprimir la ficha en el modulo "Generar ficha incripción"', 'success');
+          Swal.fire('¡Éxito!', 'La ficha de inscripción se ha guardado exitosamente, puedes imprimir la ficha en el módulo "Generar ficha incripción"', 'success');
           this.goTo_gen_ficha();
         }, error => {
           Swal.fire('¡Error!', 'Ha ocurrido un error al guardar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
