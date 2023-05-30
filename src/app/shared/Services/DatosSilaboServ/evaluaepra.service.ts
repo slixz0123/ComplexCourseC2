@@ -7,7 +7,7 @@ import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
   providedIn: 'root'
 })
 export class EvaluaepraService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/EvaluacionEpra/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/EvaluacionEpra/";
   private URL2 = "http://"+ this.host +":8080/api/EvaluacionEpra/crear";

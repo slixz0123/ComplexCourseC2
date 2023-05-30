@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RolService {
 
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/rol/buscar/";
 
   constructor(private http: HttpClient) { }

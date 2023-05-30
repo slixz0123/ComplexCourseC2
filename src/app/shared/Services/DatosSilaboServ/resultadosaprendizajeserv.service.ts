@@ -8,7 +8,7 @@ import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultado
   providedIn: 'root'
 })
 export class ResultadosaprendizajeservService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/resultadoaprendizaje/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/resultadoaprendizaje/";
   private URL2 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear";

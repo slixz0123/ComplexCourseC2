@@ -9,7 +9,7 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class CursoService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/Curso/buscar/";
   private URLi = "http://"+ this.host +":8080/api/Curso";
   private URL1 = "http://"+ this.host +":8080/api/Curso/";

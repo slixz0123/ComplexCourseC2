@@ -8,7 +8,7 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
   providedIn: 'root'
 })
 export class DetalleMevaService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/DetalleMe";
 
 

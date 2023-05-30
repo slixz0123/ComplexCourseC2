@@ -7,7 +7,7 @@ import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
   providedIn: 'root'
 })
 export class ModalidadService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/modalidadcurso/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/modalidadcurso/";
 

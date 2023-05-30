@@ -7,7 +7,7 @@ import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
   providedIn: 'root'
 })
 export class EntornoAprendizajeService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/EntornoAprendizaje";
 
 

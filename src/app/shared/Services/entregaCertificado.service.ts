@@ -9,7 +9,7 @@ import { EntregaCertificado } from 'src/app/Core/models/entregaCertificados';
 })
 
 export class EntregaCertificadoService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://" + this.host + ":8080/api/EntregaCertificado"
   private URLReporte = "http://" + this.host + ":8080/api/reporteCertificado";
   private URLReporte2 = "http://" + this.host + ":8080/api/reporteEntregaCertificado";

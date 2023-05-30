@@ -8,7 +8,7 @@ import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrat
   providedIn: 'root'
 })
 export class EstrategiasmetservService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/EstrategiaMetodologica/buscar/";
   private URL1 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/";
   private URL2 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/crear";

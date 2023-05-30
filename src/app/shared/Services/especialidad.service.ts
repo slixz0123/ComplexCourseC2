@@ -8,7 +8,7 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
   providedIn: 'root'
 })
 export class EspecialidadService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/Especialidad";
 
 

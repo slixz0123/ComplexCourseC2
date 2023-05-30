@@ -8,7 +8,7 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
 })
 export class MecanismoEvaluacionService {
   
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/mecanismoevaluacion";
 
    constructor(private http: HttpClient) { }

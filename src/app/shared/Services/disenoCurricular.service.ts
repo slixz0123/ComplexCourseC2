@@ -13,7 +13,7 @@ import { Especialidad } from 'src/app/Core/models/especialidad';
   providedIn: 'root'
 })
 export class DisenoCurricularService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://" + this.host + ":8080/api/DisenoCurricular";
   private URLReporte = "http://" + this.host + ":8080/api/reporteDisenoCurricular";
 

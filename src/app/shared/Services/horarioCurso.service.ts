@@ -7,7 +7,7 @@ import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
   providedIn: 'root'
 })
 export class HorarioCursoService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/HorarioCurso";
 
   constructor(private http: HttpClient) { }

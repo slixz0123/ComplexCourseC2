@@ -9,7 +9,7 @@ import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
 })
 export class NecesidadCursoService {
 
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/necesidadcurso";
   private URLReporte = "http://"+ this.host +":8080/api/reporteInformeNecesidadCurso";
 

@@ -7,7 +7,7 @@ import { FichaEvaluacion } from 'src/app/Core/models/fichaEvaluacion';
   providedIn: 'root'
 })
 export class FichaEvaluacionService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://" + this.host + ":8080/api/FichaEvaluacion";
 
   constructor(private http: HttpClient) { }

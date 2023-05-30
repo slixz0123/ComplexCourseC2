@@ -11,7 +11,7 @@ import { Participante } from 'src/app/Core/models/participante';
   providedIn: 'root'
 })
 export class InformeFinalService {
-  private host = "165.22.182.237"
+  private host = "localhost"
   private URL = "http://"+ this.host +":8080/api/informefinal";
   private URLReporte = "http://"+ this.host +":8080/api/reporteInformefinal";
 
