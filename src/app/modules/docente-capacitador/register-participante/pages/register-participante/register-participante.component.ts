@@ -68,7 +68,9 @@ export class RegisterParticipanteComponent implements OnInit {
     this.fichaInscripcion = ficha
     this.mostrarFichas(ficha.finCurso.curId)
   }
-  
+  cuposdisponibles: any;
+  cupos: any;
+  fichasList: any[] = [];
   fichapa: FichaInscripcion = new FichaInscripcion();
   actualizarficha(fichaactualizada: FichaInscripcion) {
     Swal.fire({
@@ -80,21 +82,51 @@ export class RegisterParticipanteComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.fichaInscripcionService.updateFichaIncripcion(fichaactualizada.finId, fichaactualizada).subscribe(
-          (data: any) => {
-            this.fichapa = data
-            this.crearparticipante(this.fichapa);
-            this.mostrarFichas(this.fichapa.finCurso?.curId);
-            // this.mostrarFichas(fichaactualizada.finCurso.curId);
-            Swal.fire('¡Éxito!', 'La ficha de inscripción se ha actualizado exitosamente.', 'success');
-            this.showContainer4=false;
-            this.mostrarFichas(this.fichapa.finCurso.curId)
-          },
-          (err) => {
-            //console.log(err);
-            Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
-          }
-        );
+        if (fichaactualizada.finAprobacion != 1) {
+          this.fichaInscripcionService.updateFichaIncripcion(fichaactualizada.finId, fichaactualizada).subscribe(
+            (data: any) => {
+              this.fichapa = data
+              this.crearparticipante(this.fichapa);
+              this.mostrarFichas(this.fichapa.finCurso?.curId);
+              // this.mostrarFichas(fichaactualizada.finCurso.curId);
+              Swal.fire('¡Éxito!', 'La ficha de inscripción se ha actualizado exitosamente.', 'success');
+              this.showContainer4 = false;
+              this.mostrarFichas(this.fichapa.finCurso.curId)
+            },
+            (err) => {
+              //console.log(err);
+              Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
+            }
+          );
+        } else {
+          this.fichaInscripcionService.FichasPorCurso(fichaactualizada.finCurso.curId).subscribe((data: any) => {
+            this.fichasList = data.filter((ficha: FichaInscripcion) => ficha.finAprobacion == 1);
+            this.cupos = fichaactualizada.finCurso.necesidadCurso.ncuNumparticipantes;
+            // Contar fichas aprobadas
+            const numFichasAprobadas = this.fichasList.length;
+            // Calcular cupos disponibles
+            this.cuposdisponibles = this.cupos - numFichasAprobadas;
+            if (this.cuposdisponibles > 0) {
+              this.fichaInscripcionService.updateFichaIncripcion(fichaactualizada.finId, fichaactualizada).subscribe(
+                (data: any) => {
+                  this.fichapa = data
+                  this.crearparticipante(this.fichapa);
+                  this.mostrarFichas(this.fichapa.finCurso?.curId);
+                  // this.mostrarFichas(fichaactualizada.finCurso.curId);
+                  Swal.fire('¡Éxito!', 'La ficha de inscripción se ha actualizado exitosamente.', 'success');
+                  this.showContainer4 = false;
+                  this.mostrarFichas(this.fichapa.finCurso.curId)
+                },
+                (err) => {
+                  //console.log(err);
+                  Swal.fire('¡Error!', 'Ha ocurrido un error al actualizar la ficha de inscripción. Por favor, inténtelo de nuevo más tarde.', 'error');
+                }
+              );
+            } else {
+              Swal.fire('Info', 'El curso ya cuenta con el máximo número de participantes', 'info');
+            }
+          });
+        }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Edición cancelada', 'No se ha realizado ninguna modificación', 'info');
         this.mostrarFichas(fichaactualizada.finCurso.curId)
@@ -114,7 +146,7 @@ export class RegisterParticipanteComponent implements OnInit {
       this.participante.parEstado = true;
       this.participante.parPersona = fichain.finPersona;
       this.participante.parCurso = fichain.finCurso;
-      this.participante.parHorario=fichain.finHorario;
+      this.participante.parHorario = fichain.finHorario;
       //console.log("este mando")
       //console.log(this.participante)
       this.participanteService.crearParticipante(this.participante).subscribe(

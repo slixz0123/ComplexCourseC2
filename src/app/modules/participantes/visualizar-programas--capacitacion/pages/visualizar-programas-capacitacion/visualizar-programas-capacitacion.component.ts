@@ -66,10 +66,21 @@ export class VisualizarProgramasCapacitacionComponent {
       this.cursosList = data;
     });
   }
-
+  cuposdisponibles: any;
+  cupos: any;
+  fichasList: any[] = [];
   mostrarDatosCurso(mcurso: Curso) {
-    this.curso = mcurso
-    this.mostrarDatoshc();
+    this.fichainscripcionService.FichasPorCurso(mcurso.curId).subscribe((data: any) => {
+      this.fichasList = data.filter((ficha: FichaInscripcion) => ficha.finAprobacion == 1);
+      this.curso = mcurso;
+      this.cupos = this.curso.necesidadCurso.ncuNumparticipantes;
+      // Contar fichas aprobadas
+      const numFichasAprobadas = this.fichasList.length;
+      // Calcular cupos disponibles
+      this.cuposdisponibles = this.cupos - numFichasAprobadas;
+      
+      this.mostrarDatoshc();
+    });
   }
 
 
@@ -106,7 +117,7 @@ export class VisualizarProgramasCapacitacionComponent {
       });
     });
   }
-  vali:any=0;
+  vali: any = 0;
   goTogenfichains($event: any, idCurso: any): void {
     this.validarInscripcion(idCurso)
       .then((resultado: number) => {
@@ -122,31 +133,31 @@ export class VisualizarProgramasCapacitacionComponent {
         //console.error(error);
       });
   }
-  public mostrarDatosdocete(idDocente:any){
+  public mostrarDatosdocete(idDocente: any) {
     this.personaService.getPorId(idDocente).subscribe(
-        (data: any) => {
-          this.persona = data;
-          this.mostrarCursosDocente(idDocente)
-        },
+      (data: any) => {
+        this.persona = data;
+        this.mostrarCursosDocente(idDocente)
+      },
       (err) => {
         //console.log(err);
       }
     );
   }
   cursoList: any[] = [];
-  public mostrarCursosDocente(idDocente:any){
+  public mostrarCursosDocente(idDocente: any) {
     this.cursoService.cursosporDocente(idDocente).subscribe(
-        (data: any) => {
-          this.cursoList = data;
-        
-          //console.log(this.cursoList);
-        },
+      (data: any) => {
+        this.cursoList = data;
+
+        //console.log(this.cursoList);
+      },
       (err) => {
         //console.log(err);
       }
     );
   }
-  
+
 
   // fichaIncripcion: FichaInscripcion = new FichaInscripcion();
   // public ValidarInscripcion(idCurso: any): number {
