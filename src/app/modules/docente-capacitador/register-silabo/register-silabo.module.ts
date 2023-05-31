@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RegisterSilaboRoutingModule,
     FormsModule,
     ReactiveFormsModule
+    
   ],
   exports:[
     RegisterSilaboComponent

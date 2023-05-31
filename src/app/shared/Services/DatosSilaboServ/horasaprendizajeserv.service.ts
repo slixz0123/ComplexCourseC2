@@ -10,7 +10,7 @@ export class HorasaprendizajeservService {
   private URL = UrlApi+"/api/horasaprendizaje/buscar/";
   private URL1 = UrlApi+"/api/horasaprendizaje/";
   private URL2 = UrlApi+"/api/horasaprendizaje/crear";
-
+  
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +19,7 @@ export class HorasaprendizajeservService {
 post(HorasAprendizaje: HorasAprendizaje) {
   return this.http.post<HorasAprendizaje>(this.URL2 + '?', HorasAprendizaje);
 }
+
 getById(HorasAprendizaje: number) {
   return this.http.get<HorasAprendizaje>(this.URL + HorasAprendizaje);
 }

@@ -147,7 +147,7 @@ agregarVinetas2(rowIndex: number) {
   
   datossilabo: Datossilabo = new Datossilabo;
   recurdidactico: RecursosDidacticos = new RecursosDidacticos;
-  horasapren: HorasAprendizaje = new HorasAprendizaje;
+ 
 
  
   resultadosAprendizajes: ResultadosAprendizaje[] = [];
@@ -158,7 +158,7 @@ agregarVinetas2(rowIndex: number) {
 
   estrategiasMetodologicas: EstrategiasMetodologicas[] = [];
 
-
+  horasapren: HorasAprendizaje = new HorasAprendizaje;
 
   ngOnInit(): void {
       
@@ -285,6 +285,7 @@ agregarVinetas2(rowIndex: number) {
       eliminarFila(index: number) {
         this.resultadosAprendizajes.splice(index, 1);
       }
+      resultevaControls: FormGroup[] = [];
       public agregarFila() {
         const nuevaFila: ResultadosAprendizaje = {
           rapId: 0,
@@ -298,11 +299,72 @@ agregarVinetas2(rowIndex: number) {
         };
         this.resultadosAprendizajes.push(nuevaFila);
 
+        const grupo3 = new FormGroup({
+         
+          rapUnidadcompe: new FormControl(nuevaFila.rapUnidadcompe),
+          rapElementoscompe: new FormControl(nuevaFila.rapElementoscompe), // Asignar la propiedad "rapElementoscomp" aquí
+          rapResultadosaprenactiv: new FormControl(nuevaFila.rapResultadosaprenactiv),
+          rapFormaevidenciar: new FormControl(nuevaFila.rapFormaevidenciar),
+         
+        });
+        this.resultevaControls.push(grupo3);
         //evaluacion epra 
       }
+
+      rapUnidadcompe(index: number): FormControl {
+        const grupo3 = this.resultevaControls[index].get('rapUnidadcompe') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        grupo3.valueChanges.subscribe(value => {
+          this.resultadosAprendizajes[index].rapUnidadcompe = value;
+        });
+      
+        return grupo3;
+      }
+      rapElementoscompe(index: number): FormControl {
+        const grupo3 = this.resultevaControls[index].get('rapElementoscompe') as FormControl;
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        grupo3.valueChanges.subscribe(value => {
+          this.resultadosAprendizajes[index].rapElementoscompe = value;
+        });
+      
+        return grupo3;
+      }
+      rapResultadosaprenactiv(index: number): FormControl {
+        const grupo3 = this.resultevaControls[index].get('rapResultadosaprenactiv') as FormControl;
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        grupo3.valueChanges.subscribe(value => {
+          this.resultadosAprendizajes[index].rapResultadosaprenactiv = value;
+        });
+      
+        return grupo3;
+      }
+      rapFormaevidenciar(index: number): FormControl {
+        const grupo3 = this.resultevaControls[index].get('rapFormaevidenciar') as FormControl;
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        grupo3.valueChanges.subscribe(value => {
+          this.resultadosAprendizajes[index].rapFormaevidenciar = value;
+        });
+      
+        return grupo3;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
       eliminarFilaepra(index: number) {
         this.evaluacioneprea.splice(index, 1);
       }
+      filaevaepreaControls: FormGroup[] = [];
       public agregarFilaevaluaepra() {
         const nuevaFilaepra: EvaluacionEpra = {
           eraId: 0,
@@ -316,7 +378,58 @@ agregarVinetas2(rowIndex: number) {
           
         };
         this.evaluacioneprea.push(nuevaFilaepra);
+        const grupo2 = new FormGroup({
+          eraTipoactividades: new FormControl(nuevaFilaepra.eraTipoactividades),
+          eraCantactvidades: new FormControl(nuevaFilaepra.eraCantactvidades),
+          eraPorcentcalificacion: new FormControl(nuevaFilaepra.eraPorcentcalificacion),
+          eraTotal: new FormControl(nuevaFilaepra.eraTotal),
+
+        });
+        this.filaevaepreaControls.push(grupo2);
       }
+
+      eraTipoactividades(index: number): FormControl {
+        const control2 = this.filaevaepreaControls[index].get('eraTipoactividades') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.evaluacioneprea[index].eraTipoactividades = value;
+        });
+        return control2
+      }
+      eraCantactvidades(index: number): FormControl {
+        const control2 = this.filaevaepreaControls[index].get('eraCantactvidades') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.evaluacioneprea[index].eraCantactvidades = value;
+        });
+        return control2
+      }
+      eraPorcentcalificacion(index: number): FormControl {
+        const control2 = this.filaevaepreaControls[index].get('eraPorcentcalificacion') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.evaluacioneprea[index].eraPorcentcalificacion = value;
+        });
+        return control2
+      }
+
+      eraTotal(index: number): FormControl {
+        const control2 = this.filaevaepreaControls[index].get('eraTotal') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.evaluacioneprea[index].eraTotal = value;
+        });
+        return control2
+      }
+
+
+
+
+
       eraTotales: number[] = [];
 
       calcularTotal(i: number) {
@@ -338,6 +451,9 @@ agregarVinetas2(rowIndex: number) {
       eliminarFilacontenidocurso(index: number) {
         this.contenidosCurso.splice(index, 1);
       }
+     
+    
+      contenidoControls: FormGroup[] = [];
       public agregarFilaevacontenidocur() {
         const nuevaFilacontent: ContenidosCurso = {
           ccuId:0,
@@ -354,25 +470,185 @@ agregarVinetas2(rowIndex: number) {
           ccuSilabo: this.datossilabo ,
         };
         this.contenidosCurso.push(nuevaFilacontent);
+       
+      
+        const grupo2 = new FormGroup({
+          ccuDia: new FormControl(nuevaFilacontent.ccuDia),
+          ccuContenidos: new FormControl(nuevaFilacontent.ccuContenidos),
+          ccuHorasclase: new FormControl(nuevaFilacontent.ccuHorasclase),
+          ccuActividaddocencia: new FormControl(nuevaFilacontent.ccuActividaddocencia),
+          ccuHoraspractica: new FormControl(nuevaFilacontent.ccuHoraspractica),
+          ccuActividadpractica: new FormControl(nuevaFilacontent.ccuActividadpractica),
+          ccuHorastrabajoauto: new FormControl(nuevaFilacontent.ccuActividadtrabajoauto),
+          ccuActividadtrabajoauto: new FormControl(nuevaFilacontent.ccuActividadtrabajoauto),
+          ccuObservaciones: new FormControl(nuevaFilacontent.ccuObservaciones),
+         
+        });
+        this.contenidoControls.push(grupo2);
+        
       }
+      // eliminarFilaestrategia(index: number) {
+      //   this.estrategiasMetodologicas.splice(index, 1);
+      //   this.estrategiasControls.splice(index, 1);
+      // }
+      
+   
+      ccuDia(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuDia') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuDia = value;
+        });
+      
+        return control2;
+      }
+      ccuContenidos(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuContenidos') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuContenidos = value;
+        });
+      
+        return control2;
+      }
+      
+      ccuHorasclase(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuHorasclase') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuHorasclase = value;
+        });
+      
+        return control2;
+      }
+      ccuActividaddocencia(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuActividaddocencia') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuActividaddocencia = value;
+        });
+      
+        return control2;
+      }
+      ccuHoraspractica(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuHoraspractica') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuHoraspractica = value;
+        });
+      
+        return control2;
+      }
+
+      ccuActividadpractica(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuActividadpractica') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuActividadpractica = value;
+        });
+      
+        return control2;
+      }
+      ccuHorastrabajoauto(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuHorastrabajoauto') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuHorastrabajoauto = value;
+        });
+      
+        return control2;
+      }
+      ccuActividadtrabajoauto(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuActividadtrabajoauto') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuActividadtrabajoauto = value;
+        });
+      
+        return control2;
+      }
+
+      ccuObservaciones(index: number): FormControl {
+        const control2 = this.contenidoControls[index].get('ccuObservaciones') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control2 de formulario cambie
+        control2.valueChanges.subscribe(value => {
+          this.contenidosCurso[index].ccuObservaciones = value;
+        });
+      
+        return control2;
+      }
+    
+    
+
+
+
+
+
       // estrategia metodologica
 
-      eliminarFilaestrategia(index: number) {
-        this,this.estrategiasMetodologicas.splice(index, 1);
-      }
+      // eliminarFilaestrategia(index: number) {
+      //   this,this.estrategiasMetodologicas.splice(index, 1);
+      // }
+      estrategiasControls: FormGroup[] = [];
+
       public agregarFilaevaestrategia() {
         const nuevaFilaestrategi: EstrategiasMetodologicas = {
           emeId:0,
           emeEstrategia: '',
           emeFinalidad: '',
           emeEstado:true,
-          emeSilabo: this.datossilabo ,
+          emeSilabo: this.datossilabo,
         };
         this.estrategiasMetodologicas.push(nuevaFilaestrategi);
+       
+      
+        const grupo = new FormGroup({
+          emeEstrategia: new FormControl(nuevaFilaestrategi.emeEstrategia),
+          emeFinalidad: new FormControl(nuevaFilaestrategi.emeFinalidad),
+        });
+        this.estrategiasControls.push(grupo);
+        
       }
       
-
+      eliminarFilaestrategia(index: number) {
+        this.estrategiasMetodologicas.splice(index, 1);
+        this.estrategiasControls.splice(index, 1);
+      }
+      
+   
+      estrategiaControl(index: number): FormControl {
+        const control = this.estrategiasControls[index].get('emeEstrategia') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control.valueChanges.subscribe(value => {
+          this.estrategiasMetodologicas[index].emeEstrategia = value;
+        });
+      
+        return control;
+      }
+      
+      finalidadControl(index: number): FormControl {
+        const control = this.estrategiasControls[index].get('emeFinalidad') as FormControl;
+      
+        // Actualizar el valor en el modelo de datos cuando el control de formulario cambie
+        control.valueChanges.subscribe(value => {
+          this.estrategiasMetodologicas[index].emeFinalidad = value;
+        });
+      
+        return control;
+      }
+      
     
+      
 
 
 crearsilabo() {
@@ -506,14 +782,15 @@ crearsilabo() {
             //console.log(datarecurso, "Data recurso didactico");
         
             // Asignar el id del silabo a cada objeto de la tabla "horas aprendizaje"
-            this.horasapren.hapEstado = true;
+            
+          });
+          this.horasapren.hapEstado = true;
             this.horasapren.hapSilabo = silabdata;
         
             // Post de horas aprendizaje
             this.horasaprenserv.post(this.horasapren).subscribe(datahora => {
-              //console.log(datahora, "Data horas aprendizaje");
+              console.log(datahora, "Data horas aprendizaje");
             });
-          });
         this.silaboForm.reset();
           Swal.fire('Éxito', 'El sílabo se creó correctamente', 'success');
         }, error => {
