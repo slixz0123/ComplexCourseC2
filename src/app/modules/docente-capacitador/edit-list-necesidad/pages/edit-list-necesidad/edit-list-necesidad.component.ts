@@ -115,27 +115,19 @@ selecnece(nece: NecesidadCurso,id:number) {
 
 
 }
-
+cursosList: any[] = [];
+necesidadesList: any[] = [];
 ngOnInit(): void {
   const id = Number(localStorage.getItem('id_persona'));
 
-this.cursoserv.getAll().subscribe(NecesidadCurso => {
-  //console.log(NecesidadCurso)
-  this.curs = NecesidadCurso.filter(
-    NecesidadCurso => NecesidadCurso.curEstado !== false && NecesidadCurso.pcursos.id_persona !== null && Number(NecesidadCurso.pcursos.id_persona) === id
-  );
-
-  this.necesidadserv.getAll().subscribe(nece => {
-    //console.log(nece)
-    this.necesidadcurs = nece.filter(
-     
-      nece => nece.ncuEstado !== false && this.curs.some(curso => curso.curId === nece.ncuId)
-      
-    );
+  this.cursoserv.cursosporDocente(id).subscribe((data: any) => {
+    // Filtrar los datos por estado diferente a finalizado
+    this.cursosList = data
+    this.necesidadesList = this.cursosList.map((curso: Curso) => curso.necesidadCurso);
+    this.necesidadcurs=this.necesidadesList;
+    // Aquí tienes el array con las necesidades de cada curso
+    console.log(this.necesidadesList);
   });
-});
-
-  
  
   this.neceForm = this.formBuilder.group({
     ncuLugardicta: ['', Validators.required],
@@ -235,10 +227,12 @@ eliminar(ncuId: number){
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
-      this.necesidadserv.getById(id_dia).subscribe(
-        data => {
+      // this.necesidadserv.getById(id_dia).subscribe(
+      //   data => {
           //console.log(data, "encontrado");
-
+          const fechaInicio = new Date(neceedit.ncuFechaprevisfin);
+          const fechaInicioUTC = new Date(fechaInicio.getUTCFullYear(), fechaInicio.getUTCMonth(), fechaInicio.getUTCDate());
+          neceedit.ncuFechaprevisfin = fechaInicioUTC;
           this.necesidadserv.update(neceedit, neceedit.ncuId).subscribe(
             data => {
               neceedit.ncuLugardicta = this.neceseleccionada.ncuLugardicta;
@@ -270,24 +264,24 @@ eliminar(ncuId: number){
             }
           );
 
-        },
-        error => {
-          Swal.fire({
-            title: 'Error al obtener el curso',
-            text: 'Ha ocurrido un error al obtener el curso. Por favor, intenta nuevamente.',
-            icon: 'error',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Aceptar'
-          });
-        }
-      );
+      //   },
+      //   error => {
+      //     Swal.fire({
+      //       title: 'Error al obtener el curso',
+      //       text: 'Ha ocurrido un error al obtener el curso. Por favor, intenta nuevamente.',
+      //       icon: 'error',
+      //       confirmButtonColor: '#3085d6',
+      //       confirmButtonText: 'Aceptar'
+      //     });
+      //   }
+      // );
 
     }
   });
 
-  this.necesidadserv.getAll().subscribe(NecesidadCurso => {
-    this.necesidadcurs = NecesidadCurso.filter(NecesidadCurso => NecesidadCurso.ncuEstado !== false);
-  });
+  // this.necesidadserv.getAll().subscribe(NecesidadCurso => {
+  //   this.necesidadcurs = NecesidadCurso.filter(NecesidadCurso => NecesidadCurso.ncuEstado !== false);
+  // });
 }
 
 }

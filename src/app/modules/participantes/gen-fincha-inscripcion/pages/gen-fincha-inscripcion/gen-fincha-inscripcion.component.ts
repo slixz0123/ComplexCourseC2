@@ -67,6 +67,7 @@ export class GenFinchaInscripcionComponent {
 
   //ficha de inscripcion -- NECESITO UN BOTON
   public async imprimirFichaInscripcion(ficha: FichaInscripcion) {
+    console.log(ficha)
     this.fichaInscripcionServ
       .printFichaInscripcion(ficha)
       .subscribe((data: Blob) => {
