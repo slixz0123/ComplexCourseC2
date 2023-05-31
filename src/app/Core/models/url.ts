@@ -1,0 +1,1 @@
+export const UrlApi='http://24.199.80.124:8080'

@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContenidocurservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/ContenidoCurso/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/ContenidoCurso/";
-  private URL2 = "http://"+ this.host +":8080/api/ContenidoCurso/crear";
-  private URL3 = "http://"+ this.host +":8080/api/ContenidoCurso/crear3";
+  private URL = UrlApi+"/api/ContenidoCurso/buscar/";
+  private URL1 = UrlApi+"/api/ContenidoCurso/";
+  private URL2 = UrlApi+"/api/ContenidoCurso/crear";
+  private URL3 = UrlApi+"/api/ContenidoCurso/crear3";
 
 
   constructor(private http: HttpClient) { }

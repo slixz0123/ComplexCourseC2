@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecursosdidacticosservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/recursodidactico/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/recursodidactico/";
-  private URL2 = "http://"+ this.host +":8080/api/recursodidactico/crear";
+  private URL = UrlApi+"/api/recursodidactico/buscar/";
+  private URL1 = UrlApi+"/api/recursodidactico/";
+  private URL2 = UrlApi+"/api/recursodidactico/crear";
 
 
   constructor(private http: HttpClient) { }

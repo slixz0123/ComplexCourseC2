@@ -2,13 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Area } from 'src/app/Core/models/area';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AreaService {
-  private host = "165.22.182.237"
-  private URL = "http://" + this.host + ":8080/api/Area";
+
+
+  //private host = UrlApi
+  private URL = UrlApi+"/api/Area";
 
   constructor(private http: HttpClient) { }
 

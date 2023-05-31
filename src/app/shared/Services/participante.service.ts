@@ -7,6 +7,7 @@ import { FichaInscripcion } from "src/app/Core/models/fichaInscripcion";
 import { HorarioCurso } from "src/app/Core/models/horarioCurso";
 import { Participante } from "src/app/Core/models/participante";
 import { Persona } from "src/app/Core/models/persona";
+import { UrlApi } from "src/app/Core/models/url";
 
 @Injectable({
     providedIn: 'root'
@@ -14,9 +15,8 @@ import { Persona } from "src/app/Core/models/persona";
 
   export class  ParticipanteService{
 
-    private host = "165.22.182.237"
-    private URL = "http://"+ this.host +":8080/api/participante";
-    private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroParticipantesController"
+    private URL = UrlApi+"/api/participante";
+    private URLReporte = UrlApi+"/api/reporteRegistroParticipantesController"
 
     constructor(private http: HttpClient) {}
 

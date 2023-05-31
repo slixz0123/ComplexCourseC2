@@ -10,16 +10,16 @@ import { ContenidosCurso } from 'src/app/Core/models/DatosSilabo/contenidosCurso
 import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
 import { RecursosDidacticos } from 'src/app/Core/models/DatosSilabo/recursosDidacticos';
 import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatossilaboservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/DatosSilabo/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/DatosSilabo/";
-  private URL2 = "http://"+ this.host +":8080/api/DatosSilabo/crear";
-  private URLReporte = "http://"+ this.host +":8080/api/reporteSilabo";
+  private URL = UrlApi+"/api/DatosSilabo/buscar/";
+  private URL1 = UrlApi+"/api/DatosSilabo/";
+  private URL2 = UrlApi+"/api/DatosSilabo/crear";
+  private URLReporte = UrlApi+"/api/reporteSilabo";
   private items: ResultadosAprendizaje[] = [];
 
   constructor(private http: HttpClient) { }

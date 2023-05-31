@@ -11,25 +11,25 @@ import { tap, map } from 'rxjs/operators';
 import { RolService } from './rol.service';
 import { SignupRequest } from 'src/app/Core/models/SingUpRequest';
 import { LoginRequest } from 'src/app/Core/models/LoginRequest';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private host = "165.22.182.237"
-  private URL = 'http://' + this.host + ':8080/usuarios';
-  private URLcheck = 'http://' + this.host + ':8080';
-  private URLb = 'http://' + this.host + ':8080/usuarios/buscar/';
-  private URLu = 'http://' + this.host + ':8080/usuarios/buscarusr/username/';
-  private URLcre = 'http://' + this.host + ':8080/usuarios/signup';
-  private usuariosApiUrl = 'http://' + this.host + ':8080/usuarios/users/list';
-  private personasApiUrl = 'http://' + this.host + ':8080/api/persona/buscar';
-  private signupUrl = 'http://' + this.host + ':8080/api/auth/signup';
-  private rolesApiUrl = 'http://' + this.host + ':8080/api/rol/buscar';
-  private signinUrl = 'http://' + this.host + ':8080/api/auth/signin';
-  private generateTokenUrl = 'http://' + this.host + ':8080/api/auth/generate-token';
-  private token: string = '';
-  private userRole: string = '';
+  private URL = UrlApi+"/usuarios";
+  private URLcheck = UrlApi+"";
+  private URLb = UrlApi+"/usuarios/buscar/";
+  private URLu = UrlApi+"/usuarios/buscarusr/username/";
+  private URLcre = UrlApi+"/usuarios/signup";
+  private usuariosApiUrl = UrlApi+"/usuarios/users/list";
+  private personasApiUrl = UrlApi+"/api/persona/buscar";
+  private signupUrl = UrlApi+"/api/auth/signup";
+  private rolesApiUrl = UrlApi+"/api/rol/buscar";
+  private signinUrl = UrlApi+"/api/auth/signin";
+  private generateTokenUrl = UrlApi+"/api/auth/generate-token";
+  private token: string = "";
+  private userRole: string = "";
   constructor(private http: HttpClient, private rol: RolService) { }
 
   setToken(token: string) {

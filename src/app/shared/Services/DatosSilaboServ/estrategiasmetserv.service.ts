@@ -2,17 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EstrategiasMetodologicas } from 'src/app/Core/models/DatosSilabo/estrategiasMetodologicas';
+import { UrlApi } from 'src/app/Core/models/url';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstrategiasmetservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/EstrategiaMetodologica/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/";
-  private URL2 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/crear";
-  private URL3 = "http://"+ this.host +":8080/api/EstrategiaMetodologica/crear3";
+  private URL = UrlApi+"/api/EstrategiaMetodologica/buscar/";
+  private URL1 = UrlApi+"/api/EstrategiaMetodologica/";
+  private URL2 = UrlApi+"/api/EstrategiaMetodologica/crear";
+  private URL3 = UrlApi+"/api/EstrategiaMetodologica/crear3";
 
 
   constructor(private http: HttpClient) { }

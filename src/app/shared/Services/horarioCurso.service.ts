@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorarioCursoService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/HorarioCurso";
+  private URL = UrlApi+"/api/HorarioCurso";
 
   constructor(private http: HttpClient) { }
 

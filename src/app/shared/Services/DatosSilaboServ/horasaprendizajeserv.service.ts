@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendizaje';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorasaprendizajeservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/horasaprendizaje/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/horasaprendizaje/";
-  private URL2 = "http://"+ this.host +":8080/api/horasaprendizaje/crear";
+  private URL = UrlApi+"/api/horasaprendizaje/buscar/";
+  private URL1 = UrlApi+"/api/horasaprendizaje/";
+  private URL2 = UrlApi+"/api/horasaprendizaje/crear";
 
 
   constructor(private http: HttpClient) { }

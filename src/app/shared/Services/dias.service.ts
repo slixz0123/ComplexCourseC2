@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Dias } from 'src/app/Core/models/dias';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiasService {
-  private host = "165.22.182.237"
-  private URL = "http://" + this.host + ":8080/api/Dia/buscar/";
-  private URL1 = "http://" + this.host + ":8080/api/Dia/";
-  private URL2 = "http://" + this.host + ":8080/api/Dia/crear";
+  private URL = UrlApi+"/api/Dia/buscar/";
+  private URL1 = UrlApi+"/api/Dia/";
+  private URL2 = UrlApi+"/api/Dia/crear";
 
 
   constructor(private http: HttpClient) { }

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { TiposCurso } from 'src/app/Core/models/tipoCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 export class TipoCursoService {
 
   private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/tipocurso/";
+  private URL = UrlApi+"/api/tipocurso/";
 
   constructor(private http: HttpClient) { }
   

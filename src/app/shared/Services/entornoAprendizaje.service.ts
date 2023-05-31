@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EntornoAprendizaje } from 'src/app/Core/models/entornoAprendizaje';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntornoAprendizajeService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/EntornoAprendizaje";
+  private URL = UrlApi+"/api/EntornoAprendizaje";
 
 
   constructor(private http: HttpClient) { }

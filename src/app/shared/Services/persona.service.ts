@@ -5,14 +5,14 @@ import { Persona } from 'src/app/Core/models/persona';
 import { Usuario } from 'src/app/Core/models/usuario';
 import { Curso } from 'src/app/Core/models/curso';
 import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
 
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/persona";
+  private URL = UrlApi+"/api/persona";
 
   constructor(private http: HttpClient) { }
 

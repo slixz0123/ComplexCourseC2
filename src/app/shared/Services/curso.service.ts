@@ -4,18 +4,18 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { Asistencia } from 'src/app/Core/models/asistencia';
 import { Curso } from 'src/app/Core/models/curso';
 import { Participante } from 'src/app/Core/models/participante';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/Curso/buscar/";
-  private URLi = "http://"+ this.host +":8080/api/Curso";
-  private URL1 = "http://"+ this.host +":8080/api/Curso/";
-  private URL2 = "http://"+ this.host +":8080/api/Curso/crear";
-  private URLReporte = "http://"+ this.host +":8080/api/reporteMatrizReporteMensual";
-  private URLReporte2 = "http://"+ this.host +":8080/api/reporteRegistroGeneralCursosFinalizados";
+  private URL = UrlApi+"/api/Curso/buscar/";
+  private URLi = UrlApi+"/api/Curso";
+  private URL1 = UrlApi+"/api/Curso/";
+  private URL2 = UrlApi+"/api/Curso/crear";
+  private URLReporte = UrlApi+"/api/reporteMatrizReporteMensual";
+  private URLReporte2 = UrlApi+"/api/reporteRegistroGeneralCursosFinalizados";
 
 
   constructor(private http: HttpClient) { }

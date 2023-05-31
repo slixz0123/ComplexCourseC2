@@ -6,14 +6,14 @@ import { HorasAprendizaje } from 'src/app/Core/models/DatosSilabo/horasAprendiza
 import { InformeFinal } from 'src/app/Core/models/InformeFinal';
 import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Participante } from 'src/app/Core/models/participante';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InformeFinalService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/informefinal";
-  private URLReporte = "http://"+ this.host +":8080/api/reporteInformefinal";
+  private URL = UrlApi+"/api/informefinal";
+  private URLReporte = UrlApi+"/api/reporteInformefinal";
 
   constructor(private http: HttpClient) { }
 

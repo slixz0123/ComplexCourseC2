@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { EntregaCertificado } from 'src/app/Core/models/entregaCertificado';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntregaCertificadoService {
 
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/EntregaCertificado";
+  private URL = UrlApi+"/api/EntregaCertificado";
 
   constructor(private http: HttpClient) {
    

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Area } from 'src/app/Core/models/area';
 import { Especialidad } from 'src/app/Core/models/especialidad';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EspecialidadService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/Especialidad";
+  private URL = UrlApi+"/api/Especialidad";
 
 
   constructor(private http: HttpClient) { }

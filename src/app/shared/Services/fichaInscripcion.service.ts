@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FichaInscripcion } from 'src/app/Core/models/fichaInscripcion';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FichaIncripcionService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/FichaInscripcion";
-  private URLReporte="http://"+ this.host +":8080/api/reporteInscripcionParticipante"
+  private URL = UrlApi+"/api/FichaInscripcion";
+  private URLReporte = UrlApi+"/api/reporteInscripcionParticipante"
 
   constructor(private http: HttpClient) { }
 

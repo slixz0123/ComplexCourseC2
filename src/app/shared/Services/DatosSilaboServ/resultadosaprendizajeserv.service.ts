@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ResultadosAprendizaje } from 'src/app/Core/models/DatosSilabo/resultadosAprendizaje';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResultadosaprendizajeservService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/resultadoaprendizaje/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/resultadoaprendizaje/";
-  private URL2 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear";
-  private URL3 = "http://"+ this.host +":8080/api/resultadoaprendizaje/crear3";
+  private URL = UrlApi+"/api/resultadoaprendizaje/buscar/";
+  private URL1 = UrlApi+"/api/resultadoaprendizaje/";
+  private URL2 = UrlApi+"/api/resultadoaprendizaje/crear";
+  private URL3 = UrlApi+"/api/resultadoaprendizaje/crear3";
 
 
   constructor(private http: HttpClient) { }

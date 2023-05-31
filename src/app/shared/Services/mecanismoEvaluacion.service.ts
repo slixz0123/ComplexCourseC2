@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
 export class MecanismoEvaluacionService {
   
   private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/mecanismoevaluacion";
+  private URL = UrlApi+"/api/mecanismoevaluacion";
 
    constructor(private http: HttpClient) { }
  

@@ -6,14 +6,15 @@ import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
 import { Curso } from 'src/app/Core/models/curso';
 import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { Participante } from 'src/app/Core/models/participante';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AsistenciaService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/asistencia";
-  private URLReporte1 = "http://"+ this.host +":8080/api/reporteRegistroAsistenciaEvaluacion";
+  private URL = UrlApi+"/api/asistencia";
+  private URLReporte1 = UrlApi+"/api/reporteRegistroAsistenciaEvaluacion";
+
 
    constructor(private http: HttpClient) { }
 

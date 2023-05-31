@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { DetalleMe } from 'src/app/Core/models/detalleme';
 import { MecanismoEvaluacion } from 'src/app/Core/models/mecanismoEvaluacion';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DetalleMevaService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/DetalleMe";
+  private URL = UrlApi+"/api/DetalleMe";
 
 
    constructor(private http: HttpClient) { }

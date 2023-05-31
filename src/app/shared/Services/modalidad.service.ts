@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ModalidadCurso } from 'src/app/Core/models/modalidadCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalidadService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/modalidadcurso/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/modalidadcurso/";
+  private URL = UrlApi+"/api/modalidadcurso/buscar/";
+  private URL1 = UrlApi+"/api/modalidadcurso/";
 
 
   constructor(private http: HttpClient) { }

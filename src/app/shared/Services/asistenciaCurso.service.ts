@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AsistenciaCurso } from 'src/app/Core/models/asistenciaCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AsistenciaCursoService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/asistenciacurso";
+  private URL = UrlApi+"/api/asistenciacurso";
 
   constructor(private http: HttpClient) { }
 

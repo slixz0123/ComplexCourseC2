@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegistroFotografico } from 'src/app/Core/models/registrFotografico';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistroFotograficoService {
 
-  private host = "165.22.182.237"
-  private Url = "http://"+ this.host +":8080/api/registrofotografico";
-  private URLReporte = "http://"+ this.host +":8080/api/reporteRegistroFotografico";
+  private Url = UrlApi+"/api/registrofotografico";
+  private URLReporte = UrlApi+"/api/reporteRegistroFotografico";
 
   constructor(private http: HttpClient) { }
 

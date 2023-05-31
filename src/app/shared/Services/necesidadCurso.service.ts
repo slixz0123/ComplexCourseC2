@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 import { Curso } from 'src/app/Core/models/curso';
 import { HorarioCurso } from 'src/app/Core/models/horarioCurso';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NecesidadCursoService {
 
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/necesidadcurso";
-  private URLReporte = "http://"+ this.host +":8080/api/reporteInformeNecesidadCurso";
+  private URL = UrlApi+"/api/necesidadcurso";
+  private URLReporte = UrlApi+"/api/reporteInformeNecesidadCurso";
 
 
   constructor(private http: HttpClient) { }

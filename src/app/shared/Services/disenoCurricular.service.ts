@@ -8,14 +8,14 @@ import { Curso } from 'src/app/Core/models/curso';
 import { DetalleMe } from 'src/app/Core/models/detalleme';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
 import { Especialidad } from 'src/app/Core/models/especialidad';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DisenoCurricularService {
-  private host = "165.22.182.237"
-  private URL = "http://" + this.host + ":8080/api/DisenoCurricular";
-  private URLReporte = "http://" + this.host + ":8080/api/reporteDisenoCurricular";
+  private URL = UrlApi+"/api/DisenoCurricular";
+  private URLReporte = UrlApi+"/api/reporteDisenoCurricular";
 
   constructor(private http: HttpClient) { }
 

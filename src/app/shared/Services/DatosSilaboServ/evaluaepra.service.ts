@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EvaluacionEpra } from 'src/app/Core/models/DatosSilabo/evaluacionepra';
+import { UrlApi } from 'src/app/Core/models/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EvaluaepraService {
-  private host = "165.22.182.237"
-  private URL = "http://"+ this.host +":8080/api/EvaluacionEpra/buscar/";
-  private URL1 = "http://"+ this.host +":8080/api/EvaluacionEpra/";
-  private URL2 = "http://"+ this.host +":8080/api/EvaluacionEpra/crear";
-  private URL3 = "http://"+ this.host +":8080/api/EvaluacionEpra/crear3";
+  private URL = UrlApi+"/api/EvaluacionEpra/buscar/";
+  private URL1 = UrlApi+"/api/EvaluacionEpra/";
+  private URL2 = UrlApi+"/api/EvaluacionEpra/crear";
+  private URL3 = UrlApi+"/api/EvaluacionEpra/crear3";
 
   private items: EvaluacionEpra[] = [];
   constructor(private http: HttpClient) { }
