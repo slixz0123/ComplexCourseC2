@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Curso } from 'src/app/Core/models/curso';
 import { DisenoCurricular } from 'src/app/Core/models/disenoCurricular';
+import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DisenoCurricularService } from 'src/app/shared/Services/disenoCurricular.service';
 import Swal from 'sweetalert2';
 
@@ -21,17 +23,34 @@ export class RegiserDisenoCurricularComponent {
   dcuNivelesValido: boolean = true;
   dcuTemasValido: boolean = true;
   filtro = '';
-
-  constructor(private disenoServ: DisenoCurricularService) { }
+  id_persona:any;
+  constructor(private disenoServ: DisenoCurricularService,private cursoserv: CursoService) { }
 
   ngOnInit(): void {
+    this.id_persona = localStorage.getItem('id_persona');
     this.getDisenos();
     this.getdisenocurricular();
   }
 
+  cursosList: any[] = [];
+  disenosList: any[] = [];
   getDisenos(): void {
-    this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
+
+    this.cursoserv.cursosporDocente(this.id_persona).subscribe((data: any) => {
+      // Filtrar los datos por estado diferente a finalizado
+      this.cursosList = data
+      this.disenosList = this.cursosList.map((curso: Curso) => curso.disenoCurricular);
+      
+      this.disenos=this.disenosList.filter((diseno: DisenoCurricular) => diseno.dcuEstado != false);
+
+      // Aquí tienes el array con las necesidades de cada curso
+      console.log(this.disenos);
+    });
+
+
+    // this.disenoServ.getAllTrue().subscribe((disenos) => (this.disenos = disenos));
   }
+
 
   crearDiseno(): void {
     this.disenoServ.create(this.disenoSeleccionaddo).subscribe(() => {

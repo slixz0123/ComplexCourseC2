@@ -4,7 +4,7 @@
     <form #disenoForm="ngForm" (ngSubmit)="submitForm()">
       <div class="container">
         <div class="form-group rounded shadow-lg" style="background-color: #2a4cbbfb;">
-          <h2 class="mb-3" style="color: rgb(248, 249, 251); text-align: center;">¿Desea usar un diseño curricular anterior?</h2>
+          <h2 class="mb-3" style="color: rgb(248, 249, 251); text-align: center; font-size: 20px;">¿Desea usar un diseño curricular anterior?</h2>
           <select class="form-control" (change)="onSelectChangediseno($event.target)">
             <option value="" disabled selected hidden>Seleccione</option>
             <option *ngFor="let cursodiseno of arraydseno" [value]="cursodiseno.dcuId">{{ cursodiseno.dcuIdentificador }}</option>
