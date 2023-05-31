@@ -4,3 +4,6 @@
     border-radius: 8px; /* Redondea las esquinas */
     padding: 20px; /* Opcional: Añade un relleno interno */
   }
+  .custom-separator {
+    border-top: 4px solid blue;
+  }

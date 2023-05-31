@@ -353,7 +353,7 @@ onCedulaChange(value: string): void {
   valhoja: boolean = true;
   validarcampos() {
     //Validar nombre, apellido y etnia
-    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s]+$/;
+    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s\u00f1\u00d1áéíóúÁÉÍÓÚ]+$/u;
     this.valnombre = this.persona && typeof this.signupRequest.persona.nombre === 'string' && campo1Regex.test(this.signupRequest.persona.nombre);
     this.valapellido = this.persona && typeof this.signupRequest.persona.apellido === 'string' && campo1Regex.test(this.signupRequest.persona.apellido);
  //Validar etnia
@@ -365,7 +365,7 @@ onCedulaChange(value: string): void {
       this.valetnia = false
     }
     //validar direccion
-    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
+    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s\u00f1\u00d1áéíóúÁÉÍÓÚ.-]+$/u;
     this.valdireccion = this.signupRequest.persona && typeof this.signupRequest.persona.direccion === 'string' && campo2Regex.test(this.signupRequest.persona.direccion);
     //Validar Correo
     const correoRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com|tecazuay\.edu\.ec)$/;

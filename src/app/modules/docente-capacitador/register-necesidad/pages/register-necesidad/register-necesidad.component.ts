@@ -1,33 +1,28 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Curso } from 'src/app/Core/models/curso';
 import { Dias } from 'src/app/Core/models/dias';
 import { NecesidadCurso } from 'src/app/Core/models/necesidadCurso';
-import { TiposCurso } from 'src/app/Core/models/tipoCurso';
 import { CursoService } from 'src/app/shared/Services/curso.service';
 import { DiasService } from 'src/app/shared/Services/dias.service';
 import { NecesidadCursoService } from 'src/app/shared/Services/necesidadCurso.service';
 import Swal from'sweetalert2';
 
-
 @Component({
   selector: 'app-register-necesidad',
   templateUrl: './register-necesidad.component.html',
-  styleUrls: ['./register-necesidad.component.css'],
-  template:`
-  <select>
-    <option *ngFor="let clase of claseauto">{{clase}}</option>
-  </select>
-`
+  styleUrls: ['./register-necesidad.component.css']
 })
 export class RegisterNecesidadComponent {
   neceForm!: FormGroup;
   necesidad: NecesidadCurso = new NecesidadCurso();
   arraydias: Dias[] = [];
   selectedId3: Dias = new Dias();
+  arraynecesidades: NecesidadCurso[] = [];
+  selectedIdNecesidadCurso: NecesidadCurso = new NecesidadCurso();
 
   constructor(
-    private necesidadserv: NecesidadCursoService,
+    private necesidadServ: NecesidadCursoService,
     private diaserv: DiasService,
     private formbuilder: FormBuilder
   ) {}
@@ -41,7 +36,7 @@ export class RegisterNecesidadComponent {
     this.necesidad.ncuEstado = true;
     localStorage.removeItem('num_placa');
     this.getdias();
-    this.vertdia();
+    this.getnecesidades();
 
     this.neceForm = this.formbuilder.group({
       ncuIdentificador: ['', Validators.required],
@@ -54,20 +49,9 @@ export class RegisterNecesidadComponent {
     });
   }
 
-
   getdias() {
     this.diaserv.getAll().subscribe((clasedia) => (this.arraydias = clasedia.filter((clasedia) => clasedia.diaEstado !== false)));
   }
-
-  vertdia() {
-    this.diaserv.getAll().subscribe((result) => {
-      //console.log(result);
-    });
-    this.diaserv.getPorId(this.necesidad.dia.diaId).subscribe((result) => {
-      //console.log(result);
-    });
-  }
-  
 
   onSelectChange3(eventTarget: EventTarget | null) {
     const selectElement = eventTarget as HTMLSelectElement;
@@ -76,7 +60,6 @@ export class RegisterNecesidadComponent {
     }
 
     const selectedValue = selectElement.value;
-    //console.log(selectedValue);
     this.selectedId3.diaId = Number(selectedValue);
   }
 
@@ -95,11 +78,10 @@ export class RegisterNecesidadComponent {
   
     return true;
   }
-  
-
 
   limpiarCampos() {
     this.neceForm.reset();
+    this.getnecesidades();
   }
   
   crearcurso() {
@@ -123,20 +105,19 @@ export class RegisterNecesidadComponent {
       confirmButtonText: 'Guardar',
       denyButtonText: `No guardar`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.necesidad.dia = this.selectedId3;
   
         this.diaserv.getById(this.necesidad.dia.diaId).subscribe((diadata) => {
-          //console.log(diadata);
-  
+          this.necesidad.ncuId = 0;
           this.necesidad.dia = diadata;
           this.necesidad.ncuEstado = true;
   
-          this.necesidadserv.post(this.necesidad).subscribe((dataprod) => {
+          this.necesidadServ.post(this.necesidad).subscribe((dataprod) => {
             //console.log(dataprod);
           });
           this.limpiarCampos();
+          this.getnecesidades();
           //window.location.reload();
         });
   
@@ -145,7 +126,36 @@ export class RegisterNecesidadComponent {
         Swal.fire('Cambios no guardados', '', 'info');
       }
     });
+    this.getnecesidades();
   }
   
-  
+  onSelectChangenecesidades(eventTarget: EventTarget | null) {
+    const selectElement = eventTarget as HTMLSelectElement;
+    if (!selectElement) {
+      return;
+    }
+    const selectedValue = selectElement.value;
+    this.selectedIdNecesidadCurso.ncuId = Number(selectedValue);
+
+    // Obtener los datos del registro seleccionado
+    const selectedNecesidad = this.arraynecesidades.find((necesidad) => necesidad.ncuId === this.selectedIdNecesidadCurso.ncuId);
+    if (selectedNecesidad) {
+      this.neceForm.patchValue({
+        ncuIdentificador: selectedNecesidad.ncuIdentificador,
+        ncuLugardicta: selectedNecesidad.ncuLugardicta,
+        dia: selectedNecesidad.dia.diaId,
+        ncuFechaprevisfin: selectedNecesidad.ncuFechaprevisfin,
+        ncuNumparticipantes: selectedNecesidad.ncuNumparticipantes,
+        ncuResumenyproyecto: selectedNecesidad.ncuResumenyproyecto,
+        ncuPoblaciondirigida: selectedNecesidad.ncuPoblaciondirigida
+      });
+      this.selectedId3.diaId = selectedNecesidad.dia.diaId;
+    }
+  }
+
+  getnecesidades() {
+    this.necesidadServ.getAll().subscribe(
+      cursonecesidades => this.arraynecesidades = cursonecesidades
+    );    
+  }
 }

@@ -151,9 +151,9 @@ export class FichaInscripcionComponent {
   guardarFichaIncripcion(mfichaInscripcion: FichaInscripcion) {
     // console.log(this.fichaInscripcion.finAuspiciadoinst)
     // Validación de datos
-    const campo1Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.]+$/;
+    const campo1Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.\u00f1\u00d1áéíóúÁÉÍÓÚ]+$/u;
     this.camp1 = campo1Regex.test(this.fichaInscripcion.finInstituciontraest);
-    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
+    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s\u00f1\u00d1áéíóúÁÉÍÓÚ.-]+$/u;
     this.camp2 = campo2Regex.test(this.fichaInscripcion.finDireccioninst);
     const correoRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com|tecazuay\.edu\.ec)$/;
     this.camp3 = correoRegex.test(this.fichaInscripcion.finCorreoinst);

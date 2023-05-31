@@ -1,23 +1,31 @@
-<br>
 <div class="container" style="background-color: #ffffff;">
   <div class="mt-4">
     <h3 style="text-align: center;">{{ isNew ? 'Nuevo Diseño curricular' : 'Editar Diseño curricular' }}</h3>
     <form #disenoForm="ngForm" (ngSubmit)="submitForm()">
+      <div class="container">
+        <div class="form-group rounded shadow-lg" style="background-color: #2a4cbbfb;">
+          <h2 class="mb-3" style="color: rgb(248, 249, 251); text-align: center;">¿Desea usar un diseño curricular anterior?</h2>
+          <select class="form-control" (change)="onSelectChangediseno($event.target)">
+            <option value="" disabled selected hidden>Seleccione</option>
+            <option *ngFor="let cursodiseno of arraydseno" [value]="cursodiseno.dcuId">{{ cursodiseno.dcuIdentificador }}</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="custom-separator">
+
       <div class="row">
         <div class="col-md-12">
           <div class="form-group">
             <label for="dcuIdentificador">Identificador/Nombre</label>
-            <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador"
-              [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
-            <small *ngIf="!dcuIdentificadorValido" class="text-danger">Campo requerido. Debe ingresar el nombre o
-              identificador del Diseño curricular</small>
+            <input type="text" class="form-control" id="dcuIdentificador" name="dcuIdentificador" [(ngModel)]="disenoSeleccionaddo.dcuIdentificador" required>
+            <small *ngIf="!dcuIdentificadorValido" class="text-danger">Campo requerido. Debe ingresar el nombre o identificador del Diseño curricular</small>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="dcuNiveles">Nivel</label>
-            <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles"
-              required>
+            <select class="form-control" id="dcuNiveles" name="dcuNiveles" [(ngModel)]="disenoSeleccionaddo.dcuNiveles" required>
               <option value="" selected disabled>Seleccione una opción</option>
               <option value="Primaria">Primaria</option>
               <option value="Secundaria">Secundaria</option>
@@ -29,13 +37,11 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="dcuTemastransversales">Temas Transversales</label>
-            <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales"
-              [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
-            <small *ngIf="!dcuTemasValido" class="text-danger">Campo requerido. Debe ingresar los temas transversales de
-              la capacitación</small>
+            <textarea type="text" class="form-control" id="dcuTemastransversales" name="dcuTemastransversales" [(ngModel)]="disenoSeleccionaddo.dcuTemastransversales" required></textarea>
+            <small *ngIf="!dcuTemasValido" class="text-danger">Campo requerido. Debe ingresar los temas transversales de la capacitación</small>
           </div>
         </div>
-      </div>
+      </div>      
       <button type="submit" class="btn btn-primary">{{ isNew ? 'Crear' : 'Guardar' }}</button>
     </form>
   </div>
@@ -58,9 +64,7 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let diseno of disenos">
-        <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || 
-                   diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase()) || 
-                   diseno.dcuIdentificador.toLowerCase().includes(filtro.toLowerCase())">
+        <tr *ngIf="diseno.dcuNiveles.toLowerCase().includes(filtro.toLowerCase()) || diseno.dcuTemastransversales.toLowerCase().includes(filtro.toLowerCase()) || diseno.dcuIdentificador.toLowerCase().includes(filtro.toLowerCase())">
           <td>{{ diseno.dcuIdentificador }}</td>
           <td>{{ diseno.dcuNiveles }}</td>
           <td>{{ diseno.dcuTemastransversales }}</td>

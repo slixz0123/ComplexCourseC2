@@ -88,12 +88,13 @@ export class EditDtsAdminComponent {
 
   validarcampos() {
     //Validar nombre, apellido y etnia
-    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s]+$/;
+    const campo1Regex = /^(?=.*[A-Za-z])[A-Za-z\s\u00f1\u00d1áéíóúÁÉÍÓÚ]+$/u;
+
     this.valnombre = this.persona && typeof this.persona.nombre === 'string' && campo1Regex.test(this.persona.nombre);
     this.valapellido = this.persona && typeof this.persona.apellido === 'string' && campo1Regex.test(this.persona.apellido);
     // this.valetnia = this.persona && typeof this.persona.etnia === 'string' && campo1Regex.test(this.persona.etnia);
     //validar direccion
-    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s.-]+$/;
+    const campo2Regex = /^(?=.*[A-Za-z])[0-9A-Za-z\s\u00f1\u00d1áéíóúÁÉÍÓÚ.-]+$/u;
     this.valdireccion = this.persona && typeof this.persona.direccion === 'string' && campo2Regex.test(this.persona.direccion);
     //Validar Correo
     const correoRegex = /^[A-Za-z0-9._%+-]+@(gmail\.com|tecazuay\.edu\.ec)$/;

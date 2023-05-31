@@ -1,75 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de la  neecesidad del Curso</title>
+    <title>Registro de la necesidad del Curso</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
-  <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); " >
+  <body style="border-radius: 15px; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); ">
     <div class="container mt-2">
       <h1 style="margin-top: 15px; " class="text-center mb-5">Registro de la necesidad del curso</h1>
       <form id="contenedorform" [formGroup]="neceForm">
+        <div class="container">
+          <div class="form-group rounded shadow-lg" style="background-color: #2a4cbbfb;">
+            <h2 class="mb-3" style="color: rgb(238, 239, 245); text-align: center;">¿Desea usar una necesidad de un curso anterior?</h2>
+            <select class="form-control" (change)="onSelectChangenecesidades($event.target)">
+              <option value="" disabled selected hidden>Seleccione</option>
+              <option *ngFor="let cursonecesidades of arraynecesidades" [value]="cursonecesidades.ncuId">
+                {{ cursonecesidades.ncuIdentificador }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="custom-separator">
+
         <div class="">
           <div class="">
             <h2 class="mb-3">Identificador necesidad curso</h2>
-            <input type="text" name="ncuIdentificador" class="form-control" [(ngModel)]="necesidad.ncuIdentificador" formControlName="ncuIdentificador" />
-      
-            <h2 class="mb-3">1. Lugar donde se dictara</h2>
+            <input type="text" name="ncuIdentificador" class="form-control" [(ngModel)]="necesidad.ncuIdentificador"
+              formControlName="ncuIdentificador" />
+
+            <h2 class="mb-3">1. Lugar donde se dictará</h2>
             <div class="mb-3">
-              <textarea
-                rows="3"
-                class="form-control"
-                formControlName="ncuLugardicta"
-                [(ngModel)]="necesidad.ncuLugardicta"
-              ></textarea>
+              <textarea rows="3" class="form-control" formControlName="ncuLugardicta"
+                [(ngModel)]="necesidad.ncuLugardicta"></textarea>
             </div>
-      
+
             <label class="form-label">Días</label>
-            <select (change)="onSelectChange3($event.target)" [(ngModel)]="selectedId3.diaId" class="form-select" formControlName="dia">
+            <select (change)="onSelectChange3($event.target)" [(ngModel)]="selectedId3.diaId" class="form-select"
+              formControlName="dia">
               <option *ngFor="let clasedia of arraydias" [value]="clasedia.diaId">{{ clasedia.diaNombre }}</option>
             </select>
-            
-      
+
             <label class="form-label">Fecha prevista de Iniciación</label>
-            <input type="date" formControlName="ncuFechaprevisfin" [(ngModel)]="necesidad.ncuFechaprevisfin" class="form-control" />
-      
+            <input type="date" formControlName="ncuFechaprevisfin" [(ngModel)]="necesidad.ncuFechaprevisfin"
+              class="form-control" />
+
             <label class="form-label">Número de Participantes a ser inscritos</label>
-            <input type="number" name="ncuNumparticipantes" class="form-control" [(ngModel)]="necesidad.ncuNumparticipantes" formControlName="ncuNumparticipantes" />
-      
+            <input type="number" name="ncuNumparticipantes" class="form-control"
+              [(ngModel)]="necesidad.ncuNumparticipantes" formControlName="ncuNumparticipantes" />
+
             <h2 class="mb-3">2. Resumen del curso y posible proyecto</h2>
             <div class="mb-3">
-              <textarea
-                rows="3"
-                class="form-control"
-                formControlName="ncuResumenyproyecto"
-                [(ngModel)]="necesidad.ncuResumenyproyecto"
-              ></textarea>
+              <textarea rows="3" class="form-control" formControlName="ncuResumenyproyecto"
+                [(ngModel)]="necesidad.ncuResumenyproyecto"></textarea>
             </div>
-      
+
             <h2 class="mb-3">3. Población a quién se encuentra dirigido</h2>
             <div class="mb-3">
-              <textarea
-                rows="3"
-                class="form-control"
-                formControlName="ncuPoblaciondirigida"
-                [(ngModel)]="necesidad.ncuPoblaciondirigida"
-              ></textarea>
+              <textarea rows="3" class="form-control" formControlName="ncuPoblaciondirigida"
+                [(ngModel)]="necesidad.ncuPoblaciondirigida"></textarea>
             </div>
           </div>
         </div>
-      
+
         <div class="mb-3">
-          <button (click)="crearcurso()" type="submit" class="btn btn-primary" style="margin: 7px; padding-left: 100px; padding-right: 100px;">Guardar</button>
+          <button (click)="crearcurso()" type="submit" class="btn btn-primary"
+            style="margin: 7px; padding-left: 100px; padding-right: 100px;">Guardar</button>
         </div>
       </form>
-        <!-- <pre>
-      {{necesidad |  json}}
-     </pre>  -->
     </div>
 
-   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

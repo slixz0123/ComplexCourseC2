@@ -26,6 +26,7 @@ export class RegiserDisenoCurricularComponent {
 
   ngOnInit(): void {
     this.getDisenos();
+    this.getdisenocurricular();
   }
 
   getDisenos(): void {
@@ -83,6 +84,7 @@ export class RegiserDisenoCurricularComponent {
       if (result.isConfirmed) {
         this.disenoServ.delete(areId).subscribe(() => {
           this.getDisenos();
+          this.getdisenocurricular();
           Swal.fire('¡Éxito!', 'El diseño curricular ha sido eliminado correctamente', 'success'); // SweetAlert al eliminar el área
         });
       }
@@ -110,6 +112,7 @@ export class RegiserDisenoCurricularComponent {
 
     if (this.dcuIdentificadorValido && this.dcuNivelesValido && this.dcuTemasValido) {
       if (this.isNew) {
+        this.disenoSeleccionaddo.dcuId=0;
         this.crearDiseno();
       } else {
         this.guardarDiseno();
@@ -117,13 +120,43 @@ export class RegiserDisenoCurricularComponent {
       this.disenoForm?.reset();
       this.submitted = false;
       this.isNew = true;
-    }else{
+    } else {
       Swal.fire('Error', 'Datos incorrectos. Es necesario que llene todos los datos', 'error');
     }
+    this.getDisenos();
+    this.getdisenocurricular();
   }
 
   actualizarFiltro() {
     this.filtro = (document.getElementById('buscar') as HTMLInputElement).value.trim();
   }
 
+  // diseño curricular 
+  disenonew!: DisenoCurricular;
+  arraydseno: DisenoCurricular[] = [];
+  newDisenoCurricular: DisenoCurricular = new DisenoCurricular;
+  selectedIdDisenoCurricular: DisenoCurricular = new DisenoCurricular();
+
+  onSelectChangediseno(eventTarget: EventTarget | null) {
+    const selectElement = eventTarget as HTMLSelectElement;
+    if (!selectElement) {
+      return;
+    }
+    const selectedValue = selectElement.value;
+    this.selectedIdDisenoCurricular.dcuId = Number(selectedValue);
+
+    // Cargar los datos en los componentes correspondientes
+    const selectedDiseno = this.arraydseno.find(d => d.dcuId === this.selectedIdDisenoCurricular.dcuId);
+    if (selectedDiseno) {
+      this.disenoSeleccionaddo = Object.assign({}, selectedDiseno);
+    } else {
+      this.disenoSeleccionaddo = new DisenoCurricular();
+    }
+  }
+
+  getdisenocurricular() {
+    this.disenoServ.getAllTrue().subscribe(
+      cursodiseno => this.arraydseno = cursodiseno.filter(cursodiseno => cursodiseno.dcuEstado !== false)
+    );
+  }
 }
