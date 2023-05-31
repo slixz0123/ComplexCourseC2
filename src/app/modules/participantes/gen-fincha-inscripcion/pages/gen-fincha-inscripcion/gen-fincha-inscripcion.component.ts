@@ -67,12 +67,19 @@ export class GenFinchaInscripcionComponent {
 
   //ficha de inscripcion -- NECESITO UN BOTON
   public async imprimirFichaInscripcion(ficha: FichaInscripcion) {
-    console.log(ficha)
-    this.fichaInscripcionServ
-      .printFichaInscripcion(ficha)
-      .subscribe((data: Blob) => {
-        this.crearPdf(data, 'Ficha de inscripcion');
-      });
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
+    while (ficha === null ) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
+      // Realizar una pausa para evitar un ciclo infinito
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    this.fichaInscripcionServ.printFichaInscripcion(ficha).subscribe((data: Blob) => {
+      this.crearPdf(data, 'Ficha de inscripcion');
+    });
   }
 
   private crearPdf(data: Blob, nombre: String) {

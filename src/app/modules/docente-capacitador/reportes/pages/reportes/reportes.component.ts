@@ -474,8 +474,14 @@ export class ReportesComponent {
 
   //Certificado --LLENADO SOLO PARA LLAMAR
   public async imprimirCertificado(parId: any) {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerCertificado(parId);
     while (this.certificado == null) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -488,8 +494,14 @@ export class ReportesComponent {
 
   //Lista de Certificados --LLENADO SOLO PARA LLAMAR
   public async imprimirListaCertificado() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerListaCertificados();
     while (this.listCertificados.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -502,8 +514,14 @@ export class ReportesComponent {
 
   //Necesidad de curso -- NECESITO UN BOTON
   public async imprimirNecesidadCurso() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerHorarioCurso()
     while (this.curso === null || this.horarioCurso.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -516,11 +534,17 @@ export class ReportesComponent {
 
   //Reporte final del curso --LISTO
   public async imprimirReporteFinal(informefinal: InformeFinal) {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.listarParticipantesPorCurso();
     this.obtenerHorarioCurso();
     this.obtenerLIstaContenidosCurso();
     while (this.listParticipantes.length === 0 || this.horarioCurso.length === 0 ||
       this.contenidosCurso.length === 0) {
+        if (Date.now() - startTime > tiempoLimite) {
+          console.log('Tiempo límite excedido. Saliendo del método.');
+          return; // Salir del método
+        }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -533,8 +557,14 @@ export class ReportesComponent {
 
   //Matriz mensual de cursos --NECESITO UN BOTON
   public async imprimirMatrizMensualCursos() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.mostrarListaCursos();
     while (this.cursosList.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -545,10 +575,16 @@ export class ReportesComponent {
 
   //Registro de asistencias y evaluaciones --BOTON
   public async imprimirRegistroAsistenciaEvaluacion() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.listarParticipantesPorCurso();
     this.listarAsistencias();
     this.obtenerHorarioCurso();
     while (this.listParticipantes.length === 0 || this.asistenciasList.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -566,6 +602,8 @@ export class ReportesComponent {
 
   //Diseño Curricular --BOTON
   public async imprimirDisenoCurricular() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerLIstaContenidosCurso();
     this.obtenerEstrategiasMetodologicas();
     this.obtenerDetallesMe();
@@ -573,6 +611,10 @@ export class ReportesComponent {
     while (this.curso === null || this.contenidosCurso.length === 0 ||
       this.estrategiasMetodologicas.length === 0 || this.listDetallesMe.length === 0 ||
       this.horasAprendizaje.length === 0) {
+        if (Date.now() - startTime > tiempoLimite) {
+          console.log('Tiempo límite excedido. Saliendo del método.');
+          return; // Salir del método
+        }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -584,8 +626,14 @@ export class ReportesComponent {
 
   //Registro Fotografico -- BOTON
   public async imprimirRegistroFotografico() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerListaFotos();
     while (this.listaFotos.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -598,11 +646,17 @@ export class ReportesComponent {
 
   //Registro Participantes -- BOTON
   public async imprimirRegistroParticipantes() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.listarParticipantesPorCurso();
     this.obtenerHorarioCurso();
     this.getAllfichasIncripcion();
     while (this.listParticipantes.length === 0 || this.curso === null ||
       this.horarioCurso.length === 0 || this.fichasList.length === 0) {
+        if (Date.now() - startTime > tiempoLimite) {
+          console.log('Tiempo límite excedido. Saliendo del método.');
+          return; // Salir del método
+        }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -615,6 +669,8 @@ export class ReportesComponent {
 
   //Silabo -- BOTONNNNNN
   public async imprimirSilabo() {
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.obtenerHorarioCurso();
     this.obtenerHorasAprendizaje();
     this.obtenerListaResultadosAprendizaje();
@@ -626,6 +682,10 @@ export class ReportesComponent {
       this.resultadosAprendizaje.length === 0 || this.contenidosCurso.length === 0 ||
       this.estrategiasMetodologicas.length === 0 || this.recursoDidactico.length === 0 ||
       this.evaluacionEpra.length === 0) {
+        if (Date.now() - startTime > tiempoLimite) {
+          console.log('Tiempo límite excedido. Saliendo del método.');
+          return; // Salir del método
+        }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
@@ -639,9 +699,15 @@ export class ReportesComponent {
 
   //ReporteGeneralCursosFinalizados
   public async imprimirReporteGeneralCursosFinalizados(){
+    const tiempoLimite = 10000; // Tiempo límite en milisegundos (ejemplo: 10 segundos)
+    const startTime = Date.now();
     this.listarParticipantesPorCurso();
     this.mostrarListaCursos();
     while (this.listParticipantes.length === 0 || this.cursosList.length === 0) {
+      if (Date.now() - startTime > tiempoLimite) {
+        console.log('Tiempo límite excedido. Saliendo del método.');
+        return; // Salir del método
+      }
       // Realizar una pausa para evitar un ciclo infinito
       await new Promise((resolve) => setTimeout(resolve, 100));
     }
